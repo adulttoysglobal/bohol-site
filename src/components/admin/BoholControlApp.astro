@@ -3,6 +3,7 @@ import { getCollection } from 'astro:content';
 import '../../styles/bohol-control.css';
 import '../../styles/woo-product-editor.css';
 import gscCache from '../../data/gsc_live_cache.json';
+import settings from '../../data/settings.json';
 
 const gscLastSyncDate = gscCache.lastSyncedAt
   ? new Date(gscCache.lastSyncedAt).toLocaleString('zh-CN', { timeZone: 'Asia/Shanghai' })
@@ -1501,7 +1502,7 @@ const totalPagesCount = corePages.length + products.length + journal.length;
             <div style="margin-top:14px; background:#ffffff; border:1px solid #e2e8f0; border-radius:8px; padding:14px 16px;">
               <label class="bc-label" style="font-weight:700; color:#0f172a;">Microsoft Clarity Project ID (项目代码)</label>
               <div style="display:flex; gap:10px; margin-top:6px; flex-wrap:wrap;">
-                <input type="text" class="bc-input" id="cfg-clarity-id" placeholder="例如: q9abc12xyz" style="max-width:320px;" />
+                <input type="text" class="bc-input" id="cfg-clarity-id" placeholder="例如: q9abc12xyz" style="max-width:320px;" value={settings.clarityId || 'yzq8a8wcv9'} />
                 <button type="button" class="bc-btn-primary" id="btn-save-clarity" style="background:#7c3aed;">
                   <span>保存并启用录像监控</span>
                 </button>
