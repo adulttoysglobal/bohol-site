@@ -6,3 +6,8 @@ dist/
 !.env.example
 *.log
 .impeccable/
+*service_account*.json
+*.key.json
+singular-rope*.json
+__pycache__/
+*.pyc

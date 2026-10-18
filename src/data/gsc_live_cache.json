@@ -1,0 +1,46 @@
+{
+  "lastSyncedAt": "2026-10-18T15:22:40.467385+00:00",
+  "siteUrl": "https://adulttoysglobal.com/",
+  "permissionLevel": "siteFullUser",
+  "status": "CONNECTED",
+  "sitemaps": [
+    {
+      "path": "https://adulttoysglobal.com/sitemap-index.xml",
+      "lastSubmitted": "2026-10-18T14:26:31.346Z",
+      "isPending": false,
+      "isSitemapsIndex": true,
+      "lastDownloaded": "2026-10-18T14:26:32.217Z",
+      "warnings": "0",
+      "errors": "0",
+      "contents": [
+        {
+          "type": "web",
+          "submitted": "163",
+          "indexed": "0"
+        }
+      ]
+    },
+    {
+      "path": "https://adulttoysglobal.com/sitemap.xml",
+      "lastSubmitted": "2026-10-18T14:26:19.021Z",
+      "isPending": false,
+      "isSitemapsIndex": true,
+      "lastDownloaded": "2026-10-18T14:26:20.335Z",
+      "warnings": "0",
+      "errors": "0"
+    }
+  ],
+  "homepageInspection": {
+    "inspectionResultLink": "https://search.google.com/search-console/inspect?resource_id=https://adulttoysglobal.com/&id=pG8RynzWfgZSMytWtiBNYw&utm_medium=link&utm_source=api",
+    "indexStatusResult": {
+      "verdict": "NEUTRAL",
+      "coverageState": "URL is unknown to Google",
+      "robotsTxtState": "ROBOTS_TXT_STATE_UNSPECIFIED",
+      "indexingState": "INDEXING_STATE_UNSPECIFIED",
+      "pageFetchState": "PAGE_FETCH_STATE_UNSPECIFIED"
+    },
+    "mobileUsabilityResult": {
+      "verdict": "VERDICT_UNSPECIFIED"
+    }
+  }
+}
