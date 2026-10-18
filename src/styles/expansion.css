@@ -374,8 +374,9 @@
   border-top: 3px solid transparent;
   border-radius: 6px;
   padding: 10px 14px;
+  min-height: 44px;
   text-align: left;
-  color: #666666;
+  color: #475569;
   display: flex;
   align-items: center;
   gap: 8px;
@@ -418,8 +419,8 @@
   border: 1px solid var(--line-strong);
   border-radius: 5px;
   color: #171717;
-  min-width: 38px;
-  min-height: 38px;
+  min-width: 44px;
+  min-height: 44px;
   padding: 0 12px;
   font-size: 12px;
   font-weight: 600;
@@ -1508,7 +1509,7 @@
 
 .footer-disclaimer {
   font-size: 12px !important;
-  color: #94a3b8 !important;
+  color: #475569 !important;
   margin-top: 10px !important;
 }
 
@@ -4116,7 +4117,7 @@
 
 .mfg-cert-meta {
   font-size: 11px;
-  color: #94a3b8;
+  color: #475569;
   border-top: 1px dashed #e2e8f0;
   padding-top: 8px;
   display: flex;

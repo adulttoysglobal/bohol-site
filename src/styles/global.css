@@ -398,8 +398,10 @@
 
   .sf-icon-btn {
     position: relative;
-    width: 38px;
-    height: 38px;
+    width: 44px;
+    height: 44px;
+    min-width: 44px;
+    min-height: 44px;
     border-radius: 50%;
     border: 0;
     background: transparent;
@@ -1321,7 +1323,12 @@
       padding: 8px 12px;
     }
     .menu-toggle {
-      display: block;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 44px;
+      min-height: 44px;
+      padding: 6px;
     }
     .header nav {
       display: none;
