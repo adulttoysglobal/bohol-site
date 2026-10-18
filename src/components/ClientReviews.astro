@@ -149,9 +149,9 @@ const ugcReviews = [
     </div>
   </div>
 
-  <!-- 12-Card Customer Selfie Photo Review Grid (3 rows x 4 columns) -->
+  <!-- 4-Card Curated Customer Selfie Photo Review Grid (1 row x 4 columns) -->
   <div class="ugc-reviews-grid">
-    {ugcReviews.map((item) => (
+    {ugcReviews.slice(0, 4).map((item) => (
       <article class="ugc-card">
         <div
           class="ugc-photo-wrap"
