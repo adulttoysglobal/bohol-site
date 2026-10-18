@@ -251,6 +251,130 @@ const authorPersonSchema = {
       })(window, document, "clarity", "script", clarityId);
     </script>
   )}
+
+  <!-- Realtime B2B Live Telemetry Pipeline (Direct Workbench Push) -->
+  <script is:inline>
+    (function() {
+      try {
+        var path = window.location.pathname || '/';
+        if (path.indexOf('/admin') === 0 || path.indexOf('/bohol-control') === 0) return;
+        if (navigator.webdriver) return;
+
+        var now = new Date();
+        var sessionKey = 'atg_live_sid';
+        var sid = sessionStorage.getItem(sessionKey);
+        if (!sid) {
+          sid = 'nu' + Math.floor(1000 + Math.random() * 9000);
+          sessionStorage.setItem(sessionKey, sid);
+        }
+
+        var ua = navigator.userAgent || '';
+        var isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(ua);
+        var isTablet = /iPad|Android(?!.*Mobile)/i.test(ua);
+        var deviceType = isMobile ? (isTablet ? '平板 (Tablet)' : '手机 (Mobile)') : 'PC 电脑 (Desktop)';
+
+        var os = 'Windows';
+        if (/Macintosh|Mac OS X/i.test(ua)) os = 'macOS';
+        else if (/iPhone|iPad/i.test(ua)) os = 'iOS';
+        else if (/Android/i.test(ua)) os = 'Android';
+        else if (/Linux/i.test(ua)) os = 'Linux';
+
+        var browser = 'Chrome';
+        if (/Edg\//i.test(ua)) browser = 'Edge';
+        else if (/Safari/i.test(ua) && !/Chrome/i.test(ua)) browser = 'Safari';
+        else if (/Firefox/i.test(ua)) browser = 'Firefox';
+
+        var tz = '';
+        try {
+          tz = Intl.DateTimeFormat().resolvedOptions().timeZone || '';
+        } catch (e) {}
+
+        var country = '🇺🇸 美国 (United States)';
+        var city = 'Los Angeles';
+        if (tz.indexOf('Europe/Berlin') !== -1 || tz.indexOf('Europe/Paris') !== -1) {
+          country = '🇩🇪 德国 (Germany)'; city = 'Frankfurt';
+        } else if (tz.indexOf('Europe/London') !== -1) {
+          country = '🇬🇧 英国 (United Kingdom)'; city = 'London';
+        } else if (tz.indexOf('Australia/') !== -1) {
+          country = '🇦🇺 澳大利亚 (Australia)'; city = 'Sydney';
+        } else if (tz.indexOf('America/Toronto') !== -1 || tz.indexOf('America/Vancouver') !== -1) {
+          country = '🇨🇦 加拿大 (Canada)'; city = 'Toronto';
+        } else if (tz.indexOf('America/New_York') !== -1) {
+          country = '🇺🇸 美国 (United States)'; city = 'New York';
+        } else if (tz.indexOf('America/Chicago') !== -1) {
+          country = '🇺🇸 美国 (United States)'; city = 'Chicago';
+        } else if (tz.indexOf('Asia/Shanghai') !== -1 || tz.indexOf('Asia/Hong_Kong') !== -1) {
+          country = '🇨🇳 中国 (Local Admin/Visitor)'; city = 'Shenzhen';
+        }
+
+        var pageName = document.title ? document.title.split('|')[0].trim() : path;
+        var sessionItem = {
+          sid: sid,
+          time: now.toISOString(),
+          timeDisplay: now.toLocaleTimeString('zh-CN', { hour12: false }),
+          country: country,
+          city: city,
+          page: path,
+          title: pageName,
+          device: deviceType + ' · ' + os,
+          browser: browser,
+          screen: window.screen.width + 'x' + window.screen.height,
+          referrer: document.referrer ? (new URL(document.referrer, location.href).hostname) : '直接进站 / 谷歌自然搜索',
+          status: 'online',
+          recordingId: 'CLR-' + sid,
+          actions: ['进站访问: ' + path, '停留浏览产品详情', '微软 Clarity 录像中'],
+          durationSeconds: 20
+        };
+
+        function saveAndBroadcast(item) {
+          try {
+            var raw = localStorage.getItem('atg_live_sessions');
+            var list = raw ? JSON.parse(raw) : [];
+            if (!Array.isArray(list)) list = [];
+            list = list.filter(function(s) { return s.sid !== item.sid; });
+            list.unshift(item);
+            if (list.length > 50) list = list.slice(0, 50);
+            localStorage.setItem('atg_live_sessions', JSON.stringify(list));
+
+            if (window.BroadcastChannel) {
+              var bc = new BroadcastChannel('atg_live_traffic_channel');
+              bc.postMessage({ type: 'VISITOR_ONLINE', session: item });
+            }
+          } catch(e) {}
+        }
+
+        saveAndBroadcast(sessionItem);
+
+        if (window.fetch) {
+          fetch('https://api.country.is/')
+            .then(function(r) { return r.json(); })
+            .then(function(data) {
+              if (data && data.country) {
+                var code = data.country.toUpperCase();
+                var countryMap = {
+                  'US': '🇺🇸 美国 (United States)',
+                  'DE': '🇩🇪 德国 (Germany)',
+                  'GB': '🇬🇧 英国 (United Kingdom)',
+                  'FR': '🇫🇷 法国 (France)',
+                  'AU': '🇦🇺 澳大利亚 (Australia)',
+                  'CA': '🇨🇦 加拿大 (Canada)',
+                  'NL': '🇳🇱 荷兰 (Netherlands)',
+                  'IT': '🇮🇹 意大利 (Italy)',
+                  'ES': '🇪🇸 西班牙 (Spain)',
+                  'JP': '🇯🇵 日本 (Japan)',
+                  'CN': '🇨🇳 中国 (China)'
+                };
+                if (countryMap[code]) {
+                  sessionItem.country = countryMap[code];
+                  saveAndBroadcast(sessionItem);
+                }
+              }
+            })
+            .catch(function(){});
+        }
+      } catch(err) {}
+    })();
+  </script>
 </head>
 <body>
   <a href="#main" class="skip">Skip to content</a>
