@@ -20,7 +20,11 @@ import sys
 import time
 import argparse
 from pathlib import Path
-from PIL import Image, ImageOps
+try:
+    from PIL import Image, ImageOps
+except ImportError:
+    Image = None
+    ImageOps = None
 
 # Paths
 ROOT_DIR = Path(__file__).resolve().parent.parent
@@ -210,6 +214,10 @@ def watch_directory(target_dir: Path, delete_source: bool = True, quality: int =
         print("\n[Watcher] Stopped.")
 
 def main():
+    if Image is None:
+        print("[ProcessImages] Notice: PIL (Pillow) not installed in this environment. Skipping image processing hook.")
+        sys.exit(0)
+
     parser = argparse.ArgumentParser(description="BOHOL WebP Image Processing Engine")
     parser.add_argument("--dir", type=str, default=str(PUBLIC_IMAGES_DIR), help="Target directory (defaults to public/images)")
     parser.add_argument("--keep-source", action="store_true", help="Do not delete original files after conversion")

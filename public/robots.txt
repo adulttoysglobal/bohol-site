@@ -33,5 +33,5 @@ User-agent: Bingbot
 Allow: /
 
 # Sitemaps & Feeds
-Sitemap: https://bohol-product-studio.subaohe.chatgpt.site/sitemap-index.xml
-Sitemap: https://bohol-product-studio.subaohe.chatgpt.site/rss.xml
+Sitemap: https://adulttoysglobal.com/sitemap-index.xml
+Sitemap: https://adulttoysglobal.com/rss.xml
