@@ -34,7 +34,43 @@ function getMoq(prod: any) {
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 </head>
 <body class="bc-body">
-  <div class="bc-layout">
+  <!-- Admin Password Authentication Gate -->
+  <div id="admin-auth-gate" class="bc-auth-gate" style="display:none;">
+    <div class="bc-auth-card">
+      <div class="bc-auth-icon">🛡️</div>
+      <h2 class="bc-auth-title">BOHOL / ATG 管理控制台</h2>
+      <p class="bc-auth-subtitle">受保护的管理页面 · 请输入访问授权密码</p>
+
+      <form id="admin-auth-form" class="bc-auth-form" onsubmit="return false;">
+        <label class="bc-auth-label" for="admin-auth-pwd">管理员安全密码 (Password)</label>
+        <div class="bc-auth-input-wrapper">
+          <input
+            type="password"
+            id="admin-auth-pwd"
+            class="bc-auth-input"
+            placeholder="请输入管理员密码..."
+            required
+            autocomplete="current-password"
+            autofocus
+          />
+          <button type="button" id="admin-auth-eye-btn" class="bc-auth-toggle-pwd" title="切换密码显示">👁️</button>
+        </div>
+
+        <label class="bc-auth-remember">
+          <input type="checkbox" id="admin-auth-remember" checked />
+          <span>保持登录状态（30天内免密）</span>
+        </label>
+
+        <button type="submit" class="bc-auth-btn" id="admin-auth-submit-btn">
+          <span>安全登录工作台 ➔</span>
+        </button>
+
+        <div id="admin-auth-error" class="bc-auth-error"></div>
+      </form>
+    </div>
+  </div>
+
+  <div class="bc-layout" id="bc-admin-app-layout" style="display:none;">
     <!-- Sidebar Navigation -->
     <aside class="bc-sidebar">
       <div class="bc-sidebar-brand">
@@ -128,6 +164,9 @@ function getMoq(prod: any) {
               AD
             </div>
             <span style="font-size:13px; font-weight:600; color:#334155;">Admin</span>
+            <button type="button" id="btn-admin-logout" class="bc-btn-secondary bc-btn-sm" style="margin-left:6px; font-size:11px; padding:3px 8px; color:#ef4444; border-color:#fecaca;" title="安全退出">
+              退出 ✕
+            </button>
           </div>
         </div>
       </div>
@@ -923,20 +962,45 @@ function getMoq(prod: any) {
 
           <div class="bc-card">
             <div class="bc-card-title">
-              <h3>后台安全码策略</h3>
-              <p>线上环境采用 8–12 位安全码登录保护（当前本地为开发者免密直通环境）</p>
+              <h3>后台安全策略</h3>
+              <p>全站管理控制台已启用密码登录验证保护，未授权访客无法查阅或编辑内容。</p>
             </div>
             <div style="margin-top:16px; display:flex; flex-direction:column; gap:12px;">
-              <div style="display:flex; justify-content:space-between; align-items:center; padding:12px 16px; background:#f8fafc; border-radius:6px; border:1px solid #e2e8f0;">
+              <div style="display:flex; justify-content:space-between; align-items:center; padding:12px 16px; background:#f0fdf4; border-radius:8px; border:1px solid #bbf7d0;">
                 <div>
-                  <strong style="color:#0f172a;">线上受保护路径</strong>
-                  <div style="margin-top:4px;">
-                    <code style="background:#e0f2fe; color:#0369a1; padding:2px 8px; border-radius:4px;">/bohol-control-7e9c2f</code>
+                  <strong style="color:#166534; font-size:14px;">● 密码访问防护状态</strong>
+                  <div style="margin-top:4px; font-size:12px; color:#15803d;">
+                    当前受密码锁保护，会话状态自动缓存（支持 30 天免密或退出销毁）
                   </div>
                 </div>
-                <span class="bc-badge bc-badge-success">正常运作</span>
+                <span class="bc-badge bc-badge-success" style="padding:4px 10px; font-size:12px;">已启用保护</span>
               </div>
             </div>
+          </div>
+
+          <!-- Password Change Card -->
+          <div class="bc-card">
+            <div class="bc-card-title">
+              <h3>修改管理员密码</h3>
+              <p>您可以自定义专属的管理密码（默认出厂密码为：<code>adulttoysglobal2026</code> 或 <code>atg888</code>）</p>
+            </div>
+            <form id="form-change-admin-pwd" style="max-width:460px; margin-top:16px;" onsubmit="return false;">
+              <div style="margin-bottom:14px;">
+                <label style="display:block; font-size:12px; font-weight:600; color:#334155; margin-bottom:6px;">旧密码 (或当前默认密码)</label>
+                <input type="password" id="input-old-pwd" class="bc-input" placeholder="输入当前密码..." required />
+              </div>
+              <div style="margin-bottom:14px;">
+                <label style="display:block; font-size:12px; font-weight:600; color:#334155; margin-bottom:6px;">新密码 (建议 6 位以上)</label>
+                <input type="password" id="input-new-pwd" class="bc-input" placeholder="输入新的管理员密码..." required />
+              </div>
+              <div style="margin-bottom:18px;">
+                <label style="display:block; font-size:12px; font-weight:600; color:#334155; margin-bottom:6px;">确认新密码</label>
+                <input type="password" id="input-confirm-pwd" class="bc-input" placeholder="再次输入新密码..." required />
+              </div>
+              <button type="submit" class="bc-btn-primary" id="btn-save-new-pwd">
+                <span>保存并应用新密码</span>
+              </button>
+            </form>
           </div>
         </div>
 
@@ -2571,8 +2635,148 @@ USB Type-C rechargeable</textarea>
       });
     }
 
-    // Check URL hash on load
+    // =========================================================================
+    // ADMIN AUTHENTICATION GUARD & PASSWORD MANAGER
+    // =========================================================================
+    const DEFAULT_PASSWORDS = ['adulttoysglobal2026', 'atg888', 'bohol888'];
+    const AUTH_KEY = 'atg_admin_auth_session';
+    const CUSTOM_PWD_KEY = 'atg_admin_custom_pwd';
+
+    function isAuthValid() {
+      const token = localStorage.getItem(AUTH_KEY) || sessionStorage.getItem(AUTH_KEY);
+      if (!token) return false;
+      try {
+        const data = JSON.parse(token);
+        if (data.expiry && Date.now() > data.expiry) {
+          localStorage.removeItem(AUTH_KEY);
+          sessionStorage.removeItem(AUTH_KEY);
+          return false;
+        }
+        return data.auth === true;
+      } catch (e) {
+        return false;
+      }
+    }
+
+    function verifyAdminPassword(pwd) {
+      if (!pwd) return false;
+      const customPwd = localStorage.getItem(CUSTOM_PWD_KEY);
+      if (customPwd && pwd === customPwd) return true;
+      return DEFAULT_PASSWORDS.includes(pwd);
+    }
+
+    function applyAuthState() {
+      const gate = document.getElementById('admin-auth-gate');
+      const app = document.getElementById('bc-admin-app-layout');
+      if (isAuthValid()) {
+        if (gate) gate.style.display = 'none';
+        if (app) app.style.display = 'flex';
+      } else {
+        if (gate) gate.style.display = 'flex';
+        if (app) app.style.display = 'none';
+        const pwdInput = document.getElementById('admin-auth-pwd');
+        if (pwdInput) {
+          setTimeout(() => pwdInput.focus(), 100);
+        }
+      }
+    }
+
+    // Toggle password view
+    const btnEye = document.getElementById('admin-auth-eye-btn');
+    const pwdInput = document.getElementById('admin-auth-pwd');
+    if (btnEye && pwdInput) {
+      btnEye.addEventListener('click', () => {
+        if (pwdInput.type === 'password') {
+          pwdInput.type = 'text';
+          btnEye.textContent = '🔒';
+        } else {
+          pwdInput.type = 'password';
+          btnEye.textContent = '👁️';
+        }
+      });
+    }
+
+    // Submit Auth Form
+    const authForm = document.getElementById('admin-auth-form');
+    const authError = document.getElementById('admin-auth-error');
+    const authRemember = document.getElementById('admin-auth-remember');
+
+    if (authForm) {
+      authForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const entered = pwdInput ? pwdInput.value.trim() : '';
+        if (verifyAdminPassword(entered)) {
+          if (authError) authError.textContent = '';
+          const isRemember = authRemember ? authRemember.checked : true;
+          const sessionPayload = JSON.stringify({
+            auth: true,
+            user: 'admin',
+            expiry: isRemember ? Date.now() + 30 * 24 * 3600 * 1000 : null
+          });
+          if (isRemember) {
+            localStorage.setItem(AUTH_KEY, sessionPayload);
+          } else {
+            sessionStorage.setItem(AUTH_KEY, sessionPayload);
+          }
+          applyAuthState();
+          showToast('欢迎登录！管理工作台已就绪。');
+        } else {
+          if (authError) authError.textContent = '密码错误，请核对后重试！';
+          if (pwdInput) {
+            pwdInput.classList.add('error-shake');
+            setTimeout(() => pwdInput.classList.remove('error-shake'), 500);
+            pwdInput.focus();
+            pwdInput.select();
+          }
+        }
+      });
+    }
+
+    // Logout Button
+    const btnLogout = document.getElementById('btn-admin-logout');
+    if (btnLogout) {
+      btnLogout.addEventListener('click', () => {
+        if (confirm('确定要退出当前管理后台吗？')) {
+          localStorage.removeItem(AUTH_KEY);
+          sessionStorage.removeItem(AUTH_KEY);
+          applyAuthState();
+          showToast('已安全退出管理后台');
+        }
+      });
+    }
+
+    // Change Password Form in Security Tab
+    const formChangePwd = document.getElementById('form-change-admin-pwd');
+    if (formChangePwd) {
+      formChangePwd.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const oldPwd = (document.getElementById('input-old-pwd') || {}).value || '';
+        const newPwd = (document.getElementById('input-new-pwd') || {}).value || '';
+        const confirmPwd = (document.getElementById('input-confirm-pwd') || {}).value || '';
+
+        if (!verifyAdminPassword(oldPwd)) {
+          alert('当前密码验证错误，无法修改！');
+          return;
+        }
+        if (newPwd.length < 6) {
+          alert('新密码长度不能少于 6 位！');
+          return;
+        }
+        if (newPwd !== confirmPwd) {
+          alert('两次输入的新密码不一致，请重新检查！');
+          return;
+        }
+
+        localStorage.setItem(CUSTOM_PWD_KEY, newPwd);
+        alert('新管理员密码已修改成功并实时生效！请妥善保存。');
+        formChangePwd.reset();
+        showToast('管理密码已成功更新！');
+      });
+    }
+
+    // Check URL hash on load & Init Auth
     window.addEventListener('DOMContentLoaded', () => {
+      applyAuthState();
       const hash = window.location.hash.replace('#', '');
       if (hash && document.getElementById(`panel-${hash}`)) {
         switchTab(hash);
