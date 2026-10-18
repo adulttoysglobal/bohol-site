@@ -136,13 +136,29 @@ const globalOrgSchema = {
 const websiteSchema = {
   '@context': 'https://schema.org',
   '@type': 'WebSite',
-  name: 'BOHOL Global Adult Wellness & Smart Manufacturing',
+  name: 'BOHOL',
   url: Astro.site?.toString() || 'https://adulttoysglobal.com',
   potentialAction: {
     '@type': 'SearchAction',
     target: `${Astro.site?.toString() || 'https://adulttoysglobal.com'}/products/?q={search_term_string}`,
     'query-input': 'required name=search_term_string'
   }
+};
+
+const authorPersonSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: 'Alex Chen',
+  jobTitle: 'Chief Engineering Director & Hardware Architect',
+  worksFor: {
+    '@type': 'Organization',
+    name: 'BOHOL',
+    url: Astro.site?.toString() || 'https://adulttoysglobal.com'
+  },
+  url: `${Astro.site?.toString() || 'https://adulttoysglobal.com'}/about/`,
+  sameAs: [
+    settings.social?.linkedin || 'https://www.linkedin.com/company/bohol-wellness'
+  ]
 };
 ---
 <!doctype html>
@@ -155,7 +171,10 @@ const websiteSchema = {
   <meta name="keywords" content={keywords} />
   <meta name="theme-color" content="#219dbb" />
   <meta name="rating" content="adult" />
-  <meta name="author" content="BOHOL Smart Manufacturing" />
+  <meta name="author" content="Alex Chen, BOHOL" />
+  <meta property="article:published_time" content="2024-01-01T08:00:00+08:00" />
+  <meta property="article:modified_time" content={new Date().toISOString()} />
+  <meta name="revised" content={new Date().toISOString()} />
   
   <!-- Canonical & Language -->
   {noindex ? <meta name="robots" content="noindex, nofollow" /> : <link rel="canonical" href={canonical} />}
@@ -163,7 +182,7 @@ const websiteSchema = {
   <link rel="alternate" hreflang="en" href={canonical} />
 
   <!-- Open Graph / Facebook -->
-  <meta property="og:site_name" content="BOHOL Global Adult Wellness & Smart Manufacturing" />
+  <meta property="og:site_name" content="BOHOL" />
   <meta property="og:title" content={pageTitle} />
   <meta property="og:description" content={description} />
   <meta property="og:type" content={type} />
@@ -191,6 +210,7 @@ const websiteSchema = {
   <!-- Global Schema.org JSON-LD (SEO & GEO AI Ingestion) -->
   <script type="application/ld+json" set:html={safeJson(globalOrgSchema)} />
   <script type="application/ld+json" set:html={safeJson(websiteSchema)} />
+  <script type="application/ld+json" set:html={safeJson(authorPersonSchema)} />
   {schema && <script type="application/ld+json" set:html={safeJson(schema)} />}
 
   <!-- Realtime Analytics: Google Analytics 4 (if configured) -->
