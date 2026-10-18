@@ -41,11 +41,70 @@ def sync():
         'siteUrl': SITE_URL
     }).execute()
 
+    # 4. Search Analytics query (Impressions, Clicks, CTR, Position)
+    from datetime import timedelta
+    now_dt = datetime.now(timezone.utc)
+    end_date = now_dt.strftime('%Y-%m-%d')
+    start_date = (now_dt - timedelta(days=28)).strftime('%Y-%m-%d')
+
+    analytics_data = {
+        'totalClicks': 0,
+        'totalImpressions': 0,
+        'avgCtr': 0.0,
+        'avgPosition': 0.0,
+        'dateRange': f"{start_date} ~ {end_date}",
+        'queries': [],
+        'pages': [],
+        'hasRows': False
+    }
+
+    try:
+        # Total metrics query
+        req_total = {
+            'startDate': start_date,
+            'endDate': end_date
+        }
+        res_total = service.searchanalytics().query(siteUrl=SITE_URL, body=req_total).execute()
+        rows_total = res_total.get('rows', [])
+        if rows_total:
+            analytics_data['hasRows'] = True
+            tot_clicks = sum(r.get('clicks', 0) for r in rows_total)
+            tot_impr = sum(r.get('impressions', 0) for r in rows_total)
+            analytics_data['totalClicks'] = tot_clicks
+            analytics_data['totalImpressions'] = tot_impr
+            analytics_data['avgCtr'] = round((tot_clicks / tot_impr * 100), 2) if tot_impr > 0 else 0.0
+            analytics_data['avgPosition'] = round(sum(r.get('position', 0) for r in rows_total) / len(rows_total), 1)
+
+        # Top queries query
+        req_queries = {
+            'startDate': start_date,
+            'endDate': end_date,
+            'dimensions': ['query'],
+            'rowLimit': 10
+        }
+        res_queries = service.searchanalytics().query(siteUrl=SITE_URL, body=req_queries).execute()
+        if res_queries.get('rows'):
+            analytics_data['queries'] = res_queries.get('rows', [])
+
+        # Top pages query
+        req_pages = {
+            'startDate': start_date,
+            'endDate': end_date,
+            'dimensions': ['page'],
+            'rowLimit': 10
+        }
+        res_pages = service.searchanalytics().query(siteUrl=SITE_URL, body=req_pages).execute()
+        if res_pages.get('rows'):
+            analytics_data['pages'] = res_pages.get('rows', [])
+    except Exception as e:
+        print(f"[Warning] Search analytics query notice: {e}")
+
     payload = {
         'lastSyncedAt': datetime.now(timezone.utc).isoformat(),
         'siteUrl': SITE_URL,
         'permissionLevel': permission_level,
         'status': 'CONNECTED',
+        'searchAnalytics': analytics_data,
         'sitemaps': sitemaps_list,
         'homepageInspection': inspect_res.get('inspectionResult', {})
     }

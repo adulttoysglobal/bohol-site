@@ -1,8 +1,18 @@
 {
-  "lastSyncedAt": "2026-10-18T15:22:40.467385+00:00",
+  "lastSyncedAt": "2026-10-18T15:57:27.369550+00:00",
   "siteUrl": "https://adulttoysglobal.com/",
   "permissionLevel": "siteFullUser",
   "status": "CONNECTED",
+  "searchAnalytics": {
+    "totalClicks": 0,
+    "totalImpressions": 0,
+    "avgCtr": 0.0,
+    "avgPosition": 0.0,
+    "dateRange": "2026-09-20 ~ 2026-10-18",
+    "queries": [],
+    "pages": [],
+    "hasRows": false
+  },
   "sitemaps": [
     {
       "path": "https://adulttoysglobal.com/sitemap-index.xml",
@@ -31,7 +41,7 @@
     }
   ],
   "homepageInspection": {
-    "inspectionResultLink": "https://search.google.com/search-console/inspect?resource_id=https://adulttoysglobal.com/&id=pG8RynzWfgZSMytWtiBNYw&utm_medium=link&utm_source=api",
+    "inspectionResultLink": "https://search.google.com/search-console/inspect?resource_id=https://adulttoysglobal.com/&id=RYDOwH8rcWq7xv2xO7py9g&utm_medium=link&utm_source=api",
     "indexStatusResult": {
       "verdict": "NEUTRAL",
       "coverageState": "URL is unknown to Google",
