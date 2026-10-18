@@ -1,0 +1,81 @@
+{
+  "name": "Big Mouth",
+  "subtitle": "High-amplitude telescopic trainer with sculpted lip sleeve.",
+  "description": "Built for high-impact kinetic performance, Big Mouth pairs a powerful telescopic drive mechanism with a removable protective cap, transparent viewing window, and anatomically textured soft TPE inner chamber.",
+  "category": "Electric",
+  "label": "HIGH-TORQUE TRAINER",
+  "order": 6,
+  "featured": true,
+  "image": "/images/spotlight-big-mouth.webp",
+  "gallery": [
+    "/images/spotlight-big-mouth.webp",
+    "/images/9rabbit/products/big-mouth-gallery-view2.webp",
+    "/images/9rabbit/products/big-mouth-gallery-view3.webp",
+    "/images/9rabbit/products/big-mouth-gallery-view4.webp",
+    "/images/9rabbit/products/big-mouth-gallery-view5.webp"
+  ],
+  "features": [
+    "High-stroke telescopic motor",
+    "Protective top dust cap",
+    "Soft sculpted TPE sleeve",
+    "One-touch frequency switching"
+  ],
+  "specs": [
+    {
+      "label": "Model Series",
+      "value": "BOHOL Big Mouth Pro"
+    },
+    {
+      "label": "Drive System",
+      "value": "High-speed linear telescopic actuator"
+    },
+    {
+      "label": "Material",
+      "value": "ABS + medical-grade soft TPE"
+    },
+    {
+      "label": "Acoustic Level",
+      "value": "< 50 dB low-noise gearing"
+    },
+    {
+      "label": "Charging",
+      "value": "USB Type-C fast charge"
+    },
+    {
+      "label": "OEM / ODM",
+      "value": "Private label & custom sleeve textures supported"
+    }
+  ],
+  "seoTitle": "Big Mouth — Telescopic Male Trainer | BOHOL Manufacturing",
+  "seoDescription": "Explore the BOHOL Big Mouth high-amplitude telescopic male wellness trainer. Direct factory OEM/ODM specifications.",
+  "note": "Available for wholesale distribution and OEM/ODM private-label customization.",
+  "subCategory": "Men's Toys",
+  "vendor": "BOHOL Direct OEM",
+  "detailImages": [
+    "/images/9rabbit/details/big-mouth-s01-hero.webp",
+    "/images/9rabbit/details/big-mouth-s02-bento.webp",
+    "/images/9rabbit/details/big-mouth-s03-anatomy.webp",
+    "/images/9rabbit/details/big-mouth-s04-performance.webp",
+    "/images/9rabbit/details/big-mouth-s05-material.webp",
+    "/images/9rabbit/details/big-mouth-s07-blueprint.webp",
+    "/images/9rabbit/details/big-mouth-s08-guide.webp"
+  ],
+  "highlights": [
+    {
+      "title": "Authentic Global Quality & Direct Factory QC",
+      "body": "Every unit of Big Mouth undergoes multi-stage inspection for structural durability, surface finish, and material biocompatibility before international dispatch."
+    },
+    {
+      "title": "Body-Safe Certified Materials",
+      "body": "Crafted with medical-grade silicone, CyberSkin TPE, tempered borosilicate glass, or skin-friendly couture fabrics—free from phthalates, latex allergens, and heavy metals."
+    },
+    {
+      "title": "100% Discreet Unmarked Fulfillment",
+      "body": "Packaged in plain protective boxes with confidential shipping labels. Available for immediate North America & global express delivery."
+    },
+    {
+      "title": "Wholesale & Private-Label OEM Ready",
+      "body": "Supported by our 35,000 m² ISO-certified manufacturing base with custom laser logo engraving, Pantone color matching, and multilingual retail box customization."
+    }
+  ]
+}

@@ -1,0 +1,37 @@
+# BOHOL Global Robots & AI Crawler Directives
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /bohol-control-7e9c2f/
+
+# Explicitly Allow Leading Generative AI Search Crawlers (GEO Optimization)
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+User-agent: cohere-ai
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+# Sitemaps & Feeds
+Sitemap: https://bohol-product-studio.subaohe.chatgpt.site/sitemap-index.xml
+Sitemap: https://bohol-product-studio.subaohe.chatgpt.site/rss.xml

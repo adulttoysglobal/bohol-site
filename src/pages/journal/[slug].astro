@@ -1,0 +1,231 @@
+---
+import { getCollection, render } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+import JournalCard from '../../components/JournalCard.astro';
+import Icon from '../../components/Icon.astro';
+import settings from '../../data/settings.json';
+
+export async function getStaticPaths() {
+  const articles = await getCollection('journal');
+  return articles.map((article) => ({
+    params: { slug: article.id },
+    props: { article }
+  }));
+}
+
+const { article } = Astro.props;
+const { Content } = await render(article);
+
+const allArticles = await getCollection('journal');
+const related = allArticles
+  .filter((a) => a.id !== article.id)
+  .sort((a, b) => a.data.order - b.data.order)
+  .slice(0, 3);
+
+const canonicalUrl = new URL(Astro.url.pathname, Astro.site).href;
+const articleImage = new URL(article.data.image, Astro.site).href;
+const pubDateIso = article.data.pubDate ? new Date(article.data.pubDate).toISOString() : new Date('2026-10-14').toISOString();
+
+const articleSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'TechArticle',
+  headline: article.data.title,
+  description: article.data.description,
+  image: articleImage,
+  datePublished: pubDateIso,
+  dateModified: pubDateIso,
+  mainEntityOfPage: canonicalUrl,
+  author: {
+    '@type': 'Organization',
+    name: article.data.author || 'BOHOL Industry Intelligence',
+    url: Astro.site?.toString()
+  },
+  publisher: {
+    '@type': 'Organization',
+    name: 'BOHOL Smart Manufacturing',
+    logo: {
+      '@type': 'ImageObject',
+      url: new URL('/images/bohol-logo-horiz-dark.webp', Astro.site).href
+    }
+  }
+};
+
+const breadcrumbsSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: Astro.site?.toString() },
+    { '@type': 'ListItem', position: 2, name: 'Industry News', item: new URL('/news/', Astro.site).href },
+    { '@type': 'ListItem', position: 3, name: article.data.title, item: canonicalUrl }
+  ]
+};
+
+const combinedSchema = [articleSchema, breadcrumbsSchema];
+---
+<Layout
+  title={`${article.data.title}`}
+  description={article.data.description}
+  image={article.data.image}
+  type="article"
+  schema={combinedSchema}
+>
+  <article class="journal-single-wrap">
+    <header class="article-head">
+      <nav class="crumbs" aria-label="Breadcrumb">
+        <a href="/">Home</a>
+        <span>/</span>
+        <a href="/news/">Industry News</a>
+        <span>/</span>
+        <span aria-current="page">{article.data.category}</span>
+      </nav>
+
+      <div class="article-badge-row">
+        <span class="article-cat-tag">{article.data.category}</span>
+        <span class="article-date-tag">Published: {article.data.pubDate || 'Oct 14, 2026'}</span>
+        <span class="article-read-tag">⏱️ {article.data.readTime}</span>
+      </div>
+
+      <h1>{article.data.title}</h1>
+      <p class="article-description">{article.data.description}</p>
+
+      <div class="article-author-byline">
+        <div class="author-avatar">🏢</div>
+        <div>
+          <strong>{article.data.author || 'BOHOL Industry Intelligence'}</strong>
+          <span>35,000 m² Smart Campus · Meizhou & Shenzhen Engineering Center</span>
+        </div>
+      </div>
+    </header>
+
+    <div class="article-hero">
+      <img
+        src={article.data.image}
+        width="1024"
+        height="640"
+        alt={article.data.title}
+        fetchpriority="high"
+      />
+    </div>
+
+    <!-- GEO / AI Executive Key Takeaways Box -->
+    <div class="article-takeaways-box">
+      <div class="takeaways-header">
+        <span>💡</span>
+        <strong>Executive Engineering Takeaways (Key Insights)</strong>
+      </div>
+      <ul>
+        <li><strong>Direct Source Precision:</strong> All technical specifications and measurements verified under ISO 9001 and Class 100,000 cleanroom testing protocols.</li>
+        <li><strong>Material Purity:</strong> 100% RoHS 2.0 and REACH 235 certified platinum-cured liquid silicone with zero phthalates.</li>
+        <li><strong>Commercial Viability:</strong> Engineered for rapid private-label turnaround, automated vending slot compatibility, and international DDP delivery.</li>
+      </ul>
+    </div>
+
+    <div class="reading article-content">
+      <Content />
+
+      <div class="article-footer" style="margin-top: 48px; padding-top: 24px; border-top: 1px solid var(--line);">
+        <p class="source-note">
+          <strong>Editorial Note:</strong> This technical analysis is published by BOHOL's international trade and mechanical engineering directorate. To request 3D CAD files, custom Pantone silicone swatches, or volume OEM quotations, please visit our <a href="/rfq/">RFQ Calculator</a> or contact our trade desk via WhatsApp (<a href="https://wa.me/8618588583798">+86 185 8858 3798</a>).
+        </p>
+      </div>
+    </div>
+  </article>
+
+  <!-- RELATED ARTICLES -->
+  <section class="section" style="border-top: 1px solid var(--line); margin-top: 48px;">
+    <div class="section-heading" style="text-align: center; margin-bottom: 32px;">
+      <p class="eyebrow">CONTINUE READING</p>
+      <h2>More Industry Insights & Technical Guides.</h2>
+    </div>
+    <div class="journal-grid">
+      {related.map((item) => (
+        <JournalCard article={item} />
+      ))}
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .journal-single-wrap {
+    max-width: 880px;
+    margin: 0 auto;
+    padding: 24px 20px 0;
+  }
+  .article-badge-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 16px;
+    flex-wrap: wrap;
+  }
+  .article-cat-tag {
+    font-size: 11px;
+    font-weight: 800;
+    color: #2563eb;
+    background: #eff6ff;
+    padding: 4px 10px;
+    border-radius: 6px;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+  .article-date-tag,
+  .article-read-tag {
+    font-size: 12px;
+    color: var(--text-muted);
+    font-weight: 600;
+  }
+  .article-author-byline {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 20px 0 28px;
+    padding-top: 16px;
+    border-top: 1px solid var(--line);
+  }
+  .author-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: #f1f5f9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    border: 1px solid var(--line-strong);
+  }
+  .article-author-byline strong {
+    display: block;
+    font-size: 13.5px;
+    color: var(--navy-dark);
+  }
+  .article-author-byline span {
+    font-size: 11.5px;
+    color: var(--text-muted);
+  }
+  .article-takeaways-box {
+    background: #f8fafc;
+    border: 1px solid #bfdbfe;
+    border-left: 4px solid #2563eb;
+    border-radius: 12px;
+    padding: 20px 24px;
+    margin: 28px 0 36px;
+  }
+  .takeaways-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    color: #1d4ed8;
+    margin-bottom: 12px;
+  }
+  .article-takeaways-box ul {
+    margin: 0;
+    padding-left: 18px;
+  }
+  .article-takeaways-box li {
+    font-size: 13px;
+    color: #334155;
+    line-height: 1.6;
+    margin-bottom: 6px;
+  }
+</style>

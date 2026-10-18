@@ -1,0 +1,747 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Icon from '../components/Icon.astro';
+import PartnerBand from '../components/PartnerBand.astro';
+import settings from '../data/settings.json';
+---
+<Layout
+  title="35,000 m² Smart Factory & Vertically Integrated OEM/ODM Campus"
+  description="Explore BOHOL's 35,000 m² smart manufacturing headquarters: 120+ cleanroom assembly lines, 500 m² experience showroom, 5-axis CNC mold center, and 100% automated QC testing labs."
+>
+  <!-- 1. HIGH-IMPACT INDUSTRIAL HERO SECTION -->
+  <section class="mfg-hero-dark">
+    <div class="mfg-hero-container">
+      <div class="mfg-hero-copy">
+        <div class="mfg-status-pill">
+          <span class="mfg-status-dot"></span>
+          <span>DIRECT FACTORY · 35,000 M² DIGITAL CLEANROOM CAMPUS</span>
+        </div>
+        <h1 class="mfg-hero-title">
+          Direct Source Factory.<br />
+          <span>35,000 m² Cleanrooms.</span><br />
+          500,000+ Monthly Scale.
+        </h1>
+        <p class="mfg-hero-desc">
+          Unlike trading middlemen, BOHOL vertically integrates in-house industrial ID design, 5-axis CNC steel tooling, Class 100,000 medical liquid silicone (LSR) injection, and 100% automated IPX7 & acoustic inspection—supplying leading wellness brands across 60+ countries.
+        </p>
+        <div class="mfg-hero-buttons">
+          <a class="mfg-btn-primary" href="/rfq/">
+            <span>Launch RFQ Calculator</span>
+            <Icon name="arrow-up-right" />
+          </a>
+          <a class="mfg-btn-wa" href="https://wa.me/8618588583798" target="_blank" rel="noopener">
+            <span>💬 Live Video Audit (+86 185 8858 3798)</span>
+          </a>
+          <a class="btn-secondary" style="background: #ffffff; color: #0f172a; border-color: #cbd5e1; box-shadow: 0 2px 6px rgba(0,0,0,0.04);" href="/catalogue/">
+            <span>Open Spec Catalogue</span>
+            <Icon name="arrow-up-right" size={16} />
+          </a>
+        </div>
+      </div>
+
+      <div class="mfg-hero-media-wrap">
+        <img
+          src="/images/factory-campus.webp"
+          width="1024"
+          height="682"
+          fetchpriority="high"
+          alt="BOHOL 35,000 square meter smart manufacturing headquarters and main entrance gate"
+        />
+        <div class="mfg-media-overlay-chips">
+          <span class="mfg-media-chip">
+            <span class="mfg-status-dot"></span>
+            <em>120+</em> Assembly Lines Active
+          </span>
+          <span class="mfg-media-chip">
+            <em>±0.01 mm</em> CNC Tooling Center
+          </span>
+          <span class="mfg-media-chip">
+            <em>40HQ</em> Weekly Ocean Dispatch
+          </span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. TELEMETRY METRICS STRIP -->
+  <section class="mfg-metrics-bar">
+    <div class="mfg-metrics-grid">
+      <div class="mfg-metric-card">
+        <div class="mfg-metric-val">35,000 <span>m²</span></div>
+        <div class="mfg-metric-lbl">INTEGRATED CAMPUS</div>
+        <p class="mfg-metric-sub">Vertically integrated Meizhou & Shenzhen R&D, tooling, and cleanroom campus.</p>
+      </div>
+      <div class="mfg-metric-card">
+        <div class="mfg-metric-val">120+ <span>Lines</span></div>
+        <div class="mfg-metric-lbl">LEAN ASSEMBLY LINES</div>
+        <p class="mfg-metric-sub">Equipped with Class 100,000 medical LSR liquid silicone injection & SMT lines.</p>
+      </div>
+      <div class="mfg-metric-card">
+        <div class="mfg-metric-val">500,000+ <span>Units</span></div>
+        <div class="mfg-metric-lbl">MONTHLY CAPACITY</div>
+        <p class="mfg-metric-sub">Scalable mass production with guaranteed 15-day volume production turnaround.</p>
+      </div>
+      <div class="mfg-metric-card">
+        <div class="mfg-metric-val">60+ <span>Countries</span></div>
+        <div class="mfg-metric-lbl">GLOBAL DDP EXPORT</div>
+        <p class="mfg-metric-sub">Direct door-to-door sea/air customs fulfillment across North America, EU & APAC.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. INTERACTIVE FACILITY TOUR TABS -->
+  <section class="mfg-tour-section" id="campus-tour">
+    <div class="mfg-section-title-wrap">
+      <p class="eyebrow">PHYSICAL PRODUCTION & HEADQUARTERS TOUR</p>
+      <h2>Inside the BOHOL Manufacturing Campus.</h2>
+      <p>Explore every square meter of our facilities—from the cleanroom assembly workshops and testing laboratories to the 500 m² showroom and international shipping docks.</p>
+    </div>
+
+    <!-- Tab Buttons -->
+    <div class="mfg-tabs-nav" role="tablist">
+      <button class="mfg-tab-btn active" data-tab="tab-workshops" role="tab" aria-selected="true">
+        <span>🏭 Production Workshops</span>
+      </button>
+      <button class="mfg-tab-btn" data-tab="tab-showroom" role="tab" aria-selected="false">
+        <span>🏛️ Headquarters & Showroom</span>
+      </button>
+      <button class="mfg-tab-btn" data-tab="tab-rd" role="tab" aria-selected="false">
+        <span>🔬 R&D & Tooling Center</span>
+      </button>
+      <button class="mfg-tab-btn" data-tab="tab-logistics" role="tab" aria-selected="false">
+        <span>🚢 Logistics & Export Docks</span>
+      </button>
+    </div>
+
+    <!-- Tab 1: Production Workshops -->
+    <div class="mfg-tab-pane active" id="tab-workshops" role="tabpanel">
+      <article class="mfg-gallery-card">
+        <div class="mfg-gallery-card-img">
+          <img src="/images/factory-workshop.webp" width="1024" height="768" loading="lazy" alt="BOHOL Assembly Workshop and Lean Production Lines" />
+          <span class="mfg-gallery-tag">ASSEMBLY WORKSHOP</span>
+        </div>
+        <div class="mfg-gallery-body">
+          <h3>120+ Lean Assembly Production Lines</h3>
+          <p>Skilled technicians in anti-static ESD workstations assembling proprietary multi-axis drive mechanisms, PCB controllers, and platinum LSR silicone shells.</p>
+          <div class="mfg-gallery-specs">
+            <span class="mfg-spec-badge">ESD Anti-Static</span>
+            <span class="mfg-spec-badge">ISO Class 8 Cleanroom</span>
+            <span class="mfg-spec-badge">Continuous Flow</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="mfg-gallery-card">
+        <div class="mfg-gallery-card-img">
+          <img src="/images/factory-quality.webp" width="1024" height="768" loading="lazy" alt="BOHOL Quality Control and Reliability Testing Laboratory" />
+          <span class="mfg-gallery-tag">QC & TESTING LAB</span>
+        </div>
+        <div class="mfg-gallery-body">
+          <h3>Precision QC Lab & Metrology Center</h3>
+          <p>Equipped with digital micrometers, automated tensile testers, oscilloscopes, acoustic soundrooms (&lt; 45 dB), and IPX7 vacuum immersion baths.</p>
+          <div class="mfg-gallery-specs">
+            <span class="mfg-spec-badge">IPX7 Immersion Test</span>
+            <span class="mfg-spec-badge">&lt; 45 dB Soundroom</span>
+            <span class="mfg-spec-badge">100% Battery Burn-In</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="mfg-gallery-card">
+        <div class="mfg-gallery-card-img">
+          <img src="/images/factory-packing.webp" width="1024" height="768" loading="lazy" alt="BOHOL Finished Goods Packaging Workshop" />
+          <span class="mfg-gallery-tag">PACKAGING LINE</span>
+        </div>
+        <div class="mfg-gallery-body">
+          <h3>Turnkey Retail Box & Master Carton Packing</h3>
+          <p>High-throughput conveyor lines for custom luxury retail gift boxes, barcode serialization, tamper-evident seals, and protective export master cartons.</p>
+          <div class="mfg-gallery-specs">
+            <span class="mfg-spec-badge">Automated Sealing</span>
+            <span class="mfg-spec-badge">Serialized Barcodes</span>
+            <span class="mfg-spec-badge">Discreet Master Cartons</span>
+          </div>
+        </div>
+      </article>
+    </div>
+
+    <!-- Tab 2: Headquarters & Showroom -->
+    <div class="mfg-tab-pane" id="tab-showroom" role="tabpanel">
+      <article class="mfg-gallery-card">
+        <div class="mfg-gallery-card-img">
+          <img src="/images/hq-showroom.webp" width="1024" height="768" loading="lazy" alt="BOHOL 500 m² Flagship Experience Showroom" />
+          <span class="mfg-gallery-tag">500 m² SHOWROOM</span>
+        </div>
+        <div class="mfg-gallery-body">
+          <h3>500 m² Flagship Product Exhibition Hall</h3>
+          <p>Illuminated exhibition islands displaying all 14 proprietary hardware platforms, packaging alternatives, POS displays, and hotel retail vending kiosks.</p>
+          <div class="mfg-gallery-specs">
+            <span class="mfg-spec-badge">14 Flagship Platforms</span>
+            <span class="mfg-spec-badge">Bespoke Gift Boxes</span>
+            <span class="mfg-spec-badge">Vending Terminals</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="mfg-gallery-card">
+        <div class="mfg-gallery-card-img">
+          <img src="/images/hq-vip-lounge.webp" width="1024" height="768" loading="lazy" alt="BOHOL VIP Distributor Sample Negotiation Lounge" />
+          <span class="mfg-gallery-tag">VIP CONSULTATION</span>
+        </div>
+        <div class="mfg-gallery-body">
+          <h3>VIP Client Sample Selection Lounge</h3>
+          <p>Sit down with our project managers to inspect tactile silicone softness, calibrate motor acoustics, review Pantone swatches, and finalize private-label branding.</p>
+          <div class="mfg-gallery-specs">
+            <span class="mfg-spec-badge">Pantone Color Matching</span>
+            <span class="mfg-spec-badge">Tactile Silicone Touch</span>
+            <span class="mfg-spec-badge">Express Sample Prep</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="mfg-gallery-card">
+        <div class="mfg-gallery-card-img">
+          <img src="/images/hq-lobby.webp" width="1024" height="768" loading="lazy" alt="BOHOL Corporate Headquarters Reception and Executive Lobby" />
+          <span class="mfg-gallery-tag">HEADQUARTERS LOBBY</span>
+        </div>
+        <div class="mfg-gallery-body">
+          <h3>Executive Reception & Guest Lounge</h3>
+          <p>Modern marble atrium with multilingual concierge welcoming international retail buyers, brand founders, and distribution partners for guided factory audits.</p>
+          <div class="mfg-gallery-specs">
+            <span class="mfg-spec-badge">Multilingual Concierge</span>
+            <span class="mfg-spec-badge">VIP Meeting Rooms</span>
+            <span class="mfg-spec-badge">Confidential NDA Suite</span>
+          </div>
+        </div>
+      </article>
+    </div>
+
+    <!-- Tab 3: R&D & Tooling Center -->
+    <div class="mfg-tab-pane" id="tab-rd" role="tabpanel">
+      <article class="mfg-gallery-card">
+        <div class="mfg-gallery-card-img">
+          <img src="/images/hq-rd-office.webp" width="1024" height="768" loading="lazy" alt="BOHOL R&D Engineering and International Trade Center" />
+          <span class="mfg-gallery-tag">R&D DESIGN STUDIO</span>
+        </div>
+        <div class="mfg-gallery-body">
+          <h3>30+ Senior Engineering Design Studio</h3>
+          <p>Mechanical engineers, industrial designers, and cross-border trade specialists designing planetary gearboxes, PCB circuits, and custom tooling.</p>
+          <div class="mfg-gallery-specs">
+            <span class="mfg-spec-badge">SolidWorks / CAD</span>
+            <span class="mfg-spec-badge">Kinematics Simulation</span>
+            <span class="mfg-spec-badge">40+ Patents</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="mfg-gallery-card">
+        <div class="mfg-gallery-card-img">
+          <img src="/images/hq-boardroom.webp" width="1024" height="768" loading="lazy" alt="BOHOL Executive OEM Strategy Boardroom" />
+          <span class="mfg-gallery-tag">OEM STRATEGY</span>
+        </div>
+        <div class="mfg-gallery-body">
+          <h3>OEM / ODM Project Strategy Boardroom</h3>
+          <p>Multi-screen conference suite equipped for confidential private-label negotiations, tooling feasibility reviews, and hybrid video walkthroughs.</p>
+          <div class="mfg-gallery-specs">
+            <span class="mfg-spec-badge">Bilateral NDA</span>
+            <span class="mfg-spec-badge">Hybrid Zoom / Teams</span>
+            <span class="mfg-spec-badge">Dedicated Project Mgr</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="mfg-gallery-card">
+        <div class="mfg-gallery-card-img">
+          <img src="/images/factory-rd-lab.webp" width="1024" height="768" loading="lazy" alt="5-axis CNC mold tooling and R&D testing lab" />
+          <span class="mfg-gallery-tag">CNC MOLD CENTER</span>
+        </div>
+        <div class="mfg-gallery-body">
+          <h3>5-Axis High-Speed CNC Tooling Center</h3>
+          <p>In-house steel mold machining, mirror spark EDM, and SLA/SLS 3D prototyping—delivering functional working samples in 7 days with ±0.01 mm precision.</p>
+          <div class="mfg-gallery-specs">
+            <span class="mfg-spec-badge">±0.01 mm Tolerance</span>
+            <span class="mfg-spec-badge">DMG MORI CNC</span>
+            <span class="mfg-spec-badge">7-Day T1 Sample</span>
+          </div>
+        </div>
+      </article>
+    </div>
+
+    <!-- Tab 4: Logistics & Export -->
+    <div class="mfg-tab-pane" id="tab-logistics" role="tabpanel">
+      <article class="mfg-gallery-card">
+        <div class="mfg-gallery-card-img">
+          <img src="/images/factory-warehouse.webp" width="1024" height="768" loading="lazy" alt="BOHOL high-bay intelligent warehouse with forklift and pallet racking" />
+          <span class="mfg-gallery-tag">SMART WAREHOUSE</span>
+        </div>
+        <div class="mfg-gallery-body">
+          <h3>High-Bay Smart Warehousing & ERP Racking</h3>
+          <p>Heavy-duty A1-A3 racking with RFID barcode scanning, ERP inventory tracking, and temperature/humidity control for raw materials and finished stock.</p>
+          <div class="mfg-gallery-specs">
+            <span class="mfg-spec-badge">A1-A3 Heavy Racking</span>
+            <span class="mfg-spec-badge">RFID Barcode Tracking</span>
+            <span class="mfg-spec-badge">Climate-Controlled</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="mfg-gallery-card">
+        <div class="mfg-gallery-card-img">
+          <img src="/images/factory-shipping.webp" width="1024" height="768" loading="lazy" alt="BOHOL global container loading dock with shipping container and forklift" />
+          <span class="mfg-gallery-tag">GLOBAL DDP EXPORT</span>
+        </div>
+        <div class="mfg-gallery-body">
+          <h3>Ocean Container Loading & Global DDP Dispatch</h3>
+          <p>Dual loading bays supporting weekly 40HQ container dispatches to Los Angeles, Rotterdam, Hamburg, and Sydney with customs clearance & compliance manifests.</p>
+          <div class="mfg-gallery-specs">
+            <span class="mfg-spec-badge">Dual Hydraulic Bays</span>
+            <span class="mfg-spec-badge">UN38.3 Battery Manifest</span>
+            <span class="mfg-spec-badge">DDP to 60+ Nations</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="mfg-gallery-card">
+        <div class="mfg-gallery-card-img">
+          <img src="/images/factory-campus.webp" width="1024" height="682" loading="lazy" alt="BOHOL 35,000 square meter smart manufacturing headquarters and main entrance gate" />
+          <span class="mfg-gallery-tag">MAIN GATE & LOGISTICS</span>
+        </div>
+        <div class="mfg-gallery-body">
+          <h3>Smart Campus Gate & Logistics Hub</h3>
+          <p>Monitored campus perimeter with motorized vehicle security barriers, weigh station, and digital dispatch tracking for seamless container logistics.</p>
+          <div class="mfg-gallery-specs">
+            <span class="mfg-spec-badge">24/7 Monitored Access</span>
+            <span class="mfg-spec-badge">Weigh Station</span>
+            <span class="mfg-spec-badge">Direct Highway Link</span>
+          </div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- 4. SIX-STAGE INDUSTRIAL PRECISION PIPELINE -->
+  <section class="mfg-pipeline-section" id="pipeline">
+    <div class="mfg-section-title-wrap">
+      <p class="eyebrow">QUALITY TRACEABILITY PIPELINE</p>
+      <h2>Six-Stage Industrial Production Architecture.</h2>
+      <p>Every BOHOL unit adheres to zero-compromise quality traceability from high-speed steel cutting to international ocean container dispatch.</p>
+    </div>
+
+    <div class="mfg-pipeline-grid">
+      <!-- Stage 01 -->
+      <article class="mfg-step-card">
+        <div class="mfg-step-media">
+          <img src="/images/factory-rd-lab.webp" width="1024" height="768" loading="lazy" alt="5-axis CNC mold tooling and R&D testing lab" />
+          <span class="mfg-step-num">STAGE 01</span>
+        </div>
+        <div class="mfg-step-body">
+          <h3>5-Axis CNC Mold & Acoustic Lab</h3>
+          <p>In-house steel mold machining, SLA/SLS rapid prototyping, gear-train life testing, and acoustic sound chamber verification before mass production.</p>
+          <div class="mfg-step-pills">
+            <span class="mfg-step-pill">±0.01 mm CNC Tolerance</span>
+            <span class="mfg-step-pill">Mirror EDM Machining</span>
+          </div>
+        </div>
+      </article>
+
+      <!-- Stage 02 -->
+      <article class="mfg-step-card">
+        <div class="mfg-step-media">
+          <img src="/images/factory-workshop.webp" width="1024" height="768" loading="lazy" alt="BOHOL lean assembly workshop with technicians assembling wellness hardware" />
+          <span class="mfg-step-num">STAGE 02</span>
+        </div>
+        <div class="mfg-step-body">
+          <h3>Class 100,000 Cleanroom & Assembly</h3>
+          <p>120+ ESD anti-static assembly stations, automated medical-grade liquid silicone rubber (LSR) injection, and dust-free multi-station structural integration.</p>
+          <div class="mfg-step-pills">
+            <span class="mfg-step-pill">ISO Class 8 Cleanroom</span>
+            <span class="mfg-step-pill">Platinum LSR Silicone</span>
+          </div>
+        </div>
+      </article>
+
+      <!-- Stage 03 -->
+      <article class="mfg-step-card">
+        <div class="mfg-step-media">
+          <img src="/images/factory-quality.webp" width="1024" height="768" loading="lazy" alt="BOHOL quality control and testing laboratory with precision metrology equipment" />
+          <span class="mfg-step-num">STAGE 03</span>
+        </div>
+        <div class="mfg-step-body">
+          <h3>Full-Line Metrology & 100% QC Lab</h3>
+          <p>Dimensional digital micrometer checks, motor torque & decibel (&lt; 45 dB) analysis, negative pressure waterproof leak testing, and 100% battery burn-in aging.</p>
+          <div class="mfg-step-pills">
+            <span class="mfg-step-pill">IPX7 Vacuum Water Tank</span>
+            <span class="mfg-step-pill">72h Burn-In Aging</span>
+          </div>
+        </div>
+      </article>
+
+      <!-- Stage 04 -->
+      <article class="mfg-step-card">
+        <div class="mfg-step-media">
+          <img src="/images/factory-packing.webp" width="1024" height="768" loading="lazy" alt="BOHOL packaging workshop with retail gift box assembly and master cartons" />
+          <span class="mfg-step-num">STAGE 04</span>
+        </div>
+        <div class="mfg-step-body">
+          <h3>Custom Retail Box & Master Boxing</h3>
+          <p>Turnkey luxury gift box packaging, heat-shrink sealing, serialized barcode labeling, multilingual manuals, and protective export master cartons.</p>
+          <div class="mfg-step-pills">
+            <span class="mfg-step-pill">Heat-Shrink Sealing</span>
+            <span class="mfg-step-pill">UN38.3 Compliant</span>
+          </div>
+        </div>
+      </article>
+
+      <!-- Stage 05 -->
+      <article class="mfg-step-card">
+        <div class="mfg-step-media">
+          <img src="/images/factory-warehouse.webp" width="1024" height="768" loading="lazy" alt="BOHOL high-bay intelligent warehouse with forklift and pallet racking" />
+          <span class="mfg-step-num">STAGE 05</span>
+        </div>
+        <div class="mfg-step-body">
+          <h3>High-Bay Warehouse & ERP Inventory</h3>
+          <p>Heavy-duty multi-tier A1-A3 racking with RFID barcode logistics, temperature/humidity control, and rapid component replenishment for large-batch orders.</p>
+          <div class="mfg-step-pills">
+            <span class="mfg-step-pill">A1-A3 Heavy Racking</span>
+            <span class="mfg-step-pill">Electric Forklifts</span>
+          </div>
+        </div>
+      </article>
+
+      <!-- Stage 06 -->
+      <article class="mfg-step-card">
+        <div class="mfg-step-media">
+          <img src="/images/factory-shipping.webp" width="1024" height="768" loading="lazy" alt="BOHOL global container loading dock with shipping container and forklift" />
+          <span class="mfg-step-num">STAGE 06</span>
+        </div>
+        <div class="mfg-step-body">
+          <h3>Ocean Container Loading & DDP Dispatch</h3>
+          <p>Dual container loading bays, forklift pallet stuffing, UN38.3 battery transport manifests, and direct DDP door-to-door ocean/air delivery to 60+ countries.</p>
+          <div class="mfg-step-pills">
+            <span class="mfg-step-pill">Direct Port Dispatch</span>
+            <span class="mfg-step-pill">Full DDP Customs</span>
+          </div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- 5. OEM / ODM PROJECT BLUEPRINT & TIMELINE -->
+  <section class="mfg-roadmap-section">
+    <div class="mfg-section-title-wrap">
+      <p class="eyebrow">OEM / ODM PROJECT ROADMAP</p>
+      <h2>From Concept to Global Delivery in 25 Days.</h2>
+      <p>A transparent, milestone-driven development process engineered for retail brands, distributors, and DTC innovators.</p>
+    </div>
+
+    <div class="mfg-roadmap-grid">
+      <div class="mfg-roadmap-card">
+        <span class="mfg-roadmap-step">PHASE 01</span>
+        <h3>Consultation & NDA</h3>
+        <p>Bilateral NDA signing, product specification review, destination market compliance screening, and volume pricing tiered quotes.</p>
+        <span class="mfg-roadmap-time">Day 1 - 2</span>
+      </div>
+      <div class="mfg-roadmap-card">
+        <span class="mfg-roadmap-step">PHASE 02</span>
+        <h3>3D CAD & Prototyping</h3>
+        <p>In-house industrial design, ergonomics refinement, PCB schematics, and functional SLA/SLS working sample delivered via DHL.</p>
+        <span class="mfg-roadmap-time">Day 3 - 7</span>
+      </div>
+      <div class="mfg-roadmap-card">
+        <span class="mfg-roadmap-step">PHASE 03</span>
+        <h3>Steel Tooling & T1 Samples</h3>
+        <p>High-speed CNC steel mold fabrication, mirror EDM spark machining, LSR silicone injection trial, and T1 working sample confirmation.</p>
+        <span class="mfg-roadmap-time">Day 8 - 18</span>
+      </div>
+      <div class="mfg-roadmap-card">
+        <span class="mfg-roadmap-step">PHASE 04</span>
+        <h3>Cleanroom Mass Output & DDP</h3>
+        <p>Full-line automated cleanroom production, 100% IPX7 waterproof inspection, custom packaging assembly, and containerized dispatch.</p>
+        <span class="mfg-roadmap-time">Day 19 - 25</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6. GLOBAL COMPLIANCE & ACCREDITATIONS -->
+  <section class="mfg-cert-section">
+    <div class="mfg-section-title-wrap">
+      <p class="eyebrow">INTERNATIONAL COMPLIANCE MATRIX</p>
+      <h2>Audited Quality. Recognized Worldwide.</h2>
+      <p>BOHOL operates in strict compliance with international regulatory frameworks, ensuring zero customs clearance friction across North America, Europe, the UK, and APAC.</p>
+    </div>
+
+    <!-- ENLARGED SEAMLESS SCROLLING CERTIFICATES MARQUEE ("滚动式的") -->
+    <div class="mfg-cert-scroll-container">
+      <div class="mfg-cert-scroll-header">
+        <div>
+          <h3>📜 BOHOL Official International Laboratory Accreditations (10 Certifications & Test Reports)</h3>
+          <p style="font-size: 13px; color: #64748b; margin: 4px 0 0;">Brand & Compliance Holder: <strong>BOHOL Global Brand (BOHOL 官方全球品牌与国际认证体系)</strong></p>
+        </div>
+        <span class="mfg-cert-strip-badge">✓ 100% Laboratory Verified</span>
+      </div>
+
+      <!-- Marquee Viewport with Soft Gradient Edge Masks -->
+      <div class="mfg-cert-scroll-viewport" title="鼠标悬停可暂停滚动 · 点击任意证书可放大查看超清原图">
+        <div class="mfg-cert-scroll-track">
+          <!-- LOOP 1: 10 Certificates -->
+          <div class="mfg-cert-scroll-item" data-cert-zoom="/images/cert-iso9001.webp" data-cert-title="ISO 9001:2015 Quality Management System Certificate - BOHOL Brand">
+            <img src="/images/cert-iso9001.webp" width="308" height="467" loading="lazy" alt="ISO 9001:2015 - BOHOL" />
+            <div class="mfg-cert-scroll-item-label">
+              <span class="mfg-cert-scroll-item-tag">ISO 9001:2015</span>
+              <span>Quality System</span>
+            </div>
+          </div>
+
+          <div class="mfg-cert-scroll-item" data-cert-zoom="/images/cert-fda.webp" data-cert-title="US FDA Facility & Device Registration (Fiscal Year 2025) - BOHOL Brand">
+            <img src="/images/cert-fda.webp" width="308" height="467" loading="lazy" alt="FDA Facility Registration 2025 - BOHOL" />
+            <div class="mfg-cert-scroll-item-label">
+              <span class="mfg-cert-scroll-item-tag" style="color:#0284c7; background:#e0f2fe; border-color:#bae6fd;">US FDA</span>
+              <span>FY2025 Valid</span>
+            </div>
+          </div>
+
+          <div class="mfg-cert-scroll-item" data-cert-zoom="/images/cert-fcc.webp" data-cert-title="FCC Supplier's Declaration of Conformity - BOHOL Brand">
+            <img src="/images/cert-fcc.webp" width="308" height="467" loading="lazy" alt="FCC SDoC - BOHOL" />
+            <div class="mfg-cert-scroll-item-label">
+              <span class="mfg-cert-scroll-item-tag">FCC SDoC</span>
+              <span>USA Approved</span>
+            </div>
+          </div>
+
+          <div class="mfg-cert-scroll-item" data-cert-zoom="/images/cert-ce.webp" data-cert-title="CE Certificate of Conformity (EMC Directive 2014/30/EU) - BOHOL Brand">
+            <img src="/images/cert-ce.webp" width="308" height="467" loading="lazy" alt="CE Conformity - BOHOL" />
+            <div class="mfg-cert-scroll-item-label">
+              <span class="mfg-cert-scroll-item-tag">CE Directive</span>
+              <span>EU Standard</span>
+            </div>
+          </div>
+
+          <div class="mfg-cert-scroll-item" data-cert-zoom="/images/cert-rohs.webp" data-cert-title="RoHS 2.0 Substance Verification Report (EU 2015/863) - BOHOL Brand">
+            <img src="/images/cert-rohs.webp" width="308" height="467" loading="lazy" alt="RoHS 2.0 - BOHOL" />
+            <div class="mfg-cert-scroll-item-label">
+              <span class="mfg-cert-scroll-item-tag">RoHS 2.0</span>
+              <span>Non-Toxic Safe</span>
+            </div>
+          </div>
+
+          <div class="mfg-cert-scroll-item" data-cert-zoom="/images/cert-ukca.webp" data-cert-title="UKCA Attestation of Conformity with UK Regulations - BOHOL Brand">
+            <img src="/images/cert-ukca.webp" width="308" height="467" loading="lazy" alt="UKCA Conformity - BOHOL" />
+            <div class="mfg-cert-scroll-item-label">
+              <span class="mfg-cert-scroll-item-tag">UKCA Marked</span>
+              <span>UK Compliant</span>
+            </div>
+          </div>
+
+          <div class="mfg-cert-scroll-item" data-cert-zoom="/images/cert-bacl.webp" data-cert-title="BACL Laboratory Metrology & Conformity Verification - BOHOL Brand">
+            <img src="/images/cert-bacl.webp" width="308" height="467" loading="lazy" alt="BACL Metrology - BOHOL" />
+            <div class="mfg-cert-scroll-item-label">
+              <span class="mfg-cert-scroll-item-tag">BACL Metrology</span>
+              <span>Verified Lab</span>
+            </div>
+          </div>
+
+          <div class="mfg-cert-scroll-item" data-cert-zoom="/images/cert-bkc.webp" data-cert-title="BKC Testing Laboratory Compliance Verification - BOHOL Brand">
+            <img src="/images/cert-bkc.webp" width="308" height="467" loading="lazy" alt="BKC Testing - BOHOL" />
+            <div class="mfg-cert-scroll-item-label">
+              <span class="mfg-cert-scroll-item-tag">BKC Testing</span>
+              <span>Audited</span>
+            </div>
+          </div>
+
+          <div class="mfg-cert-scroll-item" data-cert-zoom="/images/cert-msds.webp" data-cert-title="Material Safety Data Sheet (MSDS) & UN38.3 Safe Battery Transport - BOHOL Brand">
+            <img src="/images/cert-msds.webp" width="308" height="467" loading="lazy" alt="MSDS Safe Battery Transport - BOHOL" />
+            <div class="mfg-cert-scroll-item-label">
+              <span class="mfg-cert-scroll-item-tag" style="color:#d97706; background:#fef3c7; border-color:#fde68a;">UN38.3</span>
+              <span>Battery MSDS</span>
+            </div>
+          </div>
+
+          <div class="mfg-cert-scroll-item" data-cert-zoom="/images/cert-emc.webp" data-cert-title="CE-EMC Full Metrology Test Report - BOHOL Brand">
+            <img src="/images/cert-emc.webp" width="308" height="467" loading="lazy" alt="EMC Test Report - BOHOL" />
+            <div class="mfg-cert-scroll-item-label">
+              <span class="mfg-cert-scroll-item-tag">EMC METROLOGY</span>
+              <span>Full Report</span>
+            </div>
+          </div>
+
+          <!-- LOOP 2 (CLONE FOR SEAMLESS INFINITE SCROLL): 10 Certificates -->
+          <div class="mfg-cert-scroll-item" data-cert-zoom="/images/cert-iso9001.webp" data-cert-title="ISO 9001:2015 Quality Management System Certificate - BOHOL Brand" aria-hidden="true">
+            <img src="/images/cert-iso9001.webp" width="308" height="467" loading="lazy" alt="ISO 9001:2015 - BOHOL" />
+            <div class="mfg-cert-scroll-item-label">
+              <span class="mfg-cert-scroll-item-tag">ISO 9001:2015</span>
+              <span>Quality System</span>
+            </div>
+          </div>
+
+          <div class="mfg-cert-scroll-item" data-cert-zoom="/images/cert-fda.webp" data-cert-title="US FDA Facility & Device Registration (Fiscal Year 2025) - BOHOL Brand" aria-hidden="true">
+            <img src="/images/cert-fda.webp" width="308" height="467" loading="lazy" alt="FDA Facility Registration 2025 - BOHOL" />
+            <div class="mfg-cert-scroll-item-label">
+              <span class="mfg-cert-scroll-item-tag" style="color:#0284c7; background:#e0f2fe; border-color:#bae6fd;">US FDA</span>
+              <span>FY2025 Valid</span>
+            </div>
+          </div>
+
+          <div class="mfg-cert-scroll-item" data-cert-zoom="/images/cert-fcc.webp" data-cert-title="FCC Supplier's Declaration of Conformity - BOHOL Brand" aria-hidden="true">
+            <img src="/images/cert-fcc.webp" width="308" height="467" loading="lazy" alt="FCC SDoC - BOHOL" />
+            <div class="mfg-cert-scroll-item-label">
+              <span class="mfg-cert-scroll-item-tag">FCC SDoC</span>
+              <span>USA Approved</span>
+            </div>
+          </div>
+
+          <div class="mfg-cert-scroll-item" data-cert-zoom="/images/cert-ce.webp" data-cert-title="CE Certificate of Conformity (EMC Directive 2014/30/EU) - BOHOL Brand" aria-hidden="true">
+            <img src="/images/cert-ce.webp" width="308" height="467" loading="lazy" alt="CE Conformity - BOHOL" />
+            <div class="mfg-cert-scroll-item-label">
+              <span class="mfg-cert-scroll-item-tag">CE Directive</span>
+              <span>EU Standard</span>
+            </div>
+          </div>
+
+          <div class="mfg-cert-scroll-item" data-cert-zoom="/images/cert-rohs.webp" data-cert-title="RoHS 2.0 Substance Verification Report (EU 2015/863) - BOHOL Brand" aria-hidden="true">
+            <img src="/images/cert-rohs.webp" width="308" height="467" loading="lazy" alt="RoHS 2.0 - BOHOL" />
+            <div class="mfg-cert-scroll-item-label">
+              <span class="mfg-cert-scroll-item-tag">RoHS 2.0</span>
+              <span>Non-Toxic Safe</span>
+            </div>
+          </div>
+
+          <div class="mfg-cert-scroll-item" data-cert-zoom="/images/cert-ukca.webp" data-cert-title="UKCA Attestation of Conformity with UK Regulations - BOHOL Brand" aria-hidden="true">
+            <img src="/images/cert-ukca.webp" width="308" height="467" loading="lazy" alt="UKCA Conformity - BOHOL" />
+            <div class="mfg-cert-scroll-item-label">
+              <span class="mfg-cert-scroll-item-tag">UKCA Marked</span>
+              <span>UK Compliant</span>
+            </div>
+          </div>
+
+          <div class="mfg-cert-scroll-item" data-cert-zoom="/images/cert-bacl.webp" data-cert-title="BACL Laboratory Metrology & Conformity Verification - BOHOL Brand" aria-hidden="true">
+            <img src="/images/cert-bacl.webp" width="308" height="467" loading="lazy" alt="BACL Metrology - BOHOL" />
+            <div class="mfg-cert-scroll-item-label">
+              <span class="mfg-cert-scroll-item-tag">BACL Metrology</span>
+              <span>Verified Lab</span>
+            </div>
+          </div>
+
+          <div class="mfg-cert-scroll-item" data-cert-zoom="/images/cert-bkc.webp" data-cert-title="BKC Testing Laboratory Compliance Verification - BOHOL Brand" aria-hidden="true">
+            <img src="/images/cert-bkc.webp" width="308" height="467" loading="lazy" alt="BKC Testing - BOHOL" />
+            <div class="mfg-cert-scroll-item-label">
+              <span class="mfg-cert-scroll-item-tag">BKC Testing</span>
+              <span>Audited</span>
+            </div>
+          </div>
+
+          <div class="mfg-cert-scroll-item" data-cert-zoom="/images/cert-msds.webp" data-cert-title="Material Safety Data Sheet (MSDS) & UN38.3 Safe Battery Transport - BOHOL Brand" aria-hidden="true">
+            <img src="/images/cert-msds.webp" width="308" height="467" loading="lazy" alt="MSDS Safe Battery Transport - BOHOL" />
+            <div class="mfg-cert-scroll-item-label">
+              <span class="mfg-cert-scroll-item-tag" style="color:#d97706; background:#fef3c7; border-color:#fde68a;">UN38.3</span>
+              <span>Battery MSDS</span>
+            </div>
+          </div>
+
+          <div class="mfg-cert-scroll-item" data-cert-zoom="/images/cert-emc.webp" data-cert-title="CE-EMC Full Metrology Test Report - BOHOL Brand" aria-hidden="true">
+            <img src="/images/cert-emc.webp" width="308" height="467" loading="lazy" alt="EMC Test Report - BOHOL" />
+            <div class="mfg-cert-scroll-item-label">
+              <span class="mfg-cert-scroll-item-tag">EMC METROLOGY</span>
+              <span>Full Report</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="mfg-cert-scroll-footer">
+        <span>🔍 左右无缝平滑滚动中 · 鼠标悬停可暂停 · 点击任意证书可查看超清原件 (Hover to pause · Click to zoom)</span>
+        <span>Accreditation Bodies: ACM · CCUT · BKC · EBO · BACL · US FDA · IAS · IAF</span>
+      </div>
+    </div>
+
+    <!-- Certificate Lightbox Modal Overlay -->
+    <div id="cert-lightbox-modal" class="cert-modal" aria-hidden="true" role="dialog">
+      <div class="cert-modal-content">
+        <button type="button" class="cert-modal-close" id="close-cert-modal" aria-label="Close certificate preview">&times;</button>
+        <img id="cert-modal-img" src="" alt="Certificate Preview" />
+        <div id="cert-modal-caption" class="cert-modal-caption"></div>
+      </div>
+    </div>
+
+    <!-- AUDIT & FACTORY TOUR BANNER -->
+    <div class="mfg-audit-banner">
+      <div class="mfg-audit-copy">
+        <h3>Book an In-Person Factory Tour or 1-on-1 Live Video Audit.</h3>
+        <p>Meet our engineering directors, inspect cleanrooms in real-time via WhatsApp/Zoom, and evaluate physical private-mold samples before initiating tooling.</p>
+      </div>
+      <div class="mfg-audit-actions">
+        <a href="https://wa.me/8618588583798" target="_blank" rel="noopener" class="mfg-btn-wa" style="background:#16a34a; color:#ffffff; border:none; box-shadow: 0 4px 14px rgba(22, 163, 74, 0.25);">
+          💬 WhatsApp Live Video Audit
+        </a>
+        <a href={settings.social?.youtube || "https://www.youtube.com/@bohol-manufacturing"} target="_blank" rel="noopener" class="btn-secondary" style="background:#ffffff; color:#0f172a; border-color:#cbd5e1; display:inline-flex; align-items:center; gap:6px; font-weight:700;">
+          ▶ 4K YouTube Factory Tour
+        </a>
+        <a href={settings.social?.linkedin || "https://www.linkedin.com/company/bohol-wellness"} target="_blank" rel="noopener" class="btn-secondary" style="background:#ffffff; color:#0f172a; border-color:#cbd5e1; display:inline-flex; align-items:center; gap:6px; font-weight:700;">
+          💼 LinkedIn Company
+        </a>
+        <a href="/rfq/" class="mfg-btn-primary">
+          Launch RFQ Calculator &rarr;
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- PARTNER BAND & FOOTER HOOK -->
+  <PartnerBand />
+
+  <!-- INTERACTIVE TABS CLIENT SCRIPT -->
+  <script>
+    const tabButtons = document.querySelectorAll<HTMLButtonElement>('.mfg-tab-btn');
+    const tabPanes = document.querySelectorAll<HTMLElement>('.mfg-tab-pane');
+
+    tabButtons.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const targetTab = btn.getAttribute('data-tab');
+        if (!targetTab) return;
+
+        tabButtons.forEach((b) => {
+          b.classList.remove('active');
+          b.setAttribute('aria-selected', 'false');
+        });
+        tabPanes.forEach((p) => p.classList.remove('active'));
+
+        btn.classList.add('active');
+        btn.setAttribute('aria-selected', 'true');
+        const activePane = document.getElementById(targetTab);
+        if (activePane) {
+          activePane.classList.add('active');
+        }
+      });
+    });
+
+    // Certificate Lightbox Zoom Modal
+    const certModal = document.getElementById('cert-lightbox-modal');
+    const certModalImg = document.getElementById('cert-modal-img') as HTMLImageElement;
+    const certModalCaption = document.getElementById('cert-modal-caption');
+    const closeCertBtn = document.getElementById('close-cert-modal');
+
+    document.querySelectorAll('[data-cert-zoom]').forEach((el) => {
+      el.addEventListener('click', () => {
+        const src = el.getAttribute('data-cert-zoom');
+        const title = el.getAttribute('data-cert-title') || 'Certificate View';
+        if (certModal && certModalImg && src) {
+          certModalImg.src = src;
+          if (certModalCaption) certModalCaption.textContent = title;
+          certModal.classList.add('active');
+          certModal.setAttribute('aria-hidden', 'false');
+        }
+      });
+    });
+
+    if (closeCertBtn && certModal) {
+      closeCertBtn.addEventListener('click', () => {
+        certModal.classList.remove('active');
+        certModal.setAttribute('aria-hidden', 'true');
+      });
+      certModal.addEventListener('click', (e) => {
+        if (e.target === certModal) {
+          certModal.classList.remove('active');
+          certModal.setAttribute('aria-hidden', 'true');
+        }
+      });
+    }
+  </script>
+</Layout>

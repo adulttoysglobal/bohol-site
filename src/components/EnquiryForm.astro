@@ -1,0 +1,128 @@
+---
+import { getCollection } from 'astro:content';
+import settings from '../data/settings.json';
+import Icon from './Icon.astro';
+const products = (await getCollection('products')).sort((a, b) => a.data.order - b.data.order);
+---
+<form
+  class="enquiry-form"
+  id="enquiry-form"
+  data-rfq-form
+  data-source="partners-page"
+  data-endpoint={settings.enquiryEndpoint || '/api/enquiry'}
+  data-contact={settings.contactEmail}
+>
+  <div class="form-grid">
+    <label class="field">
+      <span>Your Name <em>*</em></span>
+      <input name="name" placeholder="Full name" autocomplete="name" required maxlength="120" />
+    </label>
+    <label class="field">
+      <span>Company / Brand</span>
+      <input name="company" placeholder="Company or brand name" autocomplete="organization" maxlength="180" />
+    </label>
+    <label class="field">
+      <span>Business Email <em>*</em></span>
+      <input type="email" name="email" placeholder="name@company.com" autocomplete="email" required maxlength="200" />
+    </label>
+    <label class="field">
+      <span>WhatsApp / Phone</span>
+      <input type="tel" name="phone" placeholder="+1 / +44 / +86 ..." autocomplete="tel" maxlength="80" />
+    </label>
+    <label class="field">
+      <span>Destination Market <em>*</em></span>
+      <input name="market" placeholder="Country or region" required maxlength="120" />
+    </label>
+    <label class="field">
+      <span>Cooperation Type</span>
+      <select name="type">
+        <option value="OEM / Private Label">OEM / Private Label</option>
+        <option value="ODM Custom Tooling">ODM Custom Tooling</option>
+        <option value="Wholesale Distribution">Wholesale Distribution</option>
+        <option value="Sample & Price List">Request Sample & Price List</option>
+      </select>
+    </label>
+    <label class="field wide">
+      <span>Expected Order Quantity</span>
+      <input name="quantity" placeholder="For example: 500 - 2,000 units per model" maxlength="120" />
+    </label>
+  </div>
+
+  <fieldset>
+    <legend>Select Target Models (14 Series Available)</legend>
+    <div class="model-options">
+      {products.map((product) => (
+        <label>
+          <input type="checkbox" name="models" value={product.data.name} data-model-id={product.id} />
+          {product.data.name}
+        </label>
+      ))}
+    </div>
+  </fieldset>
+
+  <label class="field">
+    <span>Project Requirements & Customization Details <em>*</em></span>
+    <textarea
+      name="message"
+      placeholder="Tell us which Pantone colors, logo engraving, packaging, certifications or target price you would like to discuss."
+      required
+      maxlength="5000"
+    ></textarea>
+  </label>
+
+  <input type="text" name="website_hp" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px;opacity:0;height:0;width:0" />
+
+  <div class="form-actions">
+    <button type="submit" class="button primary">
+      <span data-submit-label>Submit Inquiry to Factory</span>
+      <Icon name="arrow-up-right" />
+    </button>
+    <button type="button" class="text-button" id="download-enquiry">Download TXT Brief</button>
+    <button type="button" class="text-button" id="copy-enquiry">Copy Brief</button>
+  </div>
+  <p class="form-note">Submits directly to the BOHOL OEM/ODM inquiry backend (`{settings.enquiryEndpoint || '/api/enquiry'}`). Protected under standard mutual NDA.</p>
+  <p class="rfq-status" role="status" aria-live="polite" id="enquiry-status" data-rfq-status hidden></p>
+</form>
+
+<script>
+  import { buildEnquiry } from '../lib/enquiry.mjs';
+  const form = document.querySelector<HTMLFormElement>('#enquiry-form');
+  const status = document.querySelector<HTMLElement>('#enquiry-status');
+  const query = new URLSearchParams(location.search).get('product');
+  form?.querySelectorAll<HTMLInputElement>('[data-model-id]').forEach((input) => {
+    if (input.dataset.modelId === query || input.value.toLowerCase() === query?.toLowerCase()) {
+      input.checked = true;
+    }
+  });
+
+  function getBrief() {
+    if (!form?.reportValidity()) return null;
+    const data = new FormData(form);
+    const fields = Object.fromEntries(data.entries());
+    return buildEnquiry(fields, data.getAll('models'));
+  }
+
+  document.querySelector('#download-enquiry')?.addEventListener('click', () => {
+    const brief = getBrief();
+    if (!brief) return;
+    const url = URL.createObjectURL(new Blob(['\ufeff' + brief], { type: 'text/plain;charset=utf-8' }));
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = 'bohol-rfq-brief.txt';
+    link.click();
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+  });
+
+  document.querySelector('#copy-enquiry')?.addEventListener('click', async () => {
+    const brief = getBrief();
+    if (!brief) return;
+    try {
+      await navigator.clipboard.writeText(brief);
+      if (status) {
+        status.hidden = false;
+        status.className = 'rfq-status rfq-status-ok';
+        status.textContent = '✓ Brief copied to clipboard.';
+      }
+    } catch {}
+  });
+</script>

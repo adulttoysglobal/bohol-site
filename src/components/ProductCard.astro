@@ -1,0 +1,139 @@
+---
+import Icon from './Icon.astro';
+const { product } = Astro.props;
+const p = product.data;
+const isBohol = p.order <= 14;
+const code = isBohol ? `BHL-${String(p.order).padStart(2, '0')}` : `9R-${String(p.order).padStart(2, '0')}`;
+const topFeatures = (p.features || []).slice(0, 2);
+
+const hoverMap: Record<string, string> = {
+  '/images/twist-hero.webp': '/images/twist-front.webp',
+  '/images/twist-front.webp': '/images/twist-side.webp',
+  '/images/starship-hero.webp': '/images/starship-front.webp',
+  '/images/starship-front.webp': '/images/starship-back.webp',
+  '/images/bobi-hero.webp': '/images/bobi-front.webp',
+  '/images/bobi-front.webp': '/images/bobi-side.webp',
+  '/images/spotlight-bobi-i.webp': '/images/bobi-side.webp',
+  '/images/spotlight-big-mouth.webp': '/images/space-angle.webp',
+  '/images/spotlight-wearable.webp': '/images/harmony-detail.webp',
+  '/images/spotlight-lenas.webp': '/images/harmony-side.webp',
+  '/images/harmony-hero.webp': '/images/harmony-side.webp',
+  '/images/summer-hero.webp': '/images/summer-lilac.webp',
+  '/images/bite-hero.webp': '/images/bite-side.webp',
+  '/images/xiaoqiao-hero.webp': '/images/xiaoqiao-pink.webp',
+  '/images/mengqu-hero.webp': '/images/mengqu-pink.webp',
+  '/images/cj7-front.webp': '/images/cj7-angle.webp',
+  '/images/space-hero.webp': '/images/space-angle.webp'
+};
+
+const secondaryImg =
+  hoverMap[p.image] ||
+  (p.gallery && p.gallery.length > 1 && p.gallery[1] !== p.image ? p.gallery[1] : p.gallery?.[0]) ||
+  p.image;
+
+const isHot = p.order <= 4 || (p.order >= 15 && p.order % 2 === 1);
+const reviewCount = 48 + ((p.order * 19) % 140);
+const subCat = p.subCategory || (p.category === 'Electric' ? "Men's Toys" : "Women's Toys");
+const vendorName = p.vendor || 'BOHOL Direct OEM';
+---
+<div
+  class="product-card sf__pcard"
+  data-category={p.category}
+  data-subcat={subCat}
+  data-vendor={isBohol ? 'BOHOL' : '9Rabbit'}
+  data-name={`${p.name} ${subCat} ${vendorName}`.toLowerCase()}
+>
+  <div class="product-image sf__pcard-image">
+    <div class="card-pod-top sf__pcard-tags">
+      {isHot ? (
+        <span class="pcard-badge pcard-badge-hot">HOT SELLER</span>
+      ) : (
+        <span class="pcard-badge pcard-badge-new">NEW ARRIVAL</span>
+      )}
+      <span class="pcard-badge pcard-badge-oem">{subCat}</span>
+      <span class="pcard-badge pcard-badge-moq">MOQ: 100 PCS</span>
+    </div>
+
+    <a href={`/products/${product.id}/`} class="sf__pcard-media-link" aria-label={p.name}>
+      <img
+        class="pcard-img-main"
+        src={p.image}
+        width="800"
+        height="800"
+        loading="lazy"
+        alt={p.name}
+      />
+      <img
+        class="pcard-img-hover"
+        src={secondaryImg}
+        width="800"
+        height="800"
+        loading="lazy"
+        alt={`${p.name} alternate view`}
+      />
+    </a>
+
+    <!-- 9Rabbit / Minimog Quick Action Hover Bar -->
+    <div class="sf__pcard-quick-actions">
+      <a href={`/products/${product.id}/`} class="pcard-action-btn">
+        View Specs
+      </a>
+      <button
+        type="button"
+        class="pcard-action-btn pcard-action-inquiry rfq-quick-add-btn"
+        data-rfq-id={product.id}
+        data-rfq-name={p.name}
+        data-rfq-code={code}
+        data-rfq-image={p.image}
+        data-rfq-category={p.category}
+        data-rfq-subcat={subCat}
+        data-rfq-vendor={vendorName}
+        title="Add to Wholesale RFQ"
+      >
+        + Add to RFQ
+      </button>
+    </div>
+  </div>
+
+  <div class="card-body sf__pcard-content">
+    <div class="pcard-type-row">
+      <span class="pcard-vendor">{vendorName} · Factory Direct</span>
+      <span class="pcard-rating" aria-label="5 out of 5 stars">★★★★★ <em>({reviewCount})</em></span>
+    </div>
+
+    <h3 class="sf__pcard-name">
+      <a href={`/products/${product.id}/`}>
+        {p.name}
+        <sup class="pcard-sup">{code}</sup>
+      </a>
+    </h3>
+
+    <p class="pcard-subtitle">{p.subtitle}</p>
+
+    {topFeatures.length > 0 && (
+      <div class="card-tags">
+        {topFeatures.map((f: string) => <span>{f}</span>)}
+      </div>
+    )}
+
+    <div class="pcard-bottom-row">
+      <button
+        type="button"
+        class="pcard-quote-pill-btn rfq-quick-add-btn"
+        data-rfq-id={product.id}
+        data-rfq-name={p.name}
+        data-rfq-code={code}
+        data-rfq-image={p.image}
+        data-rfq-category={p.category}
+        data-rfq-subcat={subCat}
+        data-rfq-vendor={vendorName}
+        title="Add to Wholesale RFQ"
+      >
+        <span class="pcard-plus">+</span> Add to RFQ
+      </button>
+      <a href={`/products/${product.id}/`} class="pcard-more-link">
+        Specs & MOQ <Icon name="arrow-up-right" size={13} />
+      </a>
+    </div>
+  </div>
+</div>

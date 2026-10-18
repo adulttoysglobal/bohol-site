@@ -1,0 +1,80 @@
+{
+  "name": "CJ7",
+  "subtitle": "A clear view of every setting.",
+  "description": "An electric male wellness device with a green-edged control panel and a digital display. The supplied product information lists telescopic motion, suction, vibration and USB-C charging.",
+  "category": "Electric",
+  "label": "DIGITAL CONTROL",
+  "order": 5,
+  "featured": true,
+  "image": "/images/cj7-front.webp",
+  "gallery": [
+    "/images/cj7-front.webp",
+    "/images/cj7-angle.webp",
+    "/images/9rabbit/products/cj7-gallery-view2.webp",
+    "/images/9rabbit/products/cj7-gallery-view3.webp",
+    "/images/9rabbit/products/cj7-gallery-view4.webp"
+  ],
+  "features": [
+    "Digital display",
+    "Telescopic motion",
+    "USB-C charging"
+  ],
+  "specs": [
+    {
+      "label": "Dimensions",
+      "value": "267 × 93 × 90 mm"
+    },
+    {
+      "label": "Net weight",
+      "value": "860 g"
+    },
+    {
+      "label": "Materials",
+      "value": "ABS + silicone + TPE"
+    },
+    {
+      "label": "Battery capacity",
+      "value": "1500 mAh"
+    },
+    {
+      "label": "Charging connection",
+      "value": "USB-C"
+    },
+    {
+      "label": "Listed charging time",
+      "value": "4 hours"
+    }
+  ],
+  "seoTitle": "CJ7 — product details and specifications",
+  "seoDescription": "An electric male wellness device with a green-edged control panel and a digital display. The supplied product information lists telescopic motion, suction,",
+  "note": "Product appearance and features are described from the supplied product materials. Confirm the exact model, accessories and operating instructions before purchase.",
+  "subCategory": "Men's Toys",
+  "vendor": "BOHOL Direct OEM",
+  "detailImages": [
+    "/images/9rabbit/details/cj7-s01-hero.webp",
+    "/images/9rabbit/details/cj7-s02-bento.webp",
+    "/images/9rabbit/details/cj7-s03-anatomy.webp",
+    "/images/9rabbit/details/cj7-s04-performance.webp",
+    "/images/9rabbit/details/cj7-s05-material.webp",
+    "/images/9rabbit/details/cj7-s07-blueprint.webp",
+    "/images/9rabbit/details/cj7-s08-guide.webp"
+  ],
+  "highlights": [
+    {
+      "title": "Authentic Global Quality & Direct Factory QC",
+      "body": "Every unit of CJ7 undergoes multi-stage inspection for structural durability, surface finish, and material biocompatibility before international dispatch."
+    },
+    {
+      "title": "Body-Safe Certified Materials",
+      "body": "Crafted with medical-grade silicone, CyberSkin TPE, tempered borosilicate glass, or skin-friendly couture fabrics—free from phthalates, latex allergens, and heavy metals."
+    },
+    {
+      "title": "100% Discreet Unmarked Fulfillment",
+      "body": "Packaged in plain protective boxes with confidential shipping labels. Available for immediate North America & global express delivery."
+    },
+    {
+      "title": "Wholesale & Private-Label OEM Ready",
+      "body": "Supported by our 35,000 m² ISO-certified manufacturing base with custom laser logo engraving, Pantone color matching, and multilingual retail box customization."
+    }
+  ]
+}

@@ -1,0 +1,68 @@
+{
+  "name": "Xiaoqiao",
+  "subtitle": "A connected, compact form.",
+  "description": "A compact personal massager with a flexible connecting section and a sculpted companion control piece. The supplied photography shows green and pink variants with contrasting trim.",
+  "category": "Sculpted",
+  "label": "COMPACT MASSAGERS",
+  "order": 13,
+  "featured": false,
+  "image": "/images/xiaoqiao-hero.webp",
+  "gallery": [
+    "/images/xiaoqiao-hero.webp",
+    "/images/xiaoqiao-pink.webp",
+    "/images/xiaoqiao-side.webp",
+    "/images/9rabbit/products/xiaoqiao-gallery-view2.webp",
+    "/images/9rabbit/products/xiaoqiao-gallery-view3.webp"
+  ],
+  "features": [
+    "Compact body",
+    "Flexible connecting section",
+    "Green and pink variants"
+  ],
+  "specs": [
+    {
+      "label": "Model series",
+      "value": "Xiaoqiao Series"
+    },
+    {
+      "label": "Colors shown",
+      "value": "Green and pink"
+    },
+    {
+      "label": "Construction",
+      "value": "Compact body with connected control piece"
+    }
+  ],
+  "seoTitle": "Xiaoqiao — product details and specifications",
+  "seoDescription": "A compact personal massager with a flexible connecting section and a sculpted companion control piece. The supplied photography shows green and pink varian",
+  "note": "Product appearance and features are described from the supplied product materials. Confirm the exact model, accessories and operating instructions before purchase.",
+  "subCategory": "Women's Toys",
+  "vendor": "BOHOL Direct OEM",
+  "detailImages": [
+    "/images/9rabbit/details/xiaoqiao-s01-hero.webp",
+    "/images/9rabbit/details/xiaoqiao-s02-bento.webp",
+    "/images/9rabbit/details/xiaoqiao-s03-anatomy.webp",
+    "/images/9rabbit/details/xiaoqiao-s04-performance.webp",
+    "/images/9rabbit/details/xiaoqiao-s05-material.webp",
+    "/images/9rabbit/details/xiaoqiao-s07-blueprint.webp",
+    "/images/9rabbit/details/xiaoqiao-s08-guide.webp"
+  ],
+  "highlights": [
+    {
+      "title": "Authentic Global Quality & Direct Factory QC",
+      "body": "Every unit of Xiaoqiao undergoes multi-stage inspection for structural durability, surface finish, and material biocompatibility before international dispatch."
+    },
+    {
+      "title": "Body-Safe Certified Materials",
+      "body": "Crafted with medical-grade silicone, CyberSkin TPE, tempered borosilicate glass, or skin-friendly couture fabrics—free from phthalates, latex allergens, and heavy metals."
+    },
+    {
+      "title": "100% Discreet Unmarked Fulfillment",
+      "body": "Packaged in plain protective boxes with confidential shipping labels. Available for immediate North America & global express delivery."
+    },
+    {
+      "title": "Wholesale & Private-Label OEM Ready",
+      "body": "Supported by our 35,000 m² ISO-certified manufacturing base with custom laser logo engraving, Pantone color matching, and multilingual retail box customization."
+    }
+  ]
+}

@@ -1,0 +1,158 @@
+---
+import Icon from './Icon.astro';
+import settings from '../data/settings.json';
+---
+<section class="partner-band" id="rfq-section">
+  <div class="partner-band-copy">
+    <p class="eyebrow">DIRECT FACTORY OEM · ODM · WHOLESALE</p>
+    <h2>Scale Your Brand With BOHOL Smart Manufacturing.</h2>
+    <p>Partner directly with our 35,000 m² R&D and production headquarters. From custom 5-axis CNC mold tooling and Pantone LSR silicone matching to private-label retail packaging and global compliance.</p>
+    <div class="partner-metrics">
+      <div><strong>7 Days</strong><span>Rapid 3D & Functional Sample</span></div>
+      <div><strong>500,000+</strong><span>Monthly Unit Production Capacity</span></div>
+      <div><strong>100% QC</strong><span>Full-Line Aging & Waterproof Test</span></div>
+    </div>
+    <div class="partner-links-row">
+      <a class="partner-secondary" href="/catalogue/">Download Full Specification Catalogue <Icon name="arrow-right" size={16} /></a>
+      <a class="partner-secondary" href="/partners/">Full Multi-Model Checklist <Icon name="arrow-up-right" size={16} /></a>
+    </div>
+  </div>
+
+  <div class="partner-form-card">
+    <div class="rfq-card-head">
+      <div>
+        <span class="rfq-badge">DIRECT FACTORY RFQ</span>
+        <h3>Request OEM / ODM Quote & Price List</h3>
+      </div>
+      <span class="rfq-sla">24h Engineering Reply</span>
+    </div>
+
+    <form
+      class="rfq-inline-form"
+      data-rfq-form
+      data-source="partner-band"
+      data-endpoint={settings.enquiryEndpoint || '/api/enquiry'}
+      data-contact={settings.contactEmail || ''}
+    >
+      <div class="rfq-grid">
+        <label class="rfq-field">
+          <span>Full Name <em>*</em></span>
+          <input type="text" name="name" placeholder="Your name" autocomplete="name" required maxlength="120" />
+        </label>
+        <label class="rfq-field">
+          <span>Business Email <em>*</em></span>
+          <input type="email" name="email" placeholder="name@company.com" autocomplete="email" required maxlength="200" />
+        </label>
+        <label class="rfq-field">
+          <span>Company / Brand</span>
+          <input type="text" name="company" placeholder="Company or brand name" autocomplete="organization" maxlength="180" />
+        </label>
+        <label class="rfq-field">
+          <span>WhatsApp / Phone</span>
+          <input type="tel" name="phone" placeholder="+1 / +44 / +86 ..." autocomplete="tel" maxlength="80" />
+        </label>
+        <label class="rfq-field">
+          <span>Cooperation Type</span>
+          <select name="type">
+            <option value="OEM / Private Label">OEM / Private Label</option>
+            <option value="ODM Custom Tooling">ODM Custom Tooling</option>
+            <option value="Wholesale Distribution">Wholesale Distribution</option>
+            <option value="Sample & Price List">Request Sample & Price List</option>
+          </select>
+        </label>
+        <label class="rfq-field">
+          <span>Est. Order Quantity</span>
+          <input type="text" name="quantity" placeholder="e.g. 500 - 2,000 pcs" maxlength="120" />
+        </label>
+        <label class="rfq-field rfq-wide">
+          <span>Project Requirements / Target Models <em>*</em></span>
+          <textarea
+            name="message"
+            rows="3"
+            placeholder="Tell us which models (e.g. Twist & Fun, Bobi I, Lenas), custom logo/packaging requirements, or destination market..."
+            required
+            maxlength="3000"
+          ></textarea>
+        </label>
+      </div>
+
+      <!-- Honeypot anti-spam field for backend -->
+      <input type="text" name="website_hp" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px;opacity:0;height:0;width:0" />
+
+      <div class="rfq-submit-row">
+        <button type="submit" class="btn-primary rfq-submit-btn">
+          <span data-submit-label>Send Inquiry to Factory</span>
+          <Icon name="arrow-up-right" size={16} />
+        </button>
+        <span class="rfq-nda-note">NDA Protected · Direct Factory Pricing</span>
+      </div>
+      <p class="rfq-status" role="status" aria-live="polite" data-rfq-status hidden></p>
+    </form>
+  </div>
+</section>
+
+<script>
+  import { saveRfqLead, generateRfqId, inferCountryFromPhone } from '../lib/rfqCart.js';
+
+  const forms = Array.from(document.querySelectorAll<HTMLFormElement>('[data-rfq-form]'));
+  forms.forEach((form) => {
+    if (form.dataset.bound === 'true') return;
+    form.dataset.bound = 'true';
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      if (!form.reportValidity()) return;
+
+      const btn = form.querySelector<HTMLButtonElement>('button[type="submit"]');
+      const label = form.querySelector<HTMLElement>('[data-submit-label]');
+      const status = form.querySelector<HTMLElement>('[data-rfq-status]');
+
+      const fd = new FormData(form);
+      if (fd.get('website_hp')) return; // Honeypot anti-spam
+
+      const phone = String(fd.get('phone') || '').trim();
+      const countryRaw = String(fd.get('country') || '').trim();
+      const detectedCountry = countryRaw || inferCountryFromPhone(phone) || 'United States';
+      const refId = generateRfqId();
+
+      const payload = {
+        id: refId,
+        source: 'Partner Fast RFQ Form',
+        name: String(fd.get('name') || '').trim(),
+        email: String(fd.get('email') || '').trim(),
+        company: String(fd.get('company') || '').trim(),
+        phone: phone,
+        country: detectedCountry,
+        destinationAddress: countryRaw ? `${countryRaw} Destination Port` : `${detectedCountry} (DDP Door Delivery)`,
+        shippingMode: 'DDP Sea/Air Express',
+        type: String(fd.get('type') || 'OEM / Private Label'),
+        market: detectedCountry,
+        quantity: String(fd.get('quantity') || '500 - 2,000 pcs').trim(),
+        models: fd.getAll('models').map(String),
+        message: String(fd.get('message') || '').trim(),
+        pageUrl: window.location.href,
+        submittedAt: new Date().toISOString()
+      };
+
+      if (btn) btn.disabled = true;
+      if (label) label.textContent = 'Submitting...';
+      if (status) {
+        status.hidden = false;
+        status.className = 'rfq-status rfq-status-pending';
+        status.textContent = 'Connecting with BOHOL backend...';
+      }
+
+      await saveRfqLead(payload);
+
+      setTimeout(() => {
+        if (btn) btn.disabled = false;
+        if (label) label.textContent = 'Send Inquiry to Factory';
+        if (status) {
+          status.className = 'rfq-status rfq-status-ok';
+          status.innerHTML = `✓ <strong>Inquiry received (Ref: ${refId})!</strong> Our engineering &amp; OEM team will reply within 24 hours.`;
+        }
+        form.reset();
+      }, 500);
+    });
+  });
+</script>

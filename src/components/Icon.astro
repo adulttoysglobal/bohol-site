@@ -1,0 +1,9 @@
+---
+import { readFileSync } from 'node:fs';
+import {resolve} from 'node:path';
+const {name='arrow-up-right',size=20}=Astro.props;
+const allowed=['arrow-up-right','arrow-right','arrow-down','plus','minus','list','x','caret-down','check','arrow-left'];
+const icon=allowed.includes(name)?name:'arrow-right';
+const svg=readFileSync(resolve(process.cwd(),`node_modules/@phosphor-icons/core/assets/regular/${icon}.svg`),'utf8').replace(/<svg /,`<svg width="${size}" height="${size}" aria-hidden="true" focusable="false" `).replace(/width="256"/,'').replace(/height="256"/,'');
+---
+<Fragment set:html={svg}/>

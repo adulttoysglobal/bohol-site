@@ -1,0 +1,88 @@
+backend:
+  name: proxy
+  proxy_url: http://127.0.0.1:8081/api/v1
+  branch: main
+local_backend:
+  url: http://127.0.0.1:8081/api/v1
+locale: zh_Hans
+media_folder: public/images
+public_folder: /images
+publish_mode: simple
+slug:
+  encoding: ascii
+  clean_accents: true
+  sanitize_replacement: '-'
+collections:
+  - name: settings
+    label: 网站设置
+    files:
+      - name: general
+        label: 品牌与首页
+        file: src/data/settings.json
+        fields:
+          - {label: 品牌名称, name: brand, widget: string}
+          - {label: 网站 SEO 描述, name: description, widget: text}
+          - {label: 首页上方短句, name: eyebrow, widget: string}
+          - {label: 首页简介, name: heroDescription, widget: text}
+          - {label: 询盘邮箱（填写后产品页显示联系入口）, name: contactEmail, widget: string, required: false}
+          - {label: 公司全称, name: companyName, widget: string}
+          - {label: 公司所在地, name: location, widget: string}
+          - {label: WhatsApp（含国家区号）, name: whatsapp, widget: string, required: false}
+  - name: products
+    label: 产品
+    folder: src/data/products
+    create: true
+    format: json
+    extension: json
+    slug: '{{slug}}'
+    identifier_field: name
+    summary: '{{name}}'
+    fields:
+      - {label: 产品名称, name: name, widget: string}
+      - {label: 副标题, name: subtitle, widget: string}
+      - {label: 产品介绍, name: description, widget: text}
+      - {label: 分类, name: category, widget: select, options: [Electric, Adaptive, Compact, Sculpted]}
+      - {label: 二级类目, name: subCategory, widget: select, options: ["Men's Toys", "Women's Toys", "Sexy Lingerie", "BDSM & Fetish", "Condoms", "Lubricants & Care"], required: false}
+      - {label: 制造厂商, name: vendor, widget: string, default: "BOHOL Direct OEM", required: false}
+      - {label: 图片上方标签, name: label, widget: string}
+      - {label: 排序, name: order, widget: number, value_type: int, min: 1}
+      - {label: 首页推荐, name: featured, widget: boolean, default: true}
+      - {label: 产品主图, name: image, widget: image}
+      - label: 产品图库
+        name: gallery
+        widget: list
+        min: 1
+        field: {label: 图片, name: image, widget: image}
+      - label: 详情大图列表
+        name: detailImages
+        widget: list
+        required: false
+        field: {label: 详情图片, name: detailImage, widget: image}
+      - label: 产品特点
+        name: features
+        widget: list
+        field: {label: 特点, name: feature, widget: string}
+      - label: 产品参数
+        name: specs
+        widget: list
+        fields:
+          - {label: 参数名称, name: label, widget: string}
+          - {label: 参数值, name: value, widget: string}
+      - {label: SEO 标题, name: seoTitle, widget: string}
+      - {label: SEO 描述, name: seoDescription, widget: text}
+      - {label: 参数说明, name: note, widget: text}
+  - name: journal
+    label: 产品知识与文章
+    folder: src/data/journal
+    create: true
+    extension: md
+    format: frontmatter
+    slug: '{{slug}}'
+    fields:
+      - {label: 文章标题, name: title, widget: string}
+      - {label: 摘要及 SEO 描述, name: description, widget: text}
+      - {label: 分类, name: category, widget: string}
+      - {label: 配图, name: image, widget: image}
+      - {label: 排序, name: order, widget: number, value_type: int, min: 1}
+      - {label: 阅读时间, name: readTime, widget: string, default: '3 min read'}
+      - {label: 正文, name: body, widget: markdown}

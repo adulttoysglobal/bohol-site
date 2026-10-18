@@ -1,0 +1,68 @@
+{
+  "name": "Summer Rabbit",
+  "subtitle": "Playful form. Considered details.",
+  "description": "A curved personal massager with a cat-inspired exterior and matching protective case. Pink and lilac versions offer the same recognizable silhouette. Explore the form and exterior controls in the product gallery.",
+  "category": "Sculpted",
+  "label": "PERSONAL MASSAGERS",
+  "order": 11,
+  "featured": false,
+  "image": "/images/summer-hero.webp",
+  "gallery": [
+    "/images/summer-hero.webp",
+    "/images/summer-pink.webp",
+    "/images/summer-lilac.webp",
+    "/images/9rabbit/products/summer-rabbit-gallery-view2.webp",
+    "/images/9rabbit/products/summer-rabbit-gallery-view3.webp"
+  ],
+  "features": [
+    "Curved silhouette",
+    "Protective case",
+    "Pink and lilac variants"
+  ],
+  "specs": [
+    {
+      "label": "Model series",
+      "value": "Summer Rabbit Series"
+    },
+    {
+      "label": "Colors shown",
+      "value": "Pink and lilac"
+    },
+    {
+      "label": "Construction",
+      "value": "Curved body with protective case"
+    }
+  ],
+  "seoTitle": "Summer Rabbit — product details and specifications",
+  "seoDescription": "A curved personal massager with a cat-inspired exterior and matching protective case. Pink and lilac versions offer the same recognizable silhouette. Explo",
+  "note": "Product appearance and features are described from the supplied product materials. Confirm the exact model, accessories and operating instructions before purchase.",
+  "subCategory": "Women's Toys",
+  "vendor": "BOHOL Direct OEM",
+  "detailImages": [
+    "/images/9rabbit/details/summer-rabbit-s01-hero.webp",
+    "/images/9rabbit/details/summer-rabbit-s02-bento.webp",
+    "/images/9rabbit/details/summer-rabbit-s03-anatomy.webp",
+    "/images/9rabbit/details/summer-rabbit-s04-performance.webp",
+    "/images/9rabbit/details/summer-rabbit-s05-material.webp",
+    "/images/9rabbit/details/summer-rabbit-s07-blueprint.webp",
+    "/images/9rabbit/details/summer-rabbit-s08-guide.webp"
+  ],
+  "highlights": [
+    {
+      "title": "Authentic Global Quality & Direct Factory QC",
+      "body": "Every unit of Summer Rabbit undergoes multi-stage inspection for structural durability, surface finish, and material biocompatibility before international dispatch."
+    },
+    {
+      "title": "Body-Safe Certified Materials",
+      "body": "Crafted with medical-grade silicone, CyberSkin TPE, tempered borosilicate glass, or skin-friendly couture fabrics—free from phthalates, latex allergens, and heavy metals."
+    },
+    {
+      "title": "100% Discreet Unmarked Fulfillment",
+      "body": "Packaged in plain protective boxes with confidential shipping labels. Available for immediate North America & global express delivery."
+    },
+    {
+      "title": "Wholesale & Private-Label OEM Ready",
+      "body": "Supported by our 35,000 m² ISO-certified manufacturing base with custom laser logo engraving, Pantone color matching, and multilingual retail box customization."
+    }
+  ]
+}

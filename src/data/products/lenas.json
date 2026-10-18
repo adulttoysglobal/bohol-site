@@ -1,0 +1,81 @@
+{
+  "name": "Lenas",
+  "subtitle": "Dual-motor swinging & G-spot sculpted massager.",
+  "description": "Lenas combines a seamless platinum-cured silicone exterior with an internal swinging actuator and high-frequency tip vibration, engineered for whisper-quiet ergonomic comfort and IPX7 waterproof durability.",
+  "category": "Sculpted",
+  "label": "SCULPTED MASSAGER",
+  "order": 8,
+  "featured": true,
+  "image": "/images/spotlight-lenas.webp",
+  "gallery": [
+    "/images/spotlight-lenas.webp",
+    "/images/9rabbit/products/lenas-gallery-view2.webp",
+    "/images/9rabbit/products/lenas-gallery-view3.webp",
+    "/images/9rabbit/products/lenas-gallery-view4.webp",
+    "/images/9rabbit/products/lenas-gallery-view5.webp"
+  ],
+  "features": [
+    "Dual-motor swing + vibration",
+    "Seamless platinum silicone",
+    "Whisper-quiet < 45 dB drive",
+    "IPX7 waterproof rating"
+  ],
+  "specs": [
+    {
+      "label": "Model Series",
+      "value": "BOHOL Lenas Swing"
+    },
+    {
+      "label": "Drive System",
+      "value": "Dual independent motors (swing + vibration)"
+    },
+    {
+      "label": "Material",
+      "value": "Platinum-cured liquid silicone"
+    },
+    {
+      "label": "Waterproof Rating",
+      "value": "IPX7 submersible"
+    },
+    {
+      "label": "Charging",
+      "value": "Magnetic pogo-pin USB"
+    },
+    {
+      "label": "OEM / ODM",
+      "value": "Custom silicone Pantone & private-label packaging"
+    }
+  ],
+  "seoTitle": "Lenas — Dual-Motor Swinging Silicone Massager | BOHOL",
+  "seoDescription": "BOHOL Lenas dual-motor swinging massager crafted from seamless medical-grade silicone. Factory OEM/ODM specifications.",
+  "note": "Available for wholesale distribution and OEM/ODM private-label customization.",
+  "subCategory": "Women's Toys",
+  "vendor": "BOHOL Direct OEM",
+  "detailImages": [
+    "/images/9rabbit/details/lenas-s01-hero.webp",
+    "/images/9rabbit/details/lenas-s02-bento.webp",
+    "/images/9rabbit/details/lenas-s03-anatomy.webp",
+    "/images/9rabbit/details/lenas-s04-performance.webp",
+    "/images/9rabbit/details/lenas-s05-material.webp",
+    "/images/9rabbit/details/lenas-s07-blueprint.webp",
+    "/images/9rabbit/details/lenas-s08-guide.webp"
+  ],
+  "highlights": [
+    {
+      "title": "Authentic Global Quality & Direct Factory QC",
+      "body": "Every unit of Lenas undergoes multi-stage inspection for structural durability, surface finish, and material biocompatibility before international dispatch."
+    },
+    {
+      "title": "Body-Safe Certified Materials",
+      "body": "Crafted with medical-grade silicone, CyberSkin TPE, tempered borosilicate glass, or skin-friendly couture fabrics—free from phthalates, latex allergens, and heavy metals."
+    },
+    {
+      "title": "100% Discreet Unmarked Fulfillment",
+      "body": "Packaged in plain protective boxes with confidential shipping labels. Available for immediate North America & global express delivery."
+    },
+    {
+      "title": "Wholesale & Private-Label OEM Ready",
+      "body": "Supported by our 35,000 m² ISO-certified manufacturing base with custom laser logo engraving, Pantone color matching, and multilingual retail box customization."
+    }
+  ]
+}

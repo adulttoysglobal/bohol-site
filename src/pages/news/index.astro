@@ -1,0 +1,1161 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+import Icon from '../../components/Icon.astro';
+
+// Fetch all 56 articles, sorted by pubDate descending, then order ascending
+const allArticles = (await getCollection('journal')).sort((a, b) => {
+  const dateA = new Date(a.data.pubDate || '2026-10-14').getTime();
+  const dateB = new Date(b.data.pubDate || '2026-10-14').getTime();
+  if (dateB !== dateA) return dateB - dateA;
+  return a.data.order - b.data.order;
+});
+
+// Category pills definition with exact counts
+const categoryList = [
+  { label: 'All News', slug: 'all', count: allArticles.length },
+  { label: 'Pleasure Tech', slug: 'Pleasure Tech', count: allArticles.filter(a => a.data.category === 'Pleasure Tech').length },
+  { label: 'Male Wellness', slug: 'Male Wellness', count: allArticles.filter(a => a.data.category === 'Male Wellness').length },
+  { label: 'Couples & Lingerie', slug: 'Couples & Lingerie', count: allArticles.filter(a => a.data.category === 'Couples & Lingerie').length },
+  { label: 'Condoms & Lubricants', slug: 'Condoms & Lubricants', count: allArticles.filter(a => a.data.category === 'Condoms & Lubricants').length },
+  { label: 'Hotel Vending', slug: 'Hotel Vending', count: allArticles.filter(a => a.data.category === 'Hotel Vending').length },
+  { label: 'Brand & OEM', slug: 'Brand & Manufacturing', count: allArticles.filter(a => a.data.category === 'Brand & Manufacturing').length },
+];
+
+// Top featured article for the hero spotlight
+const featuredArticle = allArticles.find(a => a.data.featured) || allArticles[0];
+
+// Format date helper
+const formatDate = (dateStr?: string) => {
+  if (!dateStr) return 'Oct 15, 2026';
+  return new Date(dateStr).toLocaleDateString('en-US', {
+    month: 'short',
+    day: 'numeric',
+    year: 'numeric'
+  });
+};
+
+// GEO FAQ Schema for Industry News Hub
+const newsFaqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: 'What topics does BOHOL Industry News cover?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'BOHOL Industry News provides daily technical insights across 6 core pillars: female pleasure tech engineering, male automated strokers, couples intimacy and lingerie, condom materials science (0.01mm polyurethane vs latex), autonomous hotel room vending retail, and OEM cleanroom manufacturing standards.'
+      }
+    },
+    {
+      '@type': 'Question',
+      name: 'How often are new industry articles published?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Articles are published daily at 09:00 AM, curated by BOHOL Intimate Wellness Labs, Electrical Engineering Division, and Vending Intelligence Group direct from our 35,000 m² manufacturing campus.'
+      }
+    },
+    {
+      '@type': 'Question',
+      name: 'Can distributors and media syndicate BOHOL news via RSS?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Yes. BOHOL provides an automated dynamic RSS 2.0 XML endpoint at /rss.xml for seamless syndication into news readers, enterprise ERPs, and industry feeds.'
+      }
+    }
+  ]
+};
+---
+
+<Layout
+  title="Adult Intimate Wellness & Smart Manufacturing Industry News | BOHOL Intelligence"
+  description="Explore daily technical breakthroughs, female pleasure tech engineering, male stroker innovations, 0.01mm condom science, and autonomous hotel vending economics from BOHOL 35,000 m² cleanroom campus."
+  schema={newsFaqSchema}
+>
+  <!-- TOP BREADCRUMB -->
+  <div class="news-breadcrumb-bar">
+    <div class="news-container">
+      <nav class="news-crumbs" aria-label="Breadcrumb">
+        <a href="/">Home</a>
+        <span class="crumb-sep">/</span>
+        <span aria-current="page">Industry News</span>
+      </nav>
+    </div>
+  </div>
+
+  <!-- EDITORIAL HERO HEADER -->
+  <header class="news-hero-section">
+    <div class="news-container text-center">
+      <div class="news-pill-tag">
+        <span class="news-live-dot"></span>
+        <span>BOHOL INDUSTRY INTELLIGENCE & NEWS FEED</span>
+      </div>
+      <h1 class="news-main-title">Adult Wellness & Smart Manufacturing News</h1>
+      <p class="news-hero-desc">
+        Authoritative engineering breakdowns, female pleasure tech trends, male stroker innovations, condom material science, and autonomous hotel room vending retail direct from our 35,000 m² cleanroom campus.
+      </p>
+
+      <!-- Key Metrics Badge Bar -->
+      <div class="news-metrics-strip">
+        <div class="metric-item">
+          <strong>56</strong>
+          <span>In-Depth Articles</span>
+        </div>
+        <div class="metric-divider"></div>
+        <div class="metric-item">
+          <strong>6</strong>
+          <span>Industry Pillars</span>
+        </div>
+        <div class="metric-divider"></div>
+        <div class="metric-item">
+          <strong>Daily 09:00</strong>
+          <span>Automated Publishing</span>
+        </div>
+        <div class="metric-divider"></div>
+        <div class="metric-item">
+          <strong>RSS 2.0</strong>
+          <span>Feed Syndication</span>
+        </div>
+      </div>
+
+      <!-- Quick Action Buttons -->
+      <div class="news-actions-row">
+        <a href="/rss.xml" target="_blank" class="news-btn-secondary" title="Subscribe via RSS 2.0 XML">
+          <span>📡 Subscribe via RSS Feed</span>
+        </a>
+        <a href="/rfq/" class="news-btn-primary" title="Launch OEM RFQ Inquiry">
+          <span>Launch OEM Project RFQ</span>
+          <Icon name="arrow-up-right" size={14} />
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- FEATURED SPOTLIGHT ARTICLE -->
+  {featuredArticle && (
+    <section class="news-featured-wrap">
+      <div class="news-container">
+        <div class="featured-card">
+          <div class="featured-card-img">
+            <img
+              src={featuredArticle.data.image}
+              alt={featuredArticle.data.title}
+              width="800"
+              height="500"
+              loading="eager"
+            />
+            <span class="featured-ribbon">⭐ Featured Story</span>
+          </div>
+          <div class="featured-card-body">
+            <div class="featured-meta">
+              <span class="news-cat-pill">{featuredArticle.data.category}</span>
+              <span class="news-date-pill">📅 {formatDate(featuredArticle.data.pubDate)}</span>
+              <span class="news-read-pill">⏱️ {featuredArticle.data.readTime}</span>
+            </div>
+            <h2 class="featured-title">
+              <a href={`/journal/${featuredArticle.id}/`}>{featuredArticle.data.title}</a>
+            </h2>
+            <p class="featured-excerpt">{featuredArticle.data.description}</p>
+            <div class="featured-footer">
+              <div class="author-tag">
+                <span class="author-icon">🏢</span>
+                <span>{featuredArticle.data.author || 'BOHOL Intimate Wellness Lab'}</span>
+              </div>
+              <a href={`/journal/${featuredArticle.id}/`} class="featured-read-btn">
+                <span>Read Full Analysis</span>
+                <Icon name="arrow-up-right" size={15} />
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- FILTER & SEARCH CONTROLS -->
+  <section class="news-controls-section">
+    <div class="news-container">
+      <div class="news-controls-bar">
+        <!-- Live Search Input -->
+        <div class="news-search-box">
+          <svg class="search-icon" width="16" height="16" viewBox="0 0 512 512" fill="currentColor">
+            <path d="M508.5 468.9L387.1 347.5c-2.3-2.3-5.3-3.5-8.5-3.5h-13.2c31.5-36.5 50.6-84 50.6-136C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c52 0 99.5-19.1 136-50.6v13.2c0 3.2 1.3 6.2 3.5 8.5l121.4 121.4c4.7 4.7 12.3 4.7 17 0l22.6-22.6c4.7-4.7 4.7-12.3 0-17zM208 368c-88.4 0-160-71.6-160-160S119.6 48 208 48s160 71.6 160 160-71.6 160-160 160z"/>
+          </svg>
+          <input
+            type="search"
+            id="news-search-input"
+            placeholder="Search 56 articles (e.g. vibrator, stroker, 0.01, hotel, suction, silicone)..."
+            autocomplete="off"
+          />
+          <button type="button" id="clear-search-btn" class="clear-btn" style="display:none;" title="Clear search">✕</button>
+        </div>
+
+        <!-- Result Counter -->
+        <div class="news-count-badge">
+          Showing <strong id="visible-count">{allArticles.length}</strong> of {allArticles.length} articles
+        </div>
+      </div>
+
+      <!-- Category Filter Tabs -->
+      <div class="news-category-pills" role="tablist">
+        {categoryList.map((cat, idx) => (
+          <button
+            type="button"
+            class={`cat-filter-btn ${idx === 0 ? 'active' : ''}`}
+            data-cat={cat.slug}
+            role="tab"
+          >
+            <span>{cat.label}</span>
+            <span class="cat-pill-count">{cat.count}</span>
+          </button>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ARTICLES GRID -->
+  <section class="news-grid-section">
+    <div class="news-container">
+      <div class="news-cards-grid" id="news-grid">
+        {allArticles.map((article) => (
+          <article
+            class="news-card"
+            data-category={article.data.category}
+            data-title={article.data.title.toLowerCase()}
+            data-desc={article.data.description.toLowerCase()}
+            data-tags={article.data.tags ? article.data.tags.join(' ').toLowerCase() : ''}
+          >
+            <a href={`/journal/${article.id}/`} class="news-card-media" title={article.data.title}>
+              <img
+                src={article.data.image}
+                alt={article.data.title}
+                width="600"
+                height="380"
+                loading="lazy"
+              />
+              <span class="news-card-category-tag">{article.data.category}</span>
+            </a>
+
+            <div class="news-card-content">
+              <div class="news-card-meta">
+                <span class="news-card-date">📅 {formatDate(article.data.pubDate)}</span>
+                <span class="news-card-time">⏱️ {article.data.readTime}</span>
+              </div>
+
+              <h3 class="news-card-title">
+                <a href={`/journal/${article.id}/`} title={article.data.title}>{article.data.title}</a>
+              </h3>
+
+              <p class="news-card-desc">{article.data.description}</p>
+
+              <div class="news-card-footer">
+                <span class="news-card-author">
+                  🏢 {article.data.author || 'BOHOL Intimate Wellness Lab'}
+                </span>
+                <a href={`/journal/${article.id}/`} class="news-card-link" aria-label={`Read article: ${article.data.title}`}>
+                  <span>Read Article</span>
+                  <Icon name="arrow-up-right" size={14} />
+                </a>
+              </div>
+            </div>
+          </article>
+        ))}
+      </div>
+
+      <!-- Empty State When No Results Match -->
+      <div id="no-results-box" class="news-empty-state" style="display:none;">
+        <div class="empty-icon">🔍</div>
+        <h3>No matching industry articles found</h3>
+        <p>Try searching for a different keyword like "silicone", "condom", "vibrator", "hotel", or clear your filter.</p>
+        <button type="button" id="reset-filter-btn" class="news-btn-primary">Reset Filters & Show All</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- RSS SYNDICATION & NEWSLETTER CALLOUT -->
+  <section class="news-syndication-section">
+    <div class="news-container">
+      <div class="syndication-card">
+        <div class="syndication-icon">📡</div>
+        <div class="syndication-copy">
+          <h3>Automated Daily News Syndication (RSS 2.0)</h3>
+          <p>
+            Stay ahead of intimacy hardware innovations. All articles published from BOHOL 35,000 m² cleanroom campus are automatically syndicated to our public RSS feed for media partners, retail curators, and global distributors.
+          </p>
+          <div class="feed-url-box">
+            <code>https://bohol-product-studio.subaohe.chatgpt.site/rss.xml</code>
+            <a href="/rss.xml" target="_blank" class="feed-link-btn">Open RSS Feed</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GEO & FACTORY PROCUREMENT FAQ SECTION -->
+  <section class="news-faq-section">
+    <div class="news-container">
+      <div class="text-center" style="margin-bottom: 36px;">
+        <div class="news-pill-tag" style="margin-bottom: 8px;">
+          <span>TECHNICAL & INDUSTRY REFERENCES</span>
+        </div>
+        <h2 style="font-size: 28px; font-weight: 800; color: #0f172a; margin: 0 0 10px;">Frequently Asked Questions</h2>
+        <p style="font-size: 15px; color: #64748b; max-width: 650px; margin: 0 auto;">
+          Authoritative references on adult novelty product standards, OEM cleanroom manufacturing, and global DDP distribution.
+        </p>
+      </div>
+
+      <div class="faq-list-grid">
+        <div class="faq-item-card">
+          <h4>Q: How does BOHOL guarantee body-safe biocompatibility?</h4>
+          <p>A: All silicone hardware is molded from 100% platinum-cured liquid silicone rubber (LSR) inside our Class 100,000 dust-free cleanrooms. It is free from phthalates, BPA, and porous fillers, certified under ISO 10993 cytotoxicity and FDA 21 CFR 177.2600 standards.</p>
+        </div>
+
+        <div class="faq-item-card">
+          <h4>Q: Can retail brands commission private-mold vibrators or strokers?</h4>
+          <p>A: Yes. With in-house 5-axis DMG MORI CNC tooling and mirror spark EDM, BOHOL delivers functional 3D working prototypes in 7 days, complete T1 steel molds in 25 days, and guarantees 100% exclusive mold ownership protected by bilateral NDAs.</p>
+        </div>
+
+        <div class="faq-item-card">
+          <h4>Q: What are the primary advantages of autonomous hotel room vending kiosks?</h4>
+          <p>A: In-room kiosks eliminate guest embarrassment at the front desk, capturing high-velocity impulse sales between 10 PM and 2 AM. Operators recoup machine hardware costs within 60 to 90 days with 65%–78% product gross profit margins.</p>
+        </div>
+
+        <div class="faq-item-card">
+          <h4>Q: How does 0.01mm polyurethane compare to standard natural latex condoms?</h4>
+          <p>A: At only 0.010 mm thickness, waterborne polyurethane conducts body heat nearly 7 times faster than latex for immediate skin-on-skin warmth. It is also 100% hypoallergenic and protein-free for users with latex allergies.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BOTTOM FACTORY CTA BANNER -->
+  <section class="news-cta-section">
+    <div class="news-container text-center">
+      <h2>Ready to Partner with BOHOL Direct Manufacturing?</h2>
+      <p>Whether you need private-label branding, customized steel tooling, or turnkey hotel vending inventory, our engineering team is here to assist.</p>
+      <div class="cta-btns">
+        <a href="/rfq/" class="news-btn-primary" style="padding: 14px 28px; font-size: 15px;">
+          <span>Request Wholesale & OEM RFQ Quote</span>
+          <Icon name="arrow-up-right" size={16} />
+        </a>
+        <a href="/manufacturing/" class="news-btn-secondary" style="padding: 14px 28px; font-size: 15px;">
+          <span>Tour 35,000 m² Campus Facilities</span>
+        </a>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<!-- CLIENT-SIDE INSTANT FILTER & SEARCH JAVASCRIPT -->
+<script is:inline>
+  document.addEventListener('DOMContentLoaded', () => {
+    const searchInput = document.getElementById('news-search-input');
+    const clearBtn = document.getElementById('clear-search-btn');
+    const filterBtns = document.querySelectorAll('.cat-filter-btn');
+    const cards = document.querySelectorAll('#news-grid .news-card');
+    const visibleCountEl = document.getElementById('visible-count');
+    const noResultsBox = document.getElementById('no-results-box');
+    const resetFilterBtn = document.getElementById('reset-filter-btn');
+
+    let currentCat = 'all';
+    let currentQuery = '';
+
+    // Check URL query parameters (e.g. ?cat=Pleasure Tech or ?q=vibrator)
+    const urlParams = new URLSearchParams(window.location.search);
+    const catParam = urlParams.get('cat');
+    const qParam = urlParams.get('q');
+
+    if (catParam) {
+      currentCat = catParam;
+      filterBtns.forEach(btn => {
+        if (btn.getAttribute('data-cat') === catParam) {
+          btn.classList.add('active');
+        } else {
+          btn.classList.remove('active');
+        }
+      });
+    }
+
+    if (qParam && searchInput) {
+      searchInput.value = qParam;
+      currentQuery = qParam.toLowerCase().trim();
+      if (clearBtn) clearBtn.style.display = 'block';
+    }
+
+    const filterArticles = () => {
+      let visibleCount = 0;
+
+      cards.forEach(card => {
+        const cat = card.getAttribute('data-category') || '';
+        const title = card.getAttribute('data-title') || '';
+        const desc = card.getAttribute('data-desc') || '';
+        const tags = card.getAttribute('data-tags') || '';
+
+        // Category match
+        const matchesCat = currentCat === 'all' || cat.toLowerCase() === currentCat.toLowerCase();
+
+        // Search query match
+        const matchesQuery = !currentQuery ||
+          title.includes(currentQuery) ||
+          desc.includes(currentQuery) ||
+          tags.includes(currentQuery);
+
+        if (matchesCat && matchesQuery) {
+          card.style.display = 'flex';
+          visibleCount++;
+        } else {
+          card.style.display = 'none';
+        }
+      });
+
+      if (visibleCountEl) visibleCountEl.textContent = visibleCount;
+
+      if (noResultsBox) {
+        noResultsBox.style.display = visibleCount === 0 ? 'block' : 'none';
+      }
+    };
+
+    // Initial filter run
+    filterArticles();
+
+    // Category button click
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        filterBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        currentCat = btn.getAttribute('data-cat') || 'all';
+
+        // Update URL cleanly without reloading
+        const url = new URL(window.location);
+        if (currentCat === 'all') {
+          url.searchParams.delete('cat');
+        } else {
+          url.searchParams.set('cat', currentCat);
+        }
+        window.history.replaceState({}, '', url);
+
+        filterArticles();
+      });
+    });
+
+    // Search input typing
+    if (searchInput) {
+      searchInput.addEventListener('input', (e) => {
+        currentQuery = e.target.value.toLowerCase().trim();
+        if (clearBtn) {
+          clearBtn.style.display = currentQuery.length > 0 ? 'block' : 'none';
+        }
+
+        const url = new URL(window.location);
+        if (!currentQuery) {
+          url.searchParams.delete('q');
+        } else {
+          url.searchParams.set('q', currentQuery);
+        }
+        window.history.replaceState({}, '', url);
+
+        filterArticles();
+      });
+    }
+
+    // Clear search button
+    if (clearBtn) {
+      clearBtn.addEventListener('click', () => {
+        if (searchInput) searchInput.value = '';
+        currentQuery = '';
+        clearBtn.style.display = 'none';
+
+        const url = new URL(window.location);
+        url.searchParams.delete('q');
+        window.history.replaceState({}, '', url);
+
+        filterArticles();
+      });
+    }
+
+    // Reset button in empty state
+    if (resetFilterBtn) {
+      resetFilterBtn.addEventListener('click', () => {
+        currentCat = 'all';
+        currentQuery = '';
+        if (searchInput) searchInput.value = '';
+        if (clearBtn) clearBtn.style.display = 'none';
+
+        filterBtns.forEach(b => {
+          if (b.getAttribute('data-cat') === 'all') b.classList.add('active');
+          else b.classList.remove('active');
+        });
+
+        const url = new URL(window.location.origin + window.location.pathname);
+        window.history.replaceState({}, '', url);
+
+        filterArticles();
+      });
+    }
+  });
+</script>
+
+<!-- PURE WHITE ELEGANT EDITORIAL STYLING -->
+<style>
+  /* Common Container */
+  .news-container {
+    width: 100%;
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+  .text-center {
+    text-align: center;
+  }
+
+  /* Breadcrumb */
+  .news-breadcrumb-bar {
+    background: #ffffff;
+    border-bottom: 1px solid #e2e8f0;
+    padding: 12px 0;
+  }
+  .news-crumbs {
+    font-size: 13px;
+    color: #64748b;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .news-crumbs a {
+    color: #475569;
+    text-decoration: none;
+    transition: color 0.15s;
+  }
+  .news-crumbs a:hover {
+    color: #0284c7;
+  }
+  .crumb-sep {
+    color: #cbd5e1;
+  }
+
+  /* Hero Section */
+  .news-hero-section {
+    background: #ffffff;
+    padding: 48px 0 32px;
+    border-bottom: 1px solid #f1f5f9;
+  }
+  .news-pill-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    padding: 6px 14px;
+    border-radius: 9999px;
+    font-size: 11.5px;
+    font-weight: 700;
+    color: #475569;
+    letter-spacing: 0.05em;
+    margin-bottom: 16px;
+  }
+  .news-live-dot {
+    width: 8px;
+    height: 8px;
+    background: #10b981;
+    border-radius: 50%;
+    box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.2);
+    animation: pulseDot 2s infinite;
+  }
+  @keyframes pulseDot {
+    0%, 100% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.2); opacity: 0.8; }
+  }
+  .news-main-title {
+    font-size: clamp(2.2rem, 3.8vw, 3.4rem);
+    font-weight: 800;
+    color: #0f172a;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    margin: 0 0 16px;
+  }
+  .news-hero-desc {
+    font-size: 16px;
+    color: #64748b;
+    max-width: 820px;
+    margin: 0 auto 28px;
+    line-height: 1.65;
+  }
+
+  /* Metrics Strip */
+  .news-metrics-strip {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 12px 28px;
+    margin: 0 auto 28px;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+  .metric-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .metric-item strong {
+    font-size: 19px;
+    font-weight: 800;
+    color: #0f172a;
+  }
+  .metric-item span {
+    font-size: 11px;
+    font-weight: 600;
+    color: #64748b;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+  .metric-divider {
+    width: 1px;
+    height: 28px;
+    background: #cbd5e1;
+  }
+
+  /* Actions Row */
+  .news-actions-row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .news-btn-primary {
+    background: #0f172a;
+    color: #ffffff;
+    font-size: 13.5px;
+    font-weight: 700;
+    padding: 10px 20px;
+    border-radius: 8px;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    border: none;
+    cursor: pointer;
+    transition: background 0.15s, transform 0.15s;
+  }
+  .news-btn-primary:hover {
+    background: #0284c7;
+    transform: translateY(-1px);
+    color: #ffffff;
+  }
+  .news-btn-secondary {
+    background: #ffffff;
+    color: #0f172a;
+    border: 1px solid #cbd5e1;
+    font-size: 13.5px;
+    font-weight: 700;
+    padding: 10px 20px;
+    border-radius: 8px;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.15s;
+  }
+  .news-btn-secondary:hover {
+    border-color: #0284c7;
+    color: #0284c7;
+    background: #f0f9ff;
+  }
+
+  /* Featured Article Spotlight */
+  .news-featured-wrap {
+    padding: 36px 0;
+    background: #ffffff;
+  }
+  .featured-card {
+    display: grid;
+    grid-template-columns: 1.15fr 1fr;
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(15, 23, 42, 0.05);
+    transition: box-shadow 0.25s, transform 0.25s;
+  }
+  .featured-card:hover {
+    box-shadow: 0 12px 32px rgba(15, 23, 42, 0.08);
+  }
+  .featured-card-img {
+    position: relative;
+    background: #f8fafc;
+    min-height: 320px;
+  }
+  .featured-card-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .featured-ribbon {
+    position: absolute;
+    top: 14px;
+    left: 14px;
+    background: #0f172a;
+    color: #ffffff;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: 6px;
+    letter-spacing: 0.03em;
+  }
+  .featured-card-body {
+    padding: 32px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .featured-meta {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 14px;
+    flex-wrap: wrap;
+  }
+  .news-cat-pill {
+    background: #f0fdf4;
+    color: #166534;
+    border: 1px solid #bbf7d0;
+    font-size: 11.5px;
+    font-weight: 700;
+    padding: 3px 10px;
+    border-radius: 6px;
+  }
+  .news-date-pill, .news-read-pill {
+    font-size: 12px;
+    color: #64748b;
+    font-weight: 500;
+  }
+  .featured-title {
+    font-size: clamp(1.4rem, 2.2vw, 1.85rem);
+    font-weight: 800;
+    color: #0f172a;
+    line-height: 1.25;
+    margin: 0 0 12px;
+  }
+  .featured-title a {
+    color: inherit;
+    text-decoration: none;
+    transition: color 0.15s;
+  }
+  .featured-title a:hover {
+    color: #0284c7;
+  }
+  .featured-excerpt {
+    font-size: 14px;
+    color: #64748b;
+    line-height: 1.6;
+    margin: 0 0 24px;
+  }
+  .featured-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 18px;
+    border-top: 1px solid #f1f5f9;
+  }
+  .author-tag {
+    font-size: 12.5px;
+    color: #475569;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .featured-read-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    font-weight: 700;
+    color: #0284c7;
+    text-decoration: none;
+    transition: color 0.15s;
+  }
+  .featured-read-btn:hover {
+    color: #0369a1;
+  }
+
+  /* Controls Bar & Filters */
+  .news-controls-section {
+    padding: 16px 0 24px;
+    background: #ffffff;
+    border-top: 1px solid #f1f5f9;
+  }
+  .news-controls-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+  }
+  .news-search-box {
+    position: relative;
+    flex: 1;
+    max-width: 520px;
+  }
+  .news-search-box .search-icon {
+    position: absolute;
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #94a3b8;
+    pointer-events: none;
+  }
+  .news-search-box input {
+    width: 100%;
+    padding: 11px 40px 11px 38px;
+    font-size: 13.5px;
+    border: 1px solid #cbd5e1;
+    border-radius: 9999px;
+    outline: none;
+    background: #ffffff;
+    transition: border-color 0.15s, box-shadow 0.15s;
+  }
+  .news-search-box input:focus {
+    border-color: #0284c7;
+    box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.12);
+  }
+  .clear-btn {
+    position: absolute;
+    right: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: #94a3b8;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 700;
+  }
+  .news-count-badge {
+    font-size: 13px;
+    color: #64748b;
+  }
+  .news-count-badge strong {
+    color: #0f172a;
+  }
+
+  /* Category Filter Pills */
+  .news-category-pills {
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    padding-bottom: 6px;
+    scrollbar-width: thin;
+  }
+  .cat-filter-btn {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    color: #475569;
+    padding: 8px 16px;
+    border-radius: 9999px;
+    font-size: 12.5px;
+    font-weight: 600;
+    cursor: pointer;
+    white-space: nowrap;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.15s;
+  }
+  .cat-filter-btn:hover {
+    border-color: #94a3b8;
+    background: #f1f5f9;
+  }
+  .cat-filter-btn.active {
+    background: #0f172a;
+    color: #ffffff;
+    border-color: #0f172a;
+  }
+  .cat-pill-count {
+    background: rgba(148, 163, 184, 0.25);
+    padding: 1px 6px;
+    border-radius: 9999px;
+    font-size: 10px;
+    font-weight: 700;
+  }
+  .cat-filter-btn.active .cat-pill-count {
+    background: rgba(255, 255, 255, 0.25);
+    color: #ffffff;
+  }
+
+  /* Articles Grid */
+  .news-grid-section {
+    padding: 24px 0 60px;
+    background: #ffffff;
+  }
+  .news-cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 28px;
+  }
+  .news-card {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 14px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 2px 10px rgba(15, 23, 42, 0.03);
+    transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+  }
+  .news-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 24px rgba(15, 23, 42, 0.08);
+    border-color: #0284c7;
+  }
+  .news-card-media {
+    position: relative;
+    display: block;
+    aspect-ratio: 16 / 10;
+    background: #f8fafc;
+    overflow: hidden;
+  }
+  .news-card-media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.35s ease;
+  }
+  .news-card:hover .news-card-media img {
+    transform: scale(1.04);
+  }
+  .news-card-category-tag {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background: rgba(15, 23, 42, 0.85);
+    color: #ffffff;
+    backdrop-filter: blur(4px);
+    font-size: 10.5px;
+    font-weight: 700;
+    padding: 3px 8px;
+    border-radius: 4px;
+    letter-spacing: 0.02em;
+  }
+  .news-card-content {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
+  .news-card-meta {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 11.5px;
+    color: #64748b;
+    margin-bottom: 8px;
+  }
+  .news-card-title {
+    font-size: 17px;
+    font-weight: 700;
+    color: #0f172a;
+    line-height: 1.35;
+    margin: 0 0 10px;
+  }
+  .news-card-title a {
+    color: inherit;
+    text-decoration: none;
+    transition: color 0.15s;
+  }
+  .news-card-title a:hover {
+    color: #0284c7;
+  }
+  .news-card-desc {
+    font-size: 13px;
+    color: #64748b;
+    line-height: 1.55;
+    margin: 0 0 18px;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    flex: 1;
+  }
+  .news-card-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 14px;
+    border-top: 1px solid #f1f5f9;
+  }
+  .news-card-author {
+    font-size: 11px;
+    color: #94a3b8;
+    font-weight: 600;
+  }
+  .news-card-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 12.5px;
+    font-weight: 700;
+    color: #0284c7;
+    text-decoration: none;
+    transition: color 0.15s;
+  }
+  .news-card-link:hover {
+    color: #0369a1;
+  }
+
+  /* Empty State */
+  .news-empty-state {
+    text-align: center;
+    padding: 60px 20px;
+    background: #f8fafc;
+    border: 1px dashed #cbd5e1;
+    border-radius: 16px;
+    margin: 40px auto;
+    max-width: 500px;
+  }
+  .empty-icon {
+    font-size: 40px;
+    margin-bottom: 12px;
+  }
+  .news-empty-state h3 {
+    font-size: 18px;
+    font-weight: 700;
+    color: #0f172a;
+    margin: 0 0 8px;
+  }
+  .news-empty-state p {
+    font-size: 14px;
+    color: #64748b;
+    margin: 0 0 20px;
+  }
+
+  /* RSS Syndication Banner */
+  .news-syndication-section {
+    padding: 20px 0 50px;
+    background: #ffffff;
+  }
+  .syndication-card {
+    background: #f0fdf4;
+    border: 1px solid #bbf7d0;
+    border-radius: 16px;
+    padding: 32px;
+    display: flex;
+    align-items: center;
+    gap: 28px;
+  }
+  .syndication-icon {
+    font-size: 44px;
+    flex-shrink: 0;
+  }
+  .syndication-copy h3 {
+    font-size: 19px;
+    font-weight: 800;
+    color: #14532d;
+    margin: 0 0 6px;
+  }
+  .syndication-copy p {
+    font-size: 14px;
+    color: #166534;
+    margin: 0 0 16px;
+    line-height: 1.5;
+  }
+  .feed-url-box {
+    display: inline-flex;
+    align-items: center;
+    background: #ffffff;
+    border: 1px solid #86efac;
+    border-radius: 8px;
+    padding: 6px 12px;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .feed-url-box code {
+    font-size: 12.5px;
+    color: #0f172a;
+  }
+  .feed-link-btn {
+    font-size: 12px;
+    font-weight: 700;
+    color: #15803d;
+    text-decoration: underline;
+  }
+
+  /* FAQ Section */
+  .news-faq-section {
+    background: #f8fafc;
+    border-top: 1px solid #e2e8f0;
+    border-bottom: 1px solid #e2e8f0;
+    padding: 60px 0;
+  }
+  .faq-list-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+  }
+  .faq-item-card {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 22px;
+  }
+  .faq-item-card h4 {
+    font-size: 15px;
+    font-weight: 700;
+    color: #0f172a;
+    margin: 0 0 8px;
+    line-height: 1.4;
+  }
+  .faq-item-card p {
+    font-size: 13.5px;
+    color: #64748b;
+    margin: 0;
+    line-height: 1.6;
+  }
+
+  /* Bottom CTA */
+  .news-cta-section {
+    padding: 60px 0;
+    background: #ffffff;
+  }
+  .news-cta-section h2 {
+    font-size: 28px;
+    font-weight: 800;
+    color: #0f172a;
+    margin: 0 0 10px;
+  }
+  .news-cta-section p {
+    font-size: 15px;
+    color: #64748b;
+    max-width: 600px;
+    margin: 0 auto 24px;
+  }
+  .cta-btns {
+    display: flex;
+    justify-content: center;
+    gap: 14px;
+    flex-wrap: wrap;
+  }
+
+  /* Responsive Adjustments */
+  @media (max-width: 900px) {
+    .featured-card {
+      grid-template-columns: 1fr;
+    }
+    .featured-card-body {
+      padding: 24px;
+    }
+    .syndication-card {
+      flex-direction: column;
+      text-align: center;
+    }
+    .feed-url-box {
+      justify-content: center;
+    }
+  }
+</style>

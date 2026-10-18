@@ -1,0 +1,81 @@
+{
+  "name": "Wearable Big Mouth",
+  "subtitle": "Ergonomic curved telescopic & swinging massager.",
+  "description": "Designed with a contoured wearable silhouette and flexible neck joint, Wearable Big Mouth delivers multi-angle swinging and telescopic motion wrapped in liquid-soft medical-grade silicone.",
+  "category": "Sculpted",
+  "label": "ERGONOMIC WEARABLE",
+  "order": 7,
+  "featured": true,
+  "image": "/images/spotlight-wearable.webp",
+  "gallery": [
+    "/images/spotlight-wearable.webp",
+    "/images/9rabbit/products/wearable-big-mouth-gallery-view2.webp",
+    "/images/9rabbit/products/wearable-big-mouth-gallery-view3.webp",
+    "/images/9rabbit/products/wearable-big-mouth-gallery-view4.webp",
+    "/images/9rabbit/products/wearable-big-mouth-gallery-view5.webp"
+  ],
+  "features": [
+    "Contoured wearable geometry",
+    "Telescopic & swinging motion",
+    "Body-safe liquid silicone",
+    "IPX7 waterproof construction"
+  ],
+  "specs": [
+    {
+      "label": "Model Series",
+      "value": "BOHOL Wearable Series"
+    },
+    {
+      "label": "Actuation",
+      "value": "Multi-frequency telescopic & swing"
+    },
+    {
+      "label": "Material",
+      "value": "Food/medical-grade liquid silicone + ABS"
+    },
+    {
+      "label": "Waterproof Rating",
+      "value": "IPX7 sealed body"
+    },
+    {
+      "label": "Charging",
+      "value": "Magnetic USB charging"
+    },
+    {
+      "label": "OEM / ODM",
+      "value": "Pantone color matching & custom retail box"
+    }
+  ],
+  "seoTitle": "Wearable Big Mouth — Contoured Telescopic Massager | BOHOL",
+  "seoDescription": "BOHOL Wearable Big Mouth contoured telescopic massager in medical-grade silicone. OEM/ODM factory specifications.",
+  "note": "Available for wholesale distribution and OEM/ODM private-label customization.",
+  "subCategory": "Women's Toys",
+  "vendor": "BOHOL Direct OEM",
+  "detailImages": [
+    "/images/9rabbit/details/wearable-big-mouth-s01-hero.webp",
+    "/images/9rabbit/details/wearable-big-mouth-s02-bento.webp",
+    "/images/9rabbit/details/wearable-big-mouth-s03-anatomy.webp",
+    "/images/9rabbit/details/wearable-big-mouth-s04-performance.webp",
+    "/images/9rabbit/details/wearable-big-mouth-s05-material.webp",
+    "/images/9rabbit/details/wearable-big-mouth-s07-blueprint.webp",
+    "/images/9rabbit/details/wearable-big-mouth-s08-guide.webp"
+  ],
+  "highlights": [
+    {
+      "title": "Authentic Global Quality & Direct Factory QC",
+      "body": "Every unit of Wearable Big Mouth undergoes multi-stage inspection for structural durability, surface finish, and material biocompatibility before international dispatch."
+    },
+    {
+      "title": "Body-Safe Certified Materials",
+      "body": "Crafted with medical-grade silicone, CyberSkin TPE, tempered borosilicate glass, or skin-friendly couture fabrics—free from phthalates, latex allergens, and heavy metals."
+    },
+    {
+      "title": "100% Discreet Unmarked Fulfillment",
+      "body": "Packaged in plain protective boxes with confidential shipping labels. Available for immediate North America & global express delivery."
+    },
+    {
+      "title": "Wholesale & Private-Label OEM Ready",
+      "body": "Supported by our 35,000 m² ISO-certified manufacturing base with custom laser logo engraving, Pantone color matching, and multilingual retail box customization."
+    }
+  ]
+}

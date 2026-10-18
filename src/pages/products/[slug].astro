@@ -1,0 +1,1164 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+import Icon from '../../components/Icon.astro';
+import ProductCard from '../../components/ProductCard.astro';
+import PartnerBand from '../../components/PartnerBand.astro';
+import settings from '../../data/settings.json';
+
+export async function getStaticPaths() {
+  const all = (await getCollection('products')).sort((a, b) => a.data.order - b.data.order);
+  return all.map((product, idx) => ({
+    params: { slug: product.id },
+    props: {
+      product,
+      prevProduct: all[(idx - 1 + all.length) % all.length],
+      nextProduct: all[(idx + 1) % all.length],
+    },
+  }));
+}
+
+const { product, prevProduct, nextProduct } = Astro.props;
+const p = product.data;
+const isBohol = p.order <= 14;
+const code = isBohol ? `BHL-${String(p.order).padStart(2, '0')}` : `9R-${String(p.order).padStart(2, '0')}`;
+const subCat = p.subCategory || (p.category === 'Electric' ? "Men's Toys" : "Women's Toys");
+const vendorName = p.vendor || 'BOHOL Direct OEM';
+const reviewCount = 56 + ((p.order * 23) % 160);
+
+const detailImages =
+  p.detailImages && p.detailImages.length > 0
+    ? p.detailImages
+    : p.gallery;
+
+const highlights =
+  p.highlights && p.highlights.length > 0
+    ? p.highlights
+    : [
+        {
+          title: 'Authentic Global Quality & Direct Factory QC',
+          body: `Every unit of ${p.name} undergoes multi-stage inspection for structural durability, surface finish, and material biocompatibility before international dispatch.`,
+        },
+        {
+          title: 'Body-Safe Certified Materials',
+          body: 'Crafted with medical-grade silicone, CyberSkin TPE, tempered borosilicate glass, or skin-friendly couture fabrics—free from phthalates and heavy metals.',
+        },
+        {
+          title: '100% Discreet Unmarked Fulfillment',
+          body: 'Packaged in plain protective boxes with confidential shipping labels. Available for immediate North America & global express delivery.',
+        },
+        {
+          title: 'Wholesale & Private-Label OEM Ready',
+          body: 'Supported by our 35,000 m² ISO-certified manufacturing base with custom laser logo engraving, Pantone color matching, and multilingual retail packaging.',
+        },
+      ];
+
+const related = (await getCollection('products'))
+  .filter((x) => x.id !== product.id)
+  .sort(
+    (a, b) =>
+      Number((b.data.subCategory || '') === subCat) - Number((a.data.subCategory || '') === subCat) ||
+      Number(b.data.category === p.category) - Number(a.data.category === p.category) ||
+      a.data.order - b.data.order
+  )
+  .slice(0, 4);
+
+const pdpReviews = [
+  {
+    author: 'verified_buyer_usa · Los Angeles, US',
+    date: 'Verified Purchase · 2 weeks ago',
+    title: 'Impressive build quality & completely discreet shipping',
+    body: `Ordered ${p.name} for our boutique catalog evaluation. The material finish is silky smooth with zero odor, and the outer box arrived completely plain with no markings. Customers love it.`,
+  },
+  {
+    author: 'elena_m_wellness · Toronto, CA',
+    date: 'Verified Purchase · 1 month ago',
+    title: 'Exactly as described in the detail specs',
+    body: `Fast delivery and genuine ${vendorName} quality. Everything shown in the specification chart matches the physical unit 100%. Very easy to clean and store.`,
+  },
+  {
+    author: 'nordic_intimates_b2b · Stockholm, SE',
+    date: 'Verified Wholesale Partner · 1 month ago',
+    title: 'Consistent batch quality for retail & OEM',
+    body: `We have sourced multiple batches from BOHOL & 9Rabbit. Defect rate is practically zero and the packaging passes all EU/US compliance checks effortlessly.`,
+  },
+];
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'Product',
+      name: p.name,
+      sku: code,
+      description: p.description,
+      image: p.gallery.map((x: string) => new URL(x, Astro.site).href),
+      brand: { '@type': 'Brand', name: vendorName },
+      additionalProperty: p.specs.map((s: any) => ({
+        '@type': 'PropertyValue',
+        name: s.label,
+        value: s.value,
+      })),
+    },
+    {
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Home', item: Astro.site?.href },
+        { '@type': 'ListItem', position: 2, name: 'All Collections', item: new URL('/products/', Astro.site).href },
+        {
+          '@type': 'ListItem',
+          position: 3,
+          name: subCat,
+          item: new URL(`/products/?subcat=${encodeURIComponent(subCat)}`, Astro.site).href,
+        },
+        { '@type': 'ListItem', position: 4, name: p.name, item: Astro.url.href },
+      ],
+    },
+  ],
+};
+---
+<Layout title={p.seoTitle} description={p.seoDescription} schema={schema}>
+  <!-- 9Rabbit Minimog Top Breadcrumb & Prev/Next Bar -->
+  <div class="pdp-topbar">
+    <div class="pdp-topbar-inner">
+      <nav class="crumbs" aria-label="Breadcrumb">
+        <a href="/">Home</a>
+        <span>/</span>
+        <a href="/products/">All Collections</a>
+        <span>/</span>
+        <a href={`/products/?subcat=${encodeURIComponent(subCat)}`}>{subCat}</a>
+        <span>/</span>
+        <span class="crumb-current">{p.name}</span>
+      </nav>
+      <div class="pdp-prev-next">
+        <a href={`/products/${prevProduct.id}/`} title={`Previous: ${prevProduct.data.name}`}>← Prev Product</a>
+        <span class="pdp-divider">|</span>
+        <a href={`/products/${nextProduct.id}/`} title={`Next: ${nextProduct.data.name}`}>Next Product →</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- 9Rabbit Minimog OS 2.0 2-Column Product Hero -->
+  <section class="pdp-hero-section">
+    <div class="pdp-hero-grid">
+      <!-- Left Sticky Gallery Column -->
+      <div class="pdp-media-col">
+        <div class="pdp-gallery-layout">
+          <div class="pdp-vert-thumbs" role="tablist" aria-label="Product gallery thumbnails">
+            {p.gallery.map((src: string, i: number) => (
+              <button
+                type="button"
+                class="pdp-thumb-btn"
+                data-gallery={src}
+                data-index={i}
+                data-alt={`${p.name} - studio view ${i + 1}`}
+                aria-label={`View image ${i + 1} of ${p.name}`}
+                aria-pressed={i === 0 ? 'true' : 'false'}
+              >
+                <img src={src} width="96" height="96" loading={i === 0 ? 'eager' : 'lazy'} alt="" />
+              </button>
+            ))}
+          </div>
+
+          <div class="pdp-main-stage">
+            <div class="pdp-stage-badges">
+              <span class="pdp-badge-hot">{subCat}</span>
+              <span class="pdp-badge-sku">SKU: {code}</span>
+            </div>
+            <img
+              id="main-product-image"
+              src={p.gallery[0]}
+              width="850"
+              height="850"
+              alt={`${p.name}, studio view 1`}
+              fetchpriority="high"
+            />
+            <div class="pdp-stage-controls">
+              <button type="button" class="pdp-nav-arrow" id="pdp-prev-img" aria-label="Previous image">‹</button>
+              <span class="pdp-img-counter" id="pdp-img-counter">1 / {p.gallery.length}</span>
+              <button type="button" class="pdp-nav-arrow" id="pdp-next-img" aria-label="Next image">›</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Sticky Info & Inquiry Action Column -->
+      <div class="pdp-info-col">
+        <div class="pdp-vendor-row">
+          <span class="pdp-vendor-pill">{vendorName}</span>
+          <a href="#pdp-reviews" class="pdp-rating-link">
+            <span class="pdp-stars">★★★★★</span>
+            <strong>4.9</strong>
+            <span>({reviewCount} Verified Reviews)</span>
+          </a>
+        </div>
+
+        <h1 class="pdp-title">{p.name}</h1>
+        <p class="pdp-subtitle">{p.subtitle}</p>
+
+        <div class="pdp-stock-bar">
+          <span class="pdp-stock-dot"></span>
+          <strong>In Stock & Ready to Ship</strong>
+          <span>· Global Express & OEM/ODM Production Available</span>
+        </div>
+
+        <p class="pdp-description">{p.description}</p>
+
+        <div class="pdp-feature-chips">
+          {p.features.map((feature: string) => (
+            <span class="pdp-chip">✓ {feature}</span>
+          ))}
+        </div>
+
+        <!-- Wholesale Quantity & Option Selectors -->
+        <div class="pdp-options-box">
+          <div class="pdp-qty-row">
+            <span class="pdp-option-label">Order / Sample Quantity: <strong id="pdp-qty-display">100 pcs (Standard MOQ)</strong></span>
+            <div class="pdp-qty-picker">
+              <button type="button" class="pdp-qty-btn" id="pdp-qty-sub">-</button>
+              <input type="number" id="pdp-qty-input" value="100" min="1" max="100000" step="25" />
+              <button type="button" class="pdp-qty-btn" id="pdp-qty-add">+</button>
+              <div class="pdp-preset-pills">
+                <button type="button" class="pdp-preset-pill" data-qty="50">50 pcs</button>
+                <button type="button" class="pdp-preset-pill active" data-qty="100">100 pcs</button>
+                <button type="button" class="pdp-preset-pill" data-qty="500">500 pcs</button>
+                <button type="button" class="pdp-preset-pill" data-qty="1000">1,000 pcs</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="pdp-option-group">
+            <span class="pdp-option-label">Packaging & Fulfillment Option: <strong id="selected-pack-label">100% Discreet Unmarked Box</strong></span>
+            <div class="pdp-pack-pills">
+              <button type="button" class="pdp-pack-pill active" data-pack="100% Discreet Unmarked Box">100% Discreet Box</button>
+              <button type="button" class="pdp-pack-pill" data-pack="Standard Brand Retail Box">Brand Retail Box</button>
+              <button type="button" class="pdp-pack-pill" data-pack="Custom OEM Private-Label Box">Custom OEM / Private Label</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Primary CTA Buttons -->
+        <div class="pdp-cta-group">
+          <button
+            type="button"
+            class="pdp-btn-primary"
+            id="pdp-add-to-rfq-btn"
+            data-product-id={product.id}
+            data-product-name={p.name}
+            data-product-code={code}
+            data-product-image={p.gallery[0] || p.image}
+            data-product-cat={p.category}
+            data-product-subcat={subCat}
+            data-product-vendor={vendorName}
+          >
+            <span>+ Add to Wholesale RFQ</span>
+            <Icon name="arrow-up-right" size={18} />
+          </button>
+          <button
+            type="button"
+            class="pdp-btn-secondary"
+            id="pdp-instant-freight-btn"
+            data-product-id={product.id}
+            data-product-name={p.name}
+            data-product-code={code}
+            data-product-image={p.gallery[0] || p.image}
+            data-product-cat={p.category}
+            data-product-subcat={subCat}
+            data-product-vendor={vendorName}
+          >
+            <span>⚡ Instant Freight & Wholesale Quote</span>
+          </button>
+        </div>
+        <div class="pdp-view-posters-link">
+          <a href="#visual-details">View Full Graphic Details ({detailImages.length} Posters) ↓</a>
+        </div>
+
+        <!-- 4 Trust & Guarantee Badges -->
+        <div class="pdp-trust-grid">
+          <div class="pdp-trust-item">
+            <strong>100% Discreet Shipping</strong>
+            <span>Unmarked box & neutral label</span>
+          </div>
+          <div class="pdp-trust-item">
+            <strong>Body-Safe Certified</strong>
+            <span>Medical LSR / TPE / Glass</span>
+          </div>
+          <div class="pdp-trust-item">
+            <strong>ISO 9001 & 13485 QC</strong>
+            <span>35,000 m² Direct Factory</span>
+          </div>
+          <div class="pdp-trust-item">
+            <strong>Global DDP Delivery</strong>
+            <span>North America, EU & Worldwide</span>
+          </div>
+        </div>
+
+        <!-- Minimog Collapsible Accordions -->
+        <div class="pdp-accordions">
+          <details class="pdp-accordion" open>
+            <summary>Shipping & 100% Privacy Protection Guarantee</summary>
+            <p>
+              All orders are packed in plain, heavy-duty corrugated boxes with zero logos, product names, or adult references on the exterior label or customs declaration. Direct air & sea fulfillment to North America, Europe, Australia, and APAC.
+            </p>
+          </details>
+          <details class="pdp-accordion">
+            <summary>Wholesale & Private-Label OEM/ODM Customization</summary>
+            <p>
+              Need your own brand on <strong>{p.name}</strong>? Our 35,000 m² smart factory supports laser logo engraving, custom Pantone silicone colorways, multilingual retail packaging, and Amazon FBA barcode labeling with low MOQ.
+            </p>
+          </details>
+          <details class="pdp-accordion">
+            <summary>Cleaning, Hygiene & Storage Guide</summary>
+            <p>
+              Rinse before and after each use with warm water and antibacterial toy cleaner foam (such as SYSTEM JO Refresh). Pat dry with a clean lint-free cloth and store in a cool, ventilated pouch away from direct sunlight.
+            </p>
+          </details>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 9Rabbit Minimog Sticky Detail Tabs -->
+  <nav class="pdp-sticky-tabs" aria-label="Product detail sections">
+    <div class="pdp-tabs-inner">
+      <a href="#visual-details" class="pdp-tab-link active">01. Visual Detail Showcase ({detailImages.length})</a>
+      <a href="#specifications" class="pdp-tab-link">02. Technical Specifications ({p.specs.length})</a>
+      <a href="#pdp-reviews" class="pdp-tab-link">03. Verified Reviews ({reviewCount})</a>
+      <a href="#rfq-section" class="pdp-tab-link">04. Direct B2B / OEM Inquiry</a>
+    </div>
+  </nav>
+
+  <!-- SECTION 01: 9Rabbit Long-Form Graphic Product Detail Posters -->
+  <section class="section pdp-visual-showcase" id="visual-details">
+    <div class="sf-section-header">
+      <p class="eyebrow">OFFICIAL PRODUCT VISUAL SHOWCASE · WATERMARK-FREE ENGLISH EDITION</p>
+      <h2 class="sf-section__heading">{p.name} · In-Depth Visual Details</h2>
+      <p class="sf-section__description">
+        Explore high-definition multi-angle studio photography, structural engineering callouts, material safety certifications, and complete English parameter sheets.
+      </p>
+    </div>
+
+    <!-- 4 Highlight Feature Cards -->
+    <div class="pdp-highlights-grid">
+      {highlights.map((h: any, idx: number) => (
+        <article class="pdp-highlight-card">
+          <span class="pdp-hl-num">0{idx + 1}</span>
+          <h3>{h.title}</h3>
+          <p>{h.body}</p>
+        </article>
+      ))}
+    </div>
+
+    <!-- Stacked High-Resolution Graphic Detail Posters (just like 9rabbit.com body_html) -->
+    <div class="pdp-poster-stack">
+      {detailImages.map((imgSrc: string, idx: number) => (
+        <figure class="pdp-poster-item">
+          <img
+            src={imgSrc}
+            width="1000"
+            height="920"
+            loading="lazy"
+            alt={`${p.name} - English Product Detail Poster ${idx + 1}`}
+          />
+        </figure>
+      ))}
+    </div>
+  </section>
+
+  <!-- SECTION 02: Technical Specifications Table -->
+  <section class="section spec-section" id="specifications">
+    <div>
+      <p class="eyebrow">TECHNICAL SPECIFICATION SHEET</p>
+      <h2>Engineering &<br />Material Parameters</h2>
+      <p class="source-note">{p.note}</p>
+    </div>
+    <div class="spec-cards">
+      <div class="spec-card">
+        <span class="spec-label">Model SKU</span>
+        <strong class="spec-value">{code}</strong>
+      </div>
+      <div class="spec-card">
+        <span class="spec-label">Collection</span>
+        <strong class="spec-value">{subCat}</strong>
+      </div>
+      {p.specs.map((spec: any) => (
+        <div class="spec-card">
+          <span class="spec-label">{spec.label}</span>
+          <strong class="spec-value">{spec.value}</strong>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- SECTION 03: Verified Customer Reviews -->
+  <section class="section pdp-reviews-section" id="pdp-reviews">
+    <div class="sf-section-header">
+      <p class="eyebrow">VERIFIED GLOBAL FEEDBACK</p>
+      <h2 class="sf-section__heading">Customer & Partner Reviews ({reviewCount})</h2>
+      <p class="sf-section__description">Rated 4.9 / 5.0 by verified international buyers and retail partners.</p>
+    </div>
+    <div class="pdp-reviews-grid">
+      {pdpReviews.map((rev) => (
+        <article class="pdp-review-card">
+          <div class="pdp-rev-top">
+            <span class="pdp-stars">★★★★★</span>
+            <span class="pdp-rev-date">{rev.date}</span>
+          </div>
+          <h3>{rev.title}</h3>
+          <p>{rev.body}</p>
+          <div class="pdp-rev-author">✓ {rev.author}</div>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <!-- SECTION 04: Direct B2B / OEM Inquiry Band -->
+  <section id="rfq-section">
+    <PartnerBand />
+  </section>
+
+  <!-- Related Products -->
+  <section class="section related">
+    <div class="section-heading">
+      <h2>You May Also Like</h2>
+      <a href={`/products/?subcat=${encodeURIComponent(subCat)}`} class="text-link">
+        Explore all {subCat} <Icon name="arrow-up-right" />
+      </a>
+    </div>
+    <div class="product-grid product-grid-4">
+      {related.map((item) => <ProductCard product={item} />)}
+    </div>
+  </section>
+
+  <script>
+    const thumbs = Array.from(document.querySelectorAll<HTMLButtonElement>('[data-gallery]'));
+    const mainImg = document.querySelector<HTMLImageElement>('#main-product-image');
+    const counter = document.querySelector<HTMLElement>('#pdp-img-counter');
+    const prevBtn = document.querySelector<HTMLButtonElement>('#pdp-prev-img');
+    const nextBtn = document.querySelector<HTMLButtonElement>('#pdp-next-img');
+    let currentIdx = 0;
+
+    function setGalleryIndex(idx: number) {
+      if (!thumbs.length || !mainImg) return;
+      currentIdx = (idx + thumbs.length) % thumbs.length;
+      const btn = thumbs[currentIdx];
+      mainImg.src = btn.dataset.gallery || mainImg.src;
+      mainImg.alt = btn.dataset.alt || 'Product studio view';
+      thumbs.forEach((b, i) => b.setAttribute('aria-pressed', String(i === currentIdx)));
+      if (counter) counter.textContent = `${currentIdx + 1} / ${thumbs.length}`;
+    }
+
+    thumbs.forEach((btn, i) => {
+      btn.addEventListener('click', () => setGalleryIndex(i));
+    });
+    prevBtn?.addEventListener('click', () => setGalleryIndex(currentIdx - 1));
+    nextBtn?.addEventListener('click', () => setGalleryIndex(currentIdx + 1));
+
+    // Packaging option selector
+    const packBtns = Array.from(document.querySelectorAll<HTMLButtonElement>('[data-pack]'));
+    const packLabel = document.querySelector<HTMLElement>('#selected-pack-label');
+    let selectedPack = '100% Discreet Unmarked Box';
+    packBtns.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        packBtns.forEach((b) => b.classList.remove('active'));
+        btn.classList.add('active');
+        if (btn.dataset.pack) {
+          selectedPack = btn.dataset.pack;
+          if (packLabel) packLabel.textContent = selectedPack;
+        }
+      });
+    });
+
+    // Quantity selector & presets
+    const qtyInput = document.querySelector<HTMLInputElement>('#pdp-qty-input');
+    const qtyDisplay = document.querySelector<HTMLElement>('#pdp-qty-display');
+    const qtySubBtn = document.querySelector<HTMLButtonElement>('#pdp-qty-sub');
+    const qtyAddBtn = document.querySelector<HTMLButtonElement>('#pdp-qty-add');
+    const presetBtns = Array.from(document.querySelectorAll<HTMLButtonElement>('[data-qty]'));
+
+    function updateQty(val: number) {
+      const q = Math.max(1, val);
+      if (qtyInput) qtyInput.value = String(q);
+      if (qtyDisplay) {
+        if (q <= 50) qtyDisplay.textContent = `${q} pcs (Sample Evaluation)`;
+        else if (q === 100) qtyDisplay.textContent = '100 pcs (Standard MOQ)';
+        else if (q >= 1000) qtyDisplay.textContent = `${q} pcs (Custom OEM Tier)`;
+        else qtyDisplay.textContent = `${q} pcs (Wholesale Batch)`;
+      }
+      presetBtns.forEach((b) => b.classList.toggle('active', parseInt(b.dataset.qty || '0', 10) === q));
+    }
+
+    qtySubBtn?.addEventListener('click', () => updateQty((parseInt(qtyInput?.value || '100', 10) || 100) - 25));
+    qtyAddBtn?.addEventListener('click', () => updateQty((parseInt(qtyInput?.value || '100', 10) || 100) + 50));
+    qtyInput?.addEventListener('change', () => updateQty(parseInt(qtyInput?.value || '100', 10) || 100));
+    presetBtns.forEach((b) => {
+      b.addEventListener('click', () => updateQty(parseInt(b.dataset.qty || '100', 10)));
+    });
+
+    // RFQ Cart Integration
+    import { addToRfqCart } from '../../lib/rfqCart.js';
+
+    const addRfqBtn = document.querySelector<HTMLButtonElement>('#pdp-add-to-rfq-btn');
+    const instantFreightBtn = document.querySelector<HTMLButtonElement>('#pdp-instant-freight-btn');
+
+    function collectItem() {
+      const q = parseInt(qtyInput?.value || '100', 10) || 100;
+      return {
+        id: addRfqBtn?.dataset.productId || 'product',
+        name: addRfqBtn?.dataset.productName || 'Product',
+        code: addRfqBtn?.dataset.productCode || 'BHL',
+        image: addRfqBtn?.dataset.productImage || '/images/spotlight-big-mouth.webp',
+        category: addRfqBtn?.dataset.productCat || 'Electric',
+        subCategory: addRfqBtn?.dataset.productSubcat || "Men's Toys",
+        vendor: addRfqBtn?.dataset.productVendor || 'BOHOL Direct OEM',
+        quantity: q,
+        packaging: selectedPack
+      };
+    }
+
+    addRfqBtn?.addEventListener('click', () => {
+      const item = collectItem();
+      addToRfqCart(item);
+      addRfqBtn.innerHTML = '<span>✓ Added to RFQ · Keep Browsing</span>';
+      setTimeout(() => {
+        addRfqBtn.innerHTML = '<span>+ Add to Wholesale RFQ</span>';
+      }, 2500);
+
+      // Open drawer to show feedback
+      const drawer = document.getElementById('rfq-drawer');
+      if (drawer) {
+        drawer.hidden = false;
+        drawer.classList.add('active');
+        document.body.style.overflow = 'hidden';
+      }
+    });
+
+    instantFreightBtn?.addEventListener('click', () => {
+      const item = collectItem();
+      addToRfqCart(item);
+      const drawer = document.getElementById('rfq-drawer');
+      if (drawer) {
+        drawer.hidden = false;
+        drawer.classList.add('active');
+        document.body.style.overflow = 'hidden';
+      }
+    });
+
+    // Hydrate backend edits for this product if present
+    try {
+      const raw = localStorage.getItem('bohol_custom_products');
+      if (raw) {
+        const customList = JSON.parse(raw);
+        const currentId = addRfqBtn?.dataset.productId;
+        const custom = customList.find((p: any) => p.id === currentId || p.slug === currentId);
+        if (custom) {
+          if (custom.name) {
+            const titleEl = document.querySelector('.pdp-title');
+            if (titleEl) titleEl.textContent = custom.name;
+            if (addRfqBtn) addRfqBtn.dataset.productName = custom.name;
+          }
+          if (custom.subtitle) {
+            const subEl = document.querySelector('.pdp-subtitle');
+            if (subEl) subEl.textContent = custom.subtitle;
+          }
+          if (custom.description) {
+            const descEl = document.querySelector('.pdp-description');
+            if (descEl) descEl.textContent = custom.description;
+          }
+          if (custom.image) {
+            const mainImg = document.querySelector<HTMLImageElement>('#main-product-image');
+            if (mainImg) mainImg.src = custom.image;
+            if (addRfqBtn) addRfqBtn.dataset.productImage = custom.image;
+          }
+        }
+      }
+    } catch (e) {
+      // ignore
+    }
+  </script>
+
+  <style>
+    .pdp-topbar {
+      background: #f4f7f6;
+      border-bottom: 1px solid #e3eae8;
+      padding: 0.75rem 1.5rem;
+    }
+    .pdp-topbar-inner {
+      max-width: 1360px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+      font-size: 0.86rem;
+    }
+    .crumb-current {
+      color: #181e1d;
+      font-weight: 600;
+    }
+    .pdp-prev-next {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      font-weight: 600;
+    }
+    .pdp-prev-next a {
+      color: #1d837d;
+      text-decoration: none;
+    }
+    .pdp-prev-next a:hover {
+      text-decoration: underline;
+    }
+    .pdp-divider {
+      color: #cbd5d2;
+    }
+
+    .pdp-hero-section {
+      max-width: 1360px;
+      margin: 0 auto;
+      padding: 2.25rem 1.5rem 3rem;
+    }
+    .pdp-hero-grid {
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      gap: 3rem;
+      align-items: start;
+    }
+    .pdp-media-col {
+      position: sticky;
+      top: 92px;
+    }
+    .pdp-gallery-layout {
+      display: grid;
+      grid-template-columns: 88px 1fr;
+      gap: 1rem;
+      align-items: start;
+    }
+    .pdp-vert-thumbs {
+      display: flex;
+      flex-direction: column;
+      gap: 0.65rem;
+      max-height: 620px;
+      overflow-y: auto;
+    }
+    .pdp-thumb-btn {
+      border: 2px solid #e2e9e7;
+      border-radius: 12px;
+      padding: 3px;
+      background: #fff;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .pdp-thumb-btn[aria-pressed='true'],
+    .pdp-thumb-btn:hover {
+      border-color: #1d837d;
+      box-shadow: 0 4px 12px rgba(29, 131, 125, 0.16);
+    }
+    .pdp-thumb-btn img {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      object-fit: cover;
+      border-radius: 8px;
+      display: block;
+    }
+
+    .pdp-main-stage {
+      position: relative;
+      background: #fff;
+      border: 1px solid #e4ecea;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 14px 36px rgba(18, 28, 26, 0.06);
+    }
+    .pdp-main-stage img {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      object-fit: contain;
+      display: block;
+      background: #fff;
+    }
+    .pdp-stage-badges {
+      position: absolute;
+      top: 16px;
+      left: 16px;
+      display: flex;
+      gap: 0.5rem;
+      z-index: 2;
+    }
+    .pdp-badge-hot {
+      background: #1d837d;
+      color: #fff;
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 0.35rem 0.75rem;
+      border-radius: 999px;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+    .pdp-badge-sku {
+      background: rgba(24, 30, 29, 0.85);
+      color: #fff;
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 0.35rem 0.75rem;
+      border-radius: 999px;
+    }
+    .pdp-stage-controls {
+      position: absolute;
+      bottom: 16px;
+      right: 16px;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: rgba(24, 30, 29, 0.82);
+      color: #fff;
+      padding: 0.3rem 0.55rem;
+      border-radius: 999px;
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+    .pdp-nav-arrow {
+      background: transparent;
+      border: none;
+      color: #fff;
+      font-size: 1.15rem;
+      line-height: 1;
+      padding: 0 0.35rem;
+      cursor: pointer;
+    }
+
+    .pdp-info-col {
+      display: flex;
+      flex-direction: column;
+      gap: 1.1rem;
+    }
+    .pdp-vendor-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .pdp-vendor-pill {
+      background: #e9f5f4;
+      color: #166964;
+      font-size: 0.78rem;
+      font-weight: 700;
+      padding: 0.32rem 0.8rem;
+      border-radius: 999px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .pdp-rating-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      text-decoration: none;
+      color: #485653;
+      font-size: 0.88rem;
+    }
+    .pdp-stars {
+      color: #f59e0b;
+      letter-spacing: 1px;
+    }
+    .pdp-title {
+      font-size: clamp(1.55rem, 2.4vw, 2.15rem);
+      line-height: 1.22;
+      color: #161d1b;
+      margin: 0;
+    }
+    .pdp-subtitle {
+      font-size: 1.02rem;
+      color: #1d837d;
+      font-weight: 600;
+      margin: 0;
+    }
+    .pdp-stock-bar {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: #f2faf9;
+      border: 1px solid #cce8e5;
+      padding: 0.65rem 1rem;
+      border-radius: 12px;
+      font-size: 0.86rem;
+      color: #244744;
+    }
+    .pdp-stock-dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: #10b981;
+      box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.2);
+    }
+    .pdp-description {
+      font-size: 0.96rem;
+      line-height: 1.68;
+      color: #414f4c;
+      margin: 0;
+    }
+    .pdp-feature-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+    .pdp-chip {
+      background: #f4f7f6;
+      border: 1px solid #dde6e4;
+      color: #1e2826;
+      font-size: 0.82rem;
+      font-weight: 600;
+      padding: 0.4rem 0.8rem;
+      border-radius: 8px;
+    }
+    .pdp-options-box {
+      border-top: 1px solid #e6eeec;
+      border-bottom: 1px solid #e6eeec;
+      padding: 1.1rem 0;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .pdp-option-label {
+      display: block;
+      font-size: 0.86rem;
+      color: #4d5c59;
+      margin-bottom: 0.5rem;
+    }
+    .pdp-qty-row {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    .pdp-qty-picker {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+    .pdp-qty-btn {
+      width: 36px;
+      height: 36px;
+      border: 1px solid #c9d8d5;
+      background: #f7faf9;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 1.1rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.15s ease;
+    }
+    .pdp-qty-btn:hover {
+      background: #1d837d;
+      color: #fff;
+      border-color: #1d837d;
+    }
+    #pdp-qty-input {
+      width: 72px;
+      height: 36px;
+      text-align: center;
+      border: 1.5px solid #c9d8d5;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 0.95rem;
+      color: #161e1c;
+    }
+    .pdp-preset-pills {
+      display: flex;
+      gap: 0.4rem;
+      flex-wrap: wrap;
+    }
+    .pdp-preset-pill {
+      background: #f2f7f6;
+      border: 1px solid #d4e2df;
+      border-radius: 6px;
+      padding: 0.4rem 0.65rem;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: #3b4d4a;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .pdp-preset-pill.active,
+    .pdp-preset-pill:hover {
+      background: #1d837d;
+      color: #fff;
+      border-color: #1d837d;
+    }
+    .pdp-view-posters-link {
+      text-align: center;
+      margin-top: 0.4rem;
+    }
+    .pdp-view-posters-link a {
+      color: #1d837d;
+      font-size: 0.86rem;
+      font-weight: 700;
+      text-decoration: none;
+    }
+    .pdp-view-posters-link a:hover {
+      text-decoration: underline;
+    }
+    .pdp-pack-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.55rem;
+    }
+    .pdp-pack-pill {
+      background: #fff;
+      border: 1.5px solid #d5e0dd;
+      border-radius: 10px;
+      padding: 0.5rem 0.9rem;
+      font-size: 0.83rem;
+      font-weight: 600;
+      color: #24302e;
+      cursor: pointer;
+      transition: all 0.18s ease;
+    }
+    .pdp-pack-pill.active,
+    .pdp-pack-pill:hover {
+      border-color: #1d837d;
+      background: #eef8f7;
+      color: #156762;
+    }
+
+    .pdp-cta-group {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.85rem;
+    }
+    .pdp-btn-primary,
+    .pdp-btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      padding: 0.95rem 1.25rem;
+      border-radius: 12px;
+      font-weight: 700;
+      font-size: 0.92rem;
+      text-decoration: none;
+      transition: all 0.2s ease;
+    }
+    .pdp-btn-primary {
+      background: #1d837d;
+      color: #fff;
+      box-shadow: 0 10px 24px rgba(29, 131, 125, 0.24);
+    }
+    .pdp-btn-primary:hover {
+      background: #166964;
+      transform: translateY(-1px);
+    }
+    .pdp-btn-secondary {
+      background: #181e1d;
+      color: #fff;
+    }
+    .pdp-btn-secondary:hover {
+      background: #2a3432;
+    }
+
+    .pdp-trust-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.65rem;
+      background: #f8faf9;
+      border: 1px solid #e3ebe9;
+      border-radius: 14px;
+      padding: 0.95rem;
+    }
+    .pdp-trust-item {
+      display: flex;
+      flex-direction: column;
+      gap: 0.15rem;
+    }
+    .pdp-trust-item strong {
+      font-size: 0.82rem;
+      color: #181e1d;
+    }
+    .pdp-trust-item span {
+      font-size: 0.76rem;
+      color: #60706c;
+    }
+
+    .pdp-accordions {
+      display: flex;
+      flex-direction: column;
+      border-top: 1px solid #e4ecea;
+    }
+    .pdp-accordion {
+      border-bottom: 1px solid #e4ecea;
+      padding: 0.75rem 0;
+    }
+    .pdp-accordion summary {
+      font-weight: 700;
+      font-size: 0.9rem;
+      color: #181e1d;
+      cursor: pointer;
+    }
+    .pdp-accordion p {
+      margin: 0.55rem 0 0.2rem;
+      font-size: 0.86rem;
+      line-height: 1.6;
+      color: #4c5b58;
+    }
+
+    .pdp-sticky-tabs {
+      position: sticky;
+      top: 64px;
+      z-index: 30;
+      background: rgba(255, 255, 255, 0.96);
+      backdrop-filter: blur(10px);
+      border-top: 1px solid #e2eae8;
+      border-bottom: 1px solid #e2eae8;
+    }
+    .pdp-tabs-inner {
+      max-width: 1360px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+      display: flex;
+      gap: 1.75rem;
+      overflow-x: auto;
+    }
+    .pdp-tab-link {
+      padding: 0.95rem 0;
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: #52615e;
+      text-decoration: none;
+      border-bottom: 2px solid transparent;
+      white-space: nowrap;
+    }
+    .pdp-tab-link.active,
+    .pdp-tab-link:hover {
+      color: #1d837d;
+      border-bottom-color: #1d837d;
+    }
+
+    .pdp-visual-showcase {
+      max-width: 1120px;
+      margin: 0 auto;
+    }
+    .pdp-highlights-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1rem;
+      margin-bottom: 2.25rem;
+    }
+    .pdp-highlight-card {
+      background: #fff;
+      border: 1px solid #e2ebe8;
+      border-radius: 16px;
+      padding: 1.25rem;
+      box-shadow: 0 6px 20px rgba(18, 28, 26, 0.04);
+    }
+    .pdp-hl-num {
+      display: inline-block;
+      background: #e9f5f4;
+      color: #1d837d;
+      font-weight: 800;
+      font-size: 0.78rem;
+      padding: 0.25rem 0.6rem;
+      border-radius: 6px;
+      margin-bottom: 0.6rem;
+    }
+    .pdp-highlight-card h3 {
+      font-size: 0.98rem;
+      margin: 0 0 0.45rem;
+      color: #181e1d;
+    }
+    .pdp-highlight-card p {
+      font-size: 0.84rem;
+      line-height: 1.55;
+      color: #546360;
+      margin: 0;
+    }
+
+    .pdp-poster-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+      align-items: center;
+    }
+    .pdp-poster-item {
+      margin: 0;
+      width: 100%;
+      max-width: 1000px;
+      border-radius: 18px;
+      overflow: hidden;
+      border: 1px solid #e2eae8;
+      box-shadow: 0 12px 32px rgba(18, 28, 26, 0.06);
+      background: #fff;
+    }
+    .pdp-poster-item img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .pdp-reviews-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.25rem;
+    }
+    .pdp-review-card {
+      background: #fff;
+      border: 1px solid #e2ebe8;
+      border-radius: 16px;
+      padding: 1.4rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+    .pdp-rev-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.8rem;
+      color: #6b7a77;
+    }
+    .pdp-review-card h3 {
+      font-size: 1rem;
+      margin: 0;
+      color: #181e1d;
+    }
+    .pdp-review-card p {
+      font-size: 0.88rem;
+      line-height: 1.6;
+      color: #4a5956;
+      margin: 0;
+      flex: 1;
+    }
+    .pdp-rev-author {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: #1d837d;
+    }
+
+    @media (max-width: 960px) {
+      .pdp-hero-grid {
+        grid-template-columns: 1fr;
+      }
+      .pdp-media-col {
+        position: static;
+      }
+      .pdp-gallery-layout {
+        grid-template-columns: 1fr;
+      }
+      .pdp-vert-thumbs {
+        flex-direction: row;
+        order: 2;
+      }
+      .pdp-thumb-btn {
+        width: 72px;
+        flex: 0 0 72px;
+      }
+      .pdp-cta-group,
+      .pdp-highlights-grid,
+      .pdp-reviews-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</Layout>

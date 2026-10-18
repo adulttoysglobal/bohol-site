@@ -1,0 +1,9 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>BOHOL Content Manager</title></head><body><div id="status" style="font:16px/1.8 sans-serif;max-width:640px;margin:12vh auto;padding:24px"><h1>BOHOL Content Manager</h1><p>Connecting to CMS service…</p></div><script>
+if(['localhost','127.0.0.1'].includes(location.hostname)){
+ window.CMS_MANUAL_INIT=true;
+ var s=document.createElement('script');s.src='/admin/vendor/decap-cms.js';s.onload=function(){document.getElementById('status').remove();window.CMS.init();};s.onerror=function(){document.getElementById('status').textContent='Failed to load CMS script. Please refresh and try again.';};document.head.appendChild(s);
+}else{
+ document.querySelector('#status p').textContent='This preview instance is read-only. Local CMS editing runs on the host environment.';
+ var a=document.createElement('a');a.href='/';a.textContent='Return to Homepage';document.getElementById('status').appendChild(a);
+}
+</script></body></html>

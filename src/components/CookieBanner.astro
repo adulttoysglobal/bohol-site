@@ -1,0 +1,156 @@
+---
+// GDPR, ePrivacy & CCPA Compliant Cookie Consent Banner
+---
+<div id="bohol-cookie-banner" class="cookie-banner-wrap" style="display: none;" role="region" aria-label="Cookie Preferences">
+  <div class="cookie-banner-inner">
+    <div class="cookie-banner-copy">
+      <span class="cookie-icon">🍪</span>
+      <div>
+        <strong>Privacy & Cookie Preferences</strong>
+        <p>
+          We use strictly essential cookies to remember your age verification and preferences. We do not sell your personal data. By clicking "Accept All", you agree to our <a href="/privacy/">Privacy Policy</a> and <a href="/privacy/#disclaimer">Novelty Compliance Terms</a>.
+        </p>
+      </div>
+    </div>
+    <div class="cookie-banner-actions">
+      <button type="button" id="cookie-accept-all" class="cookie-btn-accept">Accept All</button>
+      <button type="button" id="cookie-essential-only" class="cookie-btn-essential">Essential Only</button>
+    </div>
+  </div>
+</div>
+
+<style>
+  .cookie-banner-wrap {
+    position: fixed;
+    bottom: 24px;
+    left: 24px;
+    right: 24px;
+    max-width: 980px;
+    margin: 0 auto;
+    z-index: 99998;
+    animation: cookieSlideUp 0.35s ease;
+  }
+  @keyframes cookieSlideUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .cookie-banner-inner {
+    background: rgba(15, 23, 42, 0.95);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 16px;
+    padding: 16px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.35);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+  }
+  .cookie-banner-copy {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .cookie-icon {
+    font-size: 26px;
+    line-height: 1;
+    flex-shrink: 0;
+  }
+  .cookie-banner-copy strong {
+    display: block;
+    font-size: 13.5px;
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: 3px;
+  }
+  .cookie-banner-copy p {
+    font-size: 12px;
+    color: #94a3b8;
+    margin: 0;
+    line-height: 1.45;
+  }
+  .cookie-banner-copy a {
+    color: #38bdf8;
+    text-decoration: underline;
+  }
+  .cookie-banner-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-shrink: 0;
+  }
+  .cookie-btn-accept {
+    background: #2563eb;
+    color: #ffffff;
+    border: none;
+    padding: 9px 18px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .cookie-btn-accept:hover {
+    background: #1d4ed8;
+  }
+  .cookie-btn-essential {
+    background: rgba(255, 255, 255, 0.1);
+    color: #e2e8f0;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 9px 16px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .cookie-btn-essential:hover {
+    background: rgba(255, 255, 255, 0.18);
+    color: #ffffff;
+  }
+  @media (max-width: 768px) {
+    .cookie-banner-wrap {
+      left: 12px;
+      right: 12px;
+      bottom: 12px;
+    }
+    .cookie-banner-inner {
+      flex-direction: column;
+      align-items: flex-start;
+      padding: 16px;
+    }
+    .cookie-banner-actions {
+      width: 100%;
+      justify-content: flex-end;
+    }
+  }
+</style>
+
+<script>
+  const COOKIE_KEY = 'bohol_cookie_consent_v1';
+  const banner = document.getElementById('bohol-cookie-banner');
+  const acceptBtn = document.getElementById('cookie-accept-all');
+  const essentialBtn = document.getElementById('cookie-essential-only');
+
+  if (!localStorage.getItem(COOKIE_KEY)) {
+    // Delay slightly so age gate takes precedence if needed
+    setTimeout(() => {
+      if (banner) banner.style.display = 'block';
+    }, 1000);
+  }
+
+  const dismissCookie = (pref: string) => {
+    localStorage.setItem(COOKIE_KEY, pref);
+    if (banner) {
+      banner.style.opacity = '0';
+      banner.style.transition = 'opacity 0.25s ease';
+      setTimeout(() => {
+        banner.style.display = 'none';
+      }, 250);
+    }
+  };
+
+  acceptBtn?.addEventListener('click', () => dismissCookie('all'));
+  essentialBtn?.addEventListener('click', () => dismissCookie('essential'));
+</script>

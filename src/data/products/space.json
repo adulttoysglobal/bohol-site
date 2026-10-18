@@ -1,0 +1,80 @@
+{
+  "name": "Space",
+  "subtitle": "A familiar form. A different motion.",
+  "description": "A cylindrical male wellness device with a circular digital display and exterior buttons. The product information lists telescopic movement, suction and vibration, with USB-C charging.",
+  "category": "Electric",
+  "label": "TELESCOPIC SERIES",
+  "order": 14,
+  "featured": false,
+  "image": "/images/space-hero.webp",
+  "gallery": [
+    "/images/space-hero.webp",
+    "/images/space-angle.webp",
+    "/images/9rabbit/products/space-gallery-view2.webp",
+    "/images/9rabbit/products/space-gallery-view3.webp",
+    "/images/9rabbit/products/space-gallery-view4.webp"
+  ],
+  "features": [
+    "Circular display",
+    "Telescopic motion",
+    "USB-C charging"
+  ],
+  "specs": [
+    {
+      "label": "Dimensions",
+      "value": "360 × 90 mm"
+    },
+    {
+      "label": "Weight",
+      "value": "852 g"
+    },
+    {
+      "label": "Materials",
+      "value": "ABS + silicone + TPE"
+    },
+    {
+      "label": "Battery capacity",
+      "value": "1500 mAh"
+    },
+    {
+      "label": "Listed runtime",
+      "value": "60 minutes"
+    },
+    {
+      "label": "Charging connection",
+      "value": "USB-C"
+    }
+  ],
+  "seoTitle": "Space — product details and specifications",
+  "seoDescription": "A cylindrical male wellness device with a circular digital display and exterior buttons. The product information lists telescopic movement, suction and vib",
+  "note": "The source illustration and written dimensions differ. Listed dimensions follow the written specification of 360 × 90 mm; confirm the current production specification before ordering.",
+  "subCategory": "Men's Toys",
+  "vendor": "BOHOL Direct OEM",
+  "detailImages": [
+    "/images/9rabbit/details/space-s01-hero.webp",
+    "/images/9rabbit/details/space-s02-bento.webp",
+    "/images/9rabbit/details/space-s03-anatomy.webp",
+    "/images/9rabbit/details/space-s04-performance.webp",
+    "/images/9rabbit/details/space-s05-material.webp",
+    "/images/9rabbit/details/space-s07-blueprint.webp",
+    "/images/9rabbit/details/space-s08-guide.webp"
+  ],
+  "highlights": [
+    {
+      "title": "Authentic Global Quality & Direct Factory QC",
+      "body": "Every unit of Space undergoes multi-stage inspection for structural durability, surface finish, and material biocompatibility before international dispatch."
+    },
+    {
+      "title": "Body-Safe Certified Materials",
+      "body": "Crafted with medical-grade silicone, CyberSkin TPE, tempered borosilicate glass, or skin-friendly couture fabrics—free from phthalates, latex allergens, and heavy metals."
+    },
+    {
+      "title": "100% Discreet Unmarked Fulfillment",
+      "body": "Packaged in plain protective boxes with confidential shipping labels. Available for immediate North America & global express delivery."
+    },
+    {
+      "title": "Wholesale & Private-Label OEM Ready",
+      "body": "Supported by our 35,000 m² ISO-certified manufacturing base with custom laser logo engraving, Pantone color matching, and multilingual retail box customization."
+    }
+  ]
+}

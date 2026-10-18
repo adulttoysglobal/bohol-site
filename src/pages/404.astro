@@ -1,0 +1,161 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Icon from '../components/Icon.astro';
+---
+<Layout title="Product Details | BOHOL" noindex>
+  <!-- Standard 404 Section (hidden dynamically if matching custom product) -->
+  <section class="section" id="static-404-box">
+    <p class="eyebrow">404 / PAGE NOT FOUND</p>
+    <h1 style="font-size:clamp(3rem,6vw,5rem)">A different direction.</h1>
+    <p style="margin:25px 0">This page could not be found. Explore the collection instead.</p>
+    <a class="button primary" href="/products/">Back to the collection</a>
+  </section>
+
+  <!-- Dynamic Product Detail Container for custom-published products -->
+  <div id="dynamic-product-stage" hidden>
+    <div class="pdp-topbar" style="background:#f4f7f6; border-bottom:1px solid #e3eae8; padding:0.75rem 1.5rem;">
+      <div class="pdp-topbar-inner" style="max-width:1360px; margin:0 auto; font-size:0.86rem;">
+        <nav class="pdp-breadcrumb" aria-label="Breadcrumb">
+          <a href="/">Home</a> <span>/</span>
+          <a href="/products/">Products</a> <span>/</span>
+          <span class="crumb-current" id="dyn-crumb-name" style="color:#181e1d; font-weight:600;">Product</span>
+        </nav>
+      </div>
+    </div>
+
+    <section class="pdp-hero-section" style="max-width:1360px; margin:2rem auto; padding:0 1.5rem;">
+      <div class="pdp-container" style="display:grid; grid-template-columns:1fr 1fr; gap:3rem; align-items:start;">
+        <!-- Left: Image Gallery -->
+        <div class="pdp-gallery-col">
+          <div class="pdp-stage-wrap" style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:16px; padding:1.5rem; text-align:center;">
+            <div class="pdp-main-stage">
+              <div class="pdp-stage-badges" style="display:flex; gap:8px; margin-bottom:12px;">
+                <span class="pdp-badge-hot" id="dyn-badge-cat" style="background:#2563eb; color:#fff; font-size:11px; font-weight:700; padding:3px 8px; border-radius:4px;">Custom Hardware</span>
+                <span class="pdp-badge-sku" id="dyn-badge-sku" style="background:#0f172a; color:#fff; font-size:11px; font-weight:700; padding:3px 8px; border-radius:4px;">SKU: BHL</span>
+              </div>
+              <img id="dyn-main-img" src="/images/spotlight-bobi-i.webp" width="600" height="600" alt="" style="max-width:100%; height:auto; border-radius:12px; object-fit:contain;" />
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: Info & Inquiry Actions -->
+        <div class="pdp-info-col">
+          <div class="pdp-vendor-row" style="display:flex; align-items:center; gap:10px; margin-bottom:8px;">
+            <span class="pdp-vendor-pill" id="dyn-vendor" style="background:#e0f2fe; color:#0369a1; font-weight:700; font-size:11.5px; padding:3px 8px; border-radius:4px;">BOHOL Direct OEM</span>
+            <span class="pdp-stars" style="color:#f59e0b; font-size:13px;">★★★★★ <strong style="color:#0f172a;">5.0</strong> <span style="color:#64748b;">(Verified Wholesale)</span></span>
+          </div>
+
+          <h1 class="pdp-title" id="dyn-title" style="font-size:2rem; margin:0 0 8px; color:#0f172a;">Product Title</h1>
+          <p class="pdp-subtitle" id="dyn-subtitle" style="font-size:1rem; color:#475569; margin:0 0 16px;">Subtitle</p>
+
+          <div class="pdp-stock-bar" style="display:flex; align-items:center; gap:8px; font-size:12.5px; color:#059669; font-weight:600; margin-bottom:16px;">
+            <span class="pdp-stock-dot" style="width:8px; height:8px; border-radius:50%; background:#10b981; display:inline-block;"></span>
+            <span>In Stock &amp; Ready for Production · Direct OEM/ODM &amp; Wholesale Fulfillment</span>
+          </div>
+
+          <p class="pdp-description" id="dyn-desc" style="font-size:0.95rem; line-height:1.6; color:#334155; margin-bottom:20px;">Description</p>
+
+          <!-- Wholesale Options -->
+          <div class="pdp-options-box" style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:12px; padding:16px; margin-bottom:20px;">
+            <div class="pdp-qty-row" style="display:flex; align-items:center; justify-content:space-between;">
+              <span class="pdp-option-label" style="font-size:13px; font-weight:600;">Order / Sample Quantity:</span>
+              <div class="pdp-qty-picker">
+                <input type="number" id="dyn-qty-input" value="100" min="1" max="100000" step="25" style="width:80px; padding:6px; font-weight:700; border:1px solid #cbd5e1; border-radius:6px; text-align:center;" />
+              </div>
+            </div>
+            <div class="pdp-option-group" style="margin-top:12px; font-size:12.5px; color:#64748b;">
+              <span>Packaging Option: <strong style="color:#0f172a;">100% Discreet Unmarked Box</strong></span>
+            </div>
+          </div>
+
+          <!-- Primary Actions -->
+          <div class="pdp-cta-group" style="display:flex; flex-direction:column; gap:10px;">
+            <button type="button" class="pdp-btn-primary" id="dyn-add-rfq-btn" style="display:flex; align-items:center; justify-content:center; gap:8px; background:#18201f; color:#fff; border:none; padding:14px 20px; font-size:15px; font-weight:700; border-radius:8px; cursor:pointer;">
+              <span>+ Add to Wholesale RFQ</span>
+              <Icon name="arrow-up-right" size={18} />
+            </button>
+            <button type="button" class="pdp-btn-secondary" id="dyn-freight-btn" style="display:flex; align-items:center; justify-content:center; gap:8px; background:#f0f9f8; color:#1d837d; border:1px solid #1d837d; padding:12px 20px; font-size:14px; font-weight:700; border-radius:8px; cursor:pointer;">
+              <span>⚡ Instant Freight & Wholesale Quote</span>
+            </button>
+          </div>
+
+          <div class="pdp-view-posters-link" style="margin-top:16px; font-size:13px;">
+            <a href="/products/" style="color:#2563eb; text-decoration:none; font-weight:600;">← Browse All Wholesale Catalog & Add More Products</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    import { addToRfqCart } from '../lib/rfqCart.js';
+
+    const path = window.location.pathname;
+    const match = path.match(/\/products\/([a-zA-Z0-9_-]+)/);
+    if (match) {
+      const slug = match[1];
+      try {
+        const customProds = JSON.parse(localStorage.getItem('bohol_custom_products') || '[]');
+        const p = customProds.find((x: any) => x.id === slug || x.slug === slug);
+        if (p) {
+          const staticBox = document.getElementById('static-404-box');
+          const dynStage = document.getElementById('dynamic-product-stage');
+          if (staticBox) staticBox.hidden = true;
+          if (dynStage) dynStage.hidden = false;
+
+          document.title = `${p.name} | BOHOL Intimate Tech`;
+          const titleEl = document.getElementById('dyn-title');
+          if (titleEl) titleEl.textContent = p.name;
+          const crumbEl = document.getElementById('dyn-crumb-name');
+          if (crumbEl) crumbEl.textContent = p.name;
+          const subEl = document.getElementById('dyn-subtitle');
+          if (subEl) subEl.textContent = p.subtitle || '';
+          const descEl = document.getElementById('dyn-desc');
+          if (descEl) descEl.textContent = p.description || '';
+          const imgEl = document.getElementById('dyn-main-img') as HTMLImageElement;
+          if (imgEl && p.image) imgEl.src = p.image;
+          const skuBadge = document.getElementById('dyn-badge-sku');
+          if (skuBadge) skuBadge.textContent = `SKU: ${p.sku || slug}`;
+          const catBadge = document.getElementById('dyn-badge-cat');
+          if (catBadge) catBadge.textContent = p.subCategory || p.category || 'Hardware';
+
+          const addBtn = document.getElementById('dyn-add-rfq-btn');
+          const freightBtn = document.getElementById('dyn-freight-btn');
+          const qtyInp = document.getElementById('dyn-qty-input') as HTMLInputElement;
+
+          function handleAdd() {
+            const q = parseInt(qtyInp?.value || '100', 10) || 100;
+            addToRfqCart({
+              id: slug,
+              name: p.name,
+              code: p.sku || slug,
+              image: p.image || '/images/spotlight-bobi-i.webp',
+              category: p.category || 'Electric',
+              subCategory: p.subCategory || "Men's Toys",
+              vendor: p.vendor || 'BOHOL Direct OEM',
+              quantity: q,
+              packaging: '100% Discreet Box'
+            });
+            if (addBtn) {
+              addBtn.innerHTML = '<span>✓ Added to RFQ · Keep Browsing</span>';
+              setTimeout(() => {
+                addBtn.innerHTML = '<span>+ Add to Wholesale RFQ</span>';
+              }, 2500);
+            }
+            const drawer = document.getElementById('rfq-drawer');
+            if (drawer) {
+              drawer.hidden = false;
+              drawer.classList.add('active');
+              document.body.style.overflow = 'hidden';
+            }
+          }
+
+          addBtn?.addEventListener('click', handleAdd);
+          freightBtn?.addEventListener('click', handleAdd);
+        }
+      } catch (e) {
+        console.warn('Dynamic 404 hydration:', e);
+      }
+    }
+  </script>
+</Layout>

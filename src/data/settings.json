@@ -1,0 +1,20 @@
+{
+  "brand": "BOHOL",
+  "description": "Explore BOHOL personal wellness products, technical specifications, product guides and business enquiries. Discover electric, compact and sculpted collections.",
+  "eyebrow": "BOHOL PRODUCT STUDIO",
+  "heroDescription": "Distinctive hardware. Movement you control. Precision personal wellness devices.",
+  "contactEmail": "hello@boholwellness.com",
+  "enquiryEndpoint": "/api/enquiry",
+  "companyName": "BOHOL",
+  "whatsapp": "+86 185 8858 3798",
+  "wechat": "18588583798",
+  "phone": "+86 185 8858 3798",
+  "social": {
+    "linkedin": "https://www.linkedin.com/company/bohol-wellness",
+    "youtube": "https://www.youtube.com/@bohol-manufacturing",
+    "instagram": "https://www.instagram.com/bohol_official",
+    "facebook": "https://www.facebook.com/boholwellness",
+    "tiktok": "https://www.tiktok.com/@bohol_hardware",
+    "x": "https://twitter.com/boholwellness"
+  }
+}

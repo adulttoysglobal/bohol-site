@@ -1,0 +1,237 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+import ProductCard from '../../components/ProductCard.astro';
+
+const products = (await getCollection('products')).sort((a, b) => a.data.order - b.data.order);
+---
+<Layout
+  title="All Collections Catalog · Men's Toys / Women's Toys / Sexy Lingerie / BDSM / Condoms / Lubricants"
+  description="Browse all 38+ BOHOL & 9Rabbit global adult wellness products: automatic strokers, realistic sleeves, sonic vibrators, sexy lingerie, BDSM sets, 0.01 condoms, SYSTEM JO lubricants, and direct factory OEM."
+>
+  <section class="page-head">
+    <p class="eyebrow">ONE-STOP B2B SUPPLY CHAIN · 35,000 m² DIRECT FACTORY & 800+ WHOLESALE SKUS</p>
+    <h1>Wholesale Supply Catalog</h1>
+    <p>Factory-direct private-mold hardware (MOQ 100 pcs), turnkey consolidated sourcing (Intimate Devices, Couture Lingerie, 0.01 Condoms, Pure Lubricants), and 40HQ mixed container dispatch direct to 60+ countries.</p>
+  </section>
+
+  <section class="section catalog" aria-label="Product collection">
+    <div class="filters" hidden>
+      <button class="filter" data-filter="All" aria-pressed="true">All Wholesale Products ({products.length})</button>
+      <button class="filter" data-filter="BOHOL OEM" aria-pressed="false">⭐ BOHOL Factory Private Molds</button>
+      <button class="filter" data-filter="Men's Toys" aria-pressed="false">Men's Toys</button>
+      <button class="filter" data-filter="Women's Toys" aria-pressed="false">Women's Toys</button>
+      <button class="filter" data-filter="Sexy Lingerie" aria-pressed="false">Sexy Lingerie</button>
+      <button class="filter" data-filter="BDSM & Fetish" aria-pressed="false">BDSM & Fetish</button>
+      <button class="filter" data-filter="Condoms" aria-pressed="false">Condoms</button>
+      <button class="filter" data-filter="Lubricants & Care" aria-pressed="false">Lubricants & Care</button>
+
+      <label class="catalog-search">
+        <span class="visually-hidden">Search products</span>
+        <input type="search" id="product-search" placeholder="Search product name / brand / SKU / category..." autocomplete="off" />
+      </label>
+      <span class="result-count" aria-live="polite">{products.length} Products</span>
+    </div>
+
+    <!-- B2B Wholesale Multi-Product Inquiry & Freight Bar -->
+    <div class="rfq-catalog-toolbar">
+      <div class="rfq-toolbar-left">
+        <span class="rfq-tb-icon">📋</span>
+        <div>
+          <strong>B2B Multi-Product RFQ Mode</strong>
+          <p>Click <code>+ Add to RFQ</code> on any product card to consolidate multiple items. Full-category consolidation supported with factory-direct volume pricing and DDP door-to-door freight rates.</p>
+        </div>
+      </div>
+      <div class="rfq-toolbar-actions">
+        <button type="button" class="rfq-tb-btn-primary" id="open-rfq-drawer-from-catalog">
+          <span>View RFQ List & Calculate Freight</span>
+          <span class="rfq-tb-counter" id="catalog-rfq-count">0 items</span>
+        </button>
+      </div>
+    </div>
+
+    <div class="product-grid product-grid-4">
+      {products.map((product) => <ProductCard product={product} />)}
+    </div>
+    <p class="empty-result" hidden>No products matched your filter criteria. Please select another category or search term.</p>
+  </section>
+
+  <script>
+    const filters = document.querySelector<HTMLElement>('.filters');
+    if (filters) filters.hidden = false;
+    const search = document.querySelector<HTMLInputElement>('#product-search');
+    const allowed = [
+      'All',
+      "Men's Toys",
+      "Women's Toys",
+      'Sexy Lingerie',
+      'BDSM & Fetish',
+      'Condoms',
+      'Lubricants & Care',
+      'BOHOL OEM'
+    ];
+
+    const params = new URLSearchParams(location.search);
+    let raw = (params.get('subcat') || params.get('category') || params.get('cat') || 'All').trim();
+    let selected = 'All';
+    const lower = raw.toLowerCase();
+    if (lower.includes('men') && !lower.includes('women')) selected = "Men's Toys";
+    else if (lower.includes('women')) selected = "Women's Toys";
+    else if (lower.includes('ling') || lower.includes('cloth') || lower.includes('sexy')) selected = "Sexy Lingerie";
+    else if (lower.includes('bdsm') || lower.includes('fetish') || lower.includes('sm')) selected = "BDSM & Fetish";
+    else if (lower.includes('condom')) selected = "Condoms";
+    else if (lower.includes('lub') || lower.includes('care')) selected = "Lubricants & Care";
+    else if (lower.includes('oem') || lower.includes('vending') || lower.includes('factory') || lower.includes('electric')) selected = "BOHOL OEM";
+    else if (allowed.includes(raw)) selected = raw;
+
+    const initialQ = params.get('q') || '';
+    if (search && initialQ) {
+      search.value = initialQ;
+    }
+
+    function update() {
+      document.querySelectorAll<HTMLButtonElement>('[data-filter]').forEach((b) =>
+        b.setAttribute('aria-pressed', String(b.dataset.filter === selected))
+      );
+      let count = 0;
+      const term = (search?.value || '').toLowerCase().trim();
+      document.querySelectorAll<HTMLElement>('.product-card').forEach((card) => {
+        const subcat = card.dataset.subcat || '';
+        const vendor = card.dataset.vendor || '';
+        const name = card.dataset.name || '';
+        const catMatch =
+          selected === 'All' ||
+          (selected === 'BOHOL OEM' ? vendor === 'BOHOL' : subcat === selected);
+        const termMatch = !term || name.includes(term);
+        card.hidden = !catMatch || !termMatch;
+        if (!card.hidden) count++;
+      });
+      const result = document.querySelector('.result-count');
+      if (result) result.textContent = `${count} Products`;
+      const empty = document.querySelector<HTMLElement>('.empty-result');
+      if (empty) empty.hidden = count > 0;
+    }
+
+    document.querySelectorAll<HTMLButtonElement>('[data-filter]').forEach((button) =>
+      button.addEventListener('click', () => {
+        selected = button.dataset.filter || 'All';
+        const url = new URL(location.href);
+        url.searchParams.delete('category');
+        if (selected === 'All') url.searchParams.delete('subcat');
+        else url.searchParams.set('subcat', selected);
+        history.replaceState({}, '', url);
+        update();
+      })
+    );
+    search?.addEventListener('input', update);
+    update();
+
+    // RFQ Toolbar integration
+    import { getRfqCart } from '../../lib/rfqCart.js';
+    const rfqCountBadge = document.querySelector<HTMLElement>('#catalog-rfq-count');
+    const openRfqBtn = document.querySelector<HTMLButtonElement>('#open-rfq-drawer-from-catalog');
+
+    function syncCatalogRfqCount() {
+      const items = getRfqCart();
+      if (rfqCountBadge) {
+        rfqCountBadge.textContent = `${items.length} ${items.length === 1 ? 'item selected' : 'items selected'}`;
+      }
+    }
+
+    openRfqBtn?.addEventListener('click', () => {
+      const drawer = document.getElementById('rfq-drawer');
+      if (drawer) {
+        drawer.hidden = false;
+        drawer.classList.add('active');
+        document.body.style.overflow = 'hidden';
+      }
+    });
+
+    window.addEventListener('rfq-cart-updated', syncCatalogRfqCount);
+    syncCatalogRfqCount();
+
+    // Hydrate any products created/updated via the backend B2B control panel
+    function hydrateCustomProducts() {
+      try {
+        const raw = localStorage.getItem('bohol_custom_products');
+        if (!raw) return;
+        const customList = JSON.parse(raw);
+        if (!Array.isArray(customList) || !customList.length) return;
+
+        const grid = document.querySelector('.product-grid');
+        if (!grid) return;
+
+        customList.forEach((cp: any) => {
+          if (cp.status === 'DRAFT') return;
+          const slug = cp.slug || cp.id;
+          const existingCard = grid.querySelector<HTMLElement>(`.product-card[data-id="${slug}"]`) ||
+            Array.from(grid.querySelectorAll<HTMLElement>('.product-card')).find(c => c.dataset.name?.includes(cp.name.toLowerCase()));
+
+          if (existingCard) {
+            existingCard.setAttribute('data-subcat', cp.subCategory || "Men's Toys");
+            existingCard.setAttribute('data-vendor', cp.vendor || 'BOHOL');
+            const img = existingCard.querySelector<HTMLImageElement>('.pcard-img-main');
+            if (img && cp.image) img.src = cp.image;
+            const nameEl = existingCard.querySelector('.sf__pcard-name a');
+            if (nameEl) nameEl.childNodes[0].nodeValue = cp.name;
+          } else {
+            const cardEl = document.createElement('div');
+            cardEl.className = 'product-card sf__pcard';
+            cardEl.setAttribute('data-id', slug);
+            cardEl.setAttribute('data-category', cp.category || 'Electric');
+            cardEl.setAttribute('data-subcat', cp.subCategory || "Men's Toys");
+            cardEl.setAttribute('data-vendor', cp.vendor || 'BOHOL');
+            cardEl.setAttribute('data-name', `${cp.name} ${cp.subCategory} ${cp.vendor || 'BOHOL'}`.toLowerCase());
+            cardEl.innerHTML = `
+              <div class="product-image sf__pcard-image">
+                <div class="card-pod-top sf__pcard-tags">
+                  <span class="pcard-badge pcard-badge-new">NEW ARRIVAL</span>
+                  <span class="pcard-badge pcard-badge-oem">${cp.subCategory || "Men's Toys"}</span>
+                </div>
+                <a href="/products/${slug}/" class="sf__pcard-media-link" aria-label="${cp.name}">
+                  <img class="pcard-img-main" src="${cp.image || '/images/spotlight-bobi-i.webp'}" width="800" height="800" loading="lazy" alt="${cp.name}" />
+                </a>
+                <div class="sf__pcard-quick-actions">
+                  <a href="/products/${slug}/" class="pcard-action-btn">View Specs</a>
+                  <button type="button" class="pcard-action-btn pcard-action-inquiry rfq-quick-add-btn" data-rfq-id="${slug}" data-rfq-name="${cp.name}" data-rfq-code="${cp.sku || slug}" data-rfq-image="${cp.image || '/images/spotlight-bobi-i.webp'}" data-rfq-category="${cp.category || 'Electric'}" data-rfq-subcat="${cp.subCategory || "Men's Toys"}" data-rfq-vendor="${cp.vendor || 'BOHOL'}" title="Add to Wholesale RFQ">
+                    + Add to RFQ
+                  </button>
+                </div>
+              </div>
+              <div class="card-body sf__pcard-content">
+                <div class="pcard-type-row">
+                  <span class="pcard-vendor">${cp.vendor || 'BOHOL Direct OEM'}</span>
+                  <span class="pcard-rating">★★★★★ <em>(5.0)</em></span>
+                </div>
+                <h3 class="sf__pcard-name">
+                  <a href="/products/${slug}/">
+                    ${cp.name}
+                    <sup class="pcard-sup">${cp.sku || slug}</sup>
+                  </a>
+                </h3>
+                <p class="pcard-subtitle">${cp.subtitle || 'Precision engineered adult wellness hardware.'}</p>
+                <div class="pcard-bottom-row">
+                  <button type="button" class="pcard-quote-pill-btn rfq-quick-add-btn" data-rfq-id="${slug}" data-rfq-name="${cp.name}" data-rfq-code="${cp.sku || slug}" data-rfq-image="${cp.image || '/images/spotlight-bobi-i.webp'}" data-rfq-category="${cp.category || 'Electric'}" data-rfq-subcat="${cp.subCategory || "Men's Toys"}" data-rfq-vendor="${cp.vendor || 'BOHOL'}" title="Add to Wholesale RFQ">
+                    <span class="pcard-plus">+</span> Add to RFQ
+                  </button>
+                  <a href="/products/${slug}/" class="pcard-more-link">
+                    Details ↗
+                  </a>
+                </div>
+              </div>
+            `;
+            grid.insertBefore(cardEl, grid.firstChild);
+          }
+        });
+        update();
+      } catch (err) {
+        console.warn('Hydrate custom products:', err);
+      }
+    }
+
+    hydrateCustomProducts();
+    window.addEventListener('storage', (e) => {
+      if (e.key === 'bohol_custom_products') hydrateCustomProducts();
+    });
+  </script>
+</Layout>

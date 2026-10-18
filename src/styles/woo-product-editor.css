@@ -1,0 +1,884 @@
+/* ==========================================================================
+   WOOCOMMERCE BACKEND PRODUCT PUBLISHING STUDIO STYLES
+   Pixel-perfect WordPress / WooCommerce Admin Look & Feel
+   ========================================================================== */
+
+:root {
+  --wp-admin-bg: #f0f0f1;
+  --wp-card-bg: #ffffff;
+  --wp-border: #dcdcde;
+  --wp-border-dark: #c3c4c7;
+  --wp-text-main: #1d2327;
+  --wp-text-muted: #646970;
+  --wp-primary: #2271b1;
+  --wp-primary-hover: #135e96;
+  --wp-woo-purple: #7f54b3;
+  --wp-woo-hover: #6c429c;
+  --wp-danger: #d63638;
+  --wp-success: #008a20;
+}
+
+/* Modal Overlay & Container */
+.woo-studio-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.75);
+  backdrop-filter: blur(5px);
+  z-index: 99999;
+  display: none;
+  overflow-y: auto;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.woo-studio-overlay.active {
+  display: block;
+}
+
+.woo-studio-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  background: var(--wp-admin-bg);
+  border-radius: 8px;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.35);
+  border: 1px solid #cbd5e1;
+  overflow: hidden;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+  color: var(--wp-text-main);
+  animation: wooFadeSlide 0.2s ease-out;
+}
+
+@keyframes wooFadeSlide {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Studio Header */
+.woo-studio-header {
+  background: #1d2327;
+  color: #f0f0f1;
+  padding: 14px 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #3c434a;
+}
+
+.woo-header-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.woo-badge-logo {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  background: var(--wp-woo-purple);
+  color: #fff;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+}
+
+.woo-header-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.woo-header-title span.mode-pill {
+  font-size: 11px;
+  font-weight: 600;
+  background: rgba(255, 255, 255, 0.15);
+  padding: 2px 8px;
+  border-radius: 12px;
+  color: #93c5fd;
+}
+
+.woo-header-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.woo-btn-header-link {
+  color: #cbd5e1;
+  text-decoration: none;
+  font-size: 12.5px;
+  font-weight: 500;
+  padding: 5px 10px;
+  border-radius: 4px;
+  transition: all 0.15s;
+}
+.woo-btn-header-link:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+}
+
+.woo-btn-close {
+  background: transparent;
+  border: 1px solid #4b5563;
+  color: #e2e8f0;
+  font-size: 14px;
+  padding: 4px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.woo-btn-close:hover {
+  background: #dc2626;
+  border-color: #dc2626;
+  color: #ffffff;
+}
+
+/* Studio Body Grid */
+.woo-studio-body {
+  padding: 20px 24px 32px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 340px;
+  gap: 24px;
+  box-sizing: border-box;
+}
+
+@media (max-width: 1080px) {
+  .woo-studio-body {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Left Column */
+.woo-col-main {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  min-width: 0;
+}
+
+/* Right Column (Sidebar) */
+.woo-col-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+/* Postbox Card (WordPress signature meta box style) */
+.woo-postbox {
+  background: var(--wp-card-bg);
+  border: 1px solid var(--wp-border);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.woo-postbox-header {
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--wp-border);
+  background: #ffffff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.woo-postbox-header h3 {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--wp-text-main);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.woo-postbox-inside {
+  padding: 14px;
+  box-sizing: border-box;
+}
+
+/* Title Input Area (WordPress Big Title) */
+.woo-title-card {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.woo-title-input {
+  width: 100%;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--wp-text-main);
+  padding: 10px 14px;
+  border: 1px solid var(--wp-border-dark);
+  border-radius: 4px;
+  background: #ffffff;
+  box-sizing: border-box;
+  outline: none;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+.woo-title-input:focus {
+  border-color: var(--wp-primary);
+  box-shadow: 0 0 0 2px rgba(34, 113, 177, 0.2);
+}
+
+/* Permalink Editor Box */
+.woo-permalink-box {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px;
+  font-size: 12.5px;
+  color: var(--wp-text-muted);
+  background: #f8fafc;
+  padding: 6px 12px;
+  border-radius: 4px;
+  border: 1px solid #e2e8f0;
+}
+
+.woo-permalink-prefix {
+  color: #64748b;
+  font-family: ui-monospace, Menlo, Consolas, monospace;
+}
+
+.woo-permalink-slug-input {
+  background: #ffffff;
+  border: 1px solid var(--wp-border-dark);
+  border-radius: 3px;
+  padding: 2px 8px;
+  font-size: 12px;
+  font-family: ui-monospace, Menlo, Consolas, monospace;
+  font-weight: 600;
+  color: var(--wp-primary);
+  outline: none;
+  min-width: 140px;
+}
+.woo-permalink-slug-input:focus {
+  border-color: var(--wp-primary);
+  background: #f0f7ff;
+}
+
+.woo-permalink-btn {
+  background: #f6f7f7;
+  border: 1px solid var(--wp-border-dark);
+  color: var(--wp-text-main);
+  border-radius: 3px;
+  font-size: 11.5px;
+  padding: 2px 8px;
+  cursor: pointer;
+  text-decoration: none;
+}
+.woo-permalink-btn:hover {
+  background: #ffffff;
+  border-color: var(--wp-primary);
+  color: var(--wp-primary);
+}
+
+/* TinyMCE Rich Editor Simulation */
+.woo-editor-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #f6f7f7;
+  border: 1px solid var(--wp-border);
+  border-bottom: none;
+  padding: 6px 10px;
+  border-radius: 4px 4px 0 0;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.woo-toolbar-btns {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.woo-t-btn {
+  background: #ffffff;
+  border: 1px solid var(--wp-border-dark);
+  border-radius: 3px;
+  color: #3c434a;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 3px 8px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 24px;
+  height: 24px;
+}
+.woo-t-btn:hover {
+  background: #f0f0f1;
+  border-color: var(--wp-primary);
+  color: var(--wp-primary);
+}
+
+.woo-t-btn.media-btn {
+  background: #2563eb;
+  color: #ffffff;
+  border-color: #2563eb;
+  padding: 3px 10px;
+}
+.woo-t-btn.media-btn:hover {
+  background: #1d4ed8;
+}
+
+.woo-editor-modes {
+  display: flex;
+  gap: 4px;
+}
+
+.woo-mode-btn {
+  background: #f6f7f7;
+  border: 1px solid var(--wp-border);
+  border-bottom: none;
+  border-radius: 3px 3px 0 0;
+  font-size: 11.5px;
+  padding: 4px 10px;
+  cursor: pointer;
+  color: #646970;
+}
+.woo-mode-btn.active {
+  background: #ffffff;
+  color: var(--wp-text-main);
+  font-weight: 700;
+}
+
+.woo-editor-textarea {
+  width: 100%;
+  min-height: 160px;
+  border: 1px solid var(--wp-border);
+  border-radius: 0 0 4px 4px;
+  padding: 12px;
+  font-size: 13.5px;
+  line-height: 1.6;
+  font-family: inherit;
+  color: var(--wp-text-main);
+  box-sizing: border-box;
+  resize: vertical;
+  outline: none;
+}
+.woo-editor-textarea:focus {
+  border-color: var(--wp-primary);
+  box-shadow: 0 0 0 2px rgba(34, 113, 177, 0.15);
+}
+
+/* ==========================================================================
+   WOOCOMMERCE PRODUCT DATA METABOX (Signature Component)
+   ========================================================================== */
+.woo-data-metabox {
+  background: #ffffff;
+  border: 1px solid var(--wp-border);
+  border-radius: 4px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+}
+
+.woo-data-header {
+  background: #f6f7f7;
+  border-bottom: 1px solid var(--wp-border);
+  padding: 10px 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.woo-data-header-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.woo-data-title {
+  font-size: 13.5px;
+  font-weight: 700;
+  color: var(--wp-text-main);
+}
+
+.woo-type-select {
+  padding: 5px 10px;
+  border: 1px solid var(--wp-border-dark);
+  border-radius: 3px;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--wp-text-main);
+  background: #ffffff;
+  outline: none;
+}
+
+.woo-data-checkboxes {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  font-size: 12.5px;
+  color: #475569;
+}
+
+.woo-data-checkboxes label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  user-select: none;
+}
+
+/* Data Box Main Body (Vertical Tabs + Content Panels) */
+.woo-data-body {
+  display: flex;
+  min-height: 380px;
+}
+
+/* Vertical Tab List */
+.woo-vtabs-nav {
+  width: 175px;
+  background: #f6f7f7;
+  border-right: 1px solid var(--wp-border);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  flex-shrink: 0;
+}
+
+.woo-vtab-item {
+  width: 100%;
+}
+
+.woo-vtab-btn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 11px 14px;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid #eef0f2;
+  border-left: 3px solid transparent;
+  color: #50575e;
+  font-size: 12.5px;
+  font-weight: 600;
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.woo-vtab-btn:hover {
+  background: #eceff1;
+  color: #1d2327;
+}
+
+.woo-vtab-btn.active {
+  background: #ffffff;
+  color: var(--wp-primary);
+  border-left-color: var(--wp-primary);
+  font-weight: 700;
+  border-right: 1px solid #ffffff;
+  margin-right: -1px;
+}
+
+.woo-vtab-icon {
+  font-size: 15px;
+  line-height: 1;
+}
+
+/* Vertical Tab Panels Container */
+.woo-vpanels-container {
+  flex: 1;
+  padding: 20px 24px;
+  background: #ffffff;
+  min-width: 0;
+}
+
+.woo-vpanel {
+  display: none;
+  flex-direction: column;
+  gap: 16px;
+  animation: wooTabFade 0.15s ease-out;
+}
+
+.woo-vpanel.active {
+  display: flex;
+}
+
+@keyframes wooTabFade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Form Row (Classic WooCommerce style: label on left, input on right) */
+.woo-field-row {
+  display: grid;
+  grid-template-columns: 180px minmax(0, 1fr);
+  align-items: center;
+  gap: 14px;
+  padding-bottom: 12px;
+  border-bottom: 1px dashed #f1f5f9;
+}
+
+.woo-field-row:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.woo-field-label {
+  font-size: 12.5px;
+  font-weight: 600;
+  color: #334155;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.woo-field-label span.req {
+  color: var(--wp-danger);
+}
+
+.woo-field-input-wrap {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.woo-input-text {
+  background: #ffffff;
+  border: 1px solid var(--wp-border-dark);
+  border-radius: 4px;
+  padding: 7px 10px;
+  font-size: 13px;
+  color: var(--wp-text-main);
+  outline: none;
+  transition: all 0.15s;
+  box-sizing: border-box;
+}
+
+.woo-input-text:focus {
+  border-color: var(--wp-primary);
+  box-shadow: 0 0 0 2px rgba(34, 113, 177, 0.2);
+}
+
+.woo-input-text.w-sm { width: 120px; }
+.woo-input-text.w-md { width: 220px; }
+.woo-input-text.w-full { width: 100%; }
+
+.woo-field-desc {
+  font-size: 11.5px;
+  color: #64748b;
+  margin-top: 2px;
+  width: 100%;
+}
+
+/* ==========================================================================
+   SIDEBAR METABOXES
+   ========================================================================== */
+
+/* 1. Publish Box */
+.woo-publish-actions-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #eef0f2;
+  margin-bottom: 12px;
+}
+
+.woo-publish-meta-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 12.5px;
+  color: #475569;
+  padding-bottom: 14px;
+  border-bottom: 1px solid #eef0f2;
+}
+
+.woo-publish-meta-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.woo-publish-meta-item strong {
+  color: #0f172a;
+}
+
+.woo-publish-actions-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 12px;
+}
+
+.woo-link-trash {
+  color: var(--wp-danger);
+  font-size: 12px;
+  text-decoration: underline;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+.woo-link-trash:hover {
+  color: #b91c1c;
+}
+
+.woo-btn-publish {
+  background: var(--wp-primary);
+  color: #ffffff;
+  border: 1px solid var(--wp-primary);
+  border-radius: 4px;
+  padding: 8px 16px;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.15s;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+.woo-btn-publish:hover {
+  background: var(--wp-primary-hover);
+  border-color: var(--wp-primary-hover);
+}
+
+.woo-btn-draft {
+  background: #f6f7f7;
+  color: #2c3338;
+  border: 1px solid var(--wp-border-dark);
+  border-radius: 4px;
+  padding: 5px 12px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.woo-btn-draft:hover {
+  background: #ffffff;
+  border-color: var(--wp-primary);
+  color: var(--wp-primary);
+}
+
+/* 2. Product Image Box */
+.woo-image-preview-area {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  background: #f8fafc;
+  border: 2px dashed #cbd5e1;
+  border-radius: 6px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  position: relative;
+  margin-bottom: 10px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.woo-image-preview-area:hover {
+  border-color: var(--wp-primary);
+  background: #f0f7ff;
+}
+
+.woo-image-preview-area img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.woo-image-empty-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  color: #64748b;
+  text-align: center;
+  padding: 16px;
+}
+
+.woo-image-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.woo-preset-images-strip {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 6px;
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px solid #f1f5f9;
+}
+
+.woo-preset-thumb {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  border-radius: 4px;
+  border: 1px solid #cbd5e1;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.woo-preset-thumb:hover {
+  border-color: var(--wp-primary);
+  transform: scale(1.08);
+}
+
+/* 3. Product Gallery Box */
+.woo-gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 6px;
+  margin-bottom: 10px;
+}
+
+.woo-gallery-thumb {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  border-radius: 4px;
+  border: 1px solid #e2e8f0;
+}
+
+/* 4. Product Categories Checklist Box */
+.woo-cat-tabs {
+  display: flex;
+  border-bottom: 1px solid var(--wp-border);
+  margin-bottom: 8px;
+}
+
+.woo-cat-tab-btn {
+  background: none;
+  border: none;
+  padding: 4px 10px;
+  font-size: 11.5px;
+  font-weight: 600;
+  color: #646970;
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+}
+.woo-cat-tab-btn.active {
+  color: var(--wp-primary);
+  border-bottom-color: var(--wp-primary);
+}
+
+.woo-cat-checklist {
+  max-height: 190px;
+  overflow-y: auto;
+  border: 1px solid var(--wp-border);
+  background: #ffffff;
+  padding: 8px 12px;
+  border-radius: 3px;
+  list-style: none;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.woo-cat-item {
+  font-size: 12.5px;
+  color: #1e293b;
+}
+
+.woo-cat-item label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+}
+
+.woo-cat-item.sub-item {
+  padding-left: 18px;
+  color: #475569;
+}
+
+.woo-add-cat-toggle {
+  background: none;
+  border: none;
+  color: var(--wp-primary);
+  font-size: 12px;
+  cursor: pointer;
+  padding: 6px 0 0;
+  display: inline-block;
+  text-decoration: underline;
+}
+
+/* 5. Product Tags Box */
+.woo-tags-input-row {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 8px;
+}
+
+.woo-popular-tags-cloud {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  font-size: 11px;
+}
+
+.woo-tag-pill {
+  background: #f1f5f9;
+  border: 1px solid #cbd5e1;
+  border-radius: 12px;
+  padding: 2px 8px;
+  color: #334155;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.woo-tag-pill:hover {
+  background: #e2e8f0;
+  border-color: var(--wp-primary);
+  color: var(--wp-primary);
+}
+
+/* Custom Attributes Table in Tab 5 */
+.woo-attr-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12px;
+  margin-bottom: 12px;
+}
+
+.woo-attr-table th {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  padding: 8px 10px;
+  text-align: left;
+  font-weight: 700;
+  color: #475569;
+}
+
+.woo-attr-table td {
+  border: 1px solid #e2e8f0;
+  padding: 6px 10px;
+  vertical-align: middle;
+}
+
+.woo-attr-input {
+  width: 100%;
+  border: 1px solid #cbd5e1;
+  border-radius: 3px;
+  padding: 5px 8px;
+  font-size: 12px;
+  box-sizing: border-box;
+}
+
+.woo-btn-del-attr {
+  background: none;
+  border: none;
+  color: var(--wp-danger);
+  cursor: pointer;
+  font-weight: 700;
+  font-size: 14px;
+  padding: 2px 6px;
+}

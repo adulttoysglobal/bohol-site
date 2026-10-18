@@ -1,0 +1,84 @@
+{
+  "name": "Starship",
+  "subtitle": "A closer look at every detail.",
+  "description": "A compact male wellness device with an open-form body, sculpted grip and visible inner construction. The product sheet lists nine rotation settings and nine vibration settings, with controls positioned on the exterior.",
+  "category": "Electric",
+  "label": "OPEN-FORM DESIGN",
+  "order": 2,
+  "featured": true,
+  "image": "/images/starship-hero.webp",
+  "gallery": [
+    "/images/starship-hero.webp",
+    "/images/starship-front.webp",
+    "/images/starship-back.webp",
+    "/images/9rabbit/products/starship-gallery-view2.webp",
+    "/images/9rabbit/products/starship-gallery-view3.webp"
+  ],
+  "features": [
+    "Open-form body",
+    "9 rotation settings",
+    "9 vibration settings"
+  ],
+  "specs": [
+    {
+      "label": "Dimensions",
+      "value": "6.94 × 3.65 × 2.55 in"
+    },
+    {
+      "label": "Net weight",
+      "value": "363 g"
+    },
+    {
+      "label": "Materials",
+      "value": "TPE + ABS + silicone"
+    },
+    {
+      "label": "Charging connection",
+      "value": "DC socket"
+    },
+    {
+      "label": "Charging time",
+      "value": "75 minutes"
+    },
+    {
+      "label": "Rotation settings",
+      "value": "9"
+    },
+    {
+      "label": "Vibration settings",
+      "value": "9"
+    }
+  ],
+  "seoTitle": "Starship male wellness device — design and specifications",
+  "seoDescription": "Discover Starship, a compact open-form male wellness device. View product photos, dimensions, materials, charging information and control settings.",
+  "note": "Specifications are taken from the product information sheet. Confirm the exact model and supplied instructions before use; charging accessories are model-specific.",
+  "subCategory": "Men's Toys",
+  "vendor": "BOHOL Direct OEM",
+  "detailImages": [
+    "/images/9rabbit/details/starship-s01-hero.webp",
+    "/images/9rabbit/details/starship-s02-bento.webp",
+    "/images/9rabbit/details/starship-s03-anatomy.webp",
+    "/images/9rabbit/details/starship-s04-performance.webp",
+    "/images/9rabbit/details/starship-s05-material.webp",
+    "/images/9rabbit/details/starship-s07-blueprint.webp",
+    "/images/9rabbit/details/starship-s08-guide.webp"
+  ],
+  "highlights": [
+    {
+      "title": "Authentic Global Quality & Direct Factory QC",
+      "body": "Every unit of Starship undergoes multi-stage inspection for structural durability, surface finish, and material biocompatibility before international dispatch."
+    },
+    {
+      "title": "Body-Safe Certified Materials",
+      "body": "Crafted with medical-grade silicone, CyberSkin TPE, tempered borosilicate glass, or skin-friendly couture fabrics—free from phthalates, latex allergens, and heavy metals."
+    },
+    {
+      "title": "100% Discreet Unmarked Fulfillment",
+      "body": "Packaged in plain protective boxes with confidential shipping labels. Available for immediate North America & global express delivery."
+    },
+    {
+      "title": "Wholesale & Private-Label OEM Ready",
+      "body": "Supported by our 35,000 m² ISO-certified manufacturing base with custom laser logo engraving, Pantone color matching, and multilingual retail box customization."
+    }
+  ]
+}

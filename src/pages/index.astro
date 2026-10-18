@@ -1,0 +1,421 @@
+---
+import Layout from '../layouts/Layout.astro';
+import ProductCarousel from '../components/ProductCarousel.astro';
+import Icon from '../components/Icon.astro';
+import { getCollection } from 'astro:content';
+import ProductCard from '../components/ProductCard.astro';
+import ClientReviews from '../components/ClientReviews.astro';
+import PartnerBand from '../components/PartnerBand.astro';
+
+const allProducts = (await getCollection('products')).sort((a, b) => a.data.order - b.data.order);
+// 8 Curated Flagship Hardware Models
+const boholFlagships = allProducts.filter((p) => p.data.order <= 8);
+
+const strategicPillars = [
+  {
+    num: '01 · RETAIL TERMINALS',
+    tagZh: '智能售货终端',
+    icon: '🏢',
+    image: '/images/spotlight-big-mouth.webp',
+    title: 'Smart Commercial Vending',
+    titleZh: '智慧商业客房无人售货机',
+    desc: 'Wall-mounted micro-vending kiosks, multi-channel guestroom stores, and Nayax/QR contactless cashless payment.',
+    tags: [
+      'IoT Fleet Cloud Telemetry (4G)',
+      'Nayax & QR Contactless Cashless Pay',
+      '24/7 Automated Revenue (65%+ Margin)'
+    ],
+    href: '/products/?subcat=Vending',
+    linkText: 'Explore Vending Terminals'
+  },
+  {
+    num: '02 · PROPRIETARY HARDWARE',
+    tagZh: '14款自主私模',
+    icon: '⚡',
+    image: '/images/twist-hero.webp',
+    title: 'Proprietary Private-Mold Hardware',
+    titleZh: '自主研发私模成人玩具',
+    desc: 'Dual-drive telescopic & rotational motors, biocompatible Platinum-Cured Liquid Silicone (LSR).',
+    tags: [
+      '14 Private-Mold Flagships (No Copycats)',
+      'Class 100,000 LSR Silicone Cleanrooms',
+      'IPX7 Waterproof & Whisper Motors (<45dB)'
+    ],
+    href: '/products/?subcat=BOHOL OEM',
+    linkText: 'Browse Flagship Hardware'
+  },
+  {
+    num: '03 · CONSUMABLES & REFILLS',
+    tagZh: '快消耗材与套件',
+    icon: '📦',
+    image: '/images/factory-packaging.webp',
+    title: 'Turnkey Consumables & Refills',
+    titleZh: '避孕套 / 润滑液 / 组合客房装',
+    desc: 'High-margin consumer goods pre-boxed for drop slots: 0.01 condoms, pure lubricants, and discrete kits.',
+    tags: [
+      '0.01 Ultra-Thin Condoms (PU & Latex)',
+      'Hyaluronic Acid Water-Based Lubricants',
+      'Pre-Packaged Machine Drop Slots'
+    ],
+    href: '/products/?subcat=Condoms',
+    linkText: 'View Consumable Packs'
+  },
+  {
+    num: '04 · FACTORY CONTRACT OEM',
+    tagZh: '工厂开模与代工',
+    icon: '🛠️',
+    image: '/images/factory-workshop.webp',
+    title: 'Contract OEM / ODM & Private Label',
+    titleZh: '品牌开模定制与白标代工',
+    desc: 'Direct factory engineering: 25-day rapid tooling, custom Pantone silicone, and laser engraving.',
+    tags: [
+      '20~25 Working Days Rapid Tooling',
+      'Custom Pantone Silicone & Laser Etching',
+      'CE, RoHS, FCC & FDA 510(k) Ready'
+    ],
+    href: '/partners/',
+    linkText: 'Start Custom OEM Project'
+  },
+  {
+    num: '05 · CONTAINER CONSOLIDATION',
+    tagZh: '一柜拼装出海',
+    icon: '🚢',
+    image: '/images/factory-warehouse.webp',
+    title: 'Mixed Container Consolidation',
+    titleZh: '全品类一柜拼装 · DDP双清专线',
+    desc: 'Consolidate 800+ SKUs into one 20GP or 40HQ container. Save 35%~45% on shipping with direct DDP delivery.',
+    tags: [
+      '800+ Verified SKUs in One Container',
+      'Save ~40% vs Fragmented LCL Shipping',
+      'UN38.3 Lithium DG Door-to-Door Clearance'
+    ],
+    href: '/rfq/',
+    linkText: 'Calculate Mixed Container RFQ'
+  }
+];
+---
+
+<Layout
+  title="BOHOL | Smart Commercial Vending & Intimate Hardware Manufacturing"
+  description="BOHOL integrates smart commercial hotel vending machines, proprietary private-mold hardware, and turnkey wellness consumables direct from our 35,000 m² ISO-certified manufacturing base."
+>
+  <!-- HERO HARDWARE SPOTLIGHT & POSITIONING CAROUSEL -->
+  <ProductCarousel />
+
+  <!-- SECTION 1: THE 5 STRATEGIC PRODUCT PILLARS (Rich visual photography cards) -->
+  <section class="pillar-matrix-section">
+    <div class="sf-section-header" style="text-align: center; max-width: 860px; margin: 0 auto;">
+      <p class="eyebrow" style="color: #2563eb; font-weight: 800; letter-spacing: 0.12em;">STRATEGIC PRODUCT & SUPPLY MATRIX · 全球外贸供应链矩阵</p>
+      <h2 class="sf-section__heading" style="font-size: clamp(26px, 3.5vw, 38px); margin: 8px 0 14px;">Integrated Autonomous Retail & Wholesale Solutions</h2>
+      <p class="sf-section__description" style="font-size: 15px; color: #64748b; line-height: 1.6;">
+        From smart unattended hotel vending hardware to high-velocity consumable refills and factory-direct OEM customization, BOHOL powers global retail operators with a complete, vertically integrated supply chain.
+      </p>
+    </div>
+
+    <div class="pillar-grid">
+      {strategicPillars.map((pillar) => (
+        <a href={pillar.href} class="pillar-card">
+          <div class="pillar-img-box">
+            <img src={pillar.image} alt={pillar.title} width="600" height="380" loading="lazy" class="pillar-cover-img" />
+            <div class="pillar-img-overlay">
+              <span class="pillar-num">{pillar.num}</span>
+              <span class="pillar-badge-zh">{pillar.tagZh}</span>
+            </div>
+          </div>
+          <div class="pillar-card-body">
+            <div class="pillar-title-wrap">
+              <h3 class="pillar-title">{pillar.title}</h3>
+              <p class="pillar-title-zh">{pillar.titleZh}</p>
+            </div>
+            <p class="pillar-desc">{pillar.desc}</p>
+            <div class="pillar-tags">
+              {pillar.tags.map((tag) => (
+                <div class="pillar-tag-item">
+                  <span class="pillar-check">✓</span>
+                  <span>{tag}</span>
+                </div>
+              ))}
+            </div>
+            <div class="pillar-link">
+              <span>{pillar.linkText}</span>
+              <Icon name="arrow-right" size={14} />
+            </div>
+          </div>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <!-- B2B ONE-STOP CONTAINER CONSOLIDATION & SOURCING HUB -->
+  <section class="b2b-consolidation-section">
+    <div class="b2b-consolidation-card">
+      <div class="b2b-consolidation-header">
+        <span class="b2b-badge">ONE-STOP B2B SOURCING & CONTAINER CONSOLIDATION</span>
+        <h2 class="b2b-heading">Stop Managing 10 Different Suppliers.<br/>Consolidate Your Entire Product Line in One 40HQ Container with BOHOL.</h2>
+        <p class="b2b-subheading">
+          Eliminate middleman trading markups, fragmented shipping logistics, and customs delays. BOHOL combines <strong>Direct Factory Hardware Engineering (35,000 m² ISO Cleanrooms)</strong> with an integrated <strong>800+ SKU Turnkey Wholesale Catalog</strong> spanning adult pleasure tech, couture lingerie, 0.01 condoms, pure lubricants, and autonomous hotel vending systems.
+        </p>
+      </div>
+
+      <div class="b2b-perks-grid">
+        <div class="b2b-perk-item">
+          <div>
+            <div class="b2b-perk-icon">🏭</div>
+            <h3>Direct Factory OEM</h3>
+            <p>14 in-house private-mold flagships, Class 100,000 LSR medical silicone injection, zero middleman markup, and complete patent/IP protection.</p>
+          </div>
+          <span class="b2b-perk-stat">35,000 m² Campus</span>
+        </div>
+        <div class="b2b-perk-item">
+          <div>
+            <div class="b2b-perk-icon">🚢</div>
+            <h3>Mixed Container Consolidation</h3>
+            <p>Mix toys, lingerie, condoms, and lubricants in a single 20GP or 40HQ container. Save 35%~45% on sea freight, export tariffs, and domestic handling.</p>
+          </div>
+          <span class="b2b-perk-stat">Save ~40% Freight</span>
+        </div>
+        <div class="b2b-perk-item">
+          <div>
+            <div class="b2b-perk-icon">📦</div>
+            <h3>Flexible Wholesale MOQ</h3>
+            <p>Low-risk market entry with standard MOQ 100 pcs (50 pcs evaluation samples). Master carton export packing with neutral confidential shipping labels.</p>
+          </div>
+          <span class="b2b-perk-stat">MOQ 100 pcs</span>
+        </div>
+        <div class="b2b-perk-item">
+          <div>
+            <div class="b2b-perk-icon">🎨</div>
+            <h3>Turnkey Commercial Assets</h3>
+            <p>Every SKU includes complete 8-to-12 screen English graphic detail posters, 3D exploded views, and WebP assets ready for instant deployment to your channels.</p>
+          </div>
+          <span class="b2b-perk-stat">Ready-to-Sell PDPs</span>
+        </div>
+      </div>
+
+      <div class="b2b-consolidation-cta">
+        <div class="b2b-cta-left">
+          <strong>Ready to build your mixed container order?</strong>
+          <span>Calculate FOB Shenzhen or DDP doorstep freight, container cubic volume, and wholesale tier pricing in real time.</span>
+        </div>
+        <div class="b2b-cta-actions">
+          <a href="/rfq/" class="btn-primary">Launch Container RFQ Calculator <Icon name="arrow-up-right" size={16} /></a>
+          <a href="https://wa.me/8618588583798" target="_blank" class="btn-secondary">💬 WhatsApp Direct Inquiry</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 2: 8 CURATED PRIVATE-MOLD FLAGSHIP HARDWARE SHOWCASE -->
+  <section class="section matrix-section" id="collection" style="padding-top: 2rem;">
+    <div class="sf-section-header" style="display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 16px; margin-bottom: 2rem;">
+      <div>
+        <p class="eyebrow" style="color: #2563eb; font-weight: 800; letter-spacing: 0.12em;">ENGINEERED EXCELLENCE · IN-HOUSE MOLDS</p>
+        <h2 class="sf-section__heading" style="font-size: clamp(24px, 3vw, 34px); margin: 6px 0 0;">Private-Mold Flagship Hardware</h2>
+        <p class="sf-section__description" style="margin-top: 6px; font-size: 14.5px; color: #64748b;">
+          Our 8 most requested models for commercial retail, automated vending slots, and international wholesale distribution.
+        </p>
+      </div>
+      <div>
+        <a href="/products/" class="btn-secondary" style="font-size: 13px; font-weight: 700;">
+          Browse All 38 Products &rarr;
+        </a>
+      </div>
+    </div>
+
+    <!-- 2 Rows x 4 Columns Product Grid -->
+    <div class="product-grid product-grid-4" id="home-product-grid">
+      {boholFlagships.map((product) => <ProductCard product={product} />)}
+    </div>
+
+    <div class="matrix-footer-bar" style="margin-top: 2.5rem;">
+      <div class="matrix-footer-note">
+        <strong>Wholesale Minimum Order Quantities (MOQ: 50 / 100 / 500 pcs)</strong>
+        <span>All models support custom Pantone silicone matching, laser engraved brand logos, multilingual retail packaging, and direct FOB Shenzhen or DDP door-to-door freight.</span>
+      </div>
+      <div class="matrix-footer-links">
+        <a class="btn-primary" href="/rfq/">Build Multi-Product Quote (RFQ) <Icon name="arrow-up-right" size={16} /></a>
+        <a class="btn-secondary" href="/catalogue/">View Factory Spec Sheet <Icon name="arrow-right" size={16} /></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 3: THE TURNKEY AUTOMATED RETAIL ECOSYSTEM (Why Vending + Consumables Work Together) -->
+  <section class="ecosystem-section">
+    <div class="ecosystem-container">
+      <div class="sf-section-header" style="text-align: center; max-width: 800px; margin: 0 auto;">
+        <p class="eyebrow" style="color: #0284c7; font-weight: 800; letter-spacing: 0.12em;">CLOSED-LOOP BUSINESS MODEL</p>
+        <h2 class="sf-section__heading" style="font-size: clamp(24px, 3vw, 34px); margin: 8px 0 12px;">The Complete Autonomous Retail Loop</h2>
+        <p class="sf-section__description" style="font-size: 15px; color: #64748b; line-height: 1.6;">
+          Why BOHOL integrates vending terminals with curated intimate wellness consumables: we eliminate middleman markups and give operators a turnkey, high-margin cash flow business.
+        </p>
+      </div>
+
+      <div class="ecosystem-grid">
+        <div class="ecosystem-step">
+          <span class="ecosystem-step-badge">STEP 01 · HARDWARE DEPLOYMENT</span>
+          <h3>1. Install Smart Terminals</h3>
+          <p>Deploy compact wall-mounted vending terminals in hotel rooms, boutique suites, nightlife lounges, and wellness venues. Built with cashless contactless readers and real-time cloud inventory tracking.</p>
+        </div>
+
+        <div class="ecosystem-step">
+          <span class="ecosystem-step-badge">STEP 02 · HIGH-VELOCITY MERCHANDISE</span>
+          <h3>2. Stock Curated Consumables</h3>
+          <p>Fill machine slots with factory-direct 0.01 condoms, pure lubricants, and private-mold devices pre-boxed for precision dispensing without jamming or mechanical failure.</p>
+        </div>
+
+        <div class="ecosystem-step">
+          <span class="ecosystem-step-badge">STEP 03 · AUTOMATED CASH FLOW</span>
+          <h3>3. Capture 65%+ Gross Margins</h3>
+          <p>Generate 24/7 automated retail revenue with zero on-site staff overhead. Replenish inventory seamlessly with factory-direct batch orders and DDP doorstep logistics.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 4: SMART FACTORY & CORPORATE STRENGTH BENTO GRID -->
+  <section class="section factory-bento-section" id="factory" style="padding-top: 4rem;">
+    <div class="sf-section-header">
+      <p class="eyebrow">VERTICALLY INTEGRATED MANUFACTURING POWERHOUSE</p>
+      <h2 class="sf-section__heading">Direct Factory Strength · 35,000 m² Digital Cleanroom Campus</h2>
+      <p class="sf-section__description">Unlike trading middlemen, BOHOL vertically integrates industrial ID design, 5-axis CNC steel tooling, Class 100,000 medical LSR injection molding, and 100% automated waterproof & aging inspection—delivering 500,000+ units monthly.</p>
+    </div>
+
+    <div class="factory-bento">
+      <article class="bento-cell bento-campus">
+        <img src="/images/factory-campus.webp" width="1024" height="682" loading="lazy" alt="BOHOL 35,000 square meter smart manufacturing headquarters and main entrance gate" />
+        <div class="bento-overlay">
+          <div class="bento-badge-row">
+            <span class="bento-tag">HEADQUARTERS & PRODUCTION BASE</span>
+            <span class="bento-metric">35,000 m² CAMPUS</span>
+          </div>
+          <h3>35,000 m² R&D and Smart Manufacturing Headquarters</h3>
+          <p>Equipped with 120+ automated assembly lines and independent acoustic & waterproof laboratories, delivering 500,000+ units monthly to leading wellness brands across 60+ countries in North America, Europe, and APAC.</p>
+        </div>
+      </article>
+
+      <article class="bento-cell bento-cnc">
+        <img src="/images/factory-rd-lab.webp" width="960" height="540" loading="lazy" alt="BOHOL 5-axis CNC mold engineering and waterproof IPX7 testing laboratory" />
+        <div class="bento-overlay">
+          <div class="bento-badge-row">
+            <span class="bento-tag">R&D AND CNC MOLD CENTER</span>
+            <span class="bento-metric">±0.01 mm PRECISION</span>
+          </div>
+          <h3>In-House 5-Axis CNC Tooling Center & 40+ Utility Patents</h3>
+          <p>30+ senior mechanical and PCB engineers delivering functional 3D prototypes in 7 days and rapid private-mold development.</p>
+        </div>
+      </article>
+
+      <article class="bento-cell">
+        <img src="/images/factory-workshop.webp" width="1024" height="768" loading="lazy" alt="BOHOL automated assembly workshop with technicians assembling wellness hardware" />
+        <div class="bento-overlay">
+          <div class="bento-badge-row">
+            <span class="bento-tag">ASSEMBLY WORKSHOP</span>
+            <span class="bento-metric">120+ LINES</span>
+          </div>
+          <h3>120+ Assembly Lines & Cleanroom Craftsmanship</h3>
+          <p>Skilled technicians in anti-static ESD workstations assembling proprietary multi-axis drive units, PCB controllers, and platinum LSR silicone shells.</p>
+        </div>
+      </article>
+
+      <article class="bento-cell">
+        <img src="/images/factory-quality.webp" width="1024" height="768" loading="lazy" alt="BOHOL quality control and testing laboratory with precision metrology equipment" />
+        <div class="bento-overlay">
+          <div class="bento-badge-row">
+            <span class="bento-tag">QUALITY CONTROL LAB</span>
+            <span class="bento-metric">100% QC TEST</span>
+          </div>
+          <h3>Comprehensive QC & Precision Metrology Lab</h3>
+          <p>In-process digital caliper measurement, motor load testing, acoustic noise analysis (&lt; 45 dB), IPX7 vacuum waterproof testing, and full burn-in verification.</p>
+        </div>
+      </article>
+
+      <article class="bento-cell">
+        <img src="/images/factory-packing.webp" width="1024" height="768" loading="lazy" alt="BOHOL packaging workshop with retail gift box assembly and master cartons" />
+        <div class="bento-overlay">
+          <div class="bento-badge-row">
+            <span class="bento-tag">PACKAGING WORKSHOP</span>
+            <span class="bento-metric">LEAN PACKING</span>
+          </div>
+          <h3>Retail Box Packaging & Master Carton Boxing</h3>
+          <p>High-throughput conveyor lines for custom luxury retail gift boxes, barcode serialization, tamper-evident seals, and protective export master cartons.</p>
+        </div>
+      </article>
+
+      <article class="bento-cell">
+        <img src="/images/factory-warehouse.webp" width="1024" height="768" loading="lazy" alt="BOHOL high-bay intelligent warehouse with forklift and pallet racking" />
+        <div class="bento-overlay">
+          <div class="bento-badge-row">
+            <span class="bento-tag">INTELLIGENT STORAGE</span>
+            <span class="bento-metric">A1-A3 RACKING</span>
+          </div>
+          <h3>High-Bay Smart Warehousing & Pallet Inventory</h3>
+          <p>Systematic heavy-duty racking with RFID barcode scanning, ERP component tracking, and clean climate-controlled storage for raw materials and finished goods.</p>
+        </div>
+      </article>
+
+      <article class="bento-cell bento-wide">
+        <img src="/images/factory-shipping.webp" width="1024" height="768" loading="lazy" alt="BOHOL global container loading dock with shipping container and forklift" />
+        <div class="bento-overlay">
+          <div class="bento-badge-row">
+            <span class="bento-tag">GLOBAL CONTAINER EXPORT</span>
+            <span class="bento-metric">60+ COUNTRIES</span>
+          </div>
+          <h3>Direct Ocean Container Loading & Global DDP Fulfillment</h3>
+          <p>Dual loading bays supporting weekly 40HQ container dispatches to North America, Europe, and Asia-Pacific—certified with UN38.3 battery manifests and DDP door-to-door delivery.</p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- SECTION 5: VERIFIED DISTRIBUTOR REVIEWS -->
+  <ClientReviews />
+
+  <!-- SECTION 5.5: 500 m² FLAGSHIP SHOWROOM & VIP NEGOTIATION SUITES -->
+  <section class="section" style="padding-top: 2.5rem; padding-bottom: 2.5rem;">
+    <div class="sf-section-header">
+      <p class="eyebrow">GLOBAL HEADQUARTERS & PHYSICAL EXPERIENCE CENTER</p>
+      <h2 class="sf-section__heading">Visit Our 500 m² Showroom · In-Person or Live Virtual Video Audit</h2>
+      <p class="sf-section__description">Touch and test physical hardware before placing volume orders. Schedule an in-person visit to our 35,000 m² campus or book a 1-on-1 private video walkthrough with our project engineering team.</p>
+    </div>
+    <div class="hq-banner-hero">
+      <div class="hq-banner-card">
+        <img src="/images/hq-showroom.webp" width="1024" height="768" loading="lazy" alt="BOHOL 500 m² Flagship Product Experience Showroom" />
+        <div class="hq-banner-overlay">
+          <span class="hq-banner-tag">500 m² FLAGSHIP EXHIBITION</span>
+          <h3>Full-Line Hardware & Packaging Showroom</h3>
+          <p>Explore all 14 proprietary hardware models, luxury gift box packaging, tactile platinum liquid silicone finishes, and POS hotel retail vending kiosks.</p>
+        </div>
+      </div>
+      <div class="hq-banner-card">
+        <img src="/images/hq-vip-lounge.webp" width="1024" height="768" loading="lazy" alt="BOHOL VIP Distributor Sample Negotiation Lounge" />
+        <div class="hq-banner-overlay">
+          <span class="hq-banner-tag">VIP OEM / ODM SUITES</span>
+          <h3>Hands-On Sampling & Customization Lounge</h3>
+          <p>Sit down with our engineering specialists to calibrate motor frequencies, choose custom Pantone silicone colors, and finalize private-label branding.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 6: HIGH-CONVERTING B2B CALL-TO-ACTION SECTION -->
+  <section class="b2b-cta-section" id="rfq-section">
+    <div class="b2b-cta-inner">
+      <div class="b2b-cta-eyebrow">DIRECT FACTORY PARTNERSHIP</div>
+      <h2 class="b2b-cta-title">Ready to Expand Your Wholesale Sourcing or Deploy Vending Terminals?</h2>
+      <p class="b2b-cta-desc">
+        Select multiple products across hardware and consumables to build your quotation list. Our trade specialists calculate volume-tiered FOB Shenzhen prices and DDP door-to-door air/sea freight within 2 hours.
+      </p>
+      <div class="b2b-cta-actions">
+        <a href="/rfq/" class="btn-primary" style="font-size: 15px; padding: 14px 28px; background: #2563eb; color: #ffffff; border: none; font-weight: 700;">
+          Launch Multi-Product RFQ Calculator &rarr;
+        </a>
+        <a href="https://wa.me/8618588583798" target="_blank" class="btn-secondary" style="font-size: 15px; padding: 14px 28px; background: rgba(255,255,255,0.08); color: #ffffff; border-color: rgba(255,255,255,0.2); font-weight: 700;">
+          WhatsApp Direct Quote (+86 185 8858 3798) &nearr;
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 7: CERTIFICATIONS & INDUSTRY PARTNERS -->
+  <PartnerBand />
+</Layout>

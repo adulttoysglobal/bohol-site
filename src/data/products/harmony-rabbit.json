@@ -1,0 +1,68 @@
+{
+  "name": "Harmony Rabbit",
+  "subtitle": "An expressive, sculpted silhouette.",
+  "description": "A personal massager with a curved body, sculpted surface and exterior controls. The supplied product photography shows the shape from several angles, with lilac and pink color variants.",
+  "category": "Sculpted",
+  "label": "SCULPTED COLLECTION",
+  "order": 12,
+  "featured": false,
+  "image": "/images/harmony-hero.webp",
+  "gallery": [
+    "/images/harmony-hero.webp",
+    "/images/harmony-side.webp",
+    "/images/harmony-detail.webp",
+    "/images/9rabbit/products/harmony-rabbit-gallery-view2.webp",
+    "/images/9rabbit/products/harmony-rabbit-gallery-view3.webp"
+  ],
+  "features": [
+    "Sculpted surface",
+    "Exterior controls",
+    "Curved construction"
+  ],
+  "specs": [
+    {
+      "label": "Model series",
+      "value": "Harmony Rabbit Series"
+    },
+    {
+      "label": "Colors in source collection",
+      "value": "Pink and lilac"
+    },
+    {
+      "label": "Form",
+      "value": "Curved personal massager"
+    }
+  ],
+  "seoTitle": "Harmony Rabbit — product details and specifications",
+  "seoDescription": "A personal massager with a curved body, sculpted surface and exterior controls. The supplied product photography shows the shape from several angles, with ",
+  "note": "Product appearance and features are described from the supplied product materials. Confirm the exact model, accessories and operating instructions before purchase.",
+  "subCategory": "Women's Toys",
+  "vendor": "BOHOL Direct OEM",
+  "detailImages": [
+    "/images/9rabbit/details/harmony-rabbit-s01-hero.webp",
+    "/images/9rabbit/details/harmony-rabbit-s02-bento.webp",
+    "/images/9rabbit/details/harmony-rabbit-s03-anatomy.webp",
+    "/images/9rabbit/details/harmony-rabbit-s04-performance.webp",
+    "/images/9rabbit/details/harmony-rabbit-s05-material.webp",
+    "/images/9rabbit/details/harmony-rabbit-s07-blueprint.webp",
+    "/images/9rabbit/details/harmony-rabbit-s08-guide.webp"
+  ],
+  "highlights": [
+    {
+      "title": "Authentic Global Quality & Direct Factory QC",
+      "body": "Every unit of Harmony Rabbit undergoes multi-stage inspection for structural durability, surface finish, and material biocompatibility before international dispatch."
+    },
+    {
+      "title": "Body-Safe Certified Materials",
+      "body": "Crafted with medical-grade silicone, CyberSkin TPE, tempered borosilicate glass, or skin-friendly couture fabrics—free from phthalates, latex allergens, and heavy metals."
+    },
+    {
+      "title": "100% Discreet Unmarked Fulfillment",
+      "body": "Packaged in plain protective boxes with confidential shipping labels. Available for immediate North America & global express delivery."
+    },
+    {
+      "title": "Wholesale & Private-Label OEM Ready",
+      "body": "Supported by our 35,000 m² ISO-certified manufacturing base with custom laser logo engraving, Pantone color matching, and multilingual retail box customization."
+    }
+  ]
+}

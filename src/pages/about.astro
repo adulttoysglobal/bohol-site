@@ -1,0 +1,158 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Icon from '../components/Icon.astro';
+import PartnerBand from '../components/PartnerBand.astro';
+import settings from '../data/settings.json';
+import { getCollection } from 'astro:content';
+const count = (await getCollection('products')).length;
+---
+<Layout
+  title="About BOHOL — Global Smart Wellness Hardware Manufacturer"
+  description="BOHOL combines in-house industrial design, 5-axis CNC mold engineering, medical-grade LSR silicone manufacturing, and 14 flagship product series for global wellness brands."
+>
+  <section class="about-hero">
+    <div>
+      <p class="eyebrow">CORPORATE PROFILE · OEM / ODM / OBM</p>
+      <h1>Engineering the Future of Personal Wellness.</h1>
+      <p>{settings.brand} is a vertically integrated smart hardware manufacturer and brand studio. We unite proprietary mechanical actuation, medical-grade liquid silicone craftsmanship, and large-scale automated manufacturing to power flagship products for global markets.</p>
+      <div class="hero-actions" style="margin-top:32px">
+        <a class="btn-primary" href="/manufacturing/">Explore 35,000 m² Factory <Icon name="arrow-up-right" /></a>
+        <a class="btn-secondary" href="/products/">Browse All {count} Models <Icon name="arrow-right" size={16} /></a>
+      </div>
+    </div>
+    <img src="/images/starship-hero.webp" width="800" height="800" alt="BOHOL Starship flagship hardware" fetchpriority="high" />
+  </section>
+
+  <section class="section editorial-split">
+    <div>
+      <h2>Direct Source Factory.<br /><span>Zero Compromises.</span></h2>
+    </div>
+    <div class="editorial-body">
+      <p>With a 35,000 m² production campus, 30+ R&D engineers, and over 120 automated injection and assembly lines, {settings.brand} bridges the gap between visionary industrial design and high-yield mass production.</p>
+      <p>Our product portfolio spans {count} proprietary hardware series across three core engineering platforms: multi-axis telescopic & rotational trainers, seamless platinum-cured LSR liquid silicone massagers, and compact acoustic pulse devices.</p>
+      <p>Every model is backed by in-house 5-axis CNC mold tooling, 100,000-class dust-free assembly, and 100% functional burn-in inspection—giving global distributors, retail chains, and private-label partners unmatched reliability and speed to market.</p>
+    </div>
+  </section>
+
+  <section class="section" style="padding-top:0">
+    <div class="principle-list">
+      <div>
+        <span>01</span>
+        <h3>Proprietary R&D & 40+ Patents</h3>
+        <p>Our mechanical, acoustic, and electronics engineers develop custom planetary gearboxes, whisper-quiet &lt; 45 dB drives, and intelligent LED control interfaces in-house.</p>
+      </div>
+      <div>
+        <span>02</span>
+        <h3>Medical-Grade Material Integrity</h3>
+        <p>We use biocompatible platinum-cured liquid silicone rubber (LSR), food-grade TPE, and high-impact ABS—verified against RoHS, CE, and GB/T 26572-2011 substance standards.</p>
+      </div>
+      <div>
+        <span>03</span>
+        <h3>Scalable Global OEM / ODM Fulfillment</h3>
+        <p>With a monthly capacity exceeding 500,000 units, 7-day rapid prototyping, and 15-day production lead times, we scale seamlessly from boutique brand launches to global retail rollouts.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section company-facts">
+    <h2>Corporate Strength & Manufacturing Metrics.</h2>
+    <dl>
+      <div><dt>Brand & Enterprise</dt><dd>{settings.brand} Smart Manufacturing</dd></div>
+      <div><dt>Manufacturing Base</dt><dd>35,000 m² Vertically Integrated Campus (120+ Lines)</dd></div>
+      <div><dt>Monthly Output Capacity</dt><dd>500,000+ Units · 60+ Export Countries</dd></div>
+      <div><dt>Flagship Product Lines</dt><dd>{count} Proprietary Series (Electric, Sculpted LSR, Compact)</dd></div>
+      <div><dt>R&D & Tooling Speed</dt><dd>In-House 5-Axis CNC · 7-Day Functional Prototyping</dd></div>
+      <div><dt>Quality & Compliance</dt><dd>ISO 9001 · CE · RoHS · FCC · 100% Aging & IPX7 Tested</dd></div>
+    </dl>
+  </section>
+
+  <section class="section" style="padding-top:0;">
+    <div class="section-stack-head">
+      <p class="eyebrow">EXECUTIVE CAMPUS & EXPERIENCE CENTER</p>
+      <h2>Global Headquarters, R&D Studio & Flagship Showroom.</h2>
+      <p>Step inside our executive headquarters—where industrial design concepts, private-label brand consultations, and global supply chain operations converge under one roof.</p>
+    </div>
+    <div class="hq-campus-grid">
+      <article class="hq-card">
+        <img src="/images/hq-lobby.webp" width="1024" height="768" loading="lazy" alt="BOHOL Corporate Headquarters Reception and Executive Lobby" />
+        <div class="hq-card-body">
+          <span class="hq-card-tag">HEADQUARTERS LOBBY</span>
+          <h3>Executive Reception & Guest Lounge</h3>
+          <p>Modern marble atrium with multilingual concierge welcoming international retail buyers, brand founders, and distribution partners.</p>
+        </div>
+      </article>
+
+      <article class="hq-card">
+        <img src="/images/hq-rd-office.webp" width="1024" height="768" loading="lazy" alt="BOHOL R&D Engineering and International Trade Center" />
+        <div class="hq-card-body">
+          <span class="hq-card-tag">R&D & OPERATIONS</span>
+          <h3>Engineering Studio & Global Trade Desk</h3>
+          <p>30+ CAD engineers, industrial designers, and cross-border specialists managing custom private molds and worldwide export logistics.</p>
+        </div>
+      </article>
+
+      <article class="hq-card">
+        <img src="/images/hq-boardroom.webp" width="1024" height="768" loading="lazy" alt="BOHOL Executive Boardroom for OEM and ODM Project Strategy" />
+        <div class="hq-card-body">
+          <span class="hq-card-tag">PROJECT STRATEGY</span>
+          <h3>OEM / ODM Consultation Boardroom</h3>
+          <p>High-tech conference suite equipped for confidential private-label negotiations, tooling feasibility reviews, and hybrid video conferences.</p>
+        </div>
+      </article>
+
+      <article class="hq-card">
+        <img src="/images/hq-showroom.webp" width="1024" height="768" loading="lazy" alt="BOHOL 500 square meter Flagship Product Exhibition Showroom" />
+        <div class="hq-card-body">
+          <span class="hq-card-tag">FLAGSHIP SHOWROOM</span>
+          <h3>500 m² Product Exhibition Hall</h3>
+          <p>Curated retail showcase displaying all 14 proprietary hardware platforms, luxury gift packaging options, and commercial POS display units.</p>
+        </div>
+      </article>
+
+      <article class="hq-card">
+        <img src="/images/hq-vip-lounge.webp" width="1024" height="768" loading="lazy" alt="BOHOL VIP Client Sample Selection and Negotiation Lounge" />
+        <div class="hq-card-body">
+          <span class="hq-card-tag">VIP CUSTOMIZATION</span>
+          <h3>Distributor Sample Selection Lounge</h3>
+          <p>Dedicated hands-on evaluation lounge for tactile silicone inspection, motor noise calibration, Pantone colorway selection, and custom branding.</p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section class="section" style="padding-top:0;">
+    <div class="section-stack-head">
+      <p class="eyebrow">PHYSICAL MANUFACTURING FOOTPRINT</p>
+      <h2>Inside the BOHOL 35,000 m² Headquarters.</h2>
+      <p>From the main corporate gate and cleanroom assembly lines to precision testing labs, high-bay racking, and container shipping docks—our physical footprint guarantees production transparency and delivery reliability.</p>
+    </div>
+    <div class="about-factory-grid">
+      <figure>
+        <img src="/images/factory-campus.webp" width="1024" height="682" loading="lazy" alt="BOHOL 35,000 m² Smart Manufacturing Headquarters Main Gate" />
+        <figcaption>Smart Manufacturing Headquarters Gate</figcaption>
+      </figure>
+      <figure>
+        <img src="/images/factory-workshop.webp" width="1024" height="768" loading="lazy" alt="BOHOL Lean Assembly Workshop and Production Lines" />
+        <figcaption>120+ Lean Assembly Production Lines</figcaption>
+      </figure>
+      <figure>
+        <img src="/images/factory-quality.webp" width="1024" height="768" loading="lazy" alt="BOHOL Quality Control and Reliability Testing Lab" />
+        <figcaption>Quality Control & Reliability Testing Lab</figcaption>
+      </figure>
+      <figure>
+        <img src="/images/factory-packing.webp" width="1024" height="768" loading="lazy" alt="BOHOL Finished Goods Packaging Workshop" />
+        <figcaption>Custom Gift Box Packaging Workshop</figcaption>
+      </figure>
+      <figure>
+        <img src="/images/factory-warehouse.webp" width="1024" height="768" loading="lazy" alt="BOHOL High-Bay Intelligent Pallet Warehouse" />
+        <figcaption>High-Bay Intelligent Pallet Warehouse</figcaption>
+      </figure>
+      <figure>
+        <img src="/images/factory-shipping.webp" width="1024" height="768" loading="lazy" alt="BOHOL Ocean Container Loading Dock" />
+        <figcaption>Global Ocean Container Loading Dock</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <PartnerBand />
+</Layout>

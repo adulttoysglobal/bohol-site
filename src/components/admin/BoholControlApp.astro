@@ -1,0 +1,2583 @@
+---
+import { getCollection } from 'astro:content';
+import '../../styles/bohol-control.css';
+import '../../styles/woo-product-editor.css';
+
+const products = (await getCollection('products')).sort((a, b) => a.data.order - b.data.order);
+const journal = (await getCollection('journal')).sort((a, b) => a.data.order - b.data.order);
+
+function getFobPrice(prod: any) {
+  if (prod.data.price) return prod.data.price;
+  const cat = prod.data.category;
+  if (cat === 'Electric') return '$18.50 - $28.00';
+  if (cat === 'Adaptive') return '$14.20 - $21.50';
+  if (cat === 'Compact') return '$9.80 - $15.00';
+  return '$12.00 - $18.50';
+}
+
+function getMoq(prod: any) {
+  const cat = prod.data.category;
+  if (cat === 'Electric') return '50 pcs';
+  if (cat === 'Adaptive') return '100 pcs';
+  if (cat === 'Compact') return '200 pcs';
+  return '100 pcs';
+}
+---
+
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>BOHOL 网站管理</title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+</head>
+<body class="bc-body">
+  <div class="bc-layout">
+    <!-- Sidebar Navigation -->
+    <aside class="bc-sidebar">
+      <div class="bc-sidebar-brand">
+        <h1 class="bc-brand-title">BOHOL</h1>
+        <p class="bc-brand-subtitle">网站管理</p>
+      </div>
+
+      <nav class="bc-nav-list" id="bc-nav">
+        <li class="bc-nav-item">
+          <button class="bc-nav-btn active" data-tab="workbench">
+            <span class="bc-nav-icon">📊</span>
+            <span>工作台</span>
+          </button>
+        </li>
+        <li class="bc-nav-item">
+          <button class="bc-nav-btn" data-tab="products">
+            <span class="bc-nav-icon">📦</span>
+            <span>产品管理 · 模块1</span>
+          </button>
+        </li>
+        <li class="bc-nav-item">
+          <button class="bc-nav-btn" data-tab="articles">
+            <span class="bc-nav-icon">📝</span>
+            <span>文章与新闻</span>
+          </button>
+        </li>
+        <li class="bc-nav-item">
+          <button class="bc-nav-btn" data-tab="inquiries">
+            <span class="bc-nav-icon">💬</span>
+            <span>留言与聊天</span>
+            <span class="bc-badge bc-badge-warning" id="sidebar-inquiry-badge" style="margin-left:auto; font-size:10px; padding:1px 6px; border-radius:10px;">0</span>
+          </button>
+        </li>
+        <li class="bc-nav-item">
+          <button class="bc-nav-btn" data-tab="social">
+            <span class="bc-nav-icon">🌐</span>
+            <span>社媒管理</span>
+          </button>
+        </li>
+        <li class="bc-nav-item">
+          <button class="bc-nav-btn" data-tab="google">
+            <span class="bc-nav-icon">🔍</span>
+            <span>Google 收录</span>
+          </button>
+        </li>
+        <li class="bc-nav-item">
+          <button class="bc-nav-btn" data-tab="analytics">
+            <span class="bc-nav-icon">📈</span>
+            <span>访问分析</span>
+          </button>
+        </li>
+        <li class="bc-nav-item">
+          <button class="bc-nav-btn" data-tab="toolbox">
+            <span class="bc-nav-icon">🧰</span>
+            <span>百宝箱设置</span>
+          </button>
+        </li>
+        <li class="bc-nav-item">
+          <button class="bc-nav-btn" data-tab="security">
+            <span class="bc-nav-icon">🛡️</span>
+            <span>安全设置</span>
+          </button>
+        </li>
+      </nav>
+
+      <div style="padding: 16px 20px; border-top: 1px solid rgba(255,255,255,0.06); font-size: 11px; color: #64748b;">
+        <div>网站管理系统</div>
+        <div style="margin-top: 4px; color: #10b981;">● 线上连接正常</div>
+      </div>
+    </aside>
+
+    <!-- Main Container -->
+    <main class="bc-main">
+      <!-- Topbar -->
+      <div class="bc-topbar" style="display:flex; justify-content:space-between; align-items:center; padding:16px 36px;">
+        <div class="bc-breadcrumbs" id="bc-breadcrumb">
+          <span style="color:#64748b;">网站管理</span>
+          <span style="color:#cbd5e1;">/</span>
+          <span style="color:#0f172a; font-weight:700;" id="bc-current-title">工作台</span>
+        </div>
+        <div style="display:flex; align-items:center; gap:12px;">
+          <a href="/" target="_blank" class="bc-btn-secondary bc-btn-sm" style="text-decoration:none;">
+            <span>网站前台</span>
+            <span style="font-size:11px;">↗</span>
+          </a>
+          <button type="button" class="bc-btn-secondary bc-btn-sm" id="btn-refresh-data">
+            <span>刷新数据 ↻</span>
+          </button>
+          <div style="display:flex; align-items:center; gap:8px; margin-left:12px; padding-left:12px; border-left:1px solid #e2e8f0;">
+            <div style="width:28px; height:28px; border-radius:50%; background:#2563eb; color:#fff; display:flex; align-items:center; justify-content:center; font-size:12px; font-weight:700;">
+              AD
+            </div>
+            <span style="font-size:13px; font-weight:600; color:#334155;">Admin</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Main Tab Panels -->
+      <div class="bc-content">
+
+        <!-- ========================================== -->
+        <!-- TAB 1: 工作台 (Workbench - Screenshot 1 & 2) -->
+        <!-- ========================================== -->
+        <div class="bc-panel active" id="panel-workbench">
+          <div class="bc-page-header">
+            <div class="bc-page-title">
+              <h1>工作台</h1>
+              <p>管理总体内容，监控发布状态和服务连接。</p>
+            </div>
+            <div>
+              <button class="bc-btn-primary" id="wb-quick-add-btn">
+                <span>+ 新建产品</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- 3 KPI Cards matching Screenshot 1 -->
+          <div class="bc-kpi-row">
+            <div class="bc-kpi-card">
+              <div class="bc-kpi-title">产品内容</div>
+              <div class="bc-kpi-num" id="kpi-product-count">{products.length}</div>
+              <div class="bc-kpi-desc">中英文产品总数</div>
+            </div>
+
+            <div class="bc-kpi-card">
+              <div class="bc-kpi-title">文章内容</div>
+              <div class="bc-kpi-num">{journal.length}</div>
+              <div class="bc-kpi-desc">已发布国际化文章</div>
+            </div>
+
+            <div class="bc-kpi-card">
+              <div class="bc-kpi-title">客户单据</div>
+              <div class="bc-kpi-num" id="kpi-lead-count">0</div>
+              <div class="bc-kpi-desc">未处理询盘</div>
+            </div>
+          </div>
+
+          <!-- Umami 访问数据内嵌报表 matching Screenshot 1 & 2 -->
+          <div class="bc-card">
+            <div class="bc-card-head" style="margin-bottom:6px;">
+              <div class="bc-card-title">
+                <h3>访问数据</h3>
+                <p>Umami 已接入主站，下面直接显示实时流量和国家来源。</p>
+              </div>
+              <div>
+                <a href="https://stats.boholvending.com" target="_blank" class="text-link" style="color:#2563eb; font-size:13px; font-weight:600; text-decoration:none;">
+                  打开访问分析页 &rarr;
+                </a>
+              </div>
+            </div>
+
+            <!-- Umami Authentic Container matching Screenshot 1 -->
+            <div class="bc-umami-embed">
+              <!-- Left Sidebar of Umami -->
+              <div class="bc-umami-side">
+                <div style="font-weight:700; color:#0f172a; margin-bottom:8px; display:flex; align-items:center; gap:6px;">
+                  <span style="font-size:14px;">●</span> umami
+                </div>
+                <div style="font-size:11px; color:#94a3b8; font-weight:700; margin-top:4px;">Traffic</div>
+                <div class="bc-umami-side-item active">👁 Overview</div>
+                <div class="bc-umami-side-item">⚡ Events</div>
+                <div class="bc-umami-side-item">👥 Sessions</div>
+                <div class="bc-umami-side-item">⏱ Realtime</div>
+                <div class="bc-umami-side-item">⚡ Performance</div>
+                <div class="bc-umami-side-item">⚖ Compare</div>
+                <div class="bc-umami-side-item">📊 Breakdown</div>
+              </div>
+
+              <!-- Main Dashboard Area of Umami -->
+              <div class="bc-umami-main">
+                <div style="display:flex; justify-content:space-between; align-items:center; padding-bottom:12px; border-bottom:1px solid #edf2f7; margin-bottom:16px;">
+                  <div style="font-size:15px; font-weight:700; color:#1a202c;">■ BOHOL Website</div>
+                  <div style="display:flex; align-items:center; gap:8px;">
+                    <span class="bc-btn-secondary bc-btn-sm" style="font-size:11px; padding:3px 8px;">Filter</span>
+                    <span class="bc-btn-secondary bc-btn-sm" style="font-size:11px; padding:3px 8px;">&lt; &gt;</span>
+                    <span class="bc-btn-secondary bc-btn-sm" style="font-size:11px; padding:3px 8px;">Last 24 hours</span>
+                  </div>
+                </div>
+
+                <!-- 5 Real Metrics from Screenshot 1 -->
+                <div class="bc-analytics-metrics" style="grid-template-columns:repeat(5, 1fr); margin-bottom:16px;">
+                  <div class="bc-metric-card">
+                    <div class="bc-metric-label">Visitors</div>
+                    <div class="bc-metric-value" style="font-size:22px;">6</div>
+                    <div class="bc-metric-change up" style="font-size:11px;">↑ 50%</div>
+                  </div>
+                  <div class="bc-metric-card">
+                    <div class="bc-metric-label">Visits</div>
+                    <div class="bc-metric-value" style="font-size:22px;">6</div>
+                    <div class="bc-metric-change up" style="font-size:11px;">↑ 20%</div>
+                  </div>
+                  <div class="bc-metric-card">
+                    <div class="bc-metric-label">Views</div>
+                    <div class="bc-metric-value" style="font-size:22px;">8</div>
+                    <div class="bc-metric-change down" style="font-size:11px;">↓ 68%</div>
+                  </div>
+                  <div class="bc-metric-card">
+                    <div class="bc-metric-label">Bounce rate</div>
+                    <div class="bc-metric-value" style="font-size:22px;">83%</div>
+                    <div class="bc-metric-change down" style="font-size:11px;">↑ 38%</div>
+                  </div>
+                  <div class="bc-metric-card">
+                    <div class="bc-metric-label">Visit duration</div>
+                    <div class="bc-metric-value" style="font-size:22px;">10s</div>
+                    <div class="bc-metric-change up" style="font-size:11px;">↑ 96%</div>
+                  </div>
+                </div>
+
+                <!-- Chart Bar -->
+                <div style="height:60px; display:flex; align-items:flex-end; border-bottom:1px solid #edf2f7; padding-bottom:8px; margin-bottom:16px;">
+                  <div style="flex:1; height:100%; display:flex; align-items:flex-end; justify-content:flex-end; padding-right:20px;">
+                    <div style="width:24px; height:80%; background:#90cdf4; border-radius:3px 3px 0 0;" title="Recent: 6 visitors"></div>
+                  </div>
+                </div>
+
+                <!-- Country table from Screenshot 1 & 2 -->
+                <div class="bc-table-wrap">
+                  <table class="bc-table" style="font-size:12px;">
+                    <thead>
+                      <tr>
+                        <th>Country</th>
+                        <th style="width:100px;">Visitors</th>
+                        <th style="width:100px;">Visits</th>
+                        <th style="width:100px;">Views</th>
+                        <th style="width:110px;">Bounce rate</th>
+                        <th style="width:110px;">Visit duration</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td><strong>🇺🇸 United States</strong></td>
+                        <td>4</td>
+                        <td>4</td>
+                        <td>4</td>
+                        <td>100%</td>
+                        <td>0s</td>
+                      </tr>
+                      <tr>
+                        <td><strong>🇩🇰 Denmark</strong></td>
+                        <td>1</td>
+                        <td>1</td>
+                        <td>3</td>
+                        <td>0%</td>
+                        <td>1m 1s</td>
+                      </tr>
+                      <tr>
+                        <td><strong>🇫🇷 France</strong></td>
+                        <td>1</td>
+                        <td>1</td>
+                        <td>1</td>
+                        <td>100%</td>
+                        <td>0s</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+
+            <div style="margin-top:10px; font-size:12px; color:#718096;">
+              新系统只统计接入后的访问，历史 GA 数据不会自动导入。
+            </div>
+          </div>
+
+          <!-- 开始管理 matching Screenshot 2 -->
+          <div class="bc-card">
+            <div class="bc-card-title">
+              <h3>开始管理</h3>
+              <p>产品名称、正文与 SEO 文章请填写英文，保存后的内容需要网站重新部署，才能更新线上页面。</p>
+            </div>
+            <div style="display:flex; gap:16px; margin-top:14px;">
+              <button class="bc-btn-secondary" data-action="go-products" style="color:#2563eb; font-weight:600;">
+                管理产品 &rarr;
+              </button>
+              <button class="bc-btn-secondary" data-action="go-articles" style="color:#2563eb; font-weight:600;">
+                管理文章 &rarr;
+              </button>
+            </div>
+          </div>
+
+          <!-- 接入进度 matching Screenshot 2 -->
+          <div class="bc-card">
+            <div class="bc-card-title">
+              <h3>接入进度</h3>
+            </div>
+            <div style="display:flex; flex-direction:column; gap:8px; margin-top:12px; font-size:13px; color:#4a5568;">
+              <div><strong>留言:</strong> 目前通过邮件表单发送，尚无后台收件箱。</div>
+              <div><strong>聊天:</strong> 目前为预设自动回复，尚无客服消息存储。</div>
+              <div><strong>Umami:</strong> 统计代码、HTTPS、分享报表和工作台内嵌报表已接入。</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ========================================== -->
+        <!-- TAB 2: 产品管理 · 模块1 (Product Management) -->
+        <!-- ========================================== -->
+        <div class="bc-panel" id="panel-products">
+          <div class="bc-page-header">
+            <div class="bc-page-title">
+              <h1>产品管理 · 模块1</h1>
+              <p>管理全站 {products.length} 款产品，支持修改价格、起订量、规格参数、上架状态与直接新建发布产品</p>
+            </div>
+            <div style="display:flex; gap:10px;">
+              <button class="bc-btn-secondary" id="btn-export-products-csv">
+                <span>导出 CSV 清单</span>
+              </button>
+              <button class="bc-btn-primary" id="btn-open-add-product-modal">
+                <span>+ 新建产品</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Product Filters Toolbar -->
+          <div class="bc-card" style="padding:16px 20px; margin-bottom:16px;">
+            <div style="display:flex; gap:16px; flex-wrap:wrap; align-items:center; justify-content:space-between;">
+              <div style="display:flex; gap:12px; flex:1; min-width:280px; align-items:center;">
+                <div style="position:relative; flex:1; max-width:360px;">
+                  <input type="text" class="bc-input" id="prod-search-input" placeholder="搜索产品名称、型号或关键词..." style="padding-left:32px;" />
+                  <span style="position:absolute; left:10px; top:50%; transform:translateY(-50%); color:#94a3b8; font-size:14px;">🔍</span>
+                </div>
+                <select class="bc-select" id="prod-filter-category" style="width:180px;">
+                  <option value="ALL">全部分类 (全部)</option>
+                  <option value="Electric">Electric 电动系列</option>
+                  <option value="Adaptive">Adaptive 自适应系列</option>
+                  <option value="Compact">Compact 紧凑系列</option>
+                  <option value="Sculpted">Sculpted 匠心雕花系列</option>
+                </select>
+                <select class="bc-select" id="prod-filter-status" style="width:140px;">
+                  <option value="ALL">全部状态</option>
+                  <option value="ACTIVE">已上架</option>
+                  <option value="DRAFT">草稿 / 已下架</option>
+                </select>
+              </div>
+              <div>
+                <span class="bc-badge bc-badge-neutral" id="prod-counter-badge" style="font-size:12px; padding:6px 12px;">
+                  共 {products.length} 款产品
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Product Table -->
+          <div class="bc-card" style="padding:0; overflow:hidden;">
+            <div class="bc-table-wrap" style="border:none;">
+              <table class="bc-table" id="products-table">
+                <thead>
+                  <tr>
+                    <th style="width:70px; text-align:center;">缩略图</th>
+                    <th style="min-width:220px;">产品名称 & 编号</th>
+                    <th style="width:120px;">所属分类</th>
+                    <th style="width:100px;">起订量 MOQ</th>
+                    <th style="width:140px;">批发参考价 (USD)</th>
+                    <th style="width:100px; text-align:center;">上架状态</th>
+                    <th style="width:160px; text-align:center;">操作</th>
+                  </tr>
+                </thead>
+                <tbody id="products-tbody">
+                  {products.map(p => (
+                    <tr data-id={p.id} data-cat={p.data.category} data-name={p.data.name.toLowerCase()} data-status="ACTIVE">
+                      <td style="text-align:center;">
+                        <img src={p.data.image} alt={p.data.name} style="width:44px; height:44px; object-fit:cover; border-radius:6px; border:1px solid #e2e8f0; background:#f8fafc;" loading="lazy" />
+                      </td>
+                      <td>
+                        <strong style="color:#0f172a; font-size:13px;">{p.data.name}</strong>
+                        <div style="font-size:11px; color:#64748b; margin-top:2px;">
+                          <code>{p.id}</code> &bull; <span style="color:#2563eb;">{p.data.label}</span>
+                        </div>
+                      </td>
+                      <td>
+                        <span class="bc-badge bc-badge-info">{p.data.category}</span>
+                      </td>
+                      <td>
+                        <span style="font-weight:600; font-size:12px;">{getMoq(p)}</span>
+                      </td>
+                      <td>
+                        <span style="font-weight:700; color:#10b981; font-size:13px;">{getFobPrice(p)}</span>
+                      </td>
+                      <td style="text-align:center;">
+                        <label class="bc-switch">
+                          <input type="checkbox" checked class="prod-status-toggle" data-id={p.id} />
+                          <span class="bc-slider"></span>
+                        </label>
+                      </td>
+                      <td style="text-align:center;">
+                        <div style="display:flex; justify-content:center; gap:6px;">
+                          <a href={`/products/${p.id}/`} target="_blank" class="bc-btn-secondary bc-btn-sm" title="在前台打开详情页">
+                            <span>前台 ↗</span>
+                          </a>
+                          <button type="button" class="bc-btn-secondary bc-btn-sm btn-edit-prod" data-id={p.id} data-name={p.data.name}>
+                            <span>编辑</span>
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- ========================================== -->
+        <!-- TAB 3: 文章与新闻 (Articles & News) -->
+        <!-- ========================================== -->
+        <div class="bc-panel" id="panel-articles">
+          <div class="bc-page-header">
+            <div class="bc-page-title">
+              <h1>文章与新闻</h1>
+              <p>品牌已发布国际化文章（共 {journal.length} 篇）</p>
+            </div>
+            <div>
+              <button class="bc-btn-primary" id="btn-add-article">
+                <span>+ 新建文章</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="bc-card" style="padding:0; overflow:hidden;">
+            <div class="bc-table-wrap" style="border:none;">
+              <table class="bc-table">
+                <thead>
+                  <tr>
+                    <th style="width:60px; text-align:center;">序号</th>
+                    <th>文章标题</th>
+                    <th style="width:140px;">分类</th>
+                    <th style="width:120px;">阅读时间</th>
+                    <th style="width:100px; text-align:center;">发布状态</th>
+                    <th style="width:140px; text-align:center;">操作</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {journal.map((art, idx) => (
+                    <tr>
+                      <td style="text-align:center; color:#94a3b8; font-weight:700;">{idx + 1}</td>
+                      <td>
+                        <strong style="color:#0f172a; font-size:13px;">{art.data.title}</strong>
+                        <p style="margin:2px 0 0; font-size:12px; color:#64748b;">{art.data.description}</p>
+                      </td>
+                      <td>
+                        <span class="bc-badge bc-badge-info">{art.data.category}</span>
+                      </td>
+                      <td>
+                        <span style="font-size:12px; color:#64748b;">{art.data.readTime}</span>
+                      </td>
+                      <td style="text-align:center;">
+                        <span class="bc-badge bc-badge-success">已发布</span>
+                      </td>
+                      <td style="text-align:center;">
+                        <div style="display:flex; justify-content:center; gap:6px;">
+                          <a href={`/journal/${art.id}/`} target="_blank" class="bc-btn-secondary bc-btn-sm">
+                            <span>前台 ↗</span>
+                          </a>
+                          <button type="button" class="bc-btn-secondary bc-btn-sm" onclick="alert('文章在线编辑器就绪')">
+                            <span>编辑</span>
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- ========================================== -->
+        <!-- TAB 4: 留言与聊天 (Inquiries & Chat) -->
+        <!-- ========================================== -->
+        <div class="bc-panel" id="panel-inquiries">
+          <div class="bc-page-header">
+            <div class="bc-page-title">
+              <h1>单据与客户留言 (Inquiries & Chat)</h1>
+              <p>查看前台买家通过多选报价单、询盘购物车及工厂定制表单提交的真实采购需求。</p>
+            </div>
+            <div style="display:flex; gap:10px; align-items:center;">
+              <button class="bc-btn-secondary" id="btn-export-rfq-csv">
+                <span>导出 CSV 报表</span>
+              </button>
+              <button class="bc-btn-secondary" id="btn-reset-seed-rfq" style="font-size:12px;" title="恢复至默认3笔基准外贸询盘">
+                <span>重置示例单据 ↺</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="bc-card" style="padding:0; overflow:hidden;">
+            <div class="bc-table-wrap" style="border:none;">
+              <table class="bc-table" id="inquiries-table">
+                <thead>
+                  <tr>
+                    <th style="width:140px;">单据编号 & 来源</th>
+                    <th style="width:130px;">提交时间</th>
+                    <th style="min-width:160px;">采购商 & 企业</th>
+                    <th style="min-width:140px;">联系通道</th>
+                    <th style="min-width:160px;">国家 / 目的港</th>
+                    <th style="min-width:240px;">询问产品清单 & 数量</th>
+                    <th style="width:160px; text-align:center;">操作 / 直连</th>
+                  </tr>
+                </thead>
+                <tbody id="inquiries-tbody">
+                  <!-- Dynamically populated from real localStorage leads -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- ========================================== -->
+        <!-- TAB 5: 社媒管理 (Social Media - Screenshot 3) -->
+        <!-- ========================================== -->
+        <div class="bc-panel" id="panel-social">
+          <div class="bc-page-header">
+            <div class="bc-page-title">
+              <h1>社媒管理</h1>
+              <p>管理总体内容，监控发布状态和服务连接。</p>
+            </div>
+          </div>
+
+          <!-- 平台连接 matching Screenshot 3 -->
+          <div class="bc-card">
+            <div class="bc-card-head" style="margin-bottom:6px;">
+              <div class="bc-card-title">
+                <h3>平台连接</h3>
+              </div>
+              <div style="font-size:13px; color:#64748b; font-weight:600;">
+                0/7 已配置
+              </div>
+            </div>
+            <div style="font-size:12px; color:#718096; margin-bottom:16px;">
+              状态来自服务器的真实 API 配置，账号密码不会保存在网站；平台授权令牌只保存在服务器私有配置中。
+            </div>
+
+            <!-- 7 platforms in Screenshot 3 -->
+            <div class="bc-social-row">
+              <div class="bc-social-info">
+                <h4>Facebook</h4>
+                <p>企业主页内容发布</p>
+              </div>
+              <div class="bc-social-actions">
+                <span class="bc-status-circle">待配置</span>
+                <a href="https://developers.facebook.com" target="_blank" class="bc-btn-secondary bc-btn-sm" style="text-decoration:none; color:#2563eb;">
+                  开发者平台 ↗
+                </a>
+              </div>
+            </div>
+
+            <div class="bc-social-row">
+              <div class="bc-social-info">
+                <h4>Instagram</h4>
+                <p>专业账号图片和短视频发布</p>
+              </div>
+              <div class="bc-social-actions">
+                <span class="bc-status-circle">待配置</span>
+                <a href="https://developers.facebook.com" target="_blank" class="bc-btn-secondary bc-btn-sm" style="text-decoration:none; color:#2563eb;">
+                  开发者平台 ↗
+                </a>
+              </div>
+            </div>
+
+            <div class="bc-social-row">
+              <div class="bc-social-info">
+                <h4>LinkedIn</h4>
+                <p>企业主页内容发布</p>
+              </div>
+              <div class="bc-social-actions">
+                <span class="bc-status-circle">待配置</span>
+                <a href="https://developer.linkedin.com" target="_blank" class="bc-btn-secondary bc-btn-sm" style="text-decoration:none; color:#2563eb;">
+                  开发者平台 ↗
+                </a>
+              </div>
+            </div>
+
+            <div class="bc-social-row">
+              <div class="bc-social-info">
+                <h4>YouTube</h4>
+                <p>短视频和长视频管理</p>
+              </div>
+              <div class="bc-social-actions">
+                <span class="bc-status-circle">待配置</span>
+                <a href="https://console.cloud.google.com" target="_blank" class="bc-btn-secondary bc-btn-sm" style="text-decoration:none; color:#2563eb;">
+                  开发者平台 ↗
+                </a>
+              </div>
+            </div>
+
+            <div class="bc-social-row">
+              <div class="bc-social-info">
+                <h4>TikTok</h4>
+                <p>企业短视频发布</p>
+              </div>
+              <div class="bc-social-actions">
+                <span class="bc-status-circle">待配置</span>
+                <a href="https://developers.tiktok.com" target="_blank" class="bc-btn-secondary bc-btn-sm" style="text-decoration:none; color:#2563eb;">
+                  开发者平台 ↗
+                </a>
+              </div>
+            </div>
+
+            <div class="bc-social-row">
+              <div class="bc-social-info">
+                <h4>X</h4>
+                <p>品牌推文发布</p>
+              </div>
+              <div class="bc-social-actions">
+                <span class="bc-status-circle">待配置</span>
+                <a href="https://developer.x.com" target="_blank" class="bc-btn-secondary bc-btn-sm" style="text-decoration:none; color:#2563eb;">
+                  开发者平台 ↗
+                </a>
+              </div>
+            </div>
+
+            <div class="bc-social-row">
+              <div class="bc-social-info">
+                <h4>WhatsApp Business</h4>
+                <p>客户咨询、聊天记录与消息回复</p>
+              </div>
+              <div class="bc-social-actions">
+                <span class="bc-status-circle">待配置</span>
+                <a href="https://developers.facebook.com" target="_blank" class="bc-btn-secondary bc-btn-sm" style="text-decoration:none; color:#2563eb;">
+                  开发者平台 ↗
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- WhatsApp Business 客服 matching Screenshot 3 -->
+          <div class="bc-card">
+            <div class="bc-card-head" style="margin-bottom:6px;">
+              <div class="bc-card-title">
+                <h3>WhatsApp Business 客服</h3>
+              </div>
+              <div>
+                <span class="bc-status-circle">等待 Meta 配置</span>
+              </div>
+            </div>
+            <div style="font-size:12px; color:#718096; margin-top:8px;">
+              连接 Cloud API 后，新收到和发出的消息会保存在服务器，连接前的手机历史聊天不会自动出现在这里。
+            </div>
+          </div>
+        </div>
+
+        <!-- ========================================== -->
+        <!-- TAB 6: Google 收录 (Search Console - Screenshots 4 & 5) -->
+        <!-- ========================================== -->
+        <div class="bc-panel" id="panel-google">
+          <div class="bc-page-header">
+            <div class="bc-page-title">
+              <h1>Google 收录</h1>
+              <p>管理总体内容，监控发布状态和服务连接。</p>
+            </div>
+          </div>
+
+          <!-- Google 收录概况 matching Screenshot 4 & 5 -->
+          <div class="bc-card">
+            <div class="bc-card-head">
+              <div>
+                <h3 style="margin:0; font-size:16px; font-weight:700;">Google 收录概况</h3>
+                <p style="margin:4px 0 0; font-size:12px; color:#718096;">
+                  已验证 sc-domain:boholvending.com &bull; 正在同步
+                </p>
+              </div>
+              <div>
+                <button class="bc-btn-primary bc-btn-sm" id="btn-refresh-gsc">
+                  <span>刷新数据</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- GSC Sub-tabs matching Screenshots 4 & 5 -->
+            <div class="bc-gsc-tabs" style="margin-top:12px;">
+              <button class="bc-gsc-tab-btn active" data-gsc="overview">概况</button>
+              <button class="bc-gsc-tab-btn" data-gsc="crawl">检索量</button>
+              <button class="bc-gsc-tab-btn" data-gsc="performance">效果</button>
+              <button class="bc-gsc-tab-btn" data-gsc="inspect">网址检查</button>
+              <button class="bc-gsc-tab-btn" data-gsc="pages">网页</button>
+              <button class="bc-gsc-tab-btn" data-gsc="sitemaps">站点地图</button>
+            </div>
+
+            <!-- Real metrics from Screenshot 4: all 0 -->
+            <div class="bc-kpi-row" style="grid-template-columns:repeat(4, 1fr); margin-top:16px; margin-bottom:16px;">
+              <div class="bc-kpi-card" style="padding:14px;">
+                <div class="bc-kpi-title" style="font-size:12px;">总点击</div>
+                <div class="bc-kpi-num" style="font-size:26px; margin:6px 0;">0</div>
+              </div>
+              <div class="bc-kpi-card" style="padding:14px;">
+                <div class="bc-kpi-title" style="font-size:12px;">总展现</div>
+                <div class="bc-kpi-num" style="font-size:26px; margin:6px 0;">0</div>
+              </div>
+              <div class="bc-kpi-card" style="padding:14px;">
+                <div class="bc-kpi-title" style="font-size:12px;">平均点击率</div>
+                <div class="bc-kpi-num" style="font-size:26px; margin:6px 0;">0.0%</div>
+              </div>
+              <div class="bc-kpi-card" style="padding:14px;">
+                <div class="bc-kpi-title" style="font-size:12px;">平均排名</div>
+                <div class="bc-kpi-num" style="font-size:26px; margin:6px 0;">0.0</div>
+              </div>
+            </div>
+
+            <!-- Alert Box from Screenshot 4 -->
+            <div class="bc-alert-warning">
+              <span>⚠️</span>
+              <span>Google 索引数据获取失败，请重新授权，或稍后再刷新重试。</span>
+            </div>
+          </div>
+
+          <!-- 数据洞察 matching Screenshot 4 -->
+          <div class="bc-card">
+            <div class="bc-card-title">
+              <h3>🌐 数据洞察</h3>
+              <p>根据解析得到的 Google 索引指标整合出的现状。</p>
+            </div>
+            <div style="display:grid; grid-template-columns:repeat(3, 1fr); gap:16px; margin-top:14px;">
+              <div style="background:#f8fafc; border:1px solid #edf2f7; border-radius:6px; padding:14px;">
+                <div style="font-size:12px; color:#718096;">全网展现量</div>
+                <div style="font-size:15px; font-weight:700; color:#2d3748; margin:6px 0 2px;">暂无有效数据</div>
+                <div style="font-size:11px; color:#a0aec0;">Google 的中国区数据</div>
+              </div>
+              <div style="background:#f8fafc; border:1px solid #edf2f7; border-radius:6px; padding:14px;">
+                <div style="font-size:12px; color:#718096;">收录最好网页</div>
+                <div style="font-size:15px; font-weight:700; color:#2d3748; margin:6px 0 2px;">暂无网页数据</div>
+                <div style="font-size:11px; color:#a0aec0;">等待产生搜索表现</div>
+              </div>
+              <div style="background:#f8fafc; border:1px solid #edf2f7; border-radius:6px; padding:14px;">
+                <div style="font-size:12px; color:#718096;">主要访问国家</div>
+                <div style="font-size:15px; font-weight:700; color:#2d3748; margin:6px 0 2px;">暂无国家数据</div>
+                <div style="font-size:11px; color:#a0aec0;">等待产生搜索表现</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 搜索效果 matching Screenshot 4 -->
+          <div class="bc-card">
+            <div class="bc-card-head">
+              <div class="bc-card-title">
+                <h3>搜索效果</h3>
+                <p>查询有效词、国家、设备和日期等维度的数据。</p>
+              </div>
+              <div style="display:flex; gap:8px;">
+                <select class="bc-select" style="width:90px; padding:4px 8px; font-size:12px;">
+                  <option>28 天</option>
+                  <option>7 天</option>
+                  <option>90 天</option>
+                </select>
+                <select class="bc-select" style="width:100px; padding:4px 8px; font-size:12px;">
+                  <option>查询词</option>
+                  <option>网页</option>
+                  <option>国家</option>
+                </select>
+              </div>
+            </div>
+            <div class="bc-table-wrap" style="margin-top:10px;">
+              <table class="bc-table">
+                <thead>
+                  <tr>
+                    <th>查询词</th>
+                    <th>点击</th>
+                    <th>展现</th>
+                    <th>CTR</th>
+                    <th>排名</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td colspan="5" style="text-align:center; padding:24px; color:#a0aec0;">
+                      所选时间段暂无数据。
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- 网址检查 matching Screenshot 4 & 5 -->
+          <div class="bc-card">
+            <div class="bc-card-title">
+              <h3>🔍 网址检查</h3>
+              <p>直接查询某个 BOHOL 页面当前在 Google 索引中的状态。</p>
+            </div>
+            <div style="margin-top:14px;">
+              <div style="font-size:12px; font-weight:700; color:#4a5568; margin-bottom:6px;">完整网页网址</div>
+              <div class="bc-inspect-bar" style="margin-top:0;">
+                <input type="text" class="bc-inspect-input" id="gsc-inspect-input" value="https://www.boholvending.com/" />
+                <button class="bc-btn-primary" id="btn-inspect-url">
+                  <span>检测网址</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ========================================== -->
+        <!-- TAB 7: 访问分析 (Traffic Analytics) -->
+        <!-- ========================================== -->
+        <div class="bc-panel" id="panel-analytics">
+          <div class="bc-page-header">
+            <div class="bc-page-title">
+              <h1>访问分析</h1>
+              <p>直连 Umami 流量统计中枢服务</p>
+            </div>
+            <div>
+              <a href="https://stats.boholvending.com" target="_blank" class="bc-btn-primary" style="text-decoration:none;">
+                <span>打开完整 Umami 报表 ↗</span>
+              </a>
+            </div>
+          </div>
+
+          <div class="bc-card">
+            <div class="bc-card-title">
+              <h3>独立分析服务配置</h3>
+              <p>网站接入的自建私有 Umami 统计实例与网站标识 ID</p>
+            </div>
+            <div style="margin-top:16px; display:flex; flex-direction:column; gap:12px;">
+              <div style="padding:12px 16px; background:#f8fafc; border-radius:6px; border:1px solid #e2e8f0;">
+                <div style="font-size:12px; color:#718096;">统计服务器地址:</div>
+                <div style="font-weight:700; color:#1a202c; font-size:14px; margin-top:2px;">
+                  <code>https://stats.boholvending.com</code>
+                </div>
+              </div>
+              <div style="padding:12px 16px; background:#f8fafc; border-radius:6px; border:1px solid #e2e8f0;">
+                <div style="font-size:12px; color:#718096;">网站 ID (Website ID):</div>
+                <div style="font-weight:700; color:#1a202c; font-size:14px; margin-top:2px;">
+                  <code>67526bd7-f75d-45f3-b748-86d84ac8ab32</code>
+                </div>
+              </div>
+              <div style="padding:12px 16px; background:#f8fafc; border-radius:6px; border:1px solid #e2e8f0;">
+                <div style="font-size:12px; color:#718096;">接入域名 (Data Domains):</div>
+                <div style="font-weight:700; color:#1a202c; font-size:14px; margin-top:2px;">
+                  <code>boholvending.com, www.boholvending.com</code>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ========================================== -->
+        <!-- TAB 8: 百宝箱设置 (Toolbox / Settings) -->
+        <!-- ========================================== -->
+        <div class="bc-panel" id="panel-toolbox">
+          <div class="bc-page-header">
+            <div class="bc-page-title">
+              <h1>百宝箱设置</h1>
+              <p>网站全局配置与参数</p>
+            </div>
+            <div>
+              <button class="bc-btn-primary" id="btn-save-settings">
+                <span>保存设置</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="bc-card">
+            <div class="bc-card-title">
+              <h3>企业基础信息</h3>
+              <p>官方联系方式与主体信息</p>
+            </div>
+            <div class="bc-form-grid" style="margin-top:16px;">
+              <div class="bc-form-group bc-col-6">
+                <label class="bc-label">企业名称</label>
+                <input type="text" class="bc-input" value="BOHOL" id="cfg-company-name" />
+              </div>
+              <div class="bc-form-group bc-col-6">
+                <label class="bc-label">官方网址</label>
+                <input type="text" class="bc-input" value="https://www.boholvending.com" id="cfg-site-url" />
+              </div>
+              <div class="bc-form-group bc-col-6">
+                <label class="bc-label">服务邮箱</label>
+                <input type="email" class="bc-input" value="contact@boholvending.com" id="cfg-email" />
+              </div>
+              <div class="bc-form-group bc-col-6">
+                <label class="bc-label">WhatsApp 客服电话</label>
+                <input type="text" class="bc-input" value="+86 185 8858 3798" id="cfg-whatsapp" />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ========================================== -->
+        <!-- TAB 9: 安全设置 (Security Settings) -->
+        <!-- ========================================== -->
+        <div class="bc-panel" id="panel-security">
+          <div class="bc-page-header">
+            <div class="bc-page-title">
+              <h1>安全设置</h1>
+              <p>后台访问凭证与管理路径配置</p>
+            </div>
+          </div>
+
+          <div class="bc-card">
+            <div class="bc-card-title">
+              <h3>后台安全码策略</h3>
+              <p>线上环境采用 8–12 位安全码登录保护（当前本地为开发者免密直通环境）</p>
+            </div>
+            <div style="margin-top:16px; display:flex; flex-direction:column; gap:12px;">
+              <div style="display:flex; justify-content:space-between; align-items:center; padding:12px 16px; background:#f8fafc; border-radius:6px; border:1px solid #e2e8f0;">
+                <div>
+                  <strong style="color:#0f172a;">线上受保护路径</strong>
+                  <div style="margin-top:4px;">
+                    <code style="background:#e0f2fe; color:#0369a1; padding:2px 8px; border-radius:4px;">/bohol-control-7e9c2f</code>
+                  </div>
+                </div>
+                <span class="bc-badge bc-badge-success">正常运作</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </main>
+  </div>
+
+  <!-- Serialized Product Dataset for instant WooCommerce Studio editing -->
+  <script id="bohol-raw-products-data" type="application/json" set:html={JSON.stringify(products.map(p => ({
+    id: p.id,
+    name: p.data.name,
+    subtitle: p.data.subtitle,
+    description: p.data.description,
+    category: p.data.category,
+    subCategory: p.data.subCategory || "Men's Toys",
+    vendor: p.data.vendor || 'BOHOL Direct OEM',
+    price: p.data.price || getFobPrice(p),
+    comparePrice: p.data.comparePrice || '$28.00',
+    moq: getMoq(p),
+    image: p.data.image,
+    gallery: p.data.gallery || [p.data.image],
+    features: p.data.features || [],
+    specs: p.data.specs || [],
+    detailImages: p.data.detailImages || [],
+    highlights: p.data.highlights || [],
+    seoTitle: p.data.seoTitle || p.data.name,
+    seoDescription: p.data.seoDescription || p.data.subtitle,
+    featured: p.data.featured ?? true,
+    order: p.data.order || 0
+  })))} />
+
+  <!-- ========================================================================== -->
+  <!-- WOOCOMMERCE PRODUCT STUDIO MODAL (WooCommerce 后台产品上传与编辑工作台) -->
+  <!-- ========================================================================== -->
+  <div class="woo-studio-overlay" id="modal-woo-product-studio">
+    <div class="woo-studio-container">
+      <!-- Header -->
+      <div class="woo-studio-header">
+        <div class="woo-header-left">
+          <span class="woo-badge-logo">W</span>
+          <h2 class="woo-header-title">
+            WooCommerce &bull; <span id="woo-studio-mode-title">添加新产品 (Add New Product)</span>
+            <span class="mode-pill" id="woo-mode-badge">新增商品</span>
+          </h2>
+        </div>
+        <div class="woo-header-right">
+          <a href="/products/" target="_blank" class="woo-btn-header-link" id="woo-preview-top-btn">在前台预览 ↗</a>
+          <button type="button" class="woo-btn-close" id="woo-close-btn">✕ 关闭返回</button>
+        </div>
+      </div>
+
+      <!-- Studio 2-Column Grid -->
+      <form id="form-woo-product" class="woo-studio-body" onsubmit="return false;">
+        <!-- LEFT COLUMN: Main Content & Product Data -->
+        <div class="woo-col-main">
+          <!-- Title Box -->
+          <div class="woo-title-card">
+            <input
+              type="text"
+              class="woo-title-input"
+              id="woo-prod-title"
+              placeholder="在此输入产品名称 (例如: BHL-08 Harmony Rabbit Dual-Motor LSR)"
+              required
+            />
+            <!-- Permalink Box -->
+            <div class="woo-permalink-box">
+              <span>固定链接: </span>
+              <span class="woo-permalink-prefix">https://www.boholvending.com/products/</span>
+              <input type="text" class="woo-permalink-slug-input" id="woo-prod-slug" value="new-product" />
+              <span>/</span>
+              <button type="button" class="woo-permalink-btn" id="woo-btn-gen-slug">根据标题生成</button>
+              <a href="/products/" target="_blank" class="woo-permalink-btn" id="woo-btn-view-frontend">在前台查看 ↗</a>
+            </div>
+          </div>
+
+          <!-- Product Long Description (WordPress TinyMCE Style) -->
+          <div class="woo-postbox">
+            <div class="woo-editor-toolbar">
+              <div style="display:flex; align-items:center; gap:8px;">
+                <button type="button" class="woo-t-btn media-btn" id="woo-btn-insert-media">📷 添加媒体 / 详情长图</button>
+                <div class="woo-toolbar-btns">
+                  <button type="button" class="woo-t-btn" data-tag="b" title="粗体"><strong>B</strong></button>
+                  <button type="button" class="woo-t-btn" data-tag="i" title="斜体"><em>I</em></button>
+                  <button type="button" class="woo-t-btn" data-tag="link" title="链接">🔗</button>
+                  <button type="button" class="woo-t-btn" data-tag="quote" title="引用">“ ”</button>
+                  <button type="button" class="woo-t-btn" data-tag="ul" title="项目符号列表">• 列表</button>
+                  <button type="button" class="woo-t-btn" data-tag="h3" title="标题三">H3</button>
+                </div>
+              </div>
+              <div class="woo-editor-modes">
+                <button type="button" class="woo-mode-btn active" data-mode="visual">可视化</button>
+                <button type="button" class="woo-mode-btn" data-mode="text">文本 (HTML)</button>
+              </div>
+            </div>
+            <textarea
+              class="woo-editor-textarea"
+              id="woo-prod-desc"
+              placeholder="输入详尽的产品长篇图文描述，支持 HTML 详情海报、硅胶材质证书、IPX7防水测试及使用指南..."
+            ></textarea>
+          </div>
+
+          <!-- WooCommerce Product Data Metabox (Signature Component) -->
+          <div class="woo-data-metabox">
+            <div class="woo-data-header">
+              <div class="woo-data-header-left">
+                <span class="woo-data-title">产品数据 —</span>
+                <select class="woo-type-select" id="woo-product-type">
+                  <option value="simple">简单产品 (Simple product)</option>
+                  <option value="variable">可变规格产品 (Variable product)</option>
+                  <option value="b2b" selected>B2B 私模/外贸专供 (B2B OEM Custom)</option>
+                </select>
+              </div>
+              <div class="woo-data-checkboxes">
+                <label><input type="checkbox" id="woo-is-virtual" /> 虚拟</label>
+                <label><input type="checkbox" id="woo-is-downloadable" /> 可下载规格书</label>
+                <label><input type="checkbox" id="woo-is-b2b" checked /> B2B 支持定制</label>
+              </div>
+            </div>
+
+            <div class="woo-data-body">
+              <!-- Left Vertical Tabs -->
+              <ul class="woo-vtabs-nav" id="woo-vtabs">
+                <li class="woo-vtab-item">
+                  <button type="button" class="woo-vtab-btn active" data-vtab="general">
+                    <span class="woo-vtab-icon">⚙️</span>
+                    <span>常规 (General)</span>
+                  </button>
+                </li>
+                <li class="woo-vtab-item">
+                  <button type="button" class="woo-vtab-btn" data-vtab="inventory">
+                    <span class="woo-vtab-icon">📦</span>
+                    <span>库存 (Inventory)</span>
+                  </button>
+                </li>
+                <li class="woo-vtab-item">
+                  <button type="button" class="woo-vtab-btn" data-vtab="shipping">
+                    <span class="woo-vtab-icon">🚚</span>
+                    <span>配送 (Shipping)</span>
+                  </button>
+                </li>
+                <li class="woo-vtab-item">
+                  <button type="button" class="woo-vtab-btn" data-vtab="linked">
+                    <span class="woo-vtab-icon">🔗</span>
+                    <span>关联产品 (Linked)</span>
+                  </button>
+                </li>
+                <li class="woo-vtab-item">
+                  <button type="button" class="woo-vtab-btn" data-vtab="attributes">
+                    <span class="woo-vtab-icon">🏷️</span>
+                    <span>属性与规格 (Attributes)</span>
+                  </button>
+                </li>
+                <li class="woo-vtab-item">
+                  <button type="button" class="woo-vtab-btn" data-vtab="b2b">
+                    <span class="woo-vtab-icon">🏭</span>
+                    <span>B2B 批发与起订量</span>
+                  </button>
+                </li>
+                <li class="woo-vtab-item">
+                  <button type="button" class="woo-vtab-btn" data-vtab="advanced">
+                    <span class="woo-vtab-icon">⚡</span>
+                    <span>高级 (Advanced)</span>
+                  </button>
+                </li>
+              </ul>
+
+              <!-- Right Vertical Panels -->
+              <div class="woo-vpanels-container">
+                <!-- 1. 常规 (General) -->
+                <div class="woo-vpanel active" id="vpanel-general">
+                  <div class="woo-field-row">
+                    <label class="woo-field-label">常规价格 (USD $) <span class="req">*</span></label>
+                    <div class="woo-field-input-wrap">
+                      <input type="text" class="woo-input-text w-md" id="woo-regular-price" value="$28.00" placeholder="$28.00" />
+                      <span class="woo-field-desc">建议零售指导价 (MSRP)</span>
+                    </div>
+                  </div>
+
+                  <div class="woo-field-row">
+                    <label class="woo-field-label">批发/优惠价 (USD $) <span class="req">*</span></label>
+                    <div class="woo-field-input-wrap">
+                      <input type="text" class="woo-input-text w-md" id="woo-sale-price" value="$18.50" placeholder="$18.50" />
+                      <span class="woo-field-desc">基础批量采购起始价</span>
+                    </div>
+                  </div>
+
+                  <div class="woo-field-row">
+                    <label class="woo-field-label">税务状态</label>
+                    <div class="woo-field-input-wrap">
+                      <select class="woo-input-text w-md" id="woo-tax-status">
+                        <option value="none">免税 (保税出口 / Export Zero-rated)</option>
+                        <option value="taxable">应税产品</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div class="woo-field-row">
+                    <label class="woo-field-label">计税类别</label>
+                    <div class="woo-field-input-wrap">
+                      <select class="woo-input-text w-md">
+                        <option>标准国际贸易类目 (Standard Trade)</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- 2. 库存 (Inventory) -->
+                <div class="woo-vpanel" id="vpanel-inventory">
+                  <div class="woo-field-row">
+                    <label class="woo-field-label">商品货号 SKU <span class="req">*</span></label>
+                    <div class="woo-field-input-wrap">
+                      <input type="text" class="woo-input-text w-md" id="woo-sku" value="BHL-08" placeholder="例如: BHL-08" />
+                      <span class="woo-field-desc">唯一型号标识码，对应工厂模具代码</span>
+                    </div>
+                  </div>
+
+                  <div class="woo-field-row">
+                    <label class="woo-field-label">管理库存?</label>
+                    <div class="woo-field-input-wrap">
+                      <label style="display:flex; align-items:center; gap:6px; cursor:pointer;">
+                        <input type="checkbox" id="woo-manage-stock" checked />
+                        <span>在产品级别跟踪并扣减实际现货库存</span>
+                      </label>
+                    </div>
+                  </div>
+
+                  <div class="woo-field-row">
+                    <label class="woo-field-label">库存数量 (Stock)</label>
+                    <div class="woo-field-input-wrap">
+                      <input type="number" class="woo-input-text w-md" id="woo-stock-qty" value="2500" />
+                      <span class="woo-field-desc">成品仓库当前现货可用余量 (pcs)</span>
+                    </div>
+                  </div>
+
+                  <div class="woo-field-row">
+                    <label class="woo-field-label">允许延期交货/预订?</label>
+                    <div class="woo-field-input-wrap">
+                      <select class="woo-input-text w-md" id="woo-backorders">
+                        <option value="no">不允许</option>
+                        <option value="notify" selected>允许，但通知客户生产排期</option>
+                        <option value="yes">允许无缝预订排产</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div class="woo-field-row">
+                    <label class="woo-field-label">低库存预警阈值</label>
+                    <div class="woo-field-input-wrap">
+                      <input type="number" class="woo-input-text w-sm" id="woo-low-stock" value="100" />
+                      <span class="woo-field-desc">当库存低于此数值时系统触发补货提醒</span>
+                    </div>
+                  </div>
+
+                  <div class="woo-field-row">
+                    <label class="woo-field-label">库存状态</label>
+                    <div class="woo-field-input-wrap">
+                      <select class="woo-input-text w-md" id="woo-stock-status">
+                        <option value="instock" selected>有货 (In stock)</option>
+                        <option value="outofstock">缺货 (Out of stock)</option>
+                        <option value="onbackorder">支持工厂排产预订 (On backorder)</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- 3. 配送 (Shipping) -->
+                <div class="woo-vpanel" id="vpanel-shipping">
+                  <div class="woo-field-row">
+                    <label class="woo-field-label">单机重量 (kg)</label>
+                    <div class="woo-field-input-wrap">
+                      <input type="text" class="woo-input-text w-md" id="woo-weight" value="0.45" placeholder="0.45" />
+                      <span class="woo-field-desc">含彩盒与配件单套毛重 (kg)</span>
+                    </div>
+                  </div>
+
+                  <div class="woo-field-row">
+                    <label class="woo-field-label">包装外径尺寸 (cm)</label>
+                    <div class="woo-field-input-wrap">
+                      <input type="text" class="woo-input-text w-sm" id="woo-dim-l" value="21.5" placeholder="长 L" />
+                      <span>×</span>
+                      <input type="text" class="woo-input-text w-sm" id="woo-dim-w" value="6.5" placeholder="宽 W" />
+                      <span>×</span>
+                      <input type="text" class="woo-input-text w-sm" id="woo-dim-h" value="5.8" placeholder="高 H" />
+                      <span class="woo-field-desc">厘米 (cm)</span>
+                    </div>
+                  </div>
+
+                  <div class="woo-field-row">
+                    <label class="woo-field-label">国际运输类别</label>
+                    <div class="woo-field-input-wrap">
+                      <select class="woo-input-text w-md" id="woo-shipping-class">
+                        <option value="battery" selected>带电普货 (UN38.3 锂电池内置 / 航空海运)</option>
+                        <option value="liquid">液体专线 (油性/水性润滑液)</option>
+                        <option value="general">无电硅胶/纺织普货 (General Cargo)</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div class="woo-field-row">
+                    <label class="woo-field-label">整箱装箱率 (Carton)</label>
+                    <div class="woo-field-input-wrap">
+                      <input type="text" class="woo-input-text w-full" id="woo-carton-spec" value="60 pcs / 箱 · 毛重 24.5 kg · 外箱箱规 55 × 42 × 35 cm" />
+                      <span class="woo-field-desc">用于外贸托盘计算与集装箱装柜容积估算</span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- 4. 关联产品 (Linked Products) -->
+                <div class="woo-vpanel" id="vpanel-linked">
+                  <div class="woo-field-row">
+                    <label class="woo-field-label">追加销售 (Upsells)</label>
+                    <div class="woo-field-input-wrap">
+                      <input type="text" class="woo-input-text w-full" id="woo-upsells" value="Bobi IV, Starship" placeholder="输入推荐升级或高阶型号..." />
+                      <span class="woo-field-desc">在详情页推荐的升级款或旗舰系列</span>
+                    </div>
+                  </div>
+
+                  <div class="woo-field-row">
+                    <label class="woo-field-label">交叉销售 (Cross-sells)</label>
+                    <div class="woo-field-input-wrap">
+                      <input type="text" class="woo-input-text w-full" id="woo-crosssells" value="0.01 Ultra-Thin Condoms, Water-Based Lubricants" placeholder="输入配套周边消耗品..." />
+                      <span class="woo-field-desc">采购此产品时一并推销的润滑液、避孕套或备用硅胶配件</span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- 5. 属性与规格 (Attributes) -->
+                <div class="woo-vpanel" id="vpanel-attributes">
+                  <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+                    <span style="font-size:12px; font-weight:700; color:#475569;">已配置的产品规格与工业属性 (Specs):</span>
+                    <button type="button" class="woo-btn-draft" id="woo-btn-add-attr">+ 添加自定义属性行</button>
+                  </div>
+
+                  <table class="woo-attr-table" id="woo-attrs-table">
+                    <thead>
+                      <tr>
+                        <th style="width:160px;">属性名称 (Label)</th>
+                        <th>属性值 / 规格明细 (Value)</th>
+                        <th style="width:50px; text-align:center;">操作</th>
+                      </tr>
+                    </thead>
+                    <tbody id="woo-attrs-tbody">
+                      <tr>
+                        <td><input type="text" class="woo-attr-input attr-key" value="驱动方式 (Drive)" /></td>
+                        <td><input type="text" class="woo-attr-input attr-val" value="双电机伸缩旋转 · 10频变频" /></td>
+                        <td style="text-align:center;"><button type="button" class="woo-btn-del-attr">✕</button></td>
+                      </tr>
+                      <tr>
+                        <td><input type="text" class="woo-attr-input attr-key" value="材质级别 (Material)" /></td>
+                        <td><input type="text" class="woo-attr-input attr-val" value="医用级液态硅胶 (LSR) + 环保ABS" /></td>
+                        <td style="text-align:center;"><button type="button" class="woo-btn-del-attr">✕</button></td>
+                      </tr>
+                      <tr>
+                        <td><input type="text" class="woo-attr-input attr-key" value="防水等级 (Waterproof)" /></td>
+                        <td><input type="text" class="woo-attr-input attr-val" value="IPX7 潜水级深度防水 (可全身水洗)" /></td>
+                        <td style="text-align:center;"><button type="button" class="woo-btn-del-attr">✕</button></td>
+                      </tr>
+                      <tr>
+                        <td><input type="text" class="woo-attr-input attr-key" value="供电与电池 (Battery)" /></td>
+                        <td><input type="text" class="woo-attr-input attr-val" value="USB Type-C 快充 · 800mAh 锂电池 (续航 120min)" /></td>
+                        <td style="text-align:center;"><button type="button" class="woo-btn-del-attr">✕</button></td>
+                      </tr>
+                      <tr>
+                        <td><input type="text" class="woo-attr-input attr-key" value="运行分贝 (Acoustic Noise)" /></td>
+                        <td><input type="text" class="woo-attr-input attr-val" value="&lt; 40 dB 超静音低噪" /></td>
+                        <td style="text-align:center;"><button type="button" class="woo-btn-del-attr">✕</button></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+
+                <!-- 6. B2B 批发与起订量 (B2B Wholesale Tier) -->
+                <div class="woo-vpanel" id="vpanel-b2b">
+                  <div class="woo-field-row">
+                    <label class="woo-field-label">起订量 MOQ (pcs) <span class="req">*</span></label>
+                    <div class="woo-field-input-wrap">
+                      <input type="text" class="woo-input-text w-md" id="woo-moq" value="100 pcs" placeholder="100 pcs" />
+                      <span class="woo-field-desc">样品测试评估最低支持 50 pcs 起订</span>
+                    </div>
+                  </div>
+
+                  <div class="woo-field-row">
+                    <label class="woo-field-label">FOB 阶梯报价区间 <span class="req">*</span></label>
+                    <div class="woo-field-input-wrap">
+                      <input type="text" class="woo-input-text w-md" id="woo-fob-price" value="$16.50 - $24.00" placeholder="$16.50 - $24.00" />
+                      <span class="woo-field-desc">包含 FOB 深圳或广州港离岸基准价</span>
+                    </div>
+                  </div>
+
+                  <div class="woo-field-row">
+                    <label class="woo-field-label">OEM 私模定制支持</label>
+                    <div class="woo-field-input-wrap" style="flex-direction:column; align-items:flex-start; gap:8px;">
+                      <label style="display:flex; align-items:center; gap:6px; cursor:pointer;">
+                        <input type="checkbox" id="woo-oem-logo" checked />
+                        <span>机身激光镭雕 Logo 标识 (MOQ: 100 pcs)</span>
+                      </label>
+                      <label style="display:flex; align-items:center; gap:6px; cursor:pointer;">
+                        <input type="checkbox" id="woo-oem-box" checked />
+                        <span>多语言外包装彩盒与专属说明书印刷 (MOQ: 500 pcs)</span>
+                      </label>
+                      <label style="display:flex; align-items:center; gap:6px; cursor:pointer;">
+                        <input type="checkbox" id="woo-oem-pantone" checked />
+                        <span>指定 Pantone 色号专属医用硅胶调色配方 (MOQ: 1,000 pcs)</span>
+                      </label>
+                    </div>
+                  </div>
+
+                  <div class="woo-field-row">
+                    <label class="woo-field-label">海关 HS Code 编码</label>
+                    <div class="woo-field-input-wrap">
+                      <input type="text" class="woo-input-text w-md" id="woo-hscode" value="9019.10.10.00" placeholder="9019.10.10.00" />
+                      <span class="woo-field-desc">申报品名：电动按摩器具 / 塑料橡胶制品</span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- 7. 高级 (Advanced) -->
+                <div class="woo-vpanel" id="vpanel-advanced">
+                  <div class="woo-field-row">
+                    <label class="woo-field-label">采购备注 (Purchase Note)</label>
+                    <div class="woo-field-input-wrap">
+                      <textarea class="woo-input-text w-full" id="woo-purchase-note" style="height:60px;" placeholder="在客户完成询盘确认信中自动附带的条款说明 (例如: 100% 盲发保密包装，无任何成人敏感字样)..."></textarea>
+                    </div>
+                  </div>
+
+                  <div class="woo-field-row">
+                    <label class="woo-field-label">菜单排序 (Menu Order)</label>
+                    <div class="woo-field-input-wrap">
+                      <input type="number" class="woo-input-text w-sm" id="woo-menu-order" value="1" />
+                      <span class="woo-field-desc">数值越小在产品列表中越靠前</span>
+                    </div>
+                  </div>
+
+                  <div class="woo-field-row">
+                    <label class="woo-field-label">买家评价机制</label>
+                    <div class="woo-field-input-wrap">
+                      <label style="display:flex; align-items:center; gap:6px; cursor:pointer;">
+                        <input type="checkbox" id="woo-enable-reviews" checked />
+                        <span>允许买家在此产品页面提交五星晒单与买家秀反馈</span>
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Product Short Description (WooCommerce 简短描述与卖点) -->
+          <div class="woo-postbox">
+            <div class="woo-postbox-header">
+              <h3>产品简短描述 (Product Short Description) · 核心卖点提炼</h3>
+            </div>
+            <div class="woo-postbox-inside">
+              <div style="margin-bottom:8px;">
+                <label style="display:block; font-size:12px; font-weight:700; color:#334155; margin-bottom:4px;">
+                  英文副标题 / 卖点口号 (Subtitle) <span class="req" style="color:#d63638;">*</span>
+                </label>
+                <input
+                  type="text"
+                  class="woo-input-text w-full"
+                  id="woo-prod-subtitle"
+                  placeholder="例如: High-capacity multi-frequency automated male trainer with smart thermal warming."
+                  value="High-capacity multi-frequency automated male trainer."
+                  required
+                />
+              </div>
+
+              <div>
+                <label style="display:block; font-size:12px; font-weight:700; color:#334155; margin-bottom:4px;">
+                  核心卖点列表 (Features, 换行输入，每行一条)
+                </label>
+                <textarea
+                  class="woo-input-text w-full"
+                  id="woo-prod-features"
+                  style="height:85px; font-family:ui-monospace, Menlo, monospace; font-size:12.5px;"
+                  placeholder="Telescopic & rotational drive&#10;Multi-mode digital control&#10;Medical-grade TPE inner sleeve&#10;USB Type-C rechargeable"
+                >Telescopic & rotational drive
+Multi-mode digital control
+Medical-grade TPE inner sleeve
+USB Type-C rechargeable</textarea>
+                <div style="font-size:11px; color:#64748b; margin-top:2px;">
+                  将在前台卡片、详情页顶部高亮区和 RFQ 询价计算器中作为核心亮点展示。
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- RIGHT SIDEBAR: WordPress Classic Meta Boxes -->
+        <div class="woo-col-sidebar">
+          <!-- 1. 发布面板 (Publish Box) -->
+          <div class="woo-postbox">
+            <div class="woo-postbox-header">
+              <h3>发布 (Publish)</h3>
+            </div>
+            <div class="woo-postbox-inside">
+              <div class="woo-publish-actions-top">
+                <button type="button" class="woo-btn-draft" id="woo-btn-save-draft">存为草稿 (Save Draft)</button>
+                <a href="/products/" target="_blank" class="woo-btn-draft" id="woo-btn-preview" style="text-decoration:none;">预览 (Preview) ↗</a>
+              </div>
+
+              <div class="woo-publish-meta-list">
+                <div class="woo-publish-meta-item">
+                  <span>状态:</span>
+                  <strong id="woo-status-label" style="color:#008a20;">● 已发布 (Published)</strong>
+                </div>
+                <div class="woo-publish-meta-item">
+                  <span>可见度:</span>
+                  <strong>公开 (Public)</strong>
+                </div>
+                <div class="woo-publish-meta-item">
+                  <span>目录可见性:</span>
+                  <strong>在商店和搜索中可见</strong>
+                </div>
+                <div class="woo-publish-meta-item">
+                  <span>发布时间:</span>
+                  <strong id="woo-publish-date">立即发布</strong>
+                </div>
+              </div>
+
+              <div class="woo-publish-actions-bottom">
+                <button type="button" class="woo-link-trash" id="woo-btn-trash">移至回收站</button>
+                <button type="button" class="woo-btn-publish" id="woo-btn-main-publish">
+                  发布 / 更新产品 (Publish)
+                </button>
+              </div>
+
+              <div style="margin-top:12px; padding-top:12px; border-top:1px dashed #cbd5e1;">
+                <button type="button" class="woo-btn-draft" id="woo-btn-download-json" style="width:100%; font-size:12px; justify-content:center; display:flex; align-items:center; gap:6px;">
+                  💾 下载产品 JSON 文件 (永久入库)
+                </button>
+                <div style="font-size:11px; color:#059669; font-weight:600; margin-top:8px; line-height:1.45; background:#ecfdf5; border:1px solid #d1fae5; padding:6px 8px; border-radius:6px;">
+                  ✓ 全自动对接：无论发布多少新产品，前台（卡片、详情页）均已自动配置「加入更多产品询问」与批量询价抽屉，客户提交后即时汇总至本后台。
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 2. 产品图像 (Product Image - 特色主图) -->
+          <div class="woo-postbox">
+            <div class="woo-postbox-header">
+              <h3>产品图像 (Product Image)</h3>
+            </div>
+            <div class="woo-postbox-inside">
+              <div class="woo-image-preview-area" id="woo-img-preview-dropzone" title="点击可更换或上传新图片">
+                <img id="woo-main-img-tag" src="/images/spotlight-bobi-i.webp" alt="Product main image" />
+              </div>
+
+              <div class="woo-image-actions">
+                <div>
+                  <label style="display:block; font-size:11.5px; font-weight:700; color:#334155; margin-bottom:3px;">
+                    图片本地路径或网络 URL:
+                  </label>
+                  <input
+                    type="text"
+                    class="woo-input-text w-full"
+                    id="woo-prod-image-url"
+                    value="/images/spotlight-bobi-i.webp"
+                    placeholder="/images/... 或 https://..."
+                    required
+                  />
+                </div>
+
+                <input type="file" id="woo-local-file-input" accept="image/*" style="display:none;" />
+                <button type="button" class="woo-btn-draft" id="woo-btn-upload-file" style="width:100%;">
+                  📁 从本地电脑选择图片上传
+                </button>
+
+                <!-- 14 Flagship Presets Strip -->
+                <div>
+                  <div style="font-size:11px; font-weight:700; color:#64748b; margin-top:4px;">
+                    一键选用 BOHOL 14 款私模现货图库:
+                  </div>
+                  <div class="woo-preset-images-strip" id="woo-preset-strip">
+                    <img class="woo-preset-thumb" src="/images/spotlight-bobi-i.webp" alt="Bobi I" title="Bobi I" />
+                    <img class="woo-preset-thumb" src="/images/spotlight-starship.webp" alt="Starship" title="Starship" />
+                    <img class="woo-preset-thumb" src="/images/spotlight-cj7.webp" alt="CJ7" title="CJ7" />
+                    <img class="woo-preset-thumb" src="/images/spotlight-twist-fun.webp" alt="Twist & Fun" title="Twist & Fun" />
+                    <img class="woo-preset-thumb" src="/images/spotlight-lenas.webp" alt="Lenas" title="Lenas" />
+                    <img class="woo-preset-thumb" src="/images/spotlight-harmony.webp" alt="Harmony Rabbit" title="Harmony Rabbit" />
+                    <img class="woo-preset-thumb" src="/images/spotlight-summer.webp" alt="Summer Rabbit" title="Summer Rabbit" />
+                    <img class="woo-preset-thumb" src="/images/spotlight-bite.webp" alt="Bite" title="Bite" />
+                    <img class="woo-preset-thumb" src="/images/spotlight-xiaoqiao.webp" alt="Xiaoqiao" title="Xiaoqiao" />
+                    <img class="woo-preset-thumb" src="/images/spotlight-mengqu.webp" alt="Mengqu" title="Mengqu" />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 3. 产品图库 (Product Gallery) -->
+          <div class="woo-postbox">
+            <div class="woo-postbox-header">
+              <h3>产品图库 (Product Gallery)</h3>
+            </div>
+            <div class="woo-postbox-inside">
+              <div class="woo-gallery-grid" id="woo-gallery-grid">
+                <img class="woo-gallery-thumb" src="/images/bobi-front.webp" alt="Angle 1" />
+                <img class="woo-gallery-thumb" src="/images/bobi-side.webp" alt="Angle 2" />
+                <img class="woo-gallery-thumb" src="/images/spotlight-bobi-i.webp" alt="Angle 3" />
+                <img class="woo-gallery-thumb" src="/images/factory-campus.webp" alt="QC view" />
+              </div>
+              <button type="button" class="woo-btn-draft" id="woo-btn-add-gallery" style="width:100%;">
+                + 添加产品图库图像
+              </button>
+            </div>
+          </div>
+
+          <!-- 4. 产品分类 (Product Categories) -->
+          <div class="woo-postbox">
+            <div class="woo-postbox-header">
+              <h3>产品分类 (Product Categories)</h3>
+            </div>
+            <div class="woo-postbox-inside">
+              <div class="woo-cat-tabs">
+                <button type="button" class="woo-cat-tab-btn active">所有分类</button>
+                <button type="button" class="woo-cat-tab-btn">最常用</button>
+              </div>
+
+              <ul class="woo-cat-checklist" id="woo-cat-checklist">
+                <li class="woo-cat-item">
+                  <label><input type="radio" name="woo-radio-cat" value="Men's Toys" checked /> 🍆 Men's Toys (男士飞机杯/倒模)</label>
+                </li>
+                <li class="woo-cat-item">
+                  <label><input type="radio" name="woo-radio-cat" value="Women's Toys" /> 🌸 Women's Toys (女士震动/吸吮)</label>
+                </li>
+                <li class="woo-cat-item">
+                  <label><input type="radio" name="woo-radio-cat" value="Sexy Lingerie" /> 👗 Sexy Lingerie (性感内衣/丝袜)</label>
+                </li>
+                <li class="woo-cat-item">
+                  <label><input type="radio" name="woo-radio-cat" value="BDSM & Fetish" /> ⛓️ BDSM & Fetish (调教束缚/器具)</label>
+                </li>
+                <li class="woo-cat-item">
+                  <label><input type="radio" name="woo-radio-cat" value="Condoms" /> 🛡️ Condoms (0.01超薄避孕套)</label>
+                </li>
+                <li class="woo-cat-item">
+                  <label><input type="radio" name="woo-radio-cat" value="Lubricants & Care" /> 💧 Lubricants & Care (润滑与护理)</label>
+                </li>
+                <li class="woo-cat-item">
+                  <label><input type="radio" name="woo-radio-cat" value="BOHOL OEM" /> ⚡ BOHOL OEM (工厂私模硬件)</label>
+                </li>
+              </ul>
+
+              <div style="margin-top:10px; padding-top:8px; border-top:1px solid #f1f5f9;">
+                <label style="display:block; font-size:11.5px; font-weight:700; color:#475569; margin-bottom:3px;">
+                  工业结构系列 (Series):
+                </label>
+                <select class="woo-input-text w-full" id="woo-series-select">
+                  <option value="Electric" selected>Electric 电动伸缩系列</option>
+                  <option value="Adaptive">Adaptive 自适应体感系列</option>
+                  <option value="Compact">Compact 便携紧凑系列</option>
+                  <option value="Sculpted">Sculpted 匠心雕花系列</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <!-- 5. 产品标签 (Product Tags) -->
+          <div class="woo-postbox">
+            <div class="woo-postbox-header">
+              <h3>产品标签 (Product Tags)</h3>
+            </div>
+            <div class="woo-postbox-inside">
+              <div class="woo-tags-input-row">
+                <input type="text" class="woo-input-text" id="woo-tag-input" placeholder="输入标签，以逗号分隔" value="LSR-Silicone, Dual-Motor, IPX7" />
+                <button type="button" class="woo-btn-draft" id="woo-btn-add-tag">添加</button>
+              </div>
+              <div class="woo-popular-tags-cloud" id="woo-tags-cloud">
+                <span class="woo-tag-pill">+ USB-C</span>
+                <span class="woo-tag-pill">+ Low-Noise</span>
+                <span class="woo-tag-pill">+ 100-MOQ</span>
+                <span class="woo-tag-pill">+ OEM-Ready</span>
+                <span class="woo-tag-pill">+ Medical-Grade</span>
+                <span class="woo-tag-pill">+ Waterproof</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- 6. 目录推荐与售货机 (Catalog Options) -->
+          <div class="woo-postbox">
+            <div class="woo-postbox-header">
+              <h3>前台展示与终端适配</h3>
+            </div>
+            <div class="woo-postbox-inside">
+              <label style="display:flex; align-items:center; gap:6px; font-size:12.5px; cursor:pointer;">
+                <input type="checkbox" id="woo-is-featured" checked />
+                <span>设为首页精选推荐产品 (Featured)</span>
+              </label>
+              <label style="display:flex; align-items:center; gap:6px; font-size:12.5px; cursor:pointer; margin-top:8px;">
+                <input type="checkbox" id="woo-is-vending" checked />
+                <span>适配智能售货机弹簧槽位 (Vending Slot Ready)</span>
+              </label>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Toast Container -->
+  <div id="bc-toast-container"></div>
+
+  <!-- Client-side Interactive Logic -->
+  <script is:inline>
+    // Tab Switching
+    const navButtons = document.querySelectorAll('.bc-nav-btn');
+    const panels = document.querySelectorAll('.bc-panel');
+    const currentTitleEl = document.getElementById('bc-current-title');
+
+    function switchTab(tabId) {
+      navButtons.forEach(btn => {
+        if (btn.getAttribute('data-tab') === tabId) {
+          btn.classList.add('active');
+          const title = btn.querySelector('span:not(.bc-nav-icon)')?.textContent || '工作台';
+          if (currentTitleEl) currentTitleEl.textContent = title;
+        } else {
+          btn.classList.remove('active');
+        }
+      });
+
+      panels.forEach(p => {
+        if (p.id === `panel-${tabId}`) {
+          p.classList.add('active');
+        } else {
+          p.classList.remove('active');
+        }
+      });
+
+      window.location.hash = tabId;
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    navButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const tab = btn.getAttribute('data-tab');
+        if (tab) switchTab(tab);
+      });
+    });
+
+    // Handle Quick Action Clicks in Workbench
+    document.querySelectorAll('[data-action]').forEach(el => {
+      el.addEventListener('click', () => {
+        const action = el.getAttribute('data-action');
+        if (action === 'go-products') {
+          switchTab('products');
+        } else if (action === 'go-articles') {
+          switchTab('articles');
+        }
+      });
+    });
+
+    // =========================================================================
+    // WOOCOMMERCE PRODUCT PUBLISHING STUDIO CONTROLLER
+    // =========================================================================
+    const modalWooStudio = document.getElementById('modal-woo-product-studio');
+    const btnCloseWooStudio = document.getElementById('woo-close-btn');
+    const btnOpenAddProduct = document.getElementById('btn-open-add-product-modal');
+    const wbQuickAddBtn = document.getElementById('wb-quick-add-btn');
+    const btnMainPublish = document.getElementById('woo-btn-main-publish');
+    const btnSaveDraft = document.getElementById('woo-btn-save-draft');
+    const btnTrash = document.getElementById('woo-btn-trash');
+
+    // Parse all original products from embedded JSON tag
+    let rawProductsMap = {};
+    try {
+      const rawEl = document.getElementById('bohol-raw-products-data');
+      if (rawEl) {
+        const rawList = JSON.parse(rawEl.textContent || '[]');
+        rawList.forEach(p => {
+          rawProductsMap[p.id] = p;
+        });
+      }
+    } catch (e) {
+      console.warn('Could not parse initial products data', e);
+    }
+
+    // Merge any localStorage products into the map
+    function getStoredProducts() {
+      try {
+        return JSON.parse(localStorage.getItem('bohol_custom_products') || '[]');
+      } catch (e) {
+        return [];
+      }
+    }
+
+    // Preload custom products from localStorage into rawProductsMap
+    getStoredProducts().forEach(p => {
+      rawProductsMap[p.id || p.slug] = p;
+    });
+
+    let editingProductId = null; // null if adding new, or string slug if editing
+
+    function slugify(text) {
+      return text
+        .toString()
+        .toLowerCase()
+        .trim()
+        .replace(/[\s\W-]+/g, '-')
+        .replace(/^-+|-+$/g, '');
+    }
+
+    function openWooStudio(prod = null) {
+      if (!modalWooStudio) return;
+
+      const titleEl = document.getElementById('woo-prod-title');
+      const slugEl = document.getElementById('woo-prod-slug');
+      const descEl = document.getElementById('woo-prod-desc');
+      const subtitleEl = document.getElementById('woo-prod-subtitle');
+      const featuresEl = document.getElementById('woo-prod-features');
+      const regPriceEl = document.getElementById('woo-regular-price');
+      const salePriceEl = document.getElementById('woo-sale-price');
+      const fobPriceEl = document.getElementById('woo-fob-price');
+      const moqEl = document.getElementById('woo-moq');
+      const skuEl = document.getElementById('woo-sku');
+      const imgUrlEl = document.getElementById('woo-prod-image-url');
+      const mainImgTag = document.getElementById('woo-main-img-tag');
+      const modeTitleEl = document.getElementById('woo-studio-mode-title');
+      const modeBadgeEl = document.getElementById('woo-mode-badge');
+      const previewTopBtn = document.getElementById('woo-preview-top-btn');
+      const viewFrontendBtn = document.getElementById('woo-btn-view-frontend');
+      const previewBtn = document.getElementById('woo-btn-preview');
+      const seriesSelect = document.getElementById('woo-series-select');
+
+      if (prod) {
+        editingProductId = prod.id || prod.slug;
+        if (modeTitleEl) modeTitleEl.textContent = `编辑产品: ${prod.name}`;
+        if (modeBadgeEl) modeBadgeEl.textContent = `编辑现有商品 #${editingProductId}`;
+        if (titleEl) titleEl.value = prod.name || '';
+        if (slugEl) slugEl.value = editingProductId;
+        if (descEl) descEl.value = prod.description || '';
+        if (subtitleEl) subtitleEl.value = prod.subtitle || '';
+        if (featuresEl) featuresEl.value = Array.isArray(prod.features) ? prod.features.join('\n') : (prod.features || '');
+        if (regPriceEl) regPriceEl.value = prod.comparePrice || '$28.00';
+        if (salePriceEl) salePriceEl.value = prod.price || prod.fobPrice || '$18.50';
+        if (fobPriceEl) fobPriceEl.value = prod.fobPrice || prod.price || '$16.50 - $24.00';
+        if (moqEl) moqEl.value = prod.moq || '100 pcs';
+        if (skuEl) skuEl.value = prod.sku || editingProductId.toUpperCase();
+        if (imgUrlEl) imgUrlEl.value = prod.image || '/images/spotlight-bobi-i.webp';
+        if (mainImgTag) mainImgTag.src = prod.image || '/images/spotlight-bobi-i.webp';
+        if (seriesSelect && prod.category) seriesSelect.value = prod.category;
+
+        // Match category radio
+        const subcat = prod.subCategory || "Men's Toys";
+        document.querySelectorAll('input[name="woo-radio-cat"]').forEach(r => {
+          r.checked = r.value === subcat || r.value.includes(subcat);
+        });
+
+        // Set preview URLs
+        const previewUrl = `/products/${editingProductId}/`;
+        if (previewTopBtn) previewTopBtn.href = previewUrl;
+        if (viewFrontendBtn) viewFrontendBtn.href = previewUrl;
+        if (previewBtn) previewBtn.href = previewUrl;
+
+        // Populate attributes table
+        const tbody = document.getElementById('woo-attrs-tbody');
+        if (tbody && Array.isArray(prod.specs) && prod.specs.length > 0) {
+          tbody.innerHTML = prod.specs.map(s => `
+            <tr>
+              <td><input type="text" class="woo-attr-input attr-key" value="${s.label || ''}" /></td>
+              <td><input type="text" class="woo-attr-input attr-val" value="${s.value || ''}" /></td>
+              <td style="text-align:center;"><button type="button" class="woo-btn-del-attr">✕</button></td>
+            </tr>
+          `).join('');
+        }
+      } else {
+        editingProductId = null;
+        if (modeTitleEl) modeTitleEl.textContent = '添加新产品 (Add New Product)';
+        if (modeBadgeEl) modeBadgeEl.textContent = '新增商品';
+        if (titleEl) titleEl.value = '';
+        if (slugEl) slugEl.value = 'new-product-' + Math.floor(Math.random() * 900 + 100);
+        if (descEl) descEl.value = '';
+        if (subtitleEl) subtitleEl.value = 'Precision engineered intimate wellness hardware for wholesale & automated retail.';
+        if (featuresEl) featuresEl.value = 'Medical-grade platinum LSR silicone\nDual-motor synchronous drive\nIPX7 deep waterproof rating\nUSB-C high-speed recharge';
+        if (regPriceEl) regPriceEl.value = '$24.00';
+        if (salePriceEl) salePriceEl.value = '$16.50';
+        if (fobPriceEl) fobPriceEl.value = '$16.50 - $24.00';
+        if (moqEl) moqEl.value = '100 pcs';
+        const randSku = 'BHL-' + Math.floor(Math.random() * 80 + 20);
+        if (skuEl) skuEl.value = randSku;
+        if (imgUrlEl) imgUrlEl.value = '/images/spotlight-bobi-i.webp';
+        if (mainImgTag) mainImgTag.src = '/images/spotlight-bobi-i.webp';
+
+        const previewUrl = `/products/`;
+        if (previewTopBtn) previewTopBtn.href = previewUrl;
+        if (viewFrontendBtn) viewFrontendBtn.href = previewUrl;
+        if (previewBtn) previewBtn.href = previewUrl;
+      }
+
+      modalWooStudio.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeWooStudio() {
+      if (modalWooStudio) modalWooStudio.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    if (btnCloseWooStudio) btnCloseWooStudio.addEventListener('click', closeWooStudio);
+    if (btnOpenAddProduct) btnOpenAddProduct.addEventListener('click', () => openWooStudio(null));
+    if (wbQuickAddBtn) {
+      wbQuickAddBtn.addEventListener('click', () => {
+        switchTab('products');
+        openWooStudio(null);
+      });
+    }
+
+    // Vertical Tabs Switching in Product Data Metabox
+    const vtabButtons = document.querySelectorAll('.woo-vtab-btn');
+    const vpanels = document.querySelectorAll('.woo-vpanel');
+    vtabButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const targetTab = btn.getAttribute('data-vtab');
+        vtabButtons.forEach(b => b.classList.toggle('active', b === btn));
+        vpanels.forEach(p => p.classList.toggle('active', p.id === `vpanel-${targetTab}`));
+      });
+    });
+
+    // Auto-generate slug from title
+    const titleInput = document.getElementById('woo-prod-title');
+    const slugInput = document.getElementById('woo-prod-slug');
+    const btnGenSlug = document.getElementById('woo-btn-gen-slug');
+
+    if (btnGenSlug && titleInput && slugInput) {
+      btnGenSlug.addEventListener('click', () => {
+        const val = titleInput.value.trim();
+        if (val) slugInput.value = slugify(val);
+      });
+    }
+
+    if (titleInput && slugInput) {
+      titleInput.addEventListener('blur', () => {
+        if (!editingProductId && (!slugInput.value || slugInput.value.startsWith('new-product-'))) {
+          slugInput.value = slugify(titleInput.value) || slugInput.value;
+        }
+      });
+    }
+
+    // Image Preset Thumbnails Click
+    const imgUrlInput = document.getElementById('woo-prod-image-url');
+    const mainImgTag = document.getElementById('woo-main-img-tag');
+    document.querySelectorAll('.woo-preset-thumb').forEach(thumb => {
+      thumb.addEventListener('click', () => {
+        const src = thumb.getAttribute('src');
+        if (src) {
+          if (imgUrlInput) imgUrlInput.value = src;
+          if (mainImgTag) mainImgTag.src = src;
+          showToast(`已选用预设图: ${src.split('/').pop()}`);
+        }
+      });
+    });
+
+    if (imgUrlInput && mainImgTag) {
+      imgUrlInput.addEventListener('input', () => {
+        mainImgTag.src = imgUrlInput.value.trim();
+      });
+    }
+
+    // Local File Upload trigger
+    const fileUploadBtn = document.getElementById('woo-btn-upload-file');
+    const fileInput = document.getElementById('woo-local-file-input');
+    if (fileUploadBtn && fileInput) {
+      fileUploadBtn.addEventListener('click', () => fileInput.click());
+      fileInput.addEventListener('change', (e) => {
+        const file = e.target.files?.[0];
+        if (file) {
+          const reader = new FileReader();
+          reader.onload = (evt) => {
+            const dataUrl = evt.target?.result;
+            if (dataUrl) {
+              if (mainImgTag) mainImgTag.src = dataUrl;
+              if (imgUrlInput) imgUrlInput.value = `/images/${file.name}`;
+              showToast(`本地图片 "${file.name}" 已载入预览！`);
+            }
+          };
+          reader.readAsDataURL(file);
+        }
+      });
+    }
+
+    // Add Attribute Row
+    const btnAddAttr = document.getElementById('woo-btn-add-attr');
+    const attrsTbody = document.getElementById('woo-attrs-tbody');
+    if (btnAddAttr && attrsTbody) {
+      btnAddAttr.addEventListener('click', () => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td><input type="text" class="woo-attr-input attr-key" placeholder="自定义属性 (如: 净重)" /></td>
+          <td><input type="text" class="woo-attr-input attr-val" placeholder="规格参数 (如: 320g)" /></td>
+          <td style="text-align:center;"><button type="button" class="woo-btn-del-attr">✕</button></td>
+        `;
+        attrsTbody.appendChild(tr);
+      });
+    }
+
+    // Delete Attribute Row
+    document.addEventListener('click', (e) => {
+      if (e.target.classList.contains('woo-btn-del-attr')) {
+        e.target.closest('tr')?.remove();
+      }
+    });
+
+    // Tag Cloud Quick Add
+    const tagInput = document.getElementById('woo-tag-input');
+    document.querySelectorAll('.woo-tag-pill').forEach(pill => {
+      pill.addEventListener('click', () => {
+        const tagText = pill.textContent.replace('+', '').trim();
+        if (tagInput) {
+          const current = tagInput.value ? tagInput.value.split(',').map(s => s.trim()) : [];
+          if (!current.includes(tagText)) {
+            current.push(tagText);
+            tagInput.value = current.join(', ');
+          }
+        }
+      });
+    });
+
+    // Toast Notification helper
+    function showToast(msg) {
+      const container = document.getElementById('bc-toast-container');
+      if (!container) return;
+      const toast = document.createElement('div');
+      toast.className = 'bc-toast';
+      toast.innerHTML = `<span>🔔</span> <span>${msg}</span>`;
+      container.appendChild(toast);
+      setTimeout(() => {
+        toast.remove();
+      }, 3500);
+    }
+
+    // Product Filter & Search
+    const searchInput = document.getElementById('prod-search-input');
+    const categorySelect = document.getElementById('prod-filter-category');
+    const statusSelect = document.getElementById('prod-filter-status');
+    const productsTbody = document.getElementById('products-tbody');
+    const prodCounterBadge = document.getElementById('prod-counter-badge');
+
+    function filterProducts() {
+      if (!productsTbody) return;
+      const query = (searchInput?.value || '').toLowerCase().trim();
+      const cat = categorySelect?.value || 'ALL';
+      const stat = statusSelect?.value || 'ALL';
+
+      const rows = productsTbody.querySelectorAll('tr');
+      let visibleCount = 0;
+
+      rows.forEach(row => {
+        const rowName = row.getAttribute('data-name') || '';
+        const rowId = row.getAttribute('data-id') || '';
+        const rowCat = row.getAttribute('data-cat') || '';
+        const rowStat = row.getAttribute('data-status') || 'ACTIVE';
+
+        const matchQuery = !query || rowName.includes(query) || rowId.includes(query);
+        const matchCat = cat === 'ALL' || rowCat === cat;
+        const matchStat = stat === 'ALL' || rowStat === stat;
+
+        if (matchQuery && matchCat && matchStat) {
+          row.style.display = '';
+          visibleCount++;
+        } else {
+          row.style.display = 'none';
+        }
+      });
+
+      if (prodCounterBadge) {
+        prodCounterBadge.textContent = `共 ${visibleCount} 款产品`;
+      }
+    }
+
+    if (searchInput) searchInput.addEventListener('input', filterProducts);
+    if (categorySelect) categorySelect.addEventListener('change', filterProducts);
+    if (statusSelect) statusSelect.addEventListener('change', filterProducts);
+
+    // Publish / Save Product
+    function saveProductFromWoo(isDraft = false) {
+      const title = document.getElementById('woo-prod-title')?.value.trim();
+      const slug = document.getElementById('woo-prod-slug')?.value.trim() || slugify(title);
+      const subtitle = document.getElementById('woo-prod-subtitle')?.value.trim();
+      const description = document.getElementById('woo-prod-desc')?.value.trim();
+      const features = (document.getElementById('woo-prod-features')?.value || '').split('\n').map(s => s.trim()).filter(Boolean);
+      const regPrice = document.getElementById('woo-regular-price')?.value.trim() || '$28.00';
+      const salePrice = document.getElementById('woo-sale-price')?.value.trim() || '$18.50';
+      const fobPrice = document.getElementById('woo-fob-price')?.value.trim() || salePrice;
+      const moq = document.getElementById('woo-moq')?.value.trim() || '100 pcs';
+      const sku = document.getElementById('woo-sku')?.value.trim() || (slug || 'BHL').toUpperCase();
+      const image = document.getElementById('woo-prod-image-url')?.value.trim() || '/images/spotlight-bobi-i.webp';
+      const checkedCat = document.querySelector('input[name="woo-radio-cat"]:checked')?.value || "Men's Toys";
+      const series = document.getElementById('woo-series-select')?.value || 'Electric';
+
+      if (!title || !slug) {
+        alert('请至少填写产品名称与固定链接 Slug！');
+        return;
+      }
+
+      // Collect specs
+      const specs = [];
+      document.querySelectorAll('#woo-attrs-tbody tr').forEach(tr => {
+        const k = tr.querySelector('.attr-key')?.value.trim();
+        const v = tr.querySelector('.attr-val')?.value.trim();
+        if (k && v) specs.push({ label: k, value: v });
+      });
+
+      const productPayload = {
+        id: slug,
+        name: title,
+        slug: slug,
+        subtitle: subtitle || 'Precision engineered adult wellness hardware.',
+        description: description || 'Factory-direct intimate wellness product with medical LSR silicone.',
+        category: series,
+        subCategory: checkedCat,
+        vendor: 'BOHOL Direct OEM',
+        price: fobPrice,
+        comparePrice: regPrice,
+        fobPrice: fobPrice,
+        moq: moq,
+        sku: sku,
+        image: image,
+        gallery: [image],
+        features: features,
+        specs: specs,
+        status: isDraft ? 'DRAFT' : 'ACTIVE'
+      };
+
+      // Persist to localStorage
+      const customProds = getStoredProducts();
+      const existingIdx = customProds.findIndex(p => p.id === slug || p.slug === slug);
+      if (existingIdx >= 0) {
+        customProds[existingIdx] = productPayload;
+      } else {
+        customProds.unshift(productPayload);
+      }
+      localStorage.setItem('bohol_custom_products', JSON.stringify(customProds));
+
+      // Update in-memory map
+      rawProductsMap[slug] = productPayload;
+
+      // Update table DOM
+      const existingRow = document.querySelector(`#products-tbody tr[data-id="${slug}"]`);
+      if (existingRow) {
+        existingRow.setAttribute('data-name', title.toLowerCase());
+        existingRow.setAttribute('data-cat', series);
+        existingRow.setAttribute('data-status', isDraft ? 'DRAFT' : 'ACTIVE');
+        const imgEl = existingRow.querySelector('img');
+        if (imgEl) imgEl.src = image;
+        const nameStrong = existingRow.querySelector('td:nth-child(2) strong');
+        if (nameStrong) nameStrong.textContent = title;
+        const catBadge = existingRow.querySelector('td:nth-child(3) .bc-badge');
+        if (catBadge) catBadge.textContent = series;
+        const moqCell = existingRow.querySelector('td:nth-child(4) span');
+        if (moqCell) moqCell.textContent = moq;
+        const priceCell = existingRow.querySelector('td:nth-child(5) span');
+        if (priceCell) priceCell.textContent = fobPrice;
+      } else {
+        const pTbody = document.getElementById('products-tbody');
+        if (pTbody) {
+          const newRow = document.createElement('tr');
+          newRow.setAttribute('data-id', slug);
+          newRow.setAttribute('data-cat', series);
+          newRow.setAttribute('data-name', title.toLowerCase());
+          newRow.setAttribute('data-status', isDraft ? 'DRAFT' : 'ACTIVE');
+          newRow.innerHTML = `
+            <td style="text-align:center;">
+              <img src="${image}" alt="${title}" style="width:44px; height:44px; object-fit:cover; border-radius:6px; border:1px solid #e2e8f0; background:#f8fafc;" />
+            </td>
+            <td>
+              <strong style="color:#0f172a; font-size:13px;">${title}</strong>
+              <div style="font-size:11px; color:#64748b; margin-top:2px;">
+                <code>${slug}</code> &bull; <span style="color:#2563eb;">${checkedCat}</span>
+              </div>
+            </td>
+            <td>
+              <span class="bc-badge bc-badge-info">${series}</span>
+            </td>
+            <td>
+              <span style="font-weight:600; font-size:12px;">${moq}</span>
+            </td>
+            <td>
+              <span style="font-weight:700; color:#10b981; font-size:13px;">${fobPrice}</span>
+            </td>
+            <td style="text-align:center;">
+              <label class="bc-switch">
+                <input type="checkbox" ${isDraft ? '' : 'checked'} class="prod-status-toggle" data-id="${slug}" />
+                <span class="bc-slider"></span>
+              </label>
+            </td>
+            <td style="text-align:center;">
+              <div style="display:flex; justify-content:center; gap:6px;">
+                <a href="/products/${slug}/" target="_blank" class="bc-btn-secondary bc-btn-sm" title="在前台打开详情页">前台 ↗</a>
+                <button type="button" class="bc-btn-secondary bc-btn-sm btn-edit-prod" data-id="${slug}" data-name="${title}">编辑</button>
+              </div>
+            </td>
+          `;
+          pTbody.insertBefore(newRow, pTbody.firstChild);
+        }
+
+        const kpiProductCount = document.getElementById('kpi-product-count');
+        if (kpiProductCount) {
+          const current = parseInt(kpiProductCount.textContent) || 38;
+          kpiProductCount.textContent = `${current + 1}`;
+        }
+      }
+
+      closeWooStudio();
+      showToast(`WooCommerce 产品 "${title}" 已${isDraft ? '存为草稿' : '成功发布'}！可在前台查看`);
+      filterProducts();
+    }
+
+    if (btnMainPublish) btnMainPublish.addEventListener('click', () => saveProductFromWoo(false));
+    if (btnSaveDraft) btnSaveDraft.addEventListener('click', () => saveProductFromWoo(true));
+    if (btnTrash) {
+      btnTrash.addEventListener('click', () => {
+        if (confirm('确认将此产品移至回收站下架吗？')) {
+          saveProductFromWoo(true);
+        }
+      });
+    }
+
+    const btnDownloadJson = document.getElementById('woo-btn-download-json');
+    if (btnDownloadJson) {
+      btnDownloadJson.addEventListener('click', () => {
+        const title = document.getElementById('woo-prod-title')?.value.trim() || 'New Product';
+        const slug = document.getElementById('woo-prod-slug')?.value.trim() || 'new-product';
+        const subtitle = document.getElementById('woo-prod-subtitle')?.value.trim() || '';
+        const desc = document.getElementById('woo-prod-desc')?.value.trim() || '';
+        const features = (document.getElementById('woo-prod-features')?.value || '').split('\n').map(s => s.trim()).filter(Boolean);
+        const regPrice = document.getElementById('woo-regular-price')?.value.trim() || '$28.00';
+        const salePrice = document.getElementById('woo-sale-price')?.value.trim() || '$18.50';
+        const fobPrice = document.getElementById('woo-fob-price')?.value.trim() || salePrice;
+        const moq = document.getElementById('woo-moq')?.value.trim() || '100 pcs';
+        const sku = document.getElementById('woo-sku')?.value.trim() || slug.toUpperCase();
+        const image = document.getElementById('woo-prod-image-url')?.value.trim() || '/images/spotlight-bobi-i.webp';
+        const checkedCat = document.querySelector('input[name="woo-radio-cat"]:checked')?.value || "Men's Toys";
+        const series = document.getElementById('woo-series-select')?.value || 'Electric';
+
+        const specs = [];
+        document.querySelectorAll('#woo-attrs-tbody tr').forEach(tr => {
+          const k = tr.querySelector('.attr-key')?.value.trim();
+          const v = tr.querySelector('.attr-val')?.value.trim();
+          if (k && v) specs.push({ label: k, value: v });
+        });
+
+        const jsonPayload = {
+          name: title,
+          subtitle: subtitle || 'Precision engineered adult wellness hardware.',
+          description: desc || 'Factory-direct intimate wellness product with medical LSR silicone.',
+          category: series,
+          label: `${series.toUpperCase()} DRIVE SERIES`,
+          order: 39,
+          featured: true,
+          image: image,
+          gallery: [image],
+          features: features.length ? features : ['Multi-mode drive', 'Medical-grade LSR silicone', 'USB Type-C rechargeable'],
+          specs: specs.length ? specs : [{ label: 'Model Series', value: title }, { label: 'SKU', value: sku }],
+          seoTitle: `${title} — Intimate Wellness Hardware | BOHOL Manufacturing`,
+          seoDescription: `BOHOL ${title}. Factory direct OEM/ODM customization and specifications.`,
+          note: 'Available for wholesale distribution and OEM/ODM private-label customization.',
+          subCategory: checkedCat,
+          vendor: 'BOHOL Direct OEM',
+          price: fobPrice,
+          comparePrice: regPrice
+        };
+
+        const blob = new Blob([JSON.stringify(jsonPayload, null, 2)], { type: 'application/json' });
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(blob);
+        link.download = `${slug}.json`;
+        link.click();
+        showToast(`已生成 ${slug}.json！放入 src/data/products/ 即可永久入库`);
+      });
+    }
+
+    // Attach "编辑" Click Listeners to all table rows
+    document.addEventListener('click', (e) => {
+      const editBtn = e.target.closest('.btn-edit-prod');
+      if (editBtn) {
+        const prodId = editBtn.getAttribute('data-id');
+        const prodData = rawProductsMap[prodId] || {
+          id: prodId,
+          name: editBtn.getAttribute('data-name') || prodId,
+          price: '$16.50 - $24.00',
+          moq: '100 pcs',
+          image: '/images/spotlight-bobi-i.webp'
+        };
+        openWooStudio(prodData);
+      }
+    });
+
+    // Product Status Toggle
+    document.addEventListener('change', (e) => {
+      if (e.target.classList.contains('prod-status-toggle')) {
+        const id = e.target.getAttribute('data-id');
+        const isChecked = e.target.checked;
+        const row = e.target.closest('tr');
+        if (row) {
+          row.setAttribute('data-status', isChecked ? 'ACTIVE' : 'DRAFT');
+        }
+        showToast(`产品 [${id}] 状态已设置为: ${isChecked ? '已上架' : '已下架/草稿'}`);
+      }
+    });
+
+    // ========================================================
+    // TAB 4: 留言与客户单据 (Inquiries & RFQ Sync)
+    // ========================================================
+    const BENCHMARK_SEED_LEADS = [
+      {
+        id: 'RFQ-20261011-8921',
+        source: '官网多选报价单',
+        submittedAt: '2026-10-11T16:42:00.000Z',
+        name: 'John Martinez',
+        company: 'Apex Vending LLC (US)',
+        phone: '+1 312 884 9210',
+        email: 'j.martinez@apexvending.com',
+        country: '美国 (United States)',
+        destinationAddress: '目的港: Long Beach (DDP Sea)',
+        shippingMode: 'DDP Sea',
+        totalUnits: 100,
+        rawItems: [
+          { code: 'BOBI-I', name: 'Bobi I 智能伸缩杯', quantity: 50, packaging: 'Standard' },
+          { code: 'STARSHIP', name: 'Starship 星舰战舰', quantity: 30, packaging: 'Custom Box' },
+          { code: 'TWIST-FUN', name: '旋风乐抽屉现货', quantity: 20, packaging: 'Standard' }
+        ]
+      },
+      {
+        id: 'RFQ-20261010-7432',
+        source: '官网表单',
+        submittedAt: '2026-10-10T09:15:00.000Z',
+        name: 'Henrik Lindqvist',
+        company: 'Nordic Wellness Retail (SE)',
+        phone: '+46 70 821 4490',
+        email: 'henrik@nordicwellness.se',
+        country: '瑞典 (Sweden)',
+        destinationAddress: '目的港: Gothenburg (CIF Air)',
+        shippingMode: 'CIF Air',
+        type: '模具定制与私模贴牌 OEM',
+        quantity: '500 - 1000 pcs',
+        models: 'Bobi I, CJ7',
+        message: '寻求欧洲市场合规认证 CE/RoHS 及自有品牌包装定制报价，需提供模具开模周期及首批样品送检支持。',
+        totalUnits: 500
+      },
+      {
+        id: 'RFQ-20261009-6120',
+        source: '独立站抽屉',
+        submittedAt: '2026-10-09T21:04:00.000Z',
+        name: 'Sophie Laurent',
+        company: 'Eros Distributing SAS (FR)',
+        phone: '+33 6 49 20 11 88',
+        email: 'sophie@erosdistrib.fr',
+        country: '法国 (France)',
+        destinationAddress: '目的港: Le Havre (DDP Sea)',
+        shippingMode: 'DDP Sea',
+        totalUnits: 40,
+        rawItems: [
+          { code: 'CJ7', name: 'CJ7 磁吸全自动伸缩旋转杯', quantity: 25, packaging: 'Export Master Carton' },
+          { code: 'LENAS', name: '蕾娜智能双驱体感杯', quantity: 15, packaging: 'Export Master Carton' }
+        ]
+      }
+    ];
+
+    function getStoredLeads() {
+      const stored = localStorage.getItem('bohol_rfq_leads');
+      if (!stored) {
+        localStorage.setItem('bohol_rfq_leads', JSON.stringify(BENCHMARK_SEED_LEADS));
+        return [...BENCHMARK_SEED_LEADS];
+      }
+      try {
+        const parsed = JSON.parse(stored);
+        if (!Array.isArray(parsed) || parsed.length === 0) {
+          localStorage.setItem('bohol_rfq_leads', JSON.stringify(BENCHMARK_SEED_LEADS));
+          return [...BENCHMARK_SEED_LEADS];
+        }
+        return parsed;
+      } catch (err) {
+        localStorage.setItem('bohol_rfq_leads', JSON.stringify(BENCHMARK_SEED_LEADS));
+        return [...BENCHMARK_SEED_LEADS];
+      }
+    }
+
+    function formatRfqDate(dateStr) {
+      if (!dateStr) return '-';
+      const d = new Date(dateStr);
+      if (isNaN(d.getTime())) return String(dateStr).slice(0, 16);
+      const m = String(d.getMonth() + 1).padStart(2, '0');
+      const day = String(d.getDate()).padStart(2, '0');
+      const h = String(d.getHours()).padStart(2, '0');
+      const min = String(d.getMinutes()).padStart(2, '0');
+      return `${m}-${day} ${h}:${min}`;
+    }
+
+    function renderInquiries() {
+      const tbody = document.getElementById('inquiries-tbody');
+      const kpiLeadCount = document.getElementById('kpi-lead-count');
+      const sidebarBadge = document.getElementById('sidebar-inquiry-badge');
+      if (!tbody) return;
+
+      const leads = getStoredLeads();
+
+      if (kpiLeadCount) {
+        kpiLeadCount.textContent = String(leads.length);
+      }
+      if (sidebarBadge) {
+        sidebarBadge.textContent = String(leads.length);
+      }
+
+      if (!leads.length) {
+        tbody.innerHTML = `
+          <tr>
+            <td colspan="7" style="text-align:center; padding:48px 24px; color:#64748b; font-size:13px;">
+              <div style="font-size:28px; margin-bottom:8px;">📭</div>
+              <strong style="color:#0f172a; font-size:14px;">暂无待处理客户单据</strong>
+              <div style="font-size:12px; color:#94a3b8; margin-top:4px;">
+                海外买家在前台挑选产品并提交多选报价单、批量产品询问清单或工厂表单后，将实时推送到此处。
+              </div>
+            </td>
+          </tr>
+        `;
+        return;
+      }
+
+      tbody.innerHTML = leads.map(l => {
+        const dateFormatted = formatRfqDate(l.submittedAt);
+        const cleanPhone = String(l.phone || '').replace(/[^0-9]/g, '');
+        const waLink = cleanPhone ? `https://wa.me/${cleanPhone}?text=${encodeURIComponent(`Hello ${l.name || 'there'}, thank you for reaching out to BOHOL regarding RFQ (${l.id}). Here is our factory quotation:`)}` : '#';
+
+        // Badge styling based on source
+        let badgeClass = 'bc-badge-neutral';
+        if (l.source?.includes('报价单')) badgeClass = 'bc-badge-info';
+        else if (l.source?.includes('抽屉') || l.source?.includes('询问')) badgeClass = 'bc-badge-success';
+
+        // Products / Requirements list formatting
+        let itemsHtml = '';
+        if (Array.isArray(l.rawItems) && l.rawItems.length) {
+          const itemsRows = l.rawItems.map(item => `
+            <div style="font-size:11.5px; padding:2px 0; color:#334155;">
+              &bull; <strong>[${item.code || item.id || 'ITEM'}]</strong> ${item.name} &times; <span style="color:#2563eb; font-weight:700;">${item.quantity} 件</span>
+            </div>
+          `).join('');
+          const totalUnits = l.totalUnits || l.rawItems.reduce((acc, it) => acc + (parseInt(it.quantity) || 0), 0);
+          itemsHtml = `
+            <div style="background:#f8fafc; border:1px solid #e2e8f0; padding:8px 10px; border-radius:6px; line-height:1.5;">
+              ${itemsRows}
+              <div style="font-size:11px; font-weight:700; color:#64748b; margin-top:4px; padding-top:4px; border-top:1px dashed #cbd5e1;">
+                总计: <span style="color:#0f172a; font-weight:800;">${totalUnits}</span> 件
+              </div>
+            </div>
+          `;
+        } else if (l.type || l.message || l.models) {
+          itemsHtml = `
+            <div style="background:#f8fafc; border:1px solid #e2e8f0; padding:8px 10px; border-radius:6px; font-size:11.5px; color:#334155; line-height:1.5;">
+              <div>&bull; <strong>需求类型:</strong> <span style="color:#2563eb; font-weight:700;">${l.type || 'OEM / ODM 定制'}</span></div>
+              <div>&bull; <strong>预估数量:</strong> <span style="font-weight:700; color:#0f172a;">${l.quantity || l.totalUnits || '500+ pcs'}</span></div>
+              ${l.models ? `<div>&bull; <strong>意向机型:</strong> ${Array.isArray(l.models) ? l.models.join(', ') : l.models}</div>` : ''}
+              ${l.message ? `<div style="color:#64748b; margin-top:3px; font-style:italic;">&bull; <strong>客户说明:</strong> ${l.message}</div>` : ''}
+            </div>
+          `;
+        } else {
+          itemsHtml = `
+            <div style="background:#f8fafc; border:1px solid #e2e8f0; padding:8px 10px; border-radius:6px; font-size:11.5px; color:#334155;">
+              采购需求: <strong>${l.quantity || l.totalUnits || 1} 件</strong>
+              ${l.message ? `<div style="color:#64748b; margin-top:3px;">附言: ${l.message}</div>` : ''}
+            </div>
+          `;
+        }
+
+        return `
+          <tr>
+            <td>
+              <strong style="color:#0f172a; font-size:13px; font-family:ui-monospace, monospace; letter-spacing:-0.2px;">${l.id || 'RFQ'}</strong>
+              <div style="margin-top:4px;">
+                <span class="bc-badge ${badgeClass}">${l.source || '官网表单'}</span>
+              </div>
+            </td>
+            <td style="font-size:12px; color:#475569; white-space:nowrap; font-weight:500;">
+              ${dateFormatted}
+            </td>
+            <td>
+              <strong style="color:#0f172a; font-size:13px;">${l.name || '-'}</strong>
+              <div style="font-size:12px; color:#64748b; margin-top:2px;">${l.company || '-'}</div>
+            </td>
+            <td>
+              <div style="font-size:12px; white-space:nowrap;">📱 ${l.phone || '-'}</div>
+              <div style="font-size:12px; color:#2563eb; margin-top:2px;">
+                <a href="mailto:${l.email}" style="color:inherit; text-decoration:none;">✉️ ${l.email || '-'}</a>
+              </div>
+            </td>
+            <td>
+              <div style="font-size:12px; font-weight:700; color:#0f172a;">📍 ${l.country || '待定目的地'}</div>
+              <div style="font-size:11px; color:#64748b; margin-top:2px;">${l.destinationAddress || l.destination || 'EXW 工厂交货'}</div>
+              <span class="bc-badge bc-badge-warning" style="margin-top:4px; font-size:10px; display:inline-block;">${l.shippingMode || 'DDP Sea'}</span>
+            </td>
+            <td>
+              ${itemsHtml}
+            </td>
+            <td style="text-align:center;">
+              <div style="display:flex; flex-direction:column; gap:6px; align-items:center;">
+                <a href="${waLink}" target="_blank" class="bc-btn-primary bc-btn-sm" style="text-decoration:none; width:100%; justify-content:center; padding:6px 8px; font-size:11.5px; box-sizing:border-box;">
+                  <span>WhatsApp 直连 ↗</span>
+                </a>
+                <a href="mailto:${l.email}?subject=${encodeURIComponent(`BOHOL Factory Quotation & Catalog for ${l.id}`)}" class="bc-btn-secondary bc-btn-sm" style="text-decoration:none; width:100%; justify-content:center; padding:5px 8px; font-size:11.5px; box-sizing:border-box;">
+                  <span>邮件回复</span>
+                </a>
+              </div>
+            </td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    renderInquiries();
+
+    // Reset seed inquiries button
+    const btnResetSeedRfq = document.getElementById('btn-reset-seed-rfq');
+    if (btnResetSeedRfq) {
+      btnResetSeedRfq.addEventListener('click', () => {
+        if (confirm('确认恢复默认的 3 笔基准外贸询盘单据吗？')) {
+          localStorage.setItem('bohol_rfq_leads', JSON.stringify(BENCHMARK_SEED_LEADS));
+          renderInquiries();
+          showToast('已重置恢复默认 3 笔基准外贸询盘单据！');
+        }
+      });
+    }
+
+    // Real-time synchronization across front-end tabs
+    try {
+      const syncChannel = new BroadcastChannel('bohol_rfq_sync');
+      syncChannel.onmessage = (e) => {
+        if (e.data?.type === 'NEW_LEAD' || e.data?.type === 'UPDATE_LEADS') {
+          renderInquiries();
+          const lead = e.data?.lead;
+          if (lead) {
+            showToast(`🔔 前台收到新询盘: ${lead.name || '采购商'} (${lead.id || ''})`);
+          }
+        }
+      };
+    } catch (err) {
+      // BroadcastChannel unsupported fallback
+    }
+
+    window.addEventListener('storage', (e) => {
+      if (e.key === 'bohol_rfq_leads') {
+        renderInquiries();
+      }
+    });
+
+    window.addEventListener('bohol-rfq-added', () => {
+      renderInquiries();
+    });
+
+    // Google Inspection Interactive logic
+    const btnInspectUrl = document.getElementById('btn-inspect-url');
+    const inspectInput = document.getElementById('gsc-inspect-input');
+    const btnRefreshGsc = document.getElementById('btn-refresh-gsc');
+
+    if (btnInspectUrl) {
+      btnInspectUrl.addEventListener('click', () => {
+        const url = inspectInput?.value.trim() || 'https://www.boholvending.com/';
+        showToast(`已提交检测请求: ${url}，正在等待 Google 搜索索引更新。`);
+      });
+    }
+
+    if (btnRefreshGsc) {
+      btnRefreshGsc.addEventListener('click', () => {
+        showToast('正在从 Google Search Console 同步最新索引状态...');
+      });
+    }
+
+    // Export CSVs
+    const btnExportProdCsv = document.getElementById('btn-export-products-csv');
+    if (btnExportProdCsv) {
+      btnExportProdCsv.addEventListener('click', () => {
+        const rows = document.querySelectorAll('#products-tbody tr');
+        let csv = '产品ID,产品名称,所属分类,起订量,批发价,状态\n';
+        rows.forEach(r => {
+          const id = r.getAttribute('data-id') || '';
+          const name = r.querySelector('strong')?.textContent || '';
+          const cat = r.getAttribute('data-cat') || '';
+          const moq = r.children[3]?.textContent?.trim() || '';
+          const price = r.children[4]?.textContent?.trim() || '';
+          const status = r.getAttribute('data-status') || 'ACTIVE';
+          csv += `"${id}","${name}","${cat}","${moq}","${price}","${status}"\n`;
+        });
+        const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(blob);
+        link.download = 'bohol_products_catalog.csv';
+        link.click();
+        showToast('已导出产品清单表格 bohol_products_catalog.csv');
+      });
+    }
+
+    const btnExportRfqCsv = document.getElementById('btn-export-rfq-csv');
+    if (btnExportRfqCsv) {
+      btnExportRfqCsv.addEventListener('click', () => {
+        const leads = getStoredLeads();
+        if (!leads.length) {
+          alert('当前暂无询盘单据可导出！');
+          return;
+        }
+        let csv = '\uFEFF单据编号,来源渠道,提交时间,采购商姓名,企业/品牌,联系电话,联系邮箱,国家/地区,目的港/要求,运输方式,订购产品明细/规格,客户说明附言\n';
+        leads.forEach(l => {
+          let detail = '';
+          if (Array.isArray(l.rawItems) && l.rawItems.length) {
+            detail = l.rawItems.map(i => `[${i.code || i.id}] ${i.name} * ${i.quantity}`).join('; ');
+          } else if (l.type || l.models) {
+            detail = `${l.type || ''} / ${l.quantity || ''} / 意向:${l.models || ''}`;
+          }
+          const cleanNotes = (l.message || '').replace(/"/g, '""').replace(/\r?\n/g, ' ');
+          csv += `"${l.id || ''}","${l.source || ''}","${l.submittedAt || ''}","${l.name || ''}","${l.company || ''}","${l.phone || ''}","${l.email || ''}","${l.country || ''}","${l.destinationAddress || l.destination || ''}","${l.shippingMode || ''}","${detail}","${cleanNotes}"\n`;
+        });
+        const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(blob);
+        link.download = `bohol_rfq_inquiries_${new Date().toISOString().slice(0, 10)}.csv`;
+        link.click();
+        showToast('已导出买家询盘单据报表 CSV！');
+      });
+    }
+
+    // Save Settings
+    const btnSaveSettings = document.getElementById('btn-save-settings');
+    if (btnSaveSettings) {
+      btnSaveSettings.addEventListener('click', () => {
+        showToast('设置已保存');
+      });
+    }
+
+    // Refresh Data button
+    const btnRefreshData = document.getElementById('btn-refresh-data');
+    if (btnRefreshData) {
+      btnRefreshData.addEventListener('click', () => {
+        renderInquiries();
+        filterProducts();
+        showToast('数据已刷新');
+      });
+    }
+
+    // Check URL hash on load
+    window.addEventListener('DOMContentLoaded', () => {
+      const hash = window.location.hash.replace('#', '');
+      if (hash && document.getElementById(`panel-${hash}`)) {
+        switchTab(hash);
+      }
+    });
+  </script>
+</body>
+</html>

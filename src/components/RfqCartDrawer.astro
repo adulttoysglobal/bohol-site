@@ -1,0 +1,1058 @@
+---
+import Icon from './Icon.astro';
+import settings from '../data/settings.json';
+---
+<!-- B2B Multi-Product RFQ & Freight Quote Slide-Over Drawer -->
+<div id="rfq-drawer" class="rfq-drawer" aria-hidden="true" hidden>
+  <div class="rfq-drawer-backdrop" id="rfq-drawer-backdrop"></div>
+  
+  <div class="rfq-drawer-panel" role="dialog" aria-modal="true" aria-labelledby="rfq-drawer-title">
+    <!-- Drawer Header -->
+    <div class="rfq-drawer-header">
+      <div class="rfq-header-text">
+        <span class="rfq-eyebrow">B2B Wholesale Sourcing · Factory Direct Pricing & DDP Freight</span>
+        <h2 id="rfq-drawer-title" class="rfq-title">
+          Wholesale Inquiry List <span class="rfq-badge" id="rfq-badge-count">0 items</span>
+        </h2>
+        <p class="rfq-sub">Select multiple models, specify order quantities and destination port to receive consolidated factory quotations and door-to-door freight rates.</p>
+      </div>
+      <button type="button" class="rfq-close-btn" id="rfq-drawer-close" aria-label="Close quote drawer">✕</button>
+    </div>
+
+    <!-- Drawer Scrollable Content -->
+    <div class="rfq-drawer-body">
+      <!-- Section A: Selected Products -->
+      <div class="rfq-section">
+        <div class="rfq-section-head">
+          <h3>1. Selected Products (<span id="rfq-items-count-label">0</span>)</h3>
+          <div class="rfq-head-actions">
+            <button type="button" class="rfq-text-action" id="rfq-clear-btn">Clear List</button>
+            <a href="/products/" class="rfq-text-action rfq-add-more-link" id="rfq-add-more-link">+ Add More Products</a>
+          </div>
+        </div>
+
+        <div id="rfq-items-container" class="rfq-items-list">
+          <!-- Populated via JavaScript -->
+        </div>
+
+        <div class="rfq-add-more-strip" id="rfq-add-more-strip" style="margin-top:12px; text-align:center;">
+          <a href="/products/" class="rfq-btn-add-more" id="rfq-btn-browse-more" style="display:inline-flex; align-items:center; justify-content:center; gap:6px; width:100%; padding:9px 14px; background:#f0f9f8; border:1px dashed #1d837d; border-radius:8px; color:#1d837d; font-size:12.5px; font-weight:700; text-decoration:none;">
+            <span>+ Browse All Catalog to Add More</span>
+          </a>
+        </div>
+
+        <!-- Empty State -->
+        <div id="rfq-empty-state" class="rfq-empty-state">
+          <div class="rfq-empty-icon">📋</div>
+          <h4>Your Inquiry List is Empty</h4>
+          <p>Explore our 800+ wholesale catalog and private-mold products. Click <strong>"+ Add to RFQ"</strong> on any product to consolidate multiple models into one quotation.</p>
+          <a href="/products/" class="rfq-btn-explore" id="rfq-explore-link">+ Browse Catalog & Add Products →</a>
+        </div>
+
+        <!-- Total summary chip -->
+        <div id="rfq-total-chip" class="rfq-total-chip" hidden>
+          <span>Estimated Total Quantity:</span>
+          <strong id="rfq-total-units">0 pcs</strong>
+        </div>
+      </div>
+
+      <!-- Section B: Destination & Freight Calculator Details -->
+      <form id="rfq-drawer-form" class="rfq-drawer-form">
+        <div class="rfq-section">
+          <div class="rfq-section-head">
+            <h3>2. Destination for Freight Calculation</h3>
+          </div>
+          <p class="rfq-help-text">Our logistics team calculates accurate Air Express, DDP Air, or DDP Sea freight based on your destination postal code.</p>
+
+          <div class="rfq-form-grid">
+            <div class="rfq-field">
+              <label for="rfq-country">Destination Country <em>*</em></label>
+              <select id="rfq-country" name="country" required>
+                <option value="United States">United States (USA)</option>
+                <option value="United Kingdom">United Kingdom (UK)</option>
+                <option value="Canada">Canada</option>
+                <option value="Australia">Australia</option>
+                <option value="Germany">Germany</option>
+                <option value="France">France</option>
+                <option value="Italy">Italy</option>
+                <option value="Spain">Spain</option>
+                <option value="Netherlands">Netherlands</option>
+                <option value="Japan">Japan</option>
+                <option value="South Korea">South Korea</option>
+                <option value="Singapore">Singapore</option>
+                <option value="New Zealand">New Zealand</option>
+                <option value="United Arab Emirates">United Arab Emirates</option>
+                <option value="Mexico">Mexico</option>
+                <option value="Brazil">Brazil</option>
+                <option value="South Africa">South Africa</option>
+                <option value="Other International">Other (Specify in address)</option>
+              </select>
+            </div>
+
+            <div class="rfq-field">
+              <label for="rfq-zip">City, State & Postal/ZIP Code <em>*</em></label>
+              <input type="text" id="rfq-zip" name="destinationAddress" placeholder="e.g. Los Angeles, CA 90001" required />
+            </div>
+
+            <div class="rfq-field rfq-span-2">
+              <label for="rfq-shipping-mode">Preferred Shipping Mode <em>*</em></label>
+              <select id="rfq-shipping-mode" name="shippingMode" required>
+                <option value="DDP Dedicated Air Line (8-12 Days · Customs & Duty Included)">DDP Dedicated Air Line (8-12 Days · Customs & Duty Included) [Most Popular]</option>
+                <option value="Air Express (3-5 Days · DHL / FedEx / UPS Express)">Air Express (3-5 Days · DHL / FedEx / UPS Express)</option>
+                <option value="DDP Sea / Ocean Freight (25-35 Days · Lowest Cost for Bulk)">DDP Sea / Ocean Freight (25-35 Days · Lowest Cost for Bulk)</option>
+                <option value="EXW / FOB China (I have my own freight forwarder in China)">EXW / FOB China (I have my own freight forwarder in China)</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- Section C: Contact & Quotation Preferences -->
+        <div class="rfq-section">
+          <div class="rfq-section-head">
+            <h3>3. Contact Information & Customization</h3>
+          </div>
+
+          <div class="rfq-form-grid">
+            <div class="rfq-field">
+              <label for="rfq-name">Your Name <em>*</em></label>
+              <input type="text" id="rfq-name" name="name" placeholder="Full name" autocomplete="name" required />
+            </div>
+
+            <div class="rfq-field">
+              <label for="rfq-company">Company / Boutique Name</label>
+              <input type="text" id="rfq-company" name="company" placeholder="e.g. Wellness Imports LLC" autocomplete="organization" />
+            </div>
+
+            <div class="rfq-field">
+              <label for="rfq-email">Business Email <em>*</em></label>
+              <input type="email" id="rfq-email" name="email" placeholder="name@company.com" autocomplete="email" required />
+            </div>
+
+            <div class="rfq-field">
+              <label for="rfq-phone">WhatsApp / Phone <em>*</em></label>
+              <input type="tel" id="rfq-phone" name="phone" placeholder="+1 / +44 / +86 ... (For fast quotation)" autocomplete="tel" required />
+            </div>
+
+            <div class="rfq-field rfq-span-2">
+              <label for="rfq-customization">Cooperation & Packaging Request</label>
+              <select id="rfq-customization" name="customization">
+                <option value="Wholesale Standard Units (100% Discreet Box)">Wholesale Standard Units (100% Discreet Box)</option>
+                <option value="Brand Retail Box Packaging">Brand Retail Box Packaging</option>
+                <option value="Custom Laser Logo Engraving & Private Label">Custom Laser Logo Engraving & Private Label</option>
+                <option value="Full OEM Custom Tooling / Pantone Silicone Colorway">Full OEM Custom Tooling / Pantone Silicone Colorway</option>
+                <option value="Amazon FBA Pre-Labeling & Pallet Preparation">Amazon FBA Pre-Labeling & Pallet Preparation</option>
+                <option value="Sample Order for Quality Evaluation">Sample Order for Quality Evaluation</option>
+              </select>
+            </div>
+
+            <div class="rfq-field rfq-span-2">
+              <label for="rfq-message">Additional Requirements or Target Price</label>
+              <textarea id="rfq-message" name="message" rows="3" placeholder="Tell us if you have target price requirements, special certification requests (CE/RoHS), or delivery deadlines..."></textarea>
+            </div>
+          </div>
+        </div>
+
+        <!-- Honeypot -->
+        <input type="text" name="website_hp" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px;opacity:0;height:0;width:0" />
+
+        <!-- Status Message Box -->
+        <div id="rfq-submit-status" class="rfq-submit-status" hidden></div>
+
+        <!-- Drawer Footer Buttons -->
+        <div class="rfq-drawer-footer">
+          <button type="submit" class="rfq-btn-primary" id="rfq-submit-btn">
+            <span>Submit Wholesale RFQ & Freight Calculation</span>
+            <Icon name="arrow-up-right" size={18} />
+          </button>
+
+          <div class="rfq-secondary-actions">
+            <button type="button" class="rfq-btn-whatsapp" id="rfq-btn-whatsapp">
+              <svg width="18" height="18" viewBox="0 0 448 512" fill="currentColor">
+                <path d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157zm-157 341.6c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L72 359.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-32.6-16.3-54-29.1-75.5-66-5.7-9.8 5.7-9.1 16.3-30.3 1.8-3.7.9-6.9-.5-9.7-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 35.2 15.2 49 16.5 66.6 13.9 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z"/>
+              </svg>
+              <span>Instant RFQ via WhatsApp</span>
+            </button>
+
+            <button type="button" class="rfq-btn-copy" id="rfq-btn-copy">
+              <span>📋 Copy RFQ Summary</span>
+            </button>
+          </div>
+
+          <div class="rfq-guarantee-row">
+            <span>✓ 100% Confidential RFQ</span>
+            <span>✓ Direct Factory Response within 12h</span>
+            <span>✓ Official Freight Breakdown</span>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- Global Floating Quote Cart Badge / Launcher (visible on all pages) -->
+<button type="button" class="rfq-floating-launcher" id="rfq-floating-launcher" aria-label="View Wholesale Inquiry List" title="View selected products and request quotation">
+  <div class="rfq-launcher-icon">
+    <svg width="22" height="22" viewBox="0 0 512 512" fill="currentColor">
+      <path d="M448 344v112a23.94 23.94 0 0 1-24 24H88a23.94 23.94 0 0 1-24-24V344a23.94 23.94 0 0 1 24-24h336a23.94 23.94 0 0 1 24 24zm-224-40h64v-64h48l-80-80-80 80h48v64zm176-200H320V72a40 40 0 0 0-40-40H232a40 40 0 0 0-40 40v32H112a48.05 48.05 0 0 0-48 48v80h384v-80a48.05 48.05 0 0 0-48-48zm-160 0V72h64v32h-64z"/>
+    </svg>
+    <span class="rfq-launcher-badge" id="rfq-launcher-badge">0</span>
+  </div>
+  <div class="rfq-launcher-text">
+    <strong>RFQ Inquiry List</strong>
+    <span id="rfq-launcher-hint">0 models selected · Add to quote</span>
+  </div>
+</button>
+
+<script>
+  import {
+    getRfqCart,
+    removeFromRfqCart,
+    updateRfqCartQty,
+    updateRfqCartPackaging,
+    clearRfqCart,
+    buildRfqSummaryText,
+    buildRfqWhatsAppUrl,
+    saveRfqLead,
+    generateRfqId,
+    inferCountryFromPhone
+  } from '../lib/rfqCart.js';
+
+  const drawer = document.querySelector<HTMLElement>('#rfq-drawer');
+  const backdrop = document.querySelector<HTMLElement>('#rfq-drawer-backdrop');
+  const closeBtn = document.querySelector<HTMLElement>('#rfq-drawer-close');
+  const container = document.querySelector<HTMLElement>('#rfq-items-container');
+  const emptyState = document.querySelector<HTMLElement>('#rfq-empty-state');
+  const badgeCount = document.querySelector<HTMLElement>('#rfq-badge-count');
+  const itemsCountLabel = document.querySelector<HTMLElement>('#rfq-items-count-label');
+  const totalUnitsEl = document.querySelector<HTMLElement>('#rfq-total-units');
+  const totalChip = document.querySelector<HTMLElement>('#rfq-total-chip');
+  const floatingLauncher = document.querySelector<HTMLElement>('#rfq-floating-launcher');
+  const launcherBadge = document.querySelector<HTMLElement>('#rfq-launcher-badge');
+  const launcherHint = document.querySelector<HTMLElement>('#rfq-launcher-hint');
+  const clearBtn = document.querySelector<HTMLElement>('#rfq-clear-btn');
+  const form = document.querySelector<HTMLFormElement>('#rfq-drawer-form');
+  const submitStatus = document.querySelector<HTMLElement>('#rfq-submit-status');
+  const submitBtn = document.querySelector<HTMLButtonElement>('#rfq-submit-btn');
+  const whatsappBtn = document.querySelector<HTMLButtonElement>('#rfq-btn-whatsapp');
+  const copyBtn = document.querySelector<HTMLButtonElement>('#rfq-btn-copy');
+
+  // Header cart button integration
+  const headerCartBtns = document.querySelectorAll<HTMLElement>('.sf-cart-btn');
+
+  function openDrawer() {
+    if (!drawer) return;
+    drawer.hidden = false;
+    drawer.classList.add('active');
+    document.body.style.overflow = 'hidden';
+    renderDrawerItems();
+  }
+
+  function closeDrawer() {
+    if (!drawer) return;
+    drawer.classList.remove('active');
+    setTimeout(() => {
+      drawer.hidden = true;
+      document.body.style.overflow = '';
+    }, 280);
+  }
+
+  // Bind Openers
+  floatingLauncher?.addEventListener('click', openDrawer);
+  headerCartBtns.forEach((btn) => {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      openDrawer();
+    });
+  });
+
+  backdrop?.addEventListener('click', closeDrawer);
+  closeBtn?.addEventListener('click', closeDrawer);
+  window.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && drawer && !drawer.hidden) closeDrawer();
+  });
+
+  // Render items inside drawer
+  function renderDrawerItems() {
+    const items = getRfqCart();
+    const count = items.length;
+    const totalUnits = items.reduce((sum, item) => sum + (item.quantity || 50), 0);
+
+    // Update Badges
+    if (badgeCount) badgeCount.textContent = `${count} ${count === 1 ? 'item' : 'items'}`;
+    if (itemsCountLabel) itemsCountLabel.textContent = String(count);
+    if (launcherBadge) launcherBadge.textContent = String(count);
+    if (launcherHint) launcherHint.textContent = count > 0 ? `${count} models selected (${totalUnits} pcs)` : '0 models selected · Add to quote';
+
+    // Header bubbles
+    document.querySelectorAll<HTMLElement>('.sf-cart-bubble').forEach((b) => {
+      b.textContent = String(count);
+      b.classList.toggle('has-items', count > 0);
+    });
+
+    if (count === 0) {
+      if (container) container.innerHTML = '';
+      if (emptyState) emptyState.hidden = false;
+      if (totalChip) totalChip.hidden = true;
+      return;
+    }
+
+    if (emptyState) emptyState.hidden = true;
+    if (totalChip) {
+      totalChip.hidden = false;
+      if (totalUnitsEl) totalUnitsEl.textContent = `${totalUnits} Units (${count} Models)`;
+    }
+
+    if (container) {
+      container.innerHTML = items
+        .map(
+          (item, idx) => `
+        <div class="rfq-item-card" data-rfq-item-id="${item.id}">
+          <div class="rfq-item-thumb">
+            <img src="${item.image}" alt="${item.name}" loading="lazy" />
+          </div>
+          <div class="rfq-item-details">
+            <div class="rfq-item-top">
+              <span class="rfq-item-sku">${item.code || item.id}</span>
+              <span class="rfq-item-subcat">${item.subCategory || item.category}</span>
+              <button type="button" class="rfq-remove-item-btn" data-remove-id="${item.id}" title="Remove from list">✕</button>
+            </div>
+            <h4 class="rfq-item-name">${item.name}</h4>
+            <div class="rfq-item-controls">
+              <div class="rfq-qty-stepper">
+                <label>Qty:</label>
+                <button type="button" class="rfq-stepper-btn" data-step-sub="${item.id}">-</button>
+                <input type="number" class="rfq-qty-input" data-qty-id="${item.id}" value="${item.quantity || 50}" min="1" max="100000" step="10" />
+                <button type="button" class="rfq-stepper-btn" data-step-add="${item.id}">+</button>
+              </div>
+              <div class="rfq-pack-picker">
+                <select class="rfq-pack-select" data-pack-id="${item.id}">
+                  <option value="100% Discreet Box" ${item.packaging === '100% Discreet Box' ? 'selected' : ''}>100% Discreet Box</option>
+                  <option value="Brand Retail Box" ${item.packaging === 'Brand Retail Box' ? 'selected' : ''}>Retail Brand Box</option>
+                  <option value="Custom OEM Private Label" ${item.packaging === 'Custom OEM Private Label' ? 'selected' : ''}>OEM Custom Box</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+      `
+        )
+        .join('');
+
+      // Bind controls
+      container.querySelectorAll<HTMLButtonElement>('[data-remove-id]').forEach((btn) => {
+        btn.addEventListener('click', () => {
+          removeFromRfqCart(btn.dataset.removeId!);
+          renderDrawerItems();
+        });
+      });
+
+      container.querySelectorAll<HTMLInputElement>('[data-qty-id]').forEach((inp) => {
+        inp.addEventListener('change', () => {
+          updateRfqCartQty(inp.dataset.qtyId!, inp.value);
+          renderDrawerItems();
+        });
+      });
+
+      container.querySelectorAll<HTMLButtonElement>('[data-step-sub]').forEach((btn) => {
+        btn.addEventListener('click', () => {
+          const id = btn.dataset.stepSub!;
+          const item = items.find((i) => i.id === id);
+          if (item) {
+            const nextQty = Math.max(1, (item.quantity || 50) - 25);
+            updateRfqCartQty(id, nextQty);
+            renderDrawerItems();
+          }
+        });
+      });
+
+      container.querySelectorAll<HTMLButtonElement>('[data-step-add]').forEach((btn) => {
+        btn.addEventListener('click', () => {
+          const id = btn.dataset.stepAdd!;
+          const item = items.find((i) => i.id === id);
+          if (item) {
+            const nextQty = (item.quantity || 50) + 50;
+            updateRfqCartQty(id, nextQty);
+            renderDrawerItems();
+          }
+        });
+      });
+
+      container.querySelectorAll<HTMLSelectElement>('[data-pack-id]').forEach((sel) => {
+        sel.addEventListener('change', () => {
+          updateRfqCartPackaging(sel.dataset.packId!, sel.value);
+        });
+      });
+    }
+  }
+
+  // Clear list
+  clearBtn?.addEventListener('click', () => {
+    if (confirm('Are you sure you want to clear all products from your quote list?')) {
+      clearRfqCart();
+      renderDrawerItems();
+    }
+  });
+
+  // Listen to global custom event
+  window.addEventListener('rfq-cart-updated', () => {
+    renderDrawerItems();
+  });
+
+  // Helper to extract form data
+  function getFormData() {
+    if (!form) return {};
+    const fd = new FormData(form);
+    return {
+      country: String(fd.get('country') || ''),
+      destinationAddress: String(fd.get('destinationAddress') || ''),
+      shippingMode: String(fd.get('shippingMode') || ''),
+      name: String(fd.get('name') || ''),
+      company: String(fd.get('company') || ''),
+      email: String(fd.get('email') || ''),
+      phone: String(fd.get('phone') || ''),
+      customization: String(fd.get('customization') || ''),
+      message: String(fd.get('message') || ''),
+      website_hp: String(fd.get('website_hp') || '')
+    };
+  }
+
+  // Form Submission
+  form?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const items = getRfqCart();
+    if (items.length === 0) {
+      alert('Please select at least 1 product before submitting your quote request.');
+      return;
+    }
+
+    const data = getFormData();
+    if (data.website_hp) return; // Honeypot spam
+
+    const refId = generateRfqId();
+    const finalCountry = data.country || inferCountryFromPhone(data.phone) || 'International';
+    const payload = {
+      id: refId,
+      source: 'Website RFQ Drawer',
+      submittedAt: new Date().toISOString(),
+      ...data,
+      country: finalCountry,
+      destination: data.destinationAddress ? `${finalCountry} · ${data.destinationAddress}` : finalCountry,
+      shippingMode: data.shippingMode || 'DDP Sea',
+      models: items.map((i) => `${i.name} (${i.code || i.id}) x ${i.quantity} [${i.packaging || 'Standard'}]`),
+      rawItems: items,
+      totalUnits: items.reduce((sum, item) => sum + (item.quantity || 0), 0)
+    };
+
+    if (submitBtn) {
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = '<span>Calculating Freight & Submitting RFQ...</span>';
+    }
+
+    if (submitStatus) {
+      submitStatus.hidden = false;
+      submitStatus.className = 'rfq-submit-status rfq-status-pending';
+      submitStatus.textContent = 'Consolidating your multi-product RFQ and dispatching to engineering & logistics...';
+    }
+
+    await saveRfqLead(payload);
+
+    setTimeout(() => {
+      if (submitBtn) {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = '<span>✓ RFQ Received by Factory</span>';
+      }
+      if (submitStatus) {
+        submitStatus.className = 'rfq-submit-status rfq-status-ok';
+        submitStatus.innerHTML = `
+          <strong>✓ Multi-Product RFQ & Freight Calculation Received (Ref: ${refId})!</strong>
+          <p>Our engineering and logistics teams are calculating real-time freight and tiered volume pricing for <strong>${data.destinationAddress || 'your destination'}, ${finalCountry}</strong>. An official FOB/DDP quotation sheet will be delivered to <strong>${data.email}</strong> within 12 hours.</p>
+        `;
+      }
+    }, 700);
+  });
+
+  // 1-Click WhatsApp
+  whatsappBtn?.addEventListener('click', () => {
+    const items = getRfqCart();
+    if (items.length === 0) {
+      alert('Please add at least 1 product to your quote cart first.');
+      return;
+    }
+    const data = getFormData();
+    const url = buildRfqWhatsAppUrl(data, items, '+8618588583798');
+    window.open(url, '_blank');
+  });
+
+  // Copy Summary
+  copyBtn?.addEventListener('click', async () => {
+    const items = getRfqCart();
+    if (items.length === 0) {
+      alert('Please add at least 1 product to your quote cart first.');
+      return;
+    }
+    const data = getFormData();
+    const brief = buildRfqSummaryText(data, items);
+    try {
+      await navigator.clipboard.writeText(brief);
+      if (submitStatus) {
+        submitStatus.hidden = false;
+        submitStatus.className = 'rfq-submit-status rfq-status-ok';
+        submitStatus.textContent = '✓ Complete quotation brief copied to clipboard! You can paste it into WhatsApp, WeChat, or email.';
+      }
+    } catch {
+      alert('Copied summary to clipboard.');
+    }
+  });
+
+  // Initial render on load
+  renderDrawerItems();
+</script>
+
+<style>
+  /* Drawer Backdrop & Panel */
+  .rfq-drawer {
+    position: fixed;
+    inset: 0;
+    z-index: 99999;
+    display: flex;
+    justify-content: flex-end;
+    visibility: hidden;
+    transition: visibility 0.28s ease;
+  }
+  .rfq-drawer.active {
+    visibility: visible;
+  }
+  .rfq-drawer-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(14, 20, 19, 0.65);
+    backdrop-filter: blur(4px);
+    opacity: 0;
+    transition: opacity 0.28s ease;
+  }
+  .rfq-drawer.active .rfq-drawer-backdrop {
+    opacity: 1;
+  }
+  .rfq-drawer-panel {
+    position: relative;
+    z-index: 100;
+    width: 100%;
+    max-width: 580px;
+    height: 100%;
+    background: #ffffff;
+    box-shadow: -10px 0 40px rgba(0, 0, 0, 0.25);
+    display: flex;
+    flex-direction: column;
+    transform: translateX(100%);
+    transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .rfq-drawer.active .rfq-drawer-panel {
+    transform: translateX(0);
+  }
+
+  /* Header */
+  .rfq-drawer-header {
+    padding: 20px 24px;
+    border-bottom: 1px solid #e3eae8;
+    background: #f7faf9;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 16px;
+  }
+  .rfq-eyebrow {
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    color: #1d837d;
+    display: block;
+    margin-bottom: 4px;
+  }
+  .rfq-title {
+    font-size: 1.35rem;
+    color: #161e1c;
+    margin: 0 0 4px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .rfq-badge {
+    background: #e6f5f3;
+    color: #166964;
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 3px 8px;
+    border-radius: 999px;
+  }
+  .rfq-sub {
+    font-size: 0.82rem;
+    color: #556663;
+    margin: 0;
+    line-height: 1.4;
+  }
+  .rfq-close-btn {
+    background: #ffffff;
+    border: 1px solid #d8e2df;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.95rem;
+    cursor: pointer;
+    color: #334441;
+    transition: all 0.2s ease;
+    flex-shrink: 0;
+  }
+  .rfq-close-btn:hover {
+    background: #18201f;
+    color: #ffffff;
+    border-color: #18201f;
+  }
+
+  /* Body */
+  .rfq-drawer-body {
+    flex: 1;
+    overflow-y: auto;
+    padding: 20px 24px 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+  .rfq-section {
+    background: #ffffff;
+    border: 1px solid #e2eae8;
+    border-radius: 12px;
+    padding: 16px 18px;
+  }
+  .rfq-section-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    margin-bottom: 12px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #eef3f2;
+  }
+  .rfq-section-head h3 {
+    font-size: 1rem;
+    margin: 0;
+    color: #182220;
+  }
+  .rfq-head-actions {
+    display: flex;
+    gap: 12px;
+  }
+  .rfq-text-action {
+    background: none;
+    border: none;
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: #1d837d;
+    cursor: pointer;
+    text-decoration: none;
+    padding: 0;
+  }
+  .rfq-text-action:hover {
+    text-decoration: underline;
+  }
+  .rfq-help-text {
+    font-size: 0.8rem;
+    color: #607370;
+    margin: 0 0 14px;
+    line-height: 1.45;
+  }
+
+  /* Product Items List */
+  .rfq-items-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    max-height: 280px;
+    overflow-y: auto;
+    padding-right: 4px;
+  }
+  .rfq-item-card {
+    display: grid;
+    grid-template-columns: 64px 1fr;
+    gap: 12px;
+    background: #f8faf9;
+    border: 1px solid #e5edeb;
+    border-radius: 10px;
+    padding: 10px;
+  }
+  .rfq-item-thumb {
+    width: 64px;
+    height: 64px;
+    border-radius: 8px;
+    background: #ffffff;
+    border: 1px solid #e0e8e6;
+    overflow: hidden;
+  }
+  .rfq-item-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+  .rfq-item-details {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    min-width: 0;
+  }
+  .rfq-item-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 6px;
+  }
+  .rfq-item-sku {
+    background: #18201f;
+    color: #ffffff;
+    font-size: 0.68rem;
+    font-weight: 700;
+    padding: 2px 6px;
+    border-radius: 4px;
+  }
+  .rfq-item-subcat {
+    font-size: 0.72rem;
+    color: #627572;
+    font-weight: 600;
+  }
+  .rfq-remove-item-btn {
+    background: none;
+    border: none;
+    color: #92a3a0;
+    font-size: 0.85rem;
+    cursor: pointer;
+    padding: 0 4px;
+  }
+  .rfq-remove-item-btn:hover {
+    color: #dc2626;
+  }
+  .rfq-item-name {
+    font-size: 0.88rem;
+    color: #192220;
+    margin: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .rfq-item-controls {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  .rfq-qty-stepper {
+    display: inline-flex;
+    align-items: center;
+    background: #ffffff;
+    border: 1px solid #d4e0dd;
+    border-radius: 6px;
+    overflow: hidden;
+  }
+  .rfq-qty-stepper label {
+    font-size: 0.74rem;
+    font-weight: 700;
+    color: #556764;
+    padding-left: 6px;
+  }
+  .rfq-stepper-btn {
+    background: #f0f4f3;
+    border: none;
+    padding: 4px 8px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    cursor: pointer;
+  }
+  .rfq-stepper-btn:hover {
+    background: #e0e8e6;
+  }
+  .rfq-qty-input {
+    width: 48px;
+    text-align: center;
+    border: none;
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: #161e1c;
+    padding: 2px 0;
+  }
+  .rfq-pack-picker {
+    flex: 1;
+    min-width: 140px;
+  }
+  .rfq-pack-select {
+    width: 100%;
+    background: #ffffff;
+    border: 1px solid #d4e0dd;
+    border-radius: 6px;
+    font-size: 0.74rem;
+    padding: 4px 6px;
+    color: #24312f;
+  }
+
+  /* Empty state */
+  .rfq-empty-state {
+    text-align: center;
+    padding: 24px 16px;
+    background: #f8faf9;
+    border-radius: 10px;
+    border: 1px dashed #d2dedb;
+  }
+  .rfq-empty-icon {
+    font-size: 2.2rem;
+    margin-bottom: 8px;
+  }
+  .rfq-empty-state h4 {
+    font-size: 1.05rem;
+    color: #192220;
+    margin: 0 0 6px;
+  }
+  .rfq-empty-state p {
+    font-size: 0.82rem;
+    color: #5b6e6b;
+    margin: 0 0 14px;
+    line-height: 1.5;
+  }
+  .rfq-btn-explore {
+    display: inline-block;
+    background: #1d837d;
+    color: #ffffff;
+    font-size: 0.84rem;
+    font-weight: 700;
+    padding: 8px 16px;
+    border-radius: 8px;
+    text-decoration: none;
+  }
+
+  .rfq-total-chip {
+    margin-top: 12px;
+    background: #eef7f6;
+    border: 1px solid #c9e4e1;
+    padding: 8px 12px;
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.84rem;
+    color: #1d837d;
+  }
+
+  /* Form Fields */
+  .rfq-form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+  .rfq-span-2 {
+    grid-column: span 2;
+  }
+  .rfq-field {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .rfq-field label {
+    font-size: 0.76rem;
+    font-weight: 700;
+    color: #263331;
+  }
+  .rfq-field label em {
+    color: #dc2626;
+    font-style: normal;
+  }
+  .rfq-field input,
+  .rfq-field select,
+  .rfq-field textarea {
+    width: 100%;
+    border: 1px solid #d4dfdc;
+    border-radius: 8px;
+    background: #ffffff;
+    padding: 8px 10px;
+    font-size: 0.84rem;
+    color: #17201e;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  }
+  .rfq-field input:focus,
+  .rfq-field select:focus,
+  .rfq-field textarea:focus {
+    border-color: #1d837d;
+    box-shadow: 0 0 0 3px rgba(29, 131, 125, 0.15);
+    outline: none;
+  }
+
+  /* Status Box */
+  .rfq-submit-status {
+    padding: 12px 14px;
+    border-radius: 8px;
+    font-size: 0.84rem;
+    line-height: 1.5;
+  }
+  .rfq-status-pending {
+    background: #eff8f7;
+    color: #166964;
+    border: 1px solid #c8e7e4;
+  }
+  .rfq-status-ok {
+    background: #ecfdf5;
+    color: #065f46;
+    border: 1px solid #a7f3d0;
+  }
+
+  /* Footer & Action Buttons */
+  .rfq-drawer-footer {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .rfq-btn-primary {
+    width: 100%;
+    background: #1d837d;
+    color: #ffffff;
+    border: none;
+    border-radius: 10px;
+    padding: 12px 18px;
+    font-size: 0.94rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    cursor: pointer;
+    box-shadow: 0 6px 18px rgba(29, 131, 125, 0.22);
+    transition: background 0.2s ease;
+  }
+  .rfq-btn-primary:hover {
+    background: #156964;
+  }
+  .rfq-secondary-actions {
+    display: grid;
+    grid-template-columns: 1.6fr 1fr;
+    gap: 8px;
+  }
+  .rfq-btn-whatsapp {
+    background: #25d366;
+    color: #ffffff;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 12px;
+    font-size: 0.82rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    cursor: pointer;
+    transition: background 0.2s ease;
+  }
+  .rfq-btn-whatsapp:hover {
+    background: #1ea952;
+  }
+  .rfq-btn-copy {
+    background: #f0f4f3;
+    color: #243230;
+    border: 1px solid #d4dfdc;
+    border-radius: 8px;
+    padding: 10px 12px;
+    font-size: 0.82rem;
+    font-weight: 700;
+    cursor: pointer;
+  }
+  .rfq-btn-copy:hover {
+    background: #e2ece9;
+  }
+  .rfq-guarantee-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 0.72rem;
+    color: #6d807d;
+    font-weight: 600;
+    padding-top: 4px;
+  }
+
+  /* Global Floating Launcher */
+  .rfq-floating-launcher {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    z-index: 999;
+    background: #18201f;
+    color: #ffffff;
+    border: 1.5px solid #2e403d;
+    border-radius: 999px;
+    padding: 10px 18px 10px 14px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.3);
+    transition: all 0.25s ease;
+  }
+  .rfq-floating-launcher:hover {
+    background: #1d837d;
+    border-color: #1d837d;
+    transform: translateY(-2px);
+    box-shadow: 0 14px 36px rgba(29, 131, 125, 0.35);
+  }
+  .rfq-launcher-icon {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ffffff;
+  }
+  .rfq-launcher-badge {
+    position: absolute;
+    top: -8px;
+    right: -10px;
+    background: #da3f3f;
+    color: #ffffff;
+    font-size: 0.72rem;
+    font-weight: 800;
+    min-width: 18px;
+    height: 18px;
+    border-radius: 999px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 4px;
+    border: 2px solid #18201f;
+  }
+  .rfq-launcher-text {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    line-height: 1.2;
+    text-align: left;
+  }
+  .rfq-launcher-text strong {
+    font-size: 0.82rem;
+  }
+  .rfq-launcher-text span {
+    font-size: 0.7rem;
+    color: #9ab4b0;
+  }
+
+  @media (max-width: 640px) {
+    .rfq-drawer-panel {
+      max-width: 100%;
+    }
+    .rfq-form-grid,
+    .rfq-secondary-actions {
+      grid-template-columns: 1fr;
+    }
+    .rfq-span-2 {
+      grid-column: span 1;
+    }
+    .rfq-floating-launcher {
+      bottom: 16px;
+      right: 16px;
+      padding: 10px 14px;
+    }
+    .rfq-launcher-text span {
+      display: none;
+    }
+  }
+</style>

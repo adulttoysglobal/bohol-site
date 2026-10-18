@@ -1,0 +1,68 @@
+{
+  "name": "Bite",
+  "subtitle": "Compact, with a sculpted finish.",
+  "description": "A compact personal wellness device with a rounded body, sculpted opening and protective cover. Exterior buttons and contrasting trim keep the form simple. The product photographs show white and pink variants.",
+  "category": "Compact",
+  "label": "COMPACT DESIGN",
+  "order": 10,
+  "featured": false,
+  "image": "/images/bite-hero.webp",
+  "gallery": [
+    "/images/bite-hero.webp",
+    "/images/bite-side.webp",
+    "/images/bite-closed.webp",
+    "/images/9rabbit/products/bite-gallery-view2.webp",
+    "/images/9rabbit/products/bite-gallery-view3.webp"
+  ],
+  "features": [
+    "Protective cover",
+    "Exterior buttons",
+    "Rounded body"
+  ],
+  "specs": [
+    {
+      "label": "Model series",
+      "value": "Bite Compact Series"
+    },
+    {
+      "label": "Colors shown",
+      "value": "White and pink"
+    },
+    {
+      "label": "Construction",
+      "value": "Compact body with removable cover"
+    }
+  ],
+  "seoTitle": "Bite — product details and specifications",
+  "seoDescription": "A compact personal wellness device with a rounded body, sculpted opening and protective cover. Exterior buttons and contrasting trim keep the form simple. ",
+  "note": "Product appearance and features are described from the supplied product materials. Confirm the exact model, accessories and operating instructions before purchase.",
+  "subCategory": "Women's Toys",
+  "vendor": "BOHOL Direct OEM",
+  "detailImages": [
+    "/images/9rabbit/details/bite-s01-hero.webp",
+    "/images/9rabbit/details/bite-s02-bento.webp",
+    "/images/9rabbit/details/bite-s03-anatomy.webp",
+    "/images/9rabbit/details/bite-s04-performance.webp",
+    "/images/9rabbit/details/bite-s05-material.webp",
+    "/images/9rabbit/details/bite-s07-blueprint.webp",
+    "/images/9rabbit/details/bite-s08-guide.webp"
+  ],
+  "highlights": [
+    {
+      "title": "Authentic Global Quality & Direct Factory QC",
+      "body": "Every unit of Bite undergoes multi-stage inspection for structural durability, surface finish, and material biocompatibility before international dispatch."
+    },
+    {
+      "title": "Body-Safe Certified Materials",
+      "body": "Crafted with medical-grade silicone, CyberSkin TPE, tempered borosilicate glass, or skin-friendly couture fabrics—free from phthalates, latex allergens, and heavy metals."
+    },
+    {
+      "title": "100% Discreet Unmarked Fulfillment",
+      "body": "Packaged in plain protective boxes with confidential shipping labels. Available for immediate North America & global express delivery."
+    },
+    {
+      "title": "Wholesale & Private-Label OEM Ready",
+      "body": "Supported by our 35,000 m² ISO-certified manufacturing base with custom laser logo engraving, Pantone color matching, and multilingual retail box customization."
+    }
+  ]
+}

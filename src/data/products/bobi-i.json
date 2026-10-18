@@ -1,0 +1,81 @@
+{
+  "name": "Bobi I",
+  "subtitle": "Multi-frequency telescopic & rotational male trainer.",
+  "description": "Engineered with a high-torque dual-action actuator, Bobi I combines rhythmic telescopic thrusting with 360-degree internal rotation and intelligent voice interaction inside an ergonomic matte-black housing.",
+  "category": "Electric",
+  "label": "ELECTRIC DRIVE SERIES",
+  "order": 3,
+  "featured": true,
+  "image": "/images/spotlight-bobi-i.webp",
+  "gallery": [
+    "/images/spotlight-bobi-i.webp",
+    "/images/bobi-front.webp",
+    "/images/bobi-side.webp",
+    "/images/9rabbit/products/bobi-i-gallery-view2.webp",
+    "/images/9rabbit/products/bobi-i-gallery-view3.webp"
+  ],
+  "features": [
+    "Telescopic & rotational drive",
+    "Multi-mode digital control",
+    "Medical-grade TPE inner sleeve",
+    "USB Type-C rechargeable"
+  ],
+  "specs": [
+    {
+      "label": "Model Series",
+      "value": "BOHOL Bobi I"
+    },
+    {
+      "label": "Drive System",
+      "value": "Dual-motor telescopic + rotation"
+    },
+    {
+      "label": "Material",
+      "value": "ABS housing + body-safe TPE"
+    },
+    {
+      "label": "Interface",
+      "value": "Integrated multi-button control ring"
+    },
+    {
+      "label": "Charging",
+      "value": "USB Type-C 5V"
+    },
+    {
+      "label": "OEM / ODM",
+      "value": "Custom colorways, logo & packaging available"
+    }
+  ],
+  "seoTitle": "Bobi I — Multi-Frequency Telescopic Trainer | BOHOL Manufacturing",
+  "seoDescription": "BOHOL Bobi I telescopic and rotational male wellness device. Factory direct OEM/ODM customization and specifications.",
+  "note": "Available for wholesale distribution and OEM/ODM private-label customization.",
+  "subCategory": "Men's Toys",
+  "vendor": "BOHOL Direct OEM",
+  "detailImages": [
+    "/images/9rabbit/details/bobi-i-s01-hero.webp",
+    "/images/9rabbit/details/bobi-i-s02-bento.webp",
+    "/images/9rabbit/details/bobi-i-s03-anatomy.webp",
+    "/images/9rabbit/details/bobi-i-s04-performance.webp",
+    "/images/9rabbit/details/bobi-i-s05-material.webp",
+    "/images/9rabbit/details/bobi-i-s07-blueprint.webp",
+    "/images/9rabbit/details/bobi-i-s08-guide.webp"
+  ],
+  "highlights": [
+    {
+      "title": "Authentic Global Quality & Direct Factory QC",
+      "body": "Every unit of Bobi I undergoes multi-stage inspection for structural durability, surface finish, and material biocompatibility before international dispatch."
+    },
+    {
+      "title": "Body-Safe Certified Materials",
+      "body": "Crafted with medical-grade silicone, CyberSkin TPE, tempered borosilicate glass, or skin-friendly couture fabrics—free from phthalates, latex allergens, and heavy metals."
+    },
+    {
+      "title": "100% Discreet Unmarked Fulfillment",
+      "body": "Packaged in plain protective boxes with confidential shipping labels. Available for immediate North America & global express delivery."
+    },
+    {
+      "title": "Wholesale & Private-Label OEM Ready",
+      "body": "Supported by our 35,000 m² ISO-certified manufacturing base with custom laser logo engraving, Pantone color matching, and multilingual retail box customization."
+    }
+  ]
+}

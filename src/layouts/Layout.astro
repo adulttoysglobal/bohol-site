@@ -1,0 +1,723 @@
+---
+import '../styles/global.css';
+import '../styles/expansion.css';
+import '@fontsource-variable/manrope';
+import Icon from '../components/Icon.astro';
+import RfqCartDrawer from '../components/RfqCartDrawer.astro';
+import AgeGateModal from '../components/AgeGateModal.astro';
+import CookieBanner from '../components/CookieBanner.astro';
+import LanguageSwitcher from '../components/LanguageSwitcher.astro';
+import settings from '../data/settings.json';
+const {
+  title = 'Global Adult Wellness Store & 35,000 m² OEM Smart Factory',
+  description = settings.description,
+  image = '/images/factory-campus.webp',
+  type = 'website',
+  schema,
+  noindex = false
+} = Astro.props;
+
+const navMenus = [
+  {
+    label: 'Home',
+    href: '/',
+    children: []
+  },
+  {
+    label: 'Products',
+    href: '/products/',
+    children: [
+      { label: '⭐ BOHOL 14 Private-Mold Flagships', count: 14, href: '/products/?subcat=BOHOL OEM' },
+      { label: "Men's Toys & Automatic Strokers", count: 460, href: "/products/?subcat=Men's Toys" },
+      { label: "Women's Toys & Sonic Vibrators", count: 86, href: "/products/?subcat=Women's Toys" },
+      { label: 'Sexy Lingerie & Couture Sets', count: 850, href: '/products/?subcat=Sexy Lingerie' },
+      { label: 'BDSM Bondage & Fetish Kits', count: 210, href: '/products/?subcat=BDSM & Fetish' },
+      { label: '0.01 Ultra-Thin Condoms', count: 120, href: '/products/?subcat=Condoms' },
+      { label: 'Pure Lubricants & Specialty Care', count: 69, href: '/products/?subcat=Lubricants & Care' }
+    ]
+  },
+  {
+    label: 'Hotel Vending',
+    href: '/products/?subcat=Vending',
+    children: [
+      { label: 'In-Room Wall-Mounted Terminals', count: null, href: '/products/?subcat=Vending' },
+      { label: 'IoT Cloud Fleet Telemetry & Restock', count: null, href: '/journal/iot-cloud-restocking-vending-fleet-management/' },
+      { label: 'Machine-Calibrated Consumable Refills', count: null, href: '/products/?subcat=Condoms' },
+      { label: 'Hotel Operator Unit ROI & Payback Model', count: null, href: '/journal/hotel-operator-vending-roi-payback-calculation/' },
+      { label: 'Top 5 High-Velocity Vending Items', count: null, href: '/journal/top-5-high-velocity-products-hotel-vending/' }
+    ]
+  },
+  {
+    label: 'OEM / ODM',
+    href: '/manufacturing/',
+    isMega: true,
+    children: [
+      { label: '35,000 m² Smart Factory', count: null, href: '/manufacturing/' },
+      { label: '500 m² Experience Showroom', count: null, href: '/contact/' },
+      { label: 'BOHOL 14 Private-Mold Models', count: 14, href: '/products/?subcat=BOHOL OEM' },
+      { label: 'Contract OEM & Private Label', count: null, href: '/partners/' },
+      { label: 'Full Specification Catalogue', count: null, href: '/catalogue/' },
+      { label: 'Wholesale & OEM RFQ Form', count: null, href: '/rfq/' }
+    ]
+  },
+  {
+    label: 'Wholesale & Sourcing',
+    href: '/products/',
+    children: [
+      { label: 'All 800+ Wholesale Collections', count: 800, href: '/products/' },
+      { label: 'Mixed Container Consolidation (FCL / LCL)', count: null, href: '/rfq/' },
+      { label: 'Turnkey English WebP PDP Slices', count: null, href: '/catalogue/' },
+      { label: 'DDP Sea & Air Door-to-Door Logistics', count: null, href: '/journal/un38-3-lithium-battery-sea-air-logistics/' }
+    ]
+  },
+  {
+    label: 'News & Insights',
+    href: '/news/',
+    badge: 'NEW',
+    children: [
+      { label: 'All Industry News & Whitepapers (56)', count: 56, href: '/news/' },
+      { label: 'Female Pleasure Tech', count: 10, href: '/news/?cat=Pleasure Tech' },
+      { label: 'Male Wellness & Strokers', count: 10, href: '/news/?cat=Male Wellness' },
+      { label: 'Couples & Lingerie Play', count: 8, href: '/news/?cat=Couples & Lingerie' },
+      { label: 'Condoms & Lubricants Science', count: 8, href: '/news/?cat=Condoms & Lubricants' },
+      { label: 'Smart Hotel Room Vending', count: 8, href: '/news/?cat=Hotel Vending' },
+      { label: 'Brand OEM & Factory Tech', count: 6, href: '/news/?cat=Brand & Manufacturing' }
+    ]
+  }
+];
+
+const popularSearches = [
+  { label: 'Suction Stimulator', url: "/products/?subcat=Women's Toys" },
+  { label: 'Auto Stroker', url: "/products/?subcat=Men's Toys" },
+  { label: 'KISSTOY Polly', url: '/products/nr-vibr-1/' },
+  { label: 'Twist & Fun', url: '/products/twist-fun/' },
+  { label: 'Lace Lingerie Set', url: '/products/?subcat=Sexy Lingerie' },
+  { label: 'BDSM Bondage Kit', url: '/products/?subcat=BDSM & Fetish' },
+  { label: '0.01 Ultra-Thin', url: '/products/?subcat=Condoms' },
+  { label: 'SYSTEM JO H2O', url: '/products/nr-lubr-1/' },
+  { label: 'Harmony Rabbit', url: '/products/harmony-rabbit/' },
+  { label: 'OEM Private Label', url: '/rfq/' }
+];
+
+const canonical = new URL(Astro.url.pathname, Astro.site);
+const ogImage = new URL(image || '/images/factory-campus.webp', Astro.site).href;
+const safeJson = (v: any) => JSON.stringify(v).replace(/</g, '\\u003c');
+
+// Global Manufacturer & Organization Schema (GEO entity grounding)
+const globalOrgSchema = {
+  '@context': 'https://schema.org',
+  '@type': ['Organization', 'Manufacturer'],
+  name: 'BOHOL',
+  legalName: 'BOHOL Smart Manufacturing Co., Ltd.',
+  url: Astro.site?.toString() || 'https://bohol-product-studio.subaohe.chatgpt.site',
+  logo: new URL('/images/bohol-logo-horiz-dark.webp', Astro.site).href,
+  description: 'Direct manufacturer and OEM/ODM engineering powerhouse operating a 35,000 m² cleanroom campus with 120+ automated assembly lines, Class 100,000 medical LSR liquid silicone injection, and global DDP fulfillment.',
+  telephone: '+86-185-8858-3798',
+  email: 'hello@boholwellness.com',
+  address: {
+    '@type': 'PostalAddress',
+    addressLocality: 'Meizhou',
+    addressRegion: 'Guangdong',
+    addressCountry: 'CN'
+  },
+  sameAs: [
+    settings.social?.linkedin || 'https://www.linkedin.com/company/bohol-wellness',
+    settings.social?.youtube || 'https://www.youtube.com/@bohol-manufacturing',
+    settings.social?.instagram || 'https://www.instagram.com/bohol_official',
+    settings.social?.facebook || 'https://www.facebook.com/boholwellness',
+    settings.social?.tiktok || 'https://www.tiktok.com/@bohol_hardware',
+    settings.social?.x || 'https://twitter.com/boholwellness'
+  ]
+};
+
+const websiteSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  name: 'BOHOL Global Adult Wellness & Smart Manufacturing',
+  url: Astro.site?.toString() || 'https://bohol-product-studio.subaohe.chatgpt.site',
+  potentialAction: {
+    '@type': 'SearchAction',
+    target: `${Astro.site?.toString() || 'https://bohol-product-studio.subaohe.chatgpt.site'}/products/?q={search_term_string}`,
+    'query-input': 'required name=search_term_string'
+  }
+};
+---
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{title} | {settings.brand}</title>
+  <meta name="description" content={description} />
+  <meta name="theme-color" content="#219dbb" />
+  <meta name="rating" content="adult" />
+  <meta name="author" content="BOHOL Smart Manufacturing" />
+  
+  <!-- Canonical & Language -->
+  {noindex ? <meta name="robots" content="noindex, nofollow" /> : <link rel="canonical" href={canonical} />}
+  <link rel="alternate" hreflang="x-default" href={canonical} />
+  <link rel="alternate" hreflang="en" href={canonical} />
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:site_name" content="BOHOL Global Adult Wellness & Smart Manufacturing" />
+  <meta property="og:title" content={`${title} | ${settings.brand}`} />
+  <meta property="og:description" content={description} />
+  <meta property="og:type" content={type} />
+  <meta property="og:url" content={canonical} />
+  <meta property="og:image" content={ogImage} />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:locale" content="en_US" />
+
+  <!-- Twitter Cards -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="@boholwellness" />
+  <meta name="twitter:creator" content="@boholwellness" />
+  <meta name="twitter:title" content={`${title} | ${settings.brand}`} />
+  <meta name="twitter:description" content={description} />
+  <meta name="twitter:image" content={ogImage} />
+
+  <!-- Fonts & Favicon -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="icon" href="/favicon.png" type="image/png" />
+
+  <!-- Global Schema.org JSON-LD (SEO & GEO AI Ingestion) -->
+  <script type="application/ld+json" set:html={safeJson(globalOrgSchema)} />
+  <script type="application/ld+json" set:html={safeJson(websiteSchema)} />
+  {schema && <script type="application/ld+json" set:html={safeJson(schema)} />}
+</head>
+<body>
+  <a href="#main" class="skip">Skip to content</a>
+
+  <!-- Top Announcement Bar (#219dbb) -->
+  <div class="utility sf-topbar">
+    <span><strong class="util-dot"></strong> BOHOL GLOBAL ADULT WELLNESS & 35,000 m² SMART FACTORY · 100% DISCREET WORLDWIDE SHIPPING · DIRECT WHOLESALE & OEM/ODM</span>
+    <div class="sf-topbar-links">
+      <a href="/products/">All 38+ Products</a>
+      <a href="/manufacturing/">35,000 m² Smart Factory</a>
+      <a href="/news/">Industry News</a>
+      <a href="/#client-reviews">Verified Buyer Selfies</a>
+      <a href="/rfq/" class="util-badge">Wholesale & OEM Quote</a>
+    </div>
+  </div>
+
+  <!-- Minimog OS 2.0 Sticky Header -->
+  <header class="header sf-header">
+    <a class="wordmark sf-logo" href="/" aria-label={`${settings.brand} home`} title="BOHOL Global Adult Wellness & Smart Manufacturing">
+      <img class="brand-logo-header" src="/images/bohol-logo-horiz-dark.webp" width="136" height="48" alt={settings.brand} />
+    </a>
+
+    <nav id="navigation" class="sf-nav" aria-label="Main navigation">
+      {navMenus.map((item) => (
+        <div class={`sf-menu-item ${item.children.length > 0 ? 'has-dropdown' : ''} ${(item as any).isMega ? 'has-megamenu' : ''}`}>
+          <a
+            href={item.href}
+            class="sf-menu-link"
+            aria-current={Astro.url.pathname === item.href ? 'page' : undefined}
+          >
+            <span>{item.label}</span>
+            {item.badge && <em class={`sf-menu-hot ${item.badge === 'NEW' ? 'sf-menu-new' : ''}`}>{item.badge}</em>}
+            {item.children.length > 0 && (
+              <svg class="sf-menu-chevron" width="10" height="10" viewBox="0 0 448 512" fill="currentColor" aria-hidden="true">
+                <path d="M207.029 381.476L12.686 187.132c-9.373-9.373-9.373-24.569 0-33.941l22.667-22.667c9.357-9.357 24.522-9.375 33.901-.04L224 284.505l154.745-154.021c9.379-9.335 24.544-9.317 33.901.04l22.667 22.667c9.373 9.373 9.373 24.569 0 33.941L240.971 381.476c-9.373 9.372-24.569 9.372-33.942 0z" />
+              </svg>
+            )}
+          </a>
+          {item.children.length > 0 && (
+            (item as any).isMega ? (
+              <>
+                <div class="sf-dropdown-menu sf-megamenu-panel">
+                  <div class="sf-megamenu-inner">
+                    <div class="sf-megamenu-topbar">
+                      <div class="sf-megamenu-top-title">
+                        <span class="sf-mega-pulse"></span>
+                        <strong>BOHOL DIRECT MANUFACTURING & GLOBAL OEM / ODM HUB</strong>
+                      </div>
+                      <a href="/rfq/" class="sf-mega-top-link">
+                        Launch Multi-Product RFQ Calculator &rarr;
+                      </a>
+                    </div>
+
+                    <div class="sf-megamenu-grid">
+                      <!-- Column 1: Manufacturing Strength -->
+                      <div class="sf-mega-col">
+                        <h4 class="sf-mega-col-title">
+                          <span>01</span> FACTORY STRENGTH & CLEANROOMS
+                        </h4>
+                        <ul class="sf-mega-links">
+                          <li>
+                            <a href="/manufacturing/" class="sf-mega-item-link">
+                              <span class="sf-mega-icon">🏭</span>
+                              <div>
+                                <strong>35,000 m² Integrated Campus</strong>
+                                <p>120+ assembly lines, Class 100,000 dust-free LSR cleanrooms.</p>
+                              </div>
+                            </a>
+                          </li>
+                          <li>
+                            <a href="/technology/#rd-center" class="sf-mega-item-link">
+                              <span class="sf-mega-icon">⚙️</span>
+                              <div>
+                                <strong>5-Axis CNC Tooling & Mold Center</strong>
+                                <p>In-house steel tooling & 7-day rapid functional prototyping.</p>
+                              </div>
+                            </a>
+                          </li>
+                          <li>
+                            <a href="/manufacturing/#process" class="sf-mega-item-link">
+                              <span class="sf-mega-icon">🔬</span>
+                              <div>
+                                <strong>100% QC & Acoustic Testing Lab</strong>
+                                <p>IPX7 vacuum immersion leak test & &lt; 45 dB whisper burn-in.</p>
+                              </div>
+                            </a>
+                          </li>
+                          <li>
+                            <a href="/manufacturing/" class="sf-mega-item-link">
+                              <span class="sf-mega-icon">🚢</span>
+                              <div>
+                                <strong>Global Container Ocean Export</strong>
+                                <p>Dual loading bays, weekly 40HQ dispatch & DDP to 60+ countries.</p>
+                              </div>
+                            </a>
+                          </li>
+                        </ul>
+                      </div>
+
+                      <!-- Column 2: OEM/ODM & Private Label -->
+                      <div class="sf-mega-col">
+                        <h4 class="sf-mega-col-title">
+                          <span>02</span> OEM / ODM & PRIVATE LABEL
+                        </h4>
+                        <ul class="sf-mega-links">
+                          <li>
+                            <a href="/products/?subcat=BOHOL OEM" class="sf-mega-item-link">
+                              <span class="sf-mega-icon">⚡</span>
+                              <div>
+                                <strong>14 Private-Mold Flagships <em class="sf-mega-badge">Hot</em></strong>
+                                <p>Proprietary multi-axis telescopic & medical silicone models.</p>
+                              </div>
+                            </a>
+                          </li>
+                          <li>
+                            <a href="/partners/" class="sf-mega-item-link">
+                              <span class="sf-mega-icon">🛠️</span>
+                              <div>
+                                <strong>Contract OEM & Private Label</strong>
+                                <p>Pantone colorways, laser logo, custom firmware & retail gift boxes.</p>
+                              </div>
+                            </a>
+                          </li>
+                          <li>
+                            <a href="/catalogue/" class="sf-mega-item-link">
+                              <span class="sf-mega-icon">📋</span>
+                              <div>
+                                <strong>Full Specification Catalogue (PDF)</strong>
+                                <p>Dimensional specs, motor RPM, battery life & export packaging.</p>
+                              </div>
+                            </a>
+                          </li>
+                          <li>
+                            <a href="/#client-reviews" class="sf-mega-item-link">
+                              <span class="sf-mega-icon">📸</span>
+                              <div>
+                                <strong>Verified Buyer Client Selfies (8)</strong>
+                                <p>Real unboxing photos from US, UK, German & Australian buyers.</p>
+                              </div>
+                            </a>
+                          </li>
+                        </ul>
+                      </div>
+
+                      <!-- Column 3: Visual Real Photo Feature Cards -->
+                      <div class="sf-mega-visuals">
+                        <a href="/manufacturing/" class="sf-mega-card">
+                          <div class="sf-mega-card-img">
+                            <img src="/images/factory-campus.webp" width="400" height="240" loading="lazy" alt="BOHOL 35,000 m² Smart Factory Headquarters Gate" />
+                            <span class="sf-mega-card-tag">35,000 m² CAMPUS</span>
+                          </div>
+                          <div class="sf-mega-card-info">
+                            <strong>Direct Manufacturing Campus</strong>
+                            <p>Meizhou & Shenzhen vertically integrated manufacturing powerhouse.</p>
+                          </div>
+                        </a>
+
+                        <a href="/contact/" class="sf-mega-card">
+                          <div class="sf-mega-card-img">
+                            <img src="/images/hq-showroom.webp" width="400" height="240" loading="lazy" alt="BOHOL 500 m² Flagship Experience Showroom" />
+                            <span class="sf-mega-card-tag">500 m² SHOWROOM</span>
+                          </div>
+                          <div class="sf-mega-card-info">
+                            <strong>Experience Showroom & Audit</strong>
+                            <p>Visit in-person or book a 1-on-1 live video walkthrough audit.</p>
+                          </div>
+                        </a>
+                      </div>
+                    </div>
+
+                    <div class="sf-megamenu-footer">
+                      <div class="sf-mega-footer-badges">
+                        <span>ISO 9001</span>
+                        <span>CE & RoHS</span>
+                        <span>FCC Certified</span>
+                        <span>UN38.3 Safe</span>
+                        <span>100% IPX7 Lab</span>
+                      </div>
+                      <div class="sf-mega-footer-actions">
+                        <a href="https://wa.me/8618588583798" target="_blank" class="sf-mega-wa-btn">
+                          💬 WhatsApp Direct
+                        </a>
+                        <a href="/rfq/" class="sf-mega-rfq-btn">
+                          Instant B2B Quote &rarr;
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Mobile sublist fallback for small screens -->
+                <div class="sf-mobile-sublist">
+                  <ul>
+                    {item.children.map((sub) => (
+                      <li>
+                        <a href={sub.href}>
+                          <span>{sub.label}</span>
+                          {sub.count !== null && <sup class="sf-sub-count">{sub.count}</sup>}
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </>
+            ) : (
+              <div class="sf-dropdown-menu">
+                <ul>
+                  {item.children.map((sub) => (
+                    <li>
+                      <a href={sub.href}>
+                        <span>{sub.label}</span>
+                        {sub.count !== null && <sup class="sf-sub-count">{sub.count}</sup>}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )
+          )}
+        </div>
+      ))}
+    </nav>
+
+    <div class="sf-header-tools">
+      <!-- Multi-Language Switcher (Smart Detection & Neural Translation) -->
+      <LanguageSwitcher />
+
+      <!-- Currency Switcher (USD / CAD / GBP / EUR) -->
+      <div class="sf-currency-box">
+        <select aria-label="Currency selector" class="sf-currency-select">
+          <option value="USD">USD $</option>
+          <option value="CAD">CAD $</option>
+          <option value="GBP">GBP £</option>
+          <option value="EUR">EUR €</option>
+        </select>
+      </div>
+
+      <!-- Search Popup Button -->
+      <button type="button" class="sf-icon-btn" id="open-search-btn" aria-label="Search products" title="Search our store">
+        <svg width="18" height="18" viewBox="0 0 512 512" fill="currentColor">
+          <path d="M508.5 468.9L387.1 347.5c-2.3-2.3-5.3-3.5-8.5-3.5h-13.2c31.5-36.5 50.6-84 50.6-136C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c52 0 99.5-19.1 136-50.6v13.2c0 3.2 1.3 6.2 3.5 8.5l121.4 121.4c4.7 4.7 12.3 4.7 17 0l22.6-22.6c4.7-4.7 4.7-12.3 0-17zM208 368c-88.4 0-160-71.6-160-160S119.6 48 208 48s160 71.6 160 160-71.6 160-160 160z"/>
+        </svg>
+      </button>
+
+      <!-- Account / B2B Admin Console Link -->
+      <a href="/admin/" class="sf-icon-btn" title="BOHOL Content Manager (Decap CMS)">
+        <svg width="18" height="18" viewBox="0 0 448 512" fill="currentColor">
+          <path d="M313.6 304c-28.7 0-42.5 16-89.6 16-47.1 0-60.8-16-89.6-16C60.2 304 0 364.2 0 438.4V464c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48v-25.6c0-74.2-60.2-134.4-134.4-134.4zM400 464H48v-25.6c0-47.6 38.8-86.4 86.4-86.4 14.6 0 38.3 16 89.6 16 51.7 0 74.9-16 89.6-16 47.6 0 86.4 38.8 86.4 86.4V464zM224 288c79.5 0 144-64.5 144-144S303.5 0 224 0 80 64.5 80 144s64.5 144 144 144zm0-240c52.9 0 96 43.1 96 96s-43.1 96-96 96-96-43.1-96-96 43.1-96 96-96z"/>
+        </svg>
+      </a>
+
+      <!-- B2B Multi-Product Inquiry Button -->
+      <button type="button" class="sf-icon-btn sf-cart-btn" id="open-rfq-drawer-header-btn" title="View Wholesale Inquiry List (RFQ)" aria-label="View Wholesale Inquiry List">
+        <svg width="18" height="18" viewBox="0 0 512 512" fill="currentColor">
+          <path d="M448 344v112a23.94 23.94 0 0 1-24 24H88a23.94 23.94 0 0 1-24-24V344a23.94 23.94 0 0 1 24-24h336a23.94 23.94 0 0 1 24 24zm-224-40h64v-64h48l-80-80-80 80h48v64zm176-200H320V72a40 40 0 0 0-40-40H232a40 40 0 0 0-40 40v32H112a48.05 48.05 0 0 0-48 48v80h384v-80a48.05 48.05 0 0 0-48-48zm-160 0V72h64v32h-64z"/>
+        </svg>
+        <span class="sf-cart-bubble" id="header-cart-bubble">0</span>
+      </button>
+
+      <a class="nav-action" href="/rfq/">OEM / Wholesale</a>
+      <button class="menu-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="navigation"><Icon name="list" size={26} /></button>
+    </div>
+  </header>
+
+  <!-- Predictive Search Popup Drawer -->
+  <div id="sf-search-modal" class="sf-search-modal" hidden>
+    <div class="sf-search-backdrop" id="close-search-backdrop"></div>
+    <div class="sf-search-panel">
+      <div class="sf-search-panel-inner">
+        <a href="/" class="sf-search-logo">
+          <img src="/images/bohol-logo-horiz-dark.webp" width="120" height="42" alt="BOHOL" />
+        </a>
+        <form action="/products/" method="get" class="sf-search-form-bar">
+          <input
+            type="search"
+            name="q"
+            id="sf-search-input"
+            placeholder="Search our store (e.g., Suction, Stroker, Lingerie, BDSM, 0.01 Condom, Lubricant, Lenas)..."
+            autocomplete="off"
+          />
+          <button type="submit" aria-label="Submit search">
+            <svg width="18" height="18" viewBox="0 0 512 512" fill="currentColor">
+              <path d="M508.5 468.9L387.1 347.5c-2.3-2.3-5.3-3.5-8.5-3.5h-13.2c31.5-36.5 50.6-84 50.6-136C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c52 0 99.5-19.1 136-50.6v13.2c0 3.2 1.3 6.2 3.5 8.5l121.4 121.4c4.7 4.7 12.3 4.7 17 0l22.6-22.6c4.7-4.7 4.7-12.3 0-17zM208 368c-88.4 0-160-71.6-160-160S119.6 48 208 48s160 71.6 160 160-71.6 160-160 160z"/>
+            </svg>
+          </button>
+        </form>
+        <button type="button" class="sf-search-close" id="close-search-btn" aria-label="Close search">✕</button>
+      </div>
+      <div class="sf-popular-searches">
+        <span>Popular Searches:</span>
+        {popularSearches.map((ps) => (
+          <a href={ps.url}>{ps.label}</a>
+        ))}
+      </div>
+    </div>
+  </div>
+
+  <main id="main"><slot /></main>
+
+  <!-- Floating Scroll-To-Top Button -->
+  <button id="scroll-to-top-button" class="sf-scroll-top" aria-label="Scroll to top" title="Scroll to top">
+    <svg width="18" height="18" viewBox="0 0 448 512" fill="currentColor">
+      <path d="M4.465 263.536l7.07 7.071c4.686 4.686 12.284 4.686 16.971 0L207 92.113V468c0 6.627 5.373 12 12 12h10c6.627 0 12-5.373 12-12V92.113l178.494 178.493c4.686 4.686 12.284 4.686 16.971 0l7.07-7.071c4.686-4.686 4.686-12.284 0-16.97l-211.05-211.05c-4.686-4.686-12.284-4.686-16.971 0L4.465 246.566c-4.687 4.686-4.687 12.284 0 16.97z"/>
+    </svg>
+  </button>
+
+  <!-- Clean Enterprise Pure-White Footer -->
+  <footer class="footer sf-footer">
+    <div class="footer-expanded">
+      <div class="footer-brand">
+        <a class="wordmark wordmark-stacked" href="/" aria-label={`${settings.brand} home`}>
+          <img class="brand-logo-footer" src="/images/bohol-logo-horiz-dark.webp" width="148" height="52" alt={settings.brand} />
+        </a>
+        <p>BOHOL is a premier global adult wellness curator and vertically integrated smart manufacturer. Backed by our 35,000 m² ISO-certified production facility, 5-axis CNC mold center, and 100,000-class cleanroom LSR silicone workshops, we supply vibrators, strokers, lingerie, BDSM gear, condoms, and lubricants for retail & global OEM/ODM partners.</p>
+        <p class="footer-disclaimer">Disclaimer: If you are under 18 years of age, please leave immediately. All models depicted on this website are 18 years or older. This website is strictly intended for an adult audience (18+).</p>
+        <div class="footer-cert-badges">
+          <span>ISO 9001</span>
+          <span>CE</span>
+          <span>RoHS</span>
+          <span>FCC</span>
+          <span>IPX7 LAB</span>
+        </div>
+      </div>
+
+      <div>
+        <h2>Customer Support & B2B Desk</h2>
+        <div class="footer-kefu-card">
+          <div class="kefu-qr-box">
+            <img src="/images/bohol-mark-dark.webp" width="48" height="48" alt="BOHOL Official Desk" />
+            <div>
+              <strong>BOHOL Global Trade Desk</strong>
+              <span>24/7 Response · NDA Protected</span>
+            </div>
+          </div>
+          <p class="kefu-line">WhatsApp: <a href="https://wa.me/8618588583798" target="_blank" style="color:#16a34a; font-weight:700;">+86 185 8858 3798</a></p>
+          <p class="kefu-line">WeChat (微信): <strong style="color:#0f172a;">18588583798</strong></p>
+          <p class="kefu-line">OEM / ODM: <a href="mailto:oem@boholtech.com" style="color:#2563eb;">oem@boholtech.com</a></p>
+          <p class="kefu-line">Global Wholesale: <a href="mailto:sales@boholtech.com" style="color:#2563eb;">sales@boholtech.com</a></p>
+        </div>
+      </div>
+
+      <div>
+        <h2>Quick Links</h2>
+        <a href="/products/">All Products Catalog (38+)</a>
+        <a href="/manufacturing/">35,000 m² Smart Factory</a>
+        <a href="/news/">Industry News & Insights</a>
+        <a href="/#client-reviews">Verified Buyer Selfies</a>
+        <a href="/partners/">OEM / ODM & Wholesale</a>
+        <a href="/catalogue/">Specification Catalogue</a>
+        <a href="/privacy/">Privacy & NDA Policy</a>
+        <a href="/contact/">Contact Us</a>
+      </div>
+
+      <div>
+        <h2>Product Categories</h2>
+        <a href="/products/?subcat=Women's Toys">Women's Toys (Suction & Vibrators)</a>
+        <a href="/products/?subcat=Men's Toys">Men's Toys (Auto & Realistic Strokers)</a>
+        <a href="/products/?subcat=Sexy Lingerie">Sexy Lingerie & Hosiery</a>
+        <a href="/products/?subcat=BDSM & Fetish">BDSM & Bondage Gear</a>
+        <a href="/products/?subcat=Condoms">0.01 Ultra-Thin Condoms</a>
+        <a href="/products/?subcat=Lubricants & Care">Lubricants & Toy Care</a>
+        <a href="/products/?subcat=BOHOL OEM">BOHOL Private-Mold Hardware</a>
+      </div>
+    </div>
+
+    <!-- Follow Official BOHOL Social Media Channels -->
+    <div class="footer-social-banner">
+      <div class="footer-social-copy">
+        <strong>Connect & Follow BOHOL on Official Networks</strong>
+        <p>Follow our verified media channels for live 4K cleanroom tours, new mold releases, motor acoustic testing, and international trade expo schedules.</p>
+      </div>
+      <div class="footer-social-grid">
+        <a href={settings.social?.linkedin || "https://www.linkedin.com/company/bohol-wellness"} target="_blank" rel="noopener" class="footer-social-btn btn-linkedin" title="Follow BOHOL on LinkedIn (B2B & OEM)">
+          <svg viewBox="0 0 24 24"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 10.9h2.8v8.37h-2.8V10.9M7.86 6.54a1.62 1.62 0 0 0-1.63 1.63c0 .9.73 1.63 1.63 1.63.9 0 1.63-.73 1.63-1.63 0-.9-.73-1.63-1.63-1.63Z"/></svg>
+          <span>LinkedIn</span>
+        </a>
+        <a href={settings.social?.youtube || "https://www.youtube.com/@bohol-manufacturing"} target="_blank" rel="noopener" class="footer-social-btn btn-youtube" title="Subscribe to BOHOL YouTube Channel">
+          <svg viewBox="0 0 24 24"><path d="m10 15 5.19-3L10 9v6m11.56-7.83c.13.47.22 1.1.28 1.9.07.8.1 1.49.1 2.09L22 12c0 2.19-.16 3.8-.44 4.83-.25.9-.83 1.48-1.73 1.73-.47.13-1.33.22-2.65.28-1.3.07-2.49.1-3.59.1L12 19c-4.19 0-6.8-.16-7.83-.44-.9-.25-1.48-.83-1.73-1.73-.13-.47-.22-1.1-.28-1.9-.07-.8-.1-1.49-.1-2.09L2 12c0-2.19.16-3.8.44-4.83.25-.9.83-1.48 1.73-1.73.47-.13 1.33-.22 2.65-.28 1.3-.07 2.49-.1 3.59-.1L12 5c4.19 0 6.8.16 7.83.44.9.25 1.48.83 1.73 1.73Z"/></svg>
+          <span>YouTube</span>
+        </a>
+        <a href={settings.social?.instagram || "https://www.instagram.com/bohol_official"} target="_blank" rel="noopener" class="footer-social-btn btn-instagram" title="Follow @bohol_official on Instagram">
+          <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+          <span>Instagram</span>
+        </a>
+        <a href={settings.social?.facebook || "https://www.facebook.com/boholwellness"} target="_blank" rel="noopener" class="footer-social-btn btn-facebook" title="Follow BOHOL on Facebook">
+          <svg viewBox="0 0 24 24"><path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3v3h-3v6.95c5.05-.5 9-4.76 9-9.95z"/></svg>
+          <span>Facebook</span>
+        </a>
+        <a href={settings.social?.tiktok || "https://www.tiktok.com/@bohol_hardware"} target="_blank" rel="noopener" class="footer-social-btn btn-tiktok" title="Follow BOHOL on TikTok">
+          <svg viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64c.298-.002.595.042.88.13V9.4a6.33 6.33 0 0 0-1-.08A6.34 6.34 0 0 0 3 15.66a6.34 6.34 0 0 0 10.82 4.49 6.3 6.3 0 0 0 1.86-4.49V8.58a8.28 8.28 0 0 0 4.84 1.56V6.69h-.93z"/></svg>
+          <span>TikTok</span>
+        </a>
+        <a href={settings.social?.x || "https://twitter.com/boholwellness"} target="_blank" rel="noopener" class="footer-social-btn btn-x" title="Follow BOHOL on X (Twitter)">
+          <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+          <span>X</span>
+        </a>
+        <a href="https://wa.me/8618588583798" target="_blank" rel="noopener" class="footer-social-btn btn-whatsapp" title="Chat Directly on WhatsApp (+86 185 8858 3798)">
+          <svg viewBox="0 0 24 24"><path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0 0 12.04 2m.01 1.67c2.2 0 4.26.86 5.82 2.42a8.225 8.225 0 0 1 2.41 5.83c0 4.54-3.7 8.24-8.24 8.24-1.48 0-2.93-.4-4.2-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.196 8.196 0 0 1-1.26-4.38c0-4.54 3.7-8.24 8.24-8.24m4.52 11.66c-.19-.09-1.12-.55-1.3-.61-.17-.07-.3-.1-.42.1-.13.19-.48.61-.59.74-.11.12-.22.14-.4.05-.19-.09-.79-.29-1.5-.93-.56-.49-.93-1.11-1.04-1.3-.11-.19-.01-.29.08-.38.08-.08.19-.22.28-.33.09-.11.13-.19.19-.31.06-.13.03-.24-.01-.33-.05-.09-.42-1.01-.58-1.39-.15-.36-.31-.31-.42-.32h-.36c-.13 0-.33.05-.5.24-.17.19-.66.65-.66 1.58 0 .93.68 1.83.77 1.96.09.12 1.33 2.04 3.23 2.86.45.19.81.31 1.08.4.45.14.86.12 1.19.07.36-.05 1.12-.46 1.28-.9.16-.45.16-.83.11-.91-.04-.08-.17-.13-.36-.23"/></svg>
+          <span>WhatsApp</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <span>© {new Date().getFullYear()} {settings.brand} Global Adult Wellness & Smart Manufacturing. All rights reserved.</span>
+      <span>100% Discreet Packaging · Worldwide Express Shipping · 18+ Adults Only</span>
+      <a href="/privacy/">Privacy & NDA Policy</a>
+      <a href="/admin/" style="margin-left:8px;opacity:0.75" title="BOHOL Content Manager (Decap CMS)">🔒 Admin Portal</a>
+    </div>
+  </footer>
+
+  <script>
+    const toggle = document.querySelector<HTMLButtonElement>('.menu-toggle');
+    const nav = document.querySelector('#navigation');
+    toggle?.addEventListener('click', () => {
+      const open = toggle.getAttribute('aria-expanded') !== 'true';
+      toggle.setAttribute('aria-expanded', String(open));
+      toggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+      nav?.classList.toggle('open', open);
+    });
+    nav?.querySelectorAll('a').forEach((a) =>
+      a.addEventListener('click', () => {
+        nav.classList.remove('open');
+        toggle?.setAttribute('aria-expanded', 'false');
+      })
+    );
+
+    // Search Popup Modal Logic
+    const searchModal = document.getElementById('sf-search-modal');
+    const openSearchBtn = document.getElementById('open-search-btn');
+    const closeSearchBtn = document.getElementById('close-search-btn');
+    const closeSearchBackdrop = document.getElementById('close-search-backdrop');
+    const searchInput = document.getElementById('sf-search-input') as HTMLInputElement | null;
+
+    const openSearch = () => {
+      if (!searchModal) return;
+      searchModal.hidden = false;
+      setTimeout(() => searchInput?.focus(), 50);
+    };
+    const closeSearch = () => {
+      if (!searchModal) return;
+      searchModal.hidden = true;
+    };
+
+    openSearchBtn?.addEventListener('click', openSearch);
+    closeSearchBtn?.addEventListener('click', closeSearch);
+    closeSearchBackdrop?.addEventListener('click', closeSearch);
+
+    // Scroll to Top Button Logic
+    const scrollBtn = document.getElementById('scroll-to-top-button');
+    window.addEventListener('scroll', () => {
+      if (!scrollBtn) return;
+      if (window.scrollY > 360) {
+        scrollBtn.classList.add('visible');
+      } else {
+        scrollBtn.classList.remove('visible');
+      }
+    }, { passive: true });
+
+    scrollBtn?.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    // Global Multi-Product RFQ Quick-Add Handler
+    import { addToRfqCart, isItemInRfqCart, getRfqCart } from '../lib/rfqCart.js';
+
+    function syncCardButtons() {
+      const items = getRfqCart();
+      const ids = new Set(items.map((i) => i.id));
+      document.querySelectorAll<HTMLButtonElement>('.rfq-quick-add-btn').forEach((btn) => {
+        const id = btn.dataset.rfqId;
+        if (id && ids.has(id)) {
+          btn.classList.add('in-cart');
+          if (btn.classList.contains('pcard-quote-pill-btn')) {
+            btn.innerHTML = '<span>✓ In RFQ List</span>';
+          } else {
+            btn.innerHTML = '<span>✓ In RFQ List</span>';
+          }
+        } else {
+          btn.classList.remove('in-cart');
+          if (btn.classList.contains('pcard-quote-pill-btn')) {
+            btn.innerHTML = '<span class="pcard-plus">+</span> Add to RFQ';
+          } else {
+            btn.textContent = '+ Add to RFQ';
+          }
+        }
+      });
+    }
+
+    document.addEventListener('click', (e) => {
+      const target = (e.target as HTMLElement).closest<HTMLButtonElement>('.rfq-quick-add-btn');
+      if (!target) return;
+      e.preventDefault();
+      e.stopPropagation();
+
+      const item = {
+        id: target.dataset.rfqId!,
+        name: target.dataset.rfqName || 'Product',
+        code: target.dataset.rfqCode || target.dataset.rfqId!,
+        image: target.dataset.rfqImage || '/images/spotlight-big-mouth.webp',
+        category: target.dataset.rfqCategory || 'Adult Wellness',
+        subCategory: target.dataset.rfqSubcat || "Men's Toys",
+        vendor: target.dataset.rfqVendor || 'BOHOL Direct OEM',
+        quantity: parseInt(target.dataset.rfqQty || '50', 10) || 50,
+        packaging: target.dataset.rfqPack || '100% Discreet Box'
+      };
+
+      addToRfqCart(item);
+      syncCardButtons();
+
+      // Show toast or open drawer
+      const drawer = document.getElementById('rfq-drawer');
+      if (drawer) {
+        drawer.hidden = false;
+        drawer.classList.add('active');
+        document.body.style.overflow = 'hidden';
+      }
+    });
+
+    window.addEventListener('rfq-cart-updated', syncCardButtons);
+    syncCardButtons();
+  </script>
+
+  <!-- B2B Multi-Product RFQ Slide-Over Drawer -->
+  <RfqCartDrawer />
+
+  <!-- 18+ Adult Age Verification Gatekeeper -->
+  <AgeGateModal />
+
+  <!-- GDPR & CCPA Cookie Preferences Banner -->
+  <CookieBanner />
+</body>
+</html>

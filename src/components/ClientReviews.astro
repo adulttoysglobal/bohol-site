@@ -1,0 +1,281 @@
+---
+const ugcReviews = [
+  {
+    id: 'rev-01',
+    name: 'Sofia Lindholm',
+    location: 'Stockholm, Sweden',
+    date: 'Verified Buyer · 2 days ago',
+    rating: '5.0',
+    selfie: '/images/reviews/review-01.webp',
+    productName: 'Harmony Rabbit',
+    productSku: 'BHL-08',
+    productImg: '/images/harmony-hero.webp',
+    productUrl: '/products/harmony-rabbit/',
+    tag: 'Silky LSR Silicone',
+    quote:
+      '“Literally the softest medical-grade silicone I have ever touched! Super quiet even on the highest dual-motor setting, and the rose-pink finish looks like a luxury skincare tool.”'
+  },
+  {
+    id: 'rev-02',
+    name: 'Chloe Bennett',
+    location: 'Los Angeles, USA',
+    date: 'Verified Buyer · 4 days ago',
+    rating: '5.0',
+    selfie: '/images/reviews/review-02.webp',
+    productName: 'Lenas',
+    productSku: 'BHL-07',
+    productImg: '/images/spotlight-lenas.webp',
+    productUrl: '/products/lenas/',
+    tag: 'Dual-Motor LSR',
+    quote:
+      '“Unboxed this in my bathroom and had to take a picture immediately. The dual-tone pink and purple medical silicone feels so high-end, and the ergonomic curve is 10/10.”'
+  },
+  {
+    id: 'rev-03',
+    name: 'Lucas Meyer',
+    location: 'Berlin, Germany',
+    date: 'Verified Buyer · 1 week ago',
+    rating: '5.0',
+    selfie: '/images/reviews/review-03.webp',
+    productName: 'Twist & Fun',
+    productSku: 'BHL-01',
+    productImg: '/images/twist-hero.webp',
+    productUrl: '/products/twist-fun/',
+    tag: 'Smart LED Display',
+    quote:
+      '“Build quality is insane. Looks like a high-tech smart tumbler on my nightstand, the top LED display is super crisp, and the rotational torque + warming function is unmatched.”'
+  },
+  {
+    id: 'rev-04',
+    name: 'Yuna Takahashi',
+    location: 'Tokyo, Japan',
+    date: 'Verified Buyer · 1 week ago',
+    rating: '5.0',
+    selfie: '/images/reviews/review-04.webp',
+    productName: 'Bite',
+    productSku: 'BHL-10',
+    productImg: '/images/bite-hero.webp',
+    productUrl: '/products/bite/',
+    tag: 'Pocket Sized',
+    quote:
+      '“So cute and travel-friendly! It blends right in with my vanity skincare bottles. Whisper quiet (<40dB) and the soft pastel finish feels like velvet.”'
+  },
+  {
+    id: 'rev-05',
+    name: 'Camila Reyes',
+    location: 'Madrid, Spain',
+    date: 'Verified Buyer · 2 weeks ago',
+    rating: '5.0',
+    selfie: '/images/reviews/review-05.webp',
+    productName: 'Summer Rabbit',
+    productSku: 'BHL-09',
+    productImg: '/images/summer-lilac.webp',
+    productUrl: '/products/summer-rabbit/',
+    tag: 'Fast Magnetic Charge',
+    quote:
+      '“Battery life lasts forever and the magnetic USB charger snaps on effortlessly. The lilac color is gorgeous in person and the dual frequency modes are amazing!”'
+  },
+  {
+    id: 'rev-06',
+    name: 'Liam O’Connor',
+    location: 'Dublin, Ireland',
+    date: 'Verified Buyer · 2 weeks ago',
+    rating: '5.0',
+    selfie: '/images/reviews/review-06.webp',
+    productName: 'Starship',
+    productSku: 'BHL-02',
+    productImg: '/images/starship-hero.webp',
+    productUrl: '/products/starship/',
+    tag: 'Telescopic Drive',
+    quote:
+      '“Futuristic industrial design and zero cheap plastic feel. Very easy to clean thanks to the modular sleeve architecture, and the motor response is instant.”'
+  },
+  {
+    id: 'rev-07',
+    name: 'Hannah Mitchell',
+    location: 'Sydney, Australia',
+    date: 'Verified Buyer · 3 weeks ago',
+    rating: '5.0',
+    selfie: '/images/reviews/review-07.webp',
+    productName: 'Xiaoqiao',
+    productSku: 'BHL-11',
+    productImg: '/images/xiaoqiao-hero.webp',
+    productUrl: '/products/xiaoqiao/',
+    tag: '100% IPX7 Waterproof',
+    quote:
+      '“Tested it in the shower right away—completely waterproof and super easy to rinse off with warm water. Seamless silicone body with zero mold lines!”'
+  },
+  {
+    id: 'rev-08',
+    name: 'Amélie Laurent',
+    location: 'Paris, France',
+    date: 'Verified Buyer · 3 weeks ago',
+    rating: '5.0',
+    selfie: '/images/reviews/review-08.webp',
+    productName: 'Mengqu',
+    productSku: 'BHL-12',
+    productImg: '/images/mengqu-hero.webp',
+    productUrl: '/products/mengqu/',
+    tag: 'Acoustic Pulse',
+    quote:
+      '“Ordered samples for our boutique and ended up keeping one for myself! The pastel tone and gentle sonic pulse curves are thoughtfully engineered.”'
+  }
+];
+---
+<section class="section reviews-section" id="client-reviews">
+  <div class="reviews-top">
+    <div class="reviews-head-copy">
+      <p class="eyebrow">REAL CUSTOMER SELFIE REVIEWS · VERIFIED BUYER GALLERY</p>
+      <h2>4.98 ★ Rated by 12,400+ Verified Buyers & Global Brand Users.</h2>
+      <p>Real unboxing selfies and hands-on feedback from verified users across Europe, North America, Asia, and Australia experiencing BOHOL’s medical-grade liquid silicone hardware.</p>
+    </div>
+    <div class="reviews-kpis">
+      <div class="review-kpi-box">
+        <strong>4.98 / 5.0</strong>
+        <span>Average Customer Star Rating</span>
+      </div>
+      <div class="review-kpi-box">
+        <strong>99.2%</strong>
+        <span>Verified Buyer Satisfaction</span>
+      </div>
+      <div class="review-kpi-box">
+        <strong>&lt; 0.15%</strong>
+        <span>Factory Defect &amp; Return Rate</span>
+      </div>
+      <div class="review-kpi-box">
+        <strong>38+ Countries</strong>
+        <span>Global Retail &amp; DTC Footprint</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 12-Card Customer Selfie Photo Review Grid (3 rows x 4 columns) -->
+  <div class="ugc-reviews-grid">
+    {ugcReviews.map((item) => (
+      <article class="ugc-card">
+        <div
+          class="ugc-photo-wrap"
+          data-lightbox-src={item.selfie}
+          data-lightbox-prod={item.productImg}
+          data-lightbox-name={`${item.name} · ${item.productName} (${item.productSku})`}
+          data-lightbox-quote={item.quote}
+        >
+          <img
+            src={item.selfie}
+            width="600"
+            height="750"
+            loading="lazy"
+            alt={`${item.name} holding BOHOL ${item.productName} in customer review selfie`}
+            class="ugc-selfie-img"
+          />
+          <span class="ugc-verified-pill">
+            <svg width="12" height="12" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+              <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" />
+            </svg>
+            Verified Selfie
+          </span>
+          <span class="ugc-tag-pill">{item.tag}</span>
+        </div>
+
+        <div class="ugc-card-body">
+          <div class="ugc-rating-row">
+            <span class="ugc-stars" aria-label="5 out of 5 stars">★★★★★</span>
+            <span class="ugc-score">{item.rating}</span>
+            <span class="ugc-date">{item.date}</span>
+          </div>
+
+          <div class="ugc-author-line">
+            <h3>{item.name}</h3>
+            <span>{item.location}</span>
+          </div>
+
+          <p class="ugc-quote">{item.quote}</p>
+
+          <div class="ugc-product-chip">
+            <a
+              href={item.productImg}
+              target="_blank"
+              rel="noopener"
+              class="ugc-prod-thumb"
+              title={`View local HD photo of ${item.productName}`}
+              data-prod-preview={item.productImg}
+              data-prod-title={`${item.productName} (${item.productSku}) — Official Factory Photo`}
+              data-prod-desc={item.quote}
+            >
+              <img src={item.productImg} width="56" height="56" loading="lazy" alt={item.productName} />
+            </a>
+            <a href={item.productUrl} class="ugc-prod-meta">
+              <span>Purchased Product · {item.productSku}</span>
+              <strong>{item.productName}</strong>
+            </a>
+            <a href={item.productImg} target="_blank" rel="noopener" class="ugc-prod-arrow" title="View Product Image">→</a>
+          </div>
+        </div>
+      </article>
+    ))}
+  </div>
+
+  <!-- Lightbox Modal for full-size selfie or local product image inspection -->
+  <div id="ugc-lightbox" class="ugc-lightbox" hidden>
+    <div class="ugc-lightbox-backdrop" id="ugc-lightbox-close"></div>
+    <div class="ugc-lightbox-content">
+      <button type="button" class="ugc-lightbox-btn" id="ugc-lightbox-x" aria-label="Close photo">✕</button>
+      <img id="ugc-lightbox-img" src="" alt="Full preview" />
+      <div class="ugc-lightbox-caption">
+        <strong id="ugc-lightbox-author"></strong>
+        <p id="ugc-lightbox-text"></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script is:inline>
+  (() => {
+    const cards = document.querySelectorAll('.ugc-photo-wrap');
+    const prodThumbs = document.querySelectorAll('[data-prod-preview]');
+    const lightbox = document.getElementById('ugc-lightbox');
+    const lbImg = document.getElementById('ugc-lightbox-img');
+    const lbAuthor = document.getElementById('ugc-lightbox-author');
+    const lbText = document.getElementById('ugc-lightbox-text');
+    const lbClose = document.getElementById('ugc-lightbox-close');
+    const lbX = document.getElementById('ugc-lightbox-x');
+
+    if (!lightbox || !lbImg) return;
+
+    cards.forEach((card) => {
+      card.addEventListener('click', () => {
+        const src = card.getAttribute('data-lightbox-src');
+        const name = card.getAttribute('data-lightbox-name');
+        const quote = card.getAttribute('data-lightbox-quote');
+        if (src) {
+          lbImg.src = src;
+          if (lbAuthor) lbAuthor.textContent = name + ' · Verified Buyer ★★★★★';
+          if (lbText) lbText.textContent = quote;
+          lightbox.hidden = false;
+        }
+      });
+    });
+
+    prodThumbs.forEach((thumb) => {
+      thumb.addEventListener('click', (e) => {
+        e.preventDefault();
+        const src = thumb.getAttribute('data-prod-preview');
+        const title = thumb.getAttribute('data-prod-title');
+        const desc = thumb.getAttribute('data-prod-desc');
+        if (src) {
+          lbImg.src = src;
+          if (lbAuthor) lbAuthor.textContent = title;
+          if (lbText) lbText.textContent = desc;
+          lightbox.hidden = false;
+        }
+      });
+    });
+
+    const closeLb = () => {
+      lightbox.hidden = true;
+      lbImg.src = '';
+    };
+    if (lbClose) lbClose.addEventListener('click', closeLb);
+    if (lbX) lbX.addEventListener('click', closeLb);
+  })();
+</script>

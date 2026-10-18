@@ -1,0 +1,84 @@
+{
+  "name": "Mengqu",
+  "subtitle": "Small form. Distinct personality.",
+  "description": "A compact personal wellness device with a cat-inspired silhouette and a matching stand. The product specification lists nine vibration settings, nine suction settings and app connectivity. Available in white and pink variants.",
+  "category": "Compact",
+  "label": "COMPACT WELLNESS",
+  "order": 9,
+  "featured": false,
+  "image": "/images/mengqu-hero.webp",
+  "gallery": [
+    "/images/mengqu-hero.webp",
+    "/images/mengqu-side.webp",
+    "/images/mengqu-pink.webp",
+    "/images/9rabbit/products/mengqu-gallery-view2.webp",
+    "/images/9rabbit/products/mengqu-gallery-view3.webp"
+  ],
+  "features": [
+    "Matching stand",
+    "9 vibration settings",
+    "9 suction settings"
+  ],
+  "specs": [
+    {
+      "label": "Models",
+      "value": "MZB-WT054 (white) / MZB-WT055 (pink)"
+    },
+    {
+      "label": "Dimensions",
+      "value": "96 × 69 × 54 mm"
+    },
+    {
+      "label": "Weight",
+      "value": "105.2 g"
+    },
+    {
+      "label": "Materials",
+      "value": "ABS + silicone"
+    },
+    {
+      "label": "Charging time",
+      "value": "Approximately 40 minutes"
+    },
+    {
+      "label": "Listed runtime",
+      "value": "Approximately 100 minutes"
+    },
+    {
+      "label": "Packaging dimensions",
+      "value": "97 × 72 × 62 mm"
+    }
+  ],
+  "seoTitle": "Mengqu — product details and specifications",
+  "seoDescription": "A compact personal wellness device with a cat-inspired silhouette and a matching stand. The product specification lists nine vibration settings, nine sucti",
+  "note": "Specifications follow the supplied Mengqu product specification. Runtime and charging times are approximate. App availability and connectivity depend on the exact model and region.",
+  "subCategory": "Women's Toys",
+  "vendor": "BOHOL Direct OEM",
+  "detailImages": [
+    "/images/9rabbit/details/mengqu-s01-hero.webp",
+    "/images/9rabbit/details/mengqu-s02-bento.webp",
+    "/images/9rabbit/details/mengqu-s03-anatomy.webp",
+    "/images/9rabbit/details/mengqu-s04-performance.webp",
+    "/images/9rabbit/details/mengqu-s05-material.webp",
+    "/images/9rabbit/details/mengqu-s07-blueprint.webp",
+    "/images/9rabbit/details/mengqu-s08-guide.webp"
+  ],
+  "highlights": [
+    {
+      "title": "Authentic Global Quality & Direct Factory QC",
+      "body": "Every unit of Mengqu undergoes multi-stage inspection for structural durability, surface finish, and material biocompatibility before international dispatch."
+    },
+    {
+      "title": "Body-Safe Certified Materials",
+      "body": "Crafted with medical-grade silicone, CyberSkin TPE, tempered borosilicate glass, or skin-friendly couture fabrics—free from phthalates, latex allergens, and heavy metals."
+    },
+    {
+      "title": "100% Discreet Unmarked Fulfillment",
+      "body": "Packaged in plain protective boxes with confidential shipping labels. Available for immediate North America & global express delivery."
+    },
+    {
+      "title": "Wholesale & Private-Label OEM Ready",
+      "body": "Supported by our 35,000 m² ISO-certified manufacturing base with custom laser logo engraving, Pantone color matching, and multilingual retail box customization."
+    }
+  ]
+}

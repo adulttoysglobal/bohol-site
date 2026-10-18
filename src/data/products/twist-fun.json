@@ -1,0 +1,84 @@
+{
+  "name": "Twist & Fun",
+  "subtitle": "Movement, in a new direction.",
+  "description": "A black cylindrical personal wellness device that combines twisting and telescopic movement. A transparent window reveals the inner construction, while front-facing buttons and an LCD display keep the controls in view.",
+  "category": "Electric",
+  "label": "TWISTING + TELESCOPIC",
+  "order": 1,
+  "featured": true,
+  "image": "/images/twist-front.webp",
+  "gallery": [
+    "/images/twist-hero.webp",
+    "/images/twist-front.webp",
+    "/images/twist-side.webp",
+    "/images/twist-back.webp",
+    "/images/9rabbit/products/twist-fun-gallery-view2.webp"
+  ],
+  "features": [
+    "Twisting + telescopic motion",
+    "LCD display",
+    "USB-C charging"
+  ],
+  "specs": [
+    {
+      "label": "Dimensions",
+      "value": "11.81 × 3.70 × 3.70 in"
+    },
+    {
+      "label": "Weight",
+      "value": "900 g"
+    },
+    {
+      "label": "Materials",
+      "value": "ABS + TPE"
+    },
+    {
+      "label": "Charging port",
+      "value": "USB-C"
+    },
+    {
+      "label": "Charging time",
+      "value": "3 hours"
+    },
+    {
+      "label": "Listed battery life",
+      "value": "40 minutes"
+    },
+    {
+      "label": "Battery capacity",
+      "value": "1500 mAh"
+    }
+  ],
+  "seoTitle": "Twist & Fun electric male wellness device — specifications",
+  "seoDescription": "Explore the Twist & Fun male wellness device: twisting and telescopic movement, an LCD display, USB-C charging, dimensions and product photography.",
+  "note": "Specifications are taken from the product information sheet. Battery life varies with settings and use. Refer to the supplied manual for operating and care instructions.",
+  "subCategory": "Men's Toys",
+  "vendor": "BOHOL Direct OEM",
+  "detailImages": [
+    "/images/9rabbit/details/twist-fun-s01-hero.webp",
+    "/images/9rabbit/details/twist-fun-s02-bento.webp",
+    "/images/9rabbit/details/twist-fun-s03-anatomy.webp",
+    "/images/9rabbit/details/twist-fun-s04-performance.webp",
+    "/images/9rabbit/details/twist-fun-s05-material.webp",
+    "/images/9rabbit/details/twist-fun-s07-blueprint.webp",
+    "/images/9rabbit/details/twist-fun-s08-guide.webp"
+  ],
+  "highlights": [
+    {
+      "title": "Authentic Global Quality & Direct Factory QC",
+      "body": "Every unit of Twist & Fun undergoes multi-stage inspection for structural durability, surface finish, and material biocompatibility before international dispatch."
+    },
+    {
+      "title": "Body-Safe Certified Materials",
+      "body": "Crafted with medical-grade silicone, CyberSkin TPE, tempered borosilicate glass, or skin-friendly couture fabrics—free from phthalates, latex allergens, and heavy metals."
+    },
+    {
+      "title": "100% Discreet Unmarked Fulfillment",
+      "body": "Packaged in plain protective boxes with confidential shipping labels. Available for immediate North America & global express delivery."
+    },
+    {
+      "title": "Wholesale & Private-Label OEM Ready",
+      "body": "Supported by our 35,000 m² ISO-certified manufacturing base with custom laser logo engraving, Pantone color matching, and multilingual retail box customization."
+    }
+  ]
+}

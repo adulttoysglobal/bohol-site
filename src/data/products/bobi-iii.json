@@ -1,0 +1,68 @@
+{
+  "name": "Bobi III",
+  "subtitle": "Designed to adapt.",
+  "description": "An open-frame personal wellness device with a curved body and an adjustable strap. Explore the shape and construction from multiple angles, including the exterior controls and flexible ring assembly.",
+  "category": "Adaptive",
+  "label": "FLEXIBLE FORM",
+  "order": 4,
+  "featured": true,
+  "image": "/images/bobi-hero.webp",
+  "gallery": [
+    "/images/bobi-hero.webp",
+    "/images/bobi-front.webp",
+    "/images/bobi-side.webp",
+    "/images/9rabbit/products/bobi-iii-gallery-view2.webp",
+    "/images/9rabbit/products/bobi-iii-gallery-view3.webp"
+  ],
+  "features": [
+    "Open-frame design",
+    "Adjustable strap",
+    "Exterior controls"
+  ],
+  "specs": [
+    {
+      "label": "Series",
+      "value": "Bobi III"
+    },
+    {
+      "label": "Color shown",
+      "value": "Black"
+    },
+    {
+      "label": "Construction",
+      "value": "Open frame with adjustable strap"
+    }
+  ],
+  "seoTitle": "Bobi III personal wellness device — product design",
+  "seoDescription": "Explore Bobi III product photography, an open-frame design, adjustable strap and exterior controls. View the device from multiple angles.",
+  "note": "This page describes the visible product design. Consult the supplied product manual for model-specific technical specifications and operating instructions.",
+  "subCategory": "Men's Toys",
+  "vendor": "BOHOL Direct OEM",
+  "detailImages": [
+    "/images/9rabbit/details/bobi-iii-s01-hero.webp",
+    "/images/9rabbit/details/bobi-iii-s02-bento.webp",
+    "/images/9rabbit/details/bobi-iii-s03-anatomy.webp",
+    "/images/9rabbit/details/bobi-iii-s04-performance.webp",
+    "/images/9rabbit/details/bobi-iii-s05-material.webp",
+    "/images/9rabbit/details/bobi-iii-s07-blueprint.webp",
+    "/images/9rabbit/details/bobi-iii-s08-guide.webp"
+  ],
+  "highlights": [
+    {
+      "title": "Authentic Global Quality & Direct Factory QC",
+      "body": "Every unit of Bobi III undergoes multi-stage inspection for structural durability, surface finish, and material biocompatibility before international dispatch."
+    },
+    {
+      "title": "Body-Safe Certified Materials",
+      "body": "Crafted with medical-grade silicone, CyberSkin TPE, tempered borosilicate glass, or skin-friendly couture fabrics—free from phthalates, latex allergens, and heavy metals."
+    },
+    {
+      "title": "100% Discreet Unmarked Fulfillment",
+      "body": "Packaged in plain protective boxes with confidential shipping labels. Available for immediate North America & global express delivery."
+    },
+    {
+      "title": "Wholesale & Private-Label OEM Ready",
+      "body": "Supported by our 35,000 m² ISO-certified manufacturing base with custom laser logo engraving, Pantone color matching, and multilingual retail box customization."
+    }
+  ]
+}

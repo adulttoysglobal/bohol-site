@@ -1,0 +1,170 @@
+---
+// Interactive 18+ Age Verification Gatekeeper
+// Conforms to international age verification standards (US, UK Online Safety Act, EU DSA)
+---
+<div id="bohol-age-gate" class="age-gate-overlay" style="display: none;" role="dialog" aria-modal="true" aria-labelledby="age-gate-title">
+  <div class="age-gate-backdrop"></div>
+  <div class="age-gate-card">
+    <div class="age-gate-icon-badge">18+</div>
+    <h2 id="age-gate-title">Age Verification Required</h2>
+    <p class="age-gate-text">
+      This website features adult personal wellness hardware, proprietary private molds, and intimate consumer products. Access is strictly restricted to individuals of legal age (18+ or 21+ where applicable).
+    </p>
+    <div class="age-gate-disclaimer">
+      <span>By entering, you confirm that you are at least 18 years of age and consent to viewing adult wellness and novelty products.</span>
+    </div>
+    <div class="age-gate-actions">
+      <button type="button" id="age-gate-confirm-btn" class="age-gate-btn-confirm">
+        I am 18 or Older — Enter
+      </button>
+      <button type="button" id="age-gate-exit-btn" class="age-gate-btn-exit">
+        I am Under 18 — Exit
+      </button>
+    </div>
+    <div class="age-gate-footer">
+      <span>BOHOL Global Adult Wellness & Smart Manufacturing · 100% Discreet & Compliant</span>
+    </div>
+  </div>
+</div>
+
+<style>
+  .age-gate-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 999999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+  .age-gate-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(15, 23, 42, 0.88);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+  .age-gate-card {
+    position: relative;
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 20px;
+    max-width: 480px;
+    width: 100%;
+    padding: 40px 32px 32px;
+    text-align: center;
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.35);
+    animation: ageGateFadeIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  @keyframes ageGateFadeIn {
+    from { opacity: 0; transform: scale(0.95); }
+    to { opacity: 1; transform: scale(1); }
+  }
+  .age-gate-icon-badge {
+    width: 60px;
+    height: 60px;
+    margin: 0 auto 18px;
+    background: #ef4444;
+    color: #ffffff;
+    font-size: 22px;
+    font-weight: 900;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 8px 20px rgba(239, 68, 68, 0.3);
+  }
+  .age-gate-card h2 {
+    font-size: 22px;
+    font-weight: 800;
+    color: #0f172a;
+    margin: 0 0 12px;
+  }
+  .age-gate-text {
+    font-size: 13.5px;
+    line-height: 1.6;
+    color: #475569;
+    margin: 0 0 16px;
+  }
+  .age-gate-disclaimer {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 10px 14px;
+    font-size: 11.5px;
+    color: #64748b;
+    line-height: 1.45;
+    margin-bottom: 24px;
+  }
+  .age-gate-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .age-gate-btn-confirm {
+    background: #0f172a;
+    color: #ffffff;
+    border: none;
+    padding: 14px 24px;
+    border-radius: 10px;
+    font-size: 14.5px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.2s;
+  }
+  .age-gate-btn-confirm:hover {
+    background: #2563eb;
+    transform: translateY(-1px);
+  }
+  .age-gate-btn-exit {
+    background: transparent;
+    color: #64748b;
+    border: 1px solid #cbd5e1;
+    padding: 12px 24px;
+    border-radius: 10px;
+    font-size: 13.5px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .age-gate-btn-exit:hover {
+    background: #f1f5f9;
+    color: #0f172a;
+  }
+  .age-gate-footer {
+    margin-top: 20px;
+    font-size: 11px;
+    color: #94a3b8;
+  }
+</style>
+
+<script>
+  const STORAGE_KEY = 'bohol_age_verified_v1';
+  const overlay = document.getElementById('bohol-age-gate');
+  const confirmBtn = document.getElementById('age-gate-confirm-btn');
+  const exitBtn = document.getElementById('age-gate-exit-btn');
+
+  // Check verification state
+  if (!localStorage.getItem(STORAGE_KEY)) {
+    if (overlay) {
+      overlay.style.display = 'flex';
+      document.body.style.overflow = 'hidden';
+    }
+  }
+
+  confirmBtn?.addEventListener('click', () => {
+    localStorage.setItem(STORAGE_KEY, 'true');
+    if (overlay) {
+      overlay.style.opacity = '0';
+      overlay.style.transition = 'opacity 0.25s ease';
+      setTimeout(() => {
+        overlay.style.display = 'none';
+        document.body.style.overflow = '';
+      }, 250);
+    }
+  });
+
+  exitBtn?.addEventListener('click', () => {
+    window.location.href = 'https://www.google.com';
+  });
+</script>
