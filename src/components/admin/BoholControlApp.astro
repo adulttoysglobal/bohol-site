@@ -108,7 +108,7 @@ const totalPagesCount = corePages.length + products.length + journal.length;
   </div>
 
   <script is:inline>
-    // Immediate synchronous auth check (prevents blank screen)
+    // Immediate auth check
     (function() {
       try {
         var token = localStorage.getItem('atg_admin_auth_session') || sessionStorage.getItem('atg_admin_auth_session');
@@ -119,14 +119,21 @@ const totalPagesCount = corePages.length + products.length + journal.length;
             isAuth = true;
           }
         }
-        var gate = document.getElementById('admin-auth-gate');
-        var app = document.getElementById('bc-admin-app-layout');
-        if (isAuth) {
-          if (app) app.style.display = 'flex';
-          if (gate) gate.style.display = 'none';
+        function applyEarlyAuth() {
+          var gate = document.getElementById('admin-auth-gate');
+          var app = document.getElementById('bc-admin-app-layout');
+          if (isAuth) {
+            if (app) app.style.display = 'flex';
+            if (gate) gate.style.display = 'none';
+          } else {
+            if (gate) gate.style.display = 'flex';
+            if (app) app.style.display = 'none';
+          }
+        }
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', applyEarlyAuth);
         } else {
-          if (gate) gate.style.display = 'flex';
-          if (app) app.style.display = 'none';
+          applyEarlyAuth();
         }
       } catch(e) {
         var g = document.getElementById('admin-auth-gate');
@@ -3482,7 +3489,7 @@ USB Type-C rechargeable</textarea>
     }
 
     // Save Microsoft Clarity Project ID
-    const inputClarityId = document.getElementById('cfg-clarity-id') as HTMLInputElement | null;
+    const inputClarityId = document.getElementById('cfg-clarity-id');
     const btnSaveClarity = document.getElementById('btn-save-clarity');
     const savedClarityId = localStorage.getItem('atg_clarity_id');
     if (savedClarityId && inputClarityId) inputClarityId.value = savedClarityId;
