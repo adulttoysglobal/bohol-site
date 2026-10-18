@@ -523,7 +523,7 @@
 
 .sf-collection-card__info p {
   font-size: 13px;
-  color: #666666;
+  color: #334155;
   margin-top: 4px;
 }
 
@@ -544,7 +544,7 @@
 
 .sf-section__description {
   font-size: 15.5px;
-  color: #666666;
+  color: #334155;
   margin: 0;
 }
 
@@ -583,7 +583,7 @@
 .filter-chip span {
   font-size: 11px;
   background: #f7f8fa;
-  color: #666666;
+  color: #334155;
   padding: 2px 7px;
   border-radius: 4px;
 }
@@ -1063,7 +1063,7 @@
 .ugc-date {
   margin-left: auto;
   font-size: 11px;
-  color: #64748b;
+  color: #334155;
   font-weight: 600;
 }
 
@@ -1141,7 +1141,7 @@
 .ugc-prod-meta span {
   font-size: 10px;
   font-weight: 700;
-  color: #64748b;
+  color: #334155;
   text-transform: uppercase;
   letter-spacing: 0.04em;
 }
@@ -1439,7 +1439,7 @@
 
 .rfq-nda-note {
   font-size: 11.5px;
-  color: #666666;
+  color: #334155;
   font-weight: 500;
 }
 
@@ -1500,7 +1500,7 @@
 }
 
 .footer-brand > p {
-  color: #64748b;
+  color: #334155;
   margin-top: 14px;
   font-size: 13.5px;
   line-height: 1.7;
@@ -2742,7 +2742,7 @@
 }
 .pillar-desc {
   font-size: 12.5px;
-  color: #64748b;
+  color: #334155;
   line-height: 1.5;
   margin: 0 0 14px;
 }
@@ -2831,7 +2831,7 @@
 }
 .ecosystem-step p {
   font-size: 13.5px;
-  color: #64748b;
+  color: #334155;
   line-height: 1.6;
   margin: 0;
 }
@@ -4277,7 +4277,7 @@
 
 .footer-social-copy p {
   font-size: 12.5px;
-  color: #64748b;
+  color: #334155;
   margin: 0;
   max-width: 580px;
   line-height: 1.5;
@@ -4544,7 +4544,7 @@
 
 .b2b-subheading {
   font-size: 15.5px;
-  color: #64748b;
+  color: #334155;
   line-height: 1.65;
   max-width: 880px;
   margin: 0;
@@ -4596,7 +4596,7 @@
 
 .b2b-perk-item p {
   font-size: 13.5px;
-  color: #64748b;
+  color: #334155;
   line-height: 1.55;
   margin: 0 0 16px;
   flex-grow: 1;
@@ -4634,7 +4634,7 @@
 
 .b2b-cta-left span {
   font-size: 14px;
-  color: #64748b;
+  color: #334155;
 }
 
 .b2b-cta-actions {
@@ -4701,7 +4701,7 @@
 
 .b2b-cred-item p {
   font-size: 12px;
-  color: #64748b;
+  color: #334155;
   margin: 2px 0 0;
 }
 

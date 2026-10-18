@@ -35,7 +35,7 @@
     --bg-pod: #f7f8fa;
     --ink: #171717;
     --ink-soft: #161d25;
-    --muted: #666666;
+    --muted: #334155;
     --accent: #219dbb;
     --accent-hover: #187187;
     --accent-soft: rgba(33, 157, 187, 0.1);
@@ -936,11 +936,12 @@
     flex-wrap: wrap;
     gap: 16px;
     font-size: 12.5px;
-    color: #64748b;
+    color: #334155;
   }
   .footer-bottom a {
-    color: #475569;
+    color: #334155;
     text-decoration: none;
+    font-weight: 600;
   }
   .footer-bottom a:hover {
     color: #2563eb;

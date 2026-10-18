@@ -34,14 +34,14 @@ const languages = [
     </svg>
   </button>
 
-  <div class="sf-lang-dropdown" id="bohol-lang-dropdown-menu" role="menu">
+  <div class="sf-lang-dropdown" id="bohol-lang-dropdown-menu">
     <div class="sf-lang-dropdown-header">
       <span>Global Language / Region</span>
     </div>
     <ul class="sf-lang-list">
       {languages.map((lang) => (
         <li>
-          <button type="button" class="sf-lang-option" data-lang={lang.code} role="menuitem">
+          <button type="button" class="sf-lang-option" data-lang={lang.code}>
             <span class="sf-lang-flag">{lang.flag}</span>
             <span class="sf-lang-name">{lang.label}</span>
             <span class="sf-lang-code">{lang.code.toUpperCase()}</span>

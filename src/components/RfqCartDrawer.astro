@@ -153,7 +153,8 @@ import settings from '../data/settings.json';
         </div>
 
         <!-- Honeypot -->
-        <input type="text" name="website_hp" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px;opacity:0;height:0;width:0" />
+        <label for="rfq-website-hp" style="position:absolute;left:-9999px;opacity:0;height:0;width:0;overflow:hidden">Do not fill this field</label>
+        <input type="text" id="rfq-website-hp" name="website_hp" aria-label="Do not fill this field" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px;opacity:0;height:0;width:0" />
 
         <!-- Status Message Box -->
         <div id="rfq-submit-status" class="rfq-submit-status" hidden></div>

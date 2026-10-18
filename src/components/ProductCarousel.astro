@@ -122,12 +122,11 @@ const slides = [
 
 <section class="hero-command sf-hero-b2b" aria-label="BOHOL Enterprise Hero Spotlight">
   <div class="hero-container">
-    <div class="hero-slides" role="region" aria-roledescription="carousel" aria-label="BOHOL Strategic Solutions">
+    <div class="hero-slides" aria-label="BOHOL Strategic Solutions">
       {slides.map((slide, index) => (
         <article
           class={`product-slide ${slide.themeClass}`}
           hidden={index !== 0}
-          aria-roledescription="slide"
           aria-label={`${index + 1} of ${slides.length}: ${slide.name}`}
         >
           <div class="slide-copy">
@@ -206,7 +205,7 @@ const slides = [
 
     <!-- Carousel Nav Tabs -->
     <div class="carousel-bar">
-      <div class="carousel-tabs" role="tablist" aria-label="Select solution slide">
+      <nav class="carousel-tabs" aria-label="Select solution slide">
         {slides.map((slide, index) => (
           <button
             type="button"
@@ -219,7 +218,7 @@ const slides = [
             <span class="tab-name">{slide.name}</span>
           </button>
         ))}
-      </div>
+      </nav>
       <div class="carousel-actions">
         <button type="button" class="ctrl-btn" data-previous aria-label="Previous slide">&larr;</button>
         <button type="button" class="ctrl-btn" data-next aria-label="Next slide">&rarr;</button>

@@ -437,7 +437,8 @@ const websiteSchema = {
 
       <!-- Currency Switcher (USD / CAD / GBP / EUR) -->
       <div class="sf-currency-box">
-        <select aria-label="Currency selector" class="sf-currency-select">
+        <label for="sf-currency-select" style="position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden">Select currency</label>
+        <select id="sf-currency-select" aria-label="Currency selector" class="sf-currency-select">
           <option value="USD">USD $</option>
           <option value="CAD">CAD $</option>
           <option value="GBP">GBP £</option>
@@ -481,6 +482,7 @@ const websiteSchema = {
           <img src="/images/bohol-logo-horiz-dark.webp" width="120" height="42" alt="BOHOL" />
         </a>
         <form action="/products/" method="get" class="sf-search-form-bar">
+          <label for="sf-search-input" style="position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden">Search our store</label>
           <input
             type="search"
             name="q"
