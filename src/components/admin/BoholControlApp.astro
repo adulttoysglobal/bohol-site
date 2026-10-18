@@ -30,7 +30,7 @@ function getMoq(prod: any) {
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="robots" content="noindex, nofollow" />
-  <title>BOHOL 网站管理</title>
+  <title>Adult Toys Global 网站管理后台</title>
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 </head>
 <body class="bc-body">
@@ -38,7 +38,7 @@ function getMoq(prod: any) {
   <div id="admin-auth-gate" class="bc-auth-gate" style="display:none;">
     <div class="bc-auth-card">
       <div class="bc-auth-icon">🛡️</div>
-      <h2 class="bc-auth-title">BOHOL / ATG 管理控制台</h2>
+      <h2 class="bc-auth-title">Adult Toys Global 管理控制台</h2>
       <p class="bc-auth-subtitle">受保护的管理页面 · 请输入访问授权密码</p>
 
       <form id="admin-auth-form" class="bc-auth-form" onsubmit="return false;">
@@ -74,8 +74,8 @@ function getMoq(prod: any) {
     <!-- Sidebar Navigation -->
     <aside class="bc-sidebar">
       <div class="bc-sidebar-brand">
-        <h1 class="bc-brand-title">BOHOL</h1>
-        <p class="bc-brand-subtitle">网站管理</p>
+        <h1 class="bc-brand-title" style="font-size:16px; line-height:1.2; letter-spacing:-0.2px;">Adult Toys Global</h1>
+        <p class="bc-brand-subtitle">外贸综合管理后台</p>
       </div>
 
       <nav class="bc-nav-list" id="bc-nav">
@@ -2641,11 +2641,31 @@ USB Type-C rechargeable</textarea>
       });
     }
 
-    // Save Settings
+    // Load and Save Settings (企业基础信息与官方联系方式)
+    const inputCompany = document.getElementById('cfg-company-name') as HTMLInputElement | null;
+    const inputSiteUrl = document.getElementById('cfg-site-url') as HTMLInputElement | null;
+    const inputEmail = document.getElementById('cfg-email') as HTMLInputElement | null;
+    const inputWa = document.getElementById('cfg-whatsapp') as HTMLInputElement | null;
+
+    // Restore saved custom settings if exist
+    const savedCfgCompany = localStorage.getItem('atg_cfg_company');
+    const savedCfgUrl = localStorage.getItem('atg_cfg_url');
+    const savedCfgEmail = localStorage.getItem('atg_cfg_email');
+    const savedCfgWa = localStorage.getItem('atg_cfg_whatsapp');
+
+    if (savedCfgCompany && inputCompany) inputCompany.value = savedCfgCompany;
+    if (savedCfgUrl && inputSiteUrl) inputSiteUrl.value = savedCfgUrl;
+    if (savedCfgEmail && inputEmail) inputEmail.value = savedCfgEmail;
+    if (savedCfgWa && inputWa) inputWa.value = savedCfgWa;
+
     const btnSaveSettings = document.getElementById('btn-save-settings');
     if (btnSaveSettings) {
       btnSaveSettings.addEventListener('click', () => {
-        showToast('设置已保存');
+        if (inputCompany) localStorage.setItem('atg_cfg_company', inputCompany.value.trim());
+        if (inputSiteUrl) localStorage.setItem('atg_cfg_url', inputSiteUrl.value.trim());
+        if (inputEmail) localStorage.setItem('atg_cfg_email', inputEmail.value.trim());
+        if (inputWa) localStorage.setItem('atg_cfg_whatsapp', inputWa.value.trim());
+        showToast('✅ 企业与官方联系信息已成功保存！');
       });
     }
 
