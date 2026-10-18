@@ -123,6 +123,69 @@ const products = (await getCollection('products')).sort((a, b) => a.data.order -
         status.className = 'rfq-status rfq-status-ok';
         status.textContent = '✓ Brief copied to clipboard.';
       }
-    } catch {}
+  // Submit Inquiry to Factory backend and save to Admin inbox
+  form?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const data = new FormData(form);
+    const fields = Object.fromEntries(data.entries());
+
+    if (fields.website_hp) return;
+
+    const submitBtn = form.querySelector('button[type="submit"]') as HTMLButtonElement | null;
+    const labelSpan = form.querySelector('[data-submit-label]');
+    const origText = labelSpan ? labelSpan.textContent : 'Submit Inquiry to Factory';
+    if (submitBtn) submitBtn.disabled = true;
+    if (labelSpan) labelSpan.textContent = 'Submitting to Factory...';
+
+    const selectedModels = data.getAll('models');
+    const leadRecord = {
+      source: 'Website Partner Brief (/partners/)',
+      name: String(fields.name || '').trim(),
+      company: String(fields.company || '').trim(),
+      email: String(fields.email || '').trim(),
+      phone: String(fields.phone || '').trim(),
+      type: String(fields.enquiryType || 'Wholesale / OEM Private Label'),
+      destination: String(fields.market || '').trim(),
+      quantity: String(fields.quantity || '').trim(),
+      models: selectedModels,
+      message: String(fields.message || '').trim(),
+      pageUrl: window.location.href,
+      submittedAt: new Date().toISOString()
+    };
+
+    try {
+      // 1. Post to Cloudflare backend endpoint /api/enquiry
+      await fetch('/api/enquiry', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(leadRecord)
+      });
+
+      // 2. Save to localStorage for immediate Admin Dashboard sync
+      try {
+        const stored = JSON.parse(localStorage.getItem('bohol_rfq_leads') || '[]');
+        stored.unshift({
+          ...leadRecord,
+          id: `RFQ-${Date.now().toString(36).toUpperCase()}`
+        });
+        localStorage.setItem('bohol_rfq_leads', JSON.stringify(stored.slice(0, 300)));
+      } catch(err) {}
+
+      if (status) {
+        status.hidden = false;
+        status.className = 'rfq-status rfq-status-ok';
+        status.textContent = '✓ Inquiry submitted successfully! Our factory trade team will reply within 2-4 hours.';
+      }
+      form.reset();
+    } catch (err) {
+      if (status) {
+        status.hidden = false;
+        status.className = 'rfq-status rfq-status-err';
+        status.textContent = 'Network error. Please try sending via WhatsApp or Email.';
+      }
+    } finally {
+      if (submitBtn) submitBtn.disabled = false;
+      if (labelSpan) labelSpan.textContent = origText;
+    }
   });
 </script>
