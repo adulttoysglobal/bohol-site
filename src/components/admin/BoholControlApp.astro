@@ -1450,6 +1450,67 @@ const totalPagesCount = corePages.length + products.length + journal.length;
               </div>
             </div>
           </div>
+
+          <!-- 方案三：Microsoft Clarity 微软官方真实访客录像与热力图 (最推荐) -->
+          <div class="bc-card" style="border: 2px solid #8b5cf6; background: linear-gradient(180deg, #faf5ff 0%, #ffffff 100%);">
+            <div class="bc-card-head" style="margin-bottom:12px;">
+              <div class="bc-card-title">
+                <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
+                  <span style="font-size:22px;">🎥</span>
+                  <h3 style="margin:0; font-size:16px; font-weight:800; color:#581c87;">
+                    方案三：Microsoft Clarity 微软官方真实访客屏幕录像与热力图 (全球外贸 100% 推荐)
+                  </h3>
+                  <span style="background:#f3e8ff; color:#7e22ce; font-size:11px; font-weight:700; padding:2px 8px; border-radius:12px; border:1px solid #d8b4fe;">
+                    永久免费 · 真实录像 · 绝无水分
+                  </span>
+                </div>
+                <p style="margin-top:6px; color:#4b5563; font-size:13px; line-height:1.5;">
+                  想知道进站的老外是真人还是机器人？想看老外看中哪款产品、鼠标停留在哪？微软官方 Clarity 自动为每一位真实访客生成<strong>高清操作回放视频（Session Recordings）</strong>、国家分布与点击热力图。
+                </p>
+              </div>
+              <div>
+                <a href="https://clarity.microsoft.com/" target="_blank" class="bc-btn-primary" style="background:#7c3aed; text-decoration:none; font-size:12px; padding:7px 14px; display:inline-flex; align-items:center; gap:6px;">
+                  <span>前往微软 Clarity 官网 ↗</span>
+                </a>
+              </div>
+            </div>
+
+            <!-- 极速操作三步法 -->
+            <div style="display:grid; grid-template-columns:repeat(3, 1fr); gap:12px; margin-bottom:16px;">
+              <div style="background:#ffffff; border:1px solid #e9d5ff; border-radius:8px; padding:12px 14px;">
+                <div style="font-weight:700; color:#6b21a8; font-size:13px;">步骤 1: 登录微软 Clarity</div>
+                <div style="font-size:12px; color:#6b7280; margin-top:4px; line-height:1.5;">
+                  打开 <code>clarity.microsoft.com</code>，直接用您的 Google 谷歌账号或微软账号一键登录。
+                </div>
+              </div>
+              <div style="background:#ffffff; border:1px solid #e9d5ff; border-radius:8px; padding:12px 14px;">
+                <div style="font-weight:700; color:#6b21a8; font-size:13px;">步骤 2: 添加网站项目</div>
+                <div style="font-size:12px; color:#6b7280; margin-top:4px; line-height:1.5;">
+                  名称填 <code>Adult Toys Global</code>，网址填 <code>https://adulttoysglobal.com</code>，点击创建。
+                </div>
+              </div>
+              <div style="background:#ffffff; border:1px solid #e9d5ff; border-radius:8px; padding:12px 14px;">
+                <div style="font-weight:700; color:#6b21a8; font-size:13px;">步骤 3: 复制 Project ID 填入下方</div>
+                <div style="font-size:12px; color:#6b7280; margin-top:4px; line-height:1.5;">
+                  将获得的 8~10 位 Project ID（如 <code>q9abc12xyz</code>）粘贴在下方保存，或直接发给 AI 帮您部署！
+                </div>
+              </div>
+            </div>
+
+            <!-- 配置输入框 -->
+            <div style="margin-top:14px; background:#ffffff; border:1px solid #e2e8f0; border-radius:8px; padding:14px 16px;">
+              <label class="bc-label" style="font-weight:700; color:#0f172a;">Microsoft Clarity Project ID (项目代码)</label>
+              <div style="display:flex; gap:10px; margin-top:6px; flex-wrap:wrap;">
+                <input type="text" class="bc-input" id="cfg-clarity-id" placeholder="例如: q9abc12xyz" style="max-width:320px;" />
+                <button type="button" class="bc-btn-primary" id="btn-save-clarity" style="background:#7c3aed;">
+                  <span>保存并启用录像监控</span>
+                </button>
+              </div>
+              <div style="font-size:12px; color:#64748b; margin-top:8px;">
+                💡 也可以直接在聊天框将这串 Project ID 发给 AI，系统将全自动部署上线并在全站生效。
+              </div>
+            </div>
+          </div>
         </div>
 
         <!-- ========================================== -->
@@ -3300,6 +3361,25 @@ USB Type-C rechargeable</textarea>
         } else {
           localStorage.removeItem('atg_ga4_id');
           showToast('已清除 GA4 衡量 ID。');
+        }
+      });
+    }
+
+    // Save Microsoft Clarity Project ID
+    const inputClarityId = document.getElementById('cfg-clarity-id') as HTMLInputElement | null;
+    const btnSaveClarity = document.getElementById('btn-save-clarity');
+    const savedClarityId = localStorage.getItem('atg_clarity_id');
+    if (savedClarityId && inputClarityId) inputClarityId.value = savedClarityId;
+
+    if (btnSaveClarity) {
+      btnSaveClarity.addEventListener('click', () => {
+        const val = inputClarityId?.value.trim() || '';
+        if (val) {
+          localStorage.setItem('atg_clarity_id', val);
+          showToast(`✅ Microsoft Clarity 项目 ID 已保存: ${val}，全站访客屏幕录像已激活！`);
+        } else {
+          localStorage.removeItem('atg_clarity_id');
+          showToast('已清除 Microsoft Clarity 项目 ID。');
         }
       });
     }
