@@ -70,6 +70,34 @@ function getMoq(prod: any) {
     </div>
   </div>
 
+  <script is:inline>
+    // Immediate synchronous auth check (prevents blank screen)
+    (function() {
+      try {
+        var token = localStorage.getItem('atg_admin_auth_session') || sessionStorage.getItem('atg_admin_auth_session');
+        var isAuth = false;
+        if (token) {
+          var parsed = JSON.parse(token);
+          if (parsed && parsed.auth === true && (!parsed.expiry || Date.now() < parsed.expiry)) {
+            isAuth = true;
+          }
+        }
+        var gate = document.getElementById('admin-auth-gate');
+        var app = document.getElementById('bc-admin-app-layout');
+        if (isAuth) {
+          if (app) app.style.display = 'flex';
+          if (gate) gate.style.display = 'none';
+        } else {
+          if (gate) gate.style.display = 'flex';
+          if (app) app.style.display = 'none';
+        }
+      } catch(e) {
+        var g = document.getElementById('admin-auth-gate');
+        if (g) g.style.display = 'flex';
+      }
+    })();
+  </script>
+
   <div class="bc-layout" id="bc-admin-app-layout" style="display:none;">
     <!-- Sidebar Navigation -->
     <aside class="bc-sidebar">
@@ -2532,7 +2560,7 @@ USB Type-C rechargeable</textarea>
 
     // Save GA4 ID handler
     const btnSaveGa = document.getElementById('btn-save-ga');
-    const inputGaId = document.getElementById('cfg-ga-id') as HTMLInputElement | null;
+    const inputGaId = document.getElementById('cfg-ga-id');
     if (btnSaveGa) {
       btnSaveGa.addEventListener('click', () => {
         const val = inputGaId?.value.trim();
@@ -2642,10 +2670,10 @@ USB Type-C rechargeable</textarea>
     }
 
     // Load and Save Settings (企业基础信息与官方联系方式)
-    const inputCompany = document.getElementById('cfg-company-name') as HTMLInputElement | null;
-    const inputSiteUrl = document.getElementById('cfg-site-url') as HTMLInputElement | null;
-    const inputEmail = document.getElementById('cfg-email') as HTMLInputElement | null;
-    const inputWa = document.getElementById('cfg-whatsapp') as HTMLInputElement | null;
+    const inputCompany = document.getElementById('cfg-company-name');
+    const inputSiteUrl = document.getElementById('cfg-site-url');
+    const inputEmail = document.getElementById('cfg-email');
+    const inputWa = document.getElementById('cfg-whatsapp');
 
     // Restore saved custom settings if exist
     const savedCfgCompany = localStorage.getItem('atg_cfg_company');
