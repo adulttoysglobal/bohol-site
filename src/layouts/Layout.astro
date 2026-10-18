@@ -740,7 +740,15 @@ const websiteSchema = {
     });
 
     window.addEventListener('rfq-cart-updated', syncCardButtons);
-    syncCardButtons();
+
+    const deferInit = (cb: () => void) => {
+      if ('requestIdleCallback' in window) {
+        requestIdleCallback(cb, { timeout: 2000 });
+      } else {
+        setTimeout(cb, 120);
+      }
+    };
+    deferInit(syncCardButtons);
   </script>
 
   <!-- B2B Multi-Product RFQ Slide-Over Drawer -->

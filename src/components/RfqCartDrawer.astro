@@ -505,8 +505,15 @@ import settings from '../data/settings.json';
     }
   });
 
-  // Initial render on load
-  renderDrawerItems();
+  // Initial render on load (deferred to idle time to guarantee 0ms TBT)
+  const deferDrawer = (cb: () => void) => {
+    if ('requestIdleCallback' in window) {
+      requestIdleCallback(cb, { timeout: 2000 });
+    } else {
+      setTimeout(cb, 150);
+    }
+  };
+  deferDrawer(renderDrawerItems);
 </script>
 
 <style>

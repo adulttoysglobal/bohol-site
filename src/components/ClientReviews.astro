@@ -230,7 +230,15 @@ const ugcReviews = [
 </section>
 
 <script is:inline>
-  (() => {
+  const deferReviews = (cb) => {
+    if ('requestIdleCallback' in window) {
+      requestIdleCallback(cb, { timeout: 2000 });
+    } else {
+      setTimeout(cb, 200);
+    }
+  };
+
+  deferReviews(() => {
     const cards = document.querySelectorAll('.ugc-photo-wrap');
     const prodThumbs = document.querySelectorAll('[data-prod-preview]');
     const lightbox = document.getElementById('ugc-lightbox');
@@ -277,5 +285,5 @@ const ugcReviews = [
     };
     if (lbClose) lbClose.addEventListener('click', closeLb);
     if (lbX) lbX.addEventListener('click', closeLb);
-  })();
+  });
 </script>

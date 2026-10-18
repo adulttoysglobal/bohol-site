@@ -274,13 +274,23 @@ const slides = [
 </section>
 
 <script>
-  const root = document.querySelector<HTMLElement>('.hero-command');
-  if (root) {
+  const deferCarousel = (cb: () => void) => {
+    if ('requestIdleCallback' in window) {
+      requestIdleCallback(cb, { timeout: 1500 });
+    } else {
+      setTimeout(cb, 100);
+    }
+  };
+
+  deferCarousel(() => {
+    const root = document.querySelector<HTMLElement>('.hero-command');
+    if (!root) return;
+
     const slides = Array.from(root.querySelectorAll<HTMLElement>('.product-slide'));
     const tabs = Array.from(root.querySelectorAll<HTMLButtonElement>('[data-slide]'));
-    const pause = root.querySelector<HTMLButtonElement>('[data-pause]')!;
-    const prev = root.querySelector<HTMLButtonElement>('[data-previous]')!;
-    const next = root.querySelector<HTMLButtonElement>('[data-next]')!;
+    const pause = root.querySelector<HTMLButtonElement>('[data-pause]');
+    const prev = root.querySelector<HTMLButtonElement>('[data-previous]');
+    const next = root.querySelector<HTMLButtonElement>('[data-next]');
     let current = 0;
     let paused = false;
     let timer: ReturnType<typeof setInterval> | undefined;
@@ -325,5 +335,5 @@ const slides = [
         nextSlide();
       }
     }, 7000);
-  }
+  });
 </script>
