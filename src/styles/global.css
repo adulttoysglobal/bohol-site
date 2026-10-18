@@ -57,7 +57,7 @@
   }
 
   body {
-    font-family: 'Jost', 'Manrope Variable', 'PingFang SC', 'Microsoft YaHei', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-family: 'Jost Variable', 'Jost', 'Manrope Variable', 'PingFang SC', 'Microsoft YaHei', -apple-system, BlinkMacSystemFont, sans-serif;
     color: var(--ink-soft);
     background: var(--bg-page);
     font-size: 16px;
@@ -71,7 +71,7 @@
   }
 
   h1, h2, h3 {
-    font-family: 'Jost', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+    font-family: 'Jost Variable', 'Jost', 'PingFang SC', 'Microsoft YaHei', sans-serif;
     font-weight: 500;
     line-height: 1.2;
     letter-spacing: 0px;

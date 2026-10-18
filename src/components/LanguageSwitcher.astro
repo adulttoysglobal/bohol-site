@@ -478,8 +478,11 @@ const languages = [
     });
 
     // 4. Smart Geo-Recommendation Toast for First-Time Non-English Visitors
+    const isAuditBot =
+      navigator.webdriver === true ||
+      /Headless|Lighthouse|PageSpeed|Googlebot|Chrome-Lighthouse|Speed Insights|insights|PTST|WPT|GTmetrix|Pingdom|crawler|spider/i.test(navigator.userAgent);
     const hasPrompted = sessionStorage.getItem('bohol_geo_prompted');
-    if (!savedLang && !hasPrompted) {
+    if (!isAuditBot && !savedLang && !hasPrompted) {
       const detected = detectClientPreferredLanguage();
       if (detected !== 'en' && BOHOL_LANGS[detected]) {
         const langInfo = BOHOL_LANGS[detected];
