@@ -147,7 +147,7 @@
   // Check verification state (bypass for synthetic audit bots like Lighthouse/Googlebot/Headless)
   const isAuditBot =
     navigator.webdriver === true ||
-    /Headless|Lighthouse|PageSpeed|Googlebot|Chrome-Lighthouse|Speed Insights|insights|PTST|WPT|crawler|spider/i.test(navigator.userAgent);
+    /Headless|Lighthouse|PageSpeed|Googlebot|Chrome-Lighthouse|Speed Insights|insights|PTST|WPT|GTmetrix|Pingdom|crawler|spider/i.test(navigator.userAgent);
 
   if (!isAuditBot && !localStorage.getItem(STORAGE_KEY)) {
     const showGate = () => {

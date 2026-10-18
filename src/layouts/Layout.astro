@@ -211,7 +211,7 @@ const websiteSchema = {
   <!-- Realtime Analytics: Cloudflare Web Analytics Beacon (human visitors only) -->
   {settings.cloudflareBeaconToken && (
     <script is:inline define:vars={{ token: settings.cloudflareBeaconToken }}>
-      if (!navigator.webdriver && !/Headless|Lighthouse|PageSpeed/i.test(navigator.userAgent)) {
+      if (!navigator.webdriver && !/Headless|Lighthouse|PageSpeed|GTmetrix|Pingdom/i.test(navigator.userAgent)) {
         const s = document.createElement('script');
         s.defer = true;
         s.src = 'https://static.cloudflareinsights.com/beacon.min.js';
