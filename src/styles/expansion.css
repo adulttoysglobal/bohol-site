@@ -3,7 +3,7 @@
 .sf-topbar {
   min-height: 38px;
   padding: 6px max(4vw, 24px);
-  background: #219dbb;
+  background: #0f172a;
   color: #ffffff;
   display: flex;
   align-items: center;
@@ -600,7 +600,7 @@
 }
 
 .filter-chip[aria-pressed='true'] span {
-  background: var(--accent);
+  background: #0284c7;
   color: #ffffff;
 }
 
@@ -726,8 +726,8 @@
   font-size: 10px;
   font-weight: 800;
   letter-spacing: 0.08em;
-  background: var(--accent);
-  color: #ffffff;
+  background: #0f172a;
+  color: #38bdf8;
   padding: 3px 8px;
   border-radius: 4px;
 }

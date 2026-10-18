@@ -501,6 +501,7 @@ const languages = [
 
           acceptBtn.addEventListener('click', () => {
             toast.hidden = true;
+            ensureGoogleTranslate();
             applyLanguage(detected, true);
           });
 
@@ -514,17 +515,38 @@ const languages = [
         }
       }
     }
+
+    // Lazy load Google Translate only if user already has an active translation preference
+    if (savedLang && savedLang !== 'en') {
+      ensureGoogleTranslate();
+    }
   });
 
   // Global Google Translate Init Callback
   window.googleTranslateElementInit = function() {
-    new window.google.translate.TranslateElement({
-      pageLanguage: 'en',
-      includedLanguages: 'en,es,de,fr,ru,ar,ja,pt,zh-CN,it',
-      autoDisplay: false
-    }, 'google_translate_element');
+    if (window.google && window.google.translate) {
+      new window.google.translate.TranslateElement({
+        pageLanguage: 'en',
+        includedLanguages: 'en,es,de,fr,ru,ar,ja,pt,zh-CN,it',
+        autoDisplay: false
+      }, 'google_translate_element');
+    }
   };
-</script>
 
-<!-- Asynchronous Google Translate Neural Script -->
-<script is:inline src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit" defer></script>
+  // On-demand Google Translate script injector
+  let translateScriptLoaded = false;
+  function ensureGoogleTranslate() {
+    if (translateScriptLoaded) return;
+    translateScriptLoaded = true;
+    const s = document.createElement('script');
+    s.src = '//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit';
+    s.defer = true;
+    document.body.appendChild(s);
+  }
+
+  // Pre-load translator upon user interaction with language trigger
+  const langTrigger = document.getElementById('bohol-lang-current-btn');
+  langTrigger?.addEventListener('mouseenter', ensureGoogleTranslate, { once: true });
+  langTrigger?.addEventListener('touchstart', ensureGoogleTranslate, { once: true, passive: true });
+  langTrigger?.addEventListener('click', ensureGoogleTranslate, { once: true });
+</script>

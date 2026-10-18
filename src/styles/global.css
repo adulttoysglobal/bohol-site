@@ -209,7 +209,7 @@
     left: 12px;
     top: -100px;
     z-index: 100;
-    background: var(--accent);
+    background: #0f172a;
     color: #ffffff;
     padding: 12px 18px;
     font-weight: 700;
@@ -698,7 +698,7 @@
   }
 
   .pcard-badge-new {
-    background: var(--accent);
+    background: #0284c7;
   }
 
   .pcard-badge-oem {
@@ -1005,8 +1005,8 @@
   }
 
   .filter[aria-pressed='true'] {
-    background: var(--accent);
-    border-color: var(--accent);
+    background: #0284c7;
+    border-color: #0284c7;
     color: #ffffff;
   }
 
