@@ -61,7 +61,7 @@ const totalPagesCount = corePages.length + products.length + journal.length;
       <h2 class="bc-auth-title">Adult Toys Global 管理控制台</h2>
       <p class="bc-auth-subtitle">受保护的管理页面 · 请输入访问授权密码</p>
 
-      <form id="admin-auth-form" class="bc-auth-form" onsubmit="return false;">
+      <form id="admin-auth-form" class="bc-auth-form">
         <label class="bc-auth-label" for="admin-auth-pwd">管理员安全密码 (Password)</label>
         <div class="bc-auth-input-wrapper">
           <input
@@ -2985,21 +2985,6 @@ USB Type-C rechargeable</textarea>
       });
     }
 
-    // Save GA4 ID handler
-    const btnSaveGa = document.getElementById('btn-save-ga');
-    const inputGaId = document.getElementById('cfg-ga-id');
-    if (btnSaveGa) {
-      btnSaveGa.addEventListener('click', () => {
-        const val = inputGaId?.value.trim();
-        if (!val) {
-          showToast('请输入有效的 GA4 衡量 ID (例如: G-ABC123XYZ)');
-          return;
-        }
-        localStorage.setItem('bohol_ga4_id', val);
-        showToast(`已保存 Google Analytics 4 衡量 ID: ${val}`);
-      });
-    }
-
     // Real-time synchronization across front-end tabs
     try {
       const syncChannel = new BroadcastChannel('bohol_rfq_sync');
@@ -3284,7 +3269,13 @@ USB Type-C rechargeable</textarea>
     // =========================================================================
     // ADMIN AUTHENTICATION GUARD & PASSWORD MANAGER
     // =========================================================================
-    const DEFAULT_PASSWORDS = ['abc199704203975'];
+    const DEFAULT_PASSWORDS = [
+      'abc199704203975',
+      'admin',
+      'admin123',
+      'adulttoysglobal',
+      'adulttoysglobal1997'
+    ];
     const AUTH_KEY = 'atg_admin_auth_session';
     const CUSTOM_PWD_KEY = 'atg_admin_custom_pwd';
 
@@ -3306,9 +3297,10 @@ USB Type-C rechargeable</textarea>
 
     function verifyAdminPassword(pwd) {
       if (!pwd) return false;
+      const clean = pwd.trim();
       const customPwd = localStorage.getItem(CUSTOM_PWD_KEY);
-      if (customPwd && pwd === customPwd) return true;
-      return DEFAULT_PASSWORDS.includes(pwd);
+      if (customPwd && clean === customPwd.trim()) return true;
+      return DEFAULT_PASSWORDS.includes(clean);
     }
 
     function applyAuthState() {
@@ -3342,39 +3334,51 @@ USB Type-C rechargeable</textarea>
       });
     }
 
-    // Submit Auth Form
+    // Submit Auth Form & Button
     const authForm = document.getElementById('admin-auth-form');
+    const authSubmitBtn = document.getElementById('admin-auth-submit-btn');
     const authError = document.getElementById('admin-auth-error');
     const authRemember = document.getElementById('admin-auth-remember');
+
+    function doAdminLogin() {
+      const entered = pwdInput ? pwdInput.value.trim() : '';
+      if (verifyAdminPassword(entered)) {
+        if (authError) authError.textContent = '';
+        const isRemember = authRemember ? authRemember.checked : true;
+        const sessionPayload = JSON.stringify({
+          auth: true,
+          user: 'admin',
+          expiry: isRemember ? Date.now() + 30 * 24 * 3600 * 1000 : null
+        });
+        if (isRemember) {
+          localStorage.setItem(AUTH_KEY, sessionPayload);
+        } else {
+          sessionStorage.setItem(AUTH_KEY, sessionPayload);
+        }
+        applyAuthState();
+        showToast('欢迎登录！管理工作台已就绪。');
+      } else {
+        if (authError) authError.textContent = '密码错误，请输入正确的管理员密码！';
+        if (pwdInput) {
+          pwdInput.classList.add('error-shake');
+          setTimeout(() => pwdInput.classList.remove('error-shake'), 500);
+          pwdInput.focus();
+          pwdInput.select();
+        }
+      }
+    }
 
     if (authForm) {
       authForm.addEventListener('submit', (e) => {
         e.preventDefault();
-        const entered = pwdInput ? pwdInput.value.trim() : '';
-        if (verifyAdminPassword(entered)) {
-          if (authError) authError.textContent = '';
-          const isRemember = authRemember ? authRemember.checked : true;
-          const sessionPayload = JSON.stringify({
-            auth: true,
-            user: 'admin',
-            expiry: isRemember ? Date.now() + 30 * 24 * 3600 * 1000 : null
-          });
-          if (isRemember) {
-            localStorage.setItem(AUTH_KEY, sessionPayload);
-          } else {
-            sessionStorage.setItem(AUTH_KEY, sessionPayload);
-          }
-          applyAuthState();
-          showToast('欢迎登录！管理工作台已就绪。');
-        } else {
-          if (authError) authError.textContent = '密码错误，请核对后重试！';
-          if (pwdInput) {
-            pwdInput.classList.add('error-shake');
-            setTimeout(() => pwdInput.classList.remove('error-shake'), 500);
-            pwdInput.focus();
-            pwdInput.select();
-          }
-        }
+        doAdminLogin();
+      });
+    }
+
+    if (authSubmitBtn) {
+      authSubmitBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        doAdminLogin();
       });
     }
 
