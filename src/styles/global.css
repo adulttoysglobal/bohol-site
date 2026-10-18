@@ -568,7 +568,7 @@
   }
 
   .sf-popular-searches > span {
-    color: #666666;
+    color: #334155;
     font-weight: 500;
   }
 
@@ -808,7 +808,7 @@
   .pcard-vendor {
     font-size: 11px;
     font-weight: 500;
-    color: #9b9b9b;
+    color: #475569;
     letter-spacing: 0.04em;
   }
 
@@ -820,7 +820,7 @@
 
   .pcard-rating em {
     font-style: normal;
-    color: #777777;
+    color: #475569;
     font-weight: 400;
   }
 
@@ -842,14 +842,14 @@
   .pcard-sup {
     font-size: 10.5px;
     font-weight: 600;
-    color: var(--accent);
+    color: #0284c7;
     margin-left: 4px;
   }
 
   .pcard-subtitle {
     font-size: 13px;
     line-height: 1.5;
-    color: #666666;
+    color: #334155;
     margin-bottom: 12px;
   }
 

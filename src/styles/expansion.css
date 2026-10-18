@@ -179,7 +179,7 @@
 .telemetry-k {
   display: block;
   font-size: 10.5px;
-  color: #777777;
+  color: #475569;
   font-weight: 500;
   margin-bottom: 2px;
 }
@@ -337,12 +337,12 @@
 .pod-footer {
   padding-top: 10px;
   border-top: 1px solid var(--line);
-  color: #666666;
+  color: #475569;
   font-weight: 500;
 }
 
 .pod-spec-link {
-  color: var(--accent);
+  color: #0284c7;
   font-weight: 600;
 }
 
@@ -511,13 +511,13 @@
 }
 
 .sf-collection-card:hover .sf-collection-card__info h3 {
-  color: #999999;
+  color: #0284c7;
 }
 
 .sf-collection-sup {
   font-size: 11.5px;
   font-weight: 600;
-  color: var(--accent);
+  color: #0284c7;
   margin-left: 3px;
 }
 
@@ -2354,13 +2354,13 @@
 .pcard-price-regular small {
   font-size: 11px;
   font-weight: 600;
-  color: #666666;
+  color: #475569;
 }
 
 .pcard-price-compare {
   font-size: 13px;
   font-weight: 500;
-  color: #9b9b9b;
+  color: #64748b;
   text-decoration: line-through;
 }
 
