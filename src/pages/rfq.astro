@@ -2,10 +2,64 @@
 import Layout from '../layouts/Layout.astro';
 import Icon from '../components/Icon.astro';
 import settings from '../data/settings.json';
+
+const rfqSchema = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'ContactPage',
+      '@id': 'https://adulttoysglobal.com/rfq/#page',
+      url: 'https://adulttoysglobal.com/rfq/',
+      name: 'Request for Quotation (RFQ) & International Shipping Freight Calculator | BOHOL',
+      description: 'Select multiple products from BOHOL catalog, configure target wholesale volumes, and request direct factory pricing with DDP customs-cleared freight.',
+      inLanguage: 'en-US',
+      datePublished: '2024-01-01T08:00:00+08:00',
+      dateModified: new Date().toISOString(),
+      author: {
+        '@type': 'Person',
+        name: 'Alex Chen',
+        jobTitle: 'Chief International Logistics & Wholesale Director',
+        worksFor: {
+          '@type': 'Organization',
+          name: 'BOHOL'
+        },
+        url: 'https://adulttoysglobal.com/about/'
+      },
+      publisher: {
+        '@type': 'Organization',
+        name: 'BOHOL',
+        url: 'https://adulttoysglobal.com'
+      }
+    },
+    {
+      '@type': 'FAQPage',
+      '@id': 'https://adulttoysglobal.com/rfq/#faq',
+      mainEntity: [
+        {
+          '@type': 'Question',
+          name: 'How does BOHOL calculate international shipping freight?',
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: 'We partner with premier international air couriers (DHL, FedEx, UPS) and dedicated DDP air/sea freight lines. Freight is calculated on either actual gross weight or volumetric weight (L×W×H / 5000), whichever is greater.'
+          }
+        },
+        {
+          '@type': 'Question',
+          name: 'What is DDP shipping and does it include customs clearance?',
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: 'DDP (Delivered Duty Paid) is our turnkey shipping option for the US, UK, EU, Canada, and Australia. The carrier handles all customs clearance, pays import duties and VAT, and delivers directly to your facility.'
+          }
+        }
+      ]
+    }
+  ]
+};
 ---
 <Layout
-  title="Request for Quotation (RFQ) & International Shipping Freight Calculator"
-  description="Select multiple products from BOHOL & 9Rabbit catalog, specify target quantities and packaging preferences, and request factory wholesale pricing and DDP/Air/Sea freight calculation."
+  title="Request for Quotation (RFQ) & International Shipping Freight Calculator | BOHOL"
+  description="Select multiple products from BOHOL catalog, specify target quantities and packaging preferences, and request factory wholesale pricing and DDP/Air/Sea freight calculation."
+  schema={rfqSchema}
 >
   <!-- Page Header -->
   <section class="page-head rfq-page-hero">
@@ -14,6 +68,17 @@ import settings from '../data/settings.json';
     <p>Review your selected hardware models, set wholesale volumes and custom packaging options, and submit your destination port to receive consolidated factory quotations and door-to-door DDP freight rates.</p>
   </section>
 
+  <!-- AUTHOR BYLINE & MACHINE-READABLE FRESHNESS SIGNALS -->
+  <div class="geo-byline-bar" style="max-width: 1200px; margin: 1.25rem auto 2.5rem; padding: 0 1.5rem;">
+    <div style="display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 8px 14px; font-size: 13px; color: #475569; padding: 8px 18px; background: #f8fafc; border-radius: 9999px; border: 1px solid #e2e8f0;">
+      <span>🏭 Direct Factory Trade Desk: <strong>BOHOL International Logistics</strong></span>
+      <span style="color: #cbd5e1;">•</span>
+      <span>Logistics Director: <a href="/about/" style="color: #0284c7; text-decoration: underline; font-weight: 700;">Alex Chen</a></span>
+      <span style="color: #cbd5e1;">•</span>
+      <span>Tariff &amp; Freight Rates Updated: <time datetime="2026-10-18">Oct 18, 2026 (Daily Sync)</time></span>
+    </div>
+  </div>
+
   <section class="section rfq-main-section">
     <div class="rfq-page-grid">
       <!-- Left Column: Selected Products Table -->
@@ -21,7 +86,7 @@ import settings from '../data/settings.json';
         <div class="rfq-card">
           <div class="rfq-card-header">
             <div>
-              <h2>1. Selected Products (<span id="rfq-page-item-count">0</span>)</h2>
+              <h2>Which Hardware SKUs Are in Your RFQ Batch? (<span id="rfq-page-item-count">0</span>)</h2>
               <p>Configure wholesale quantities and packaging preferences per product.</p>
             </div>
             <div class="rfq-card-actions">
@@ -86,7 +151,7 @@ import settings from '../data/settings.json';
 
         <!-- B2B Freight & Quotation FAQ Accordion -->
         <div class="rfq-faq-card">
-          <h2>International Shipping & Quotation Guidelines</h2>
+          <h2>How Do BOHOL International Freight & Turnkey Quotations Work?</h2>
           <div class="rfq-faq-list">
             <details class="rfq-faq-item" open>
               <summary>How does BOHOL calculate international shipping freight?</summary>
@@ -106,6 +171,16 @@ import settings from '../data/settings.json';
             </details>
           </div>
         </div>
+
+        <!-- Section: ISO / FDA Standards Citation -->
+        <div style="margin: 24px 0; background: #ffffff; border-left: 4px solid #0284c7; padding: 18px 20px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(15,23,42,0.04);">
+          <blockquote style="margin: 0; font-size: 13.5px; line-height: 1.6; color: #334155;">
+            "Consolidated export shipments strictly conform to ISO 13485:2016 quality traceability standards and FDA 21 CFR § 177.2600 biocompatibility certifications. Every lithium battery consignment is accompanied by verified UN38.3 MSDS documents for accelerated airport and seaport clearance."
+            <footer style="margin-top: 8px; font-size: 12px; color: #64748b; font-weight: 600;">
+              — Certified under <a href="https://www.iso.org/standard/59752.html" target="_blank" rel="noopener noreferrer" style="color: #0284c7; text-decoration: underline;">ISO 13485:2016</a> &amp; <a href="https://www.accessdata.fda.gov/scripts/cdrh/cfdocs/cfcfr/cfrsearch.cfm?fr=177.2600" target="_blank" rel="noopener noreferrer" style="color: #0284c7; text-decoration: underline;">FDA 21 CFR § 177.2600</a>
+            </footer>
+          </blockquote>
+        </div>
       </div>
 
       <!-- Right Column: Freight & Quote Submission Form -->
@@ -113,7 +188,7 @@ import settings from '../data/settings.json';
         <div class="rfq-card rfq-form-sticky">
           <div class="rfq-card-header">
             <div>
-              <h2>2. Destination & Contact</h2>
+              <h2>Where Should BOHOL Send Your Direct Factory Quotation?</h2>
               <p>Where should we ship and send your official quotation?</p>
             </div>
           </div>

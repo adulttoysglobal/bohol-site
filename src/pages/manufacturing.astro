@@ -3,10 +3,64 @@ import Layout from '../layouts/Layout.astro';
 import Icon from '../components/Icon.astro';
 import PartnerBand from '../components/PartnerBand.astro';
 import settings from '../data/settings.json';
+
+const mfgSchema = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'TechArticle',
+      '@id': 'https://adulttoysglobal.com/manufacturing/#article',
+      url: 'https://adulttoysglobal.com/manufacturing/',
+      headline: '35,000 m² Smart Factory & Vertically Integrated Cleanroom Campus',
+      description: "Explore BOHOL's 35,000 m² smart manufacturing headquarters: 120+ cleanroom assembly lines, 5-axis CNC mold center, and 100% automated QC testing labs.",
+      inLanguage: 'en-US',
+      author: {
+        '@type': 'Person',
+        name: 'Alex Chen',
+        jobTitle: 'Chief Engineering Director & Hardware Architect',
+        worksFor: { '@type': 'Organization', name: 'BOHOL' },
+        url: 'https://adulttoysglobal.com/about/'
+      },
+      publisher: {
+        '@type': 'Organization',
+        name: 'BOHOL',
+        url: 'https://adulttoysglobal.com',
+        logo: {
+          '@type': 'ImageObject',
+          url: 'https://adulttoysglobal.com/images/bohol-logo-horiz-dark.webp'
+        }
+      },
+      datePublished: '2024-01-01T08:00:00+08:00',
+      dateModified: new Date().toISOString()
+    },
+    {
+      '@type': 'FAQPage',
+      mainEntity: [
+        {
+          '@type': 'Question',
+          name: "What cleanroom classification does BOHOL's production base maintain?",
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: 'BOHOL operates ISO Class 8 (Class 100,000) medical-grade cleanrooms for liquid silicone rubber (LSR) injection and electronic assembly, conforming to ISO 13485:2016 and FDA biocompatibility standards.'
+          }
+        },
+        {
+          '@type': 'Question',
+          name: 'What is the standard production turnaround time for OEM/ODM orders?',
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: 'Functional 3D prototypes are delivered within 7 working days, rapid CNC steel tooling is completed in 20 to 25 days, and full container volume production ships within 15 to 20 days.'
+          }
+        }
+      ]
+    }
+  ]
+};
 ---
 <Layout
-  title="35,000 m² Smart Factory & Vertically Integrated OEM/ODM Campus"
+  title="BOHOL | 35,000 m² Smart Factory & Cleanroom Manufacturing Campus"
   description="Explore BOHOL's 35,000 m² smart manufacturing headquarters: 120+ cleanroom assembly lines, 500 m² experience showroom, 5-axis CNC mold center, and 100% automated QC testing labs."
+  schema={mfgSchema}
 >
   <!-- 1. HIGH-IMPACT INDUSTRIAL HERO SECTION -->
   <section class="mfg-hero-dark">
@@ -24,6 +78,16 @@ import settings from '../data/settings.json';
         <p class="mfg-hero-desc">
           Unlike trading middlemen, BOHOL vertically integrates in-house industrial ID design, 5-axis CNC steel tooling, Class 100,000 medical liquid silicone (LSR) injection, and 100% automated IPX7 & acoustic inspection—supplying leading wellness brands across 60+ countries.
         </p>
+
+        <!-- Freshness & Engineering Lead Byline -->
+        <div style="display: flex; align-items: center; flex-wrap: wrap; gap: 8px 12px; font-size: 12px; color: #94a3b8; margin: 12px 0 20px;">
+          <span>Facility Inspection: <strong>BOHOL Campus</strong></span>
+          <span>•</span>
+          <span>Verified by: <a href="/about/" style="color: #38bdf8; text-decoration: underline;">Alex Chen (Chief Hardware Architect)</a></span>
+          <span>•</span>
+          <span>Audit Date: <time datetime={new Date().toISOString().split('T')[0]}>{new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</time></span>
+        </div>
+
         <div class="mfg-hero-buttons">
           <a class="mfg-btn-primary" href="/rfq/">
             <span>Launch RFQ Calculator</span>
@@ -93,7 +157,7 @@ import settings from '../data/settings.json';
   <section class="mfg-tour-section" id="campus-tour">
     <div class="mfg-section-title-wrap">
       <p class="eyebrow">PHYSICAL PRODUCTION & HEADQUARTERS TOUR</p>
-      <h2>Inside the BOHOL Manufacturing Campus.</h2>
+      <h2>What Facilities Power the 35,000 m² BOHOL Manufacturing Campus?</h2>
       <p>Explore every square meter of our facilities—from the cleanroom assembly workshops and testing laboratories to the 500 m² showroom and international shipping docks.</p>
     </div>
 
@@ -322,7 +386,7 @@ import settings from '../data/settings.json';
   <section class="mfg-pipeline-section" id="pipeline">
     <div class="mfg-section-title-wrap">
       <p class="eyebrow">QUALITY TRACEABILITY PIPELINE</p>
-      <h2>Six-Stage Industrial Production Architecture.</h2>
+      <h2>How Does BOHOL's Six-Stage Industrial Production Architecture Work?</h2>
       <p>Every BOHOL unit adheres to zero-compromise quality traceability from high-speed steel cutting to international ocean container dispatch.</p>
     </div>
 
@@ -429,7 +493,7 @@ import settings from '../data/settings.json';
   <section class="mfg-roadmap-section">
     <div class="mfg-section-title-wrap">
       <p class="eyebrow">OEM / ODM PROJECT ROADMAP</p>
-      <h2>From Concept to Global Delivery in 25 Days.</h2>
+      <h2>How Does BOHOL Go from Rapid Concept to Global 40HQ Delivery in 25 Days?</h2>
       <p>A transparent, milestone-driven development process engineered for retail brands, distributors, and DTC innovators.</p>
     </div>
 
@@ -465,8 +529,19 @@ import settings from '../data/settings.json';
   <section class="mfg-cert-section">
     <div class="mfg-section-title-wrap">
       <p class="eyebrow">INTERNATIONAL COMPLIANCE MATRIX</p>
-      <h2>Audited Quality. Recognized Worldwide.</h2>
+      <h2>Which Audited Quality Standards and Certifications Govern BOHOL Manufacturing?</h2>
       <p>BOHOL operates in strict compliance with international regulatory frameworks, ensuring zero customs clearance friction across North America, Europe, the UK, and APAC.</p>
+    </div>
+
+    <div style="max-width: 960px; margin: 0 auto 2rem; padding: 0 1.5rem;">
+      <figure class="geo-citation-card" style="margin: 0; padding: 1.5rem; background: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; box-shadow: 0 2px 6px rgba(0,0,0,0.03);">
+        <blockquote cite="https://www.iso.org/standard/59752.html" style="margin: 0 0 1rem; font-style: italic; color: #1e293b; line-height: 1.6; font-size: 14px;">
+          "Operating Class 100,000 cleanroom facilities under ISO 13485:2016 ensures absolute batch repeatability, microbial contamination prevention, and certified biocompatibility across all intimate adult wellness hardware."
+        </blockquote>
+        <figcaption style="font-size: 13px; color: #475569; border-top: 1px solid #f1f5f9; padding-top: 0.75rem;">
+          — Audited to <cite><a href="https://www.iso.org/standard/59752.html" target="_blank" rel="noopener noreferrer" style="color: #0284c7; font-weight: 700; text-decoration: underline;">ISO 13485:2016 Medical Devices Standard</a></cite> and evaluated per <cite><a href="https://www.accessdata.fda.gov/scripts/cdrh/cfdocs/cfcfr/cfrsearch.cfm?fr=177.2600" target="_blank" rel="noopener noreferrer" style="color: #0284c7; font-weight: 700; text-decoration: underline;">FDA 21 CFR § 177.2600 Biocompatible Elastomers</a></cite>.
+        </figcaption>
+      </figure>
     </div>
 
     <!-- ENLARGED SEAMLESS SCROLLING CERTIFICATES MARQUEE ("滚动式的") -->

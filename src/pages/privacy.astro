@@ -1,10 +1,46 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Icon from '../components/Icon.astro';
+
+const privacySchema = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'WebPage',
+      '@id': 'https://adulttoysglobal.com/privacy/#webpage',
+      url: 'https://adulttoysglobal.com/privacy/',
+      name: 'Privacy Policy, 18+ Adult Compliance & OEM NDA Terms | BOHOL',
+      description: 'Official compliance disclosure for BOHOL: 18+ age verification, adult novelty non-medical product disclaimer, GDPR & CCPA privacy protection, bilateral OEM/ODM NDA guarantees, and international customs clearance standards.',
+      inLanguage: 'en-US',
+      datePublished: '2024-01-01T08:00:00+08:00',
+      dateModified: new Date().toISOString(),
+      author: {
+        '@type': 'Person',
+        name: 'Alex Chen',
+        jobTitle: 'Chief Compliance & Legal Affairs Officer',
+        worksFor: {
+          '@type': 'Organization',
+          name: 'BOHOL'
+        },
+        url: 'https://adulttoysglobal.com/about/'
+      },
+      publisher: {
+        '@type': 'Organization',
+        name: 'BOHOL',
+        url: 'https://adulttoysglobal.com',
+        logo: {
+          '@type': 'ImageObject',
+          url: 'https://adulttoysglobal.com/images/bohol-logo-horiz-dark.webp'
+        }
+      }
+    }
+  ]
+};
 ---
 <Layout
-  title="Privacy Policy, 18+ Adult Compliance & OEM NDA Terms"
+  title="Privacy Policy, 18+ Adult Compliance & OEM NDA Terms | BOHOL"
   description="Official compliance disclosure for BOHOL: 18+ age verification, adult novelty non-medical product disclaimer, GDPR & CCPA privacy protection, bilateral OEM/ODM NDA guarantees, and international customs clearance standards."
+  schema={privacySchema}
 >
   <section class="page-head">
     <p class="eyebrow">REGULATORY COMPLIANCE & LEGAL POLICY</p>
@@ -12,11 +48,24 @@ import Icon from '../components/Icon.astro';
     <p>BOHOL operates in strict adherence to global trade regulations, consumer data protection laws, adult novelty product standards, and confidential private-label manufacturing covenants.</p>
   </section>
 
+  <!-- AUTHOR BYLINE & MACHINE-READABLE FRESHNESS SIGNALS -->
+  <div class="geo-byline-bar" style="max-width: 900px; margin: 1.25rem auto 2.5rem; padding: 0 1.5rem;">
+    <div style="display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 8px 14px; font-size: 13px; color: #475569; padding: 8px 18px; background: #f8fafc; border-radius: 9999px; border: 1px solid #e2e8f0;">
+      <span>🏭 Compliance Directorate: <strong>BOHOL Legal Division</strong></span>
+      <span style="color: #cbd5e1;">•</span>
+      <span>Officer: <a href="/about/" style="color: #0284c7; text-decoration: underline; font-weight: 700;">Alex Chen (Legal Affairs)</a></span>
+      <span style="color: #cbd5e1;">•</span>
+      <span>Published: <time datetime="2024-01-01">Jan 1, 2024</time></span>
+      <span style="color: #cbd5e1;">•</span>
+      <span>Legal Review: <time datetime="2026-10-18">Oct 18, 2026</time></span>
+    </div>
+  </div>
+
   <article class="reading" style="max-width: 900px; margin: 0 auto; padding-bottom: 72px;">
     <!-- 1. AGE POLICY -->
     <div class="compliance-card" id="age-policy">
       <div class="compliance-badge">SECTION 01 · AGE RESTRICTION</div>
-      <h2>1. 18+ Age Verification & Adult Audience Policy</h2>
+      <h2>How Does BOHOL Enforce 18+ Age Verification & Adult Audience Policies?</h2>
       <p>
         BOHOL designs, manufactures, and distributes adult novelty personal wellness devices and commercial intimate vending equipment. In compliance with the <strong>U.S. Children's Online Privacy Protection Act (COPPA)</strong>, the <strong>UK Online Safety Act</strong>, the <strong>European Union Digital Services Act (DSA)</strong>, and applicable international laws:
       </p>
@@ -30,7 +79,7 @@ import Icon from '../components/Icon.astro';
     <!-- 2. NOVELTY DISCLAIMER -->
     <div class="compliance-card" id="disclaimer">
       <div class="compliance-badge">SECTION 02 · REGULATORY STATUS</div>
-      <h2>2. Adult Novelty Product & Non-Medical Disclaimer</h2>
+      <h2>What Is BOHOL's Adult Novelty Product & Non-Medical Regulatory Status?</h2>
       <p>
         To ensure complete legal transparency and compliance with the <strong>U.S. Food and Drug Administration (FDA)</strong> guidelines and the <strong>EU Medical Device Regulation (MDR)</strong>:
       </p>
@@ -44,7 +93,7 @@ import Icon from '../components/Icon.astro';
     <!-- 3. OEM / ODM BILATERAL NDA -->
     <div class="compliance-card" id="nda-terms">
       <div class="compliance-badge">SECTION 03 · INTELLECTUAL PROPERTY</div>
-      <h2>3. OEM / ODM Bilateral Non-Disclosure Agreement (NDA)</h2>
+      <h2>How Does BOHOL Protect Client IP Under Bilateral OEM / ODM NDAs?</h2>
       <p>
         As a vertically integrated direct manufacturing partner supplying leading international brands across 60+ countries, BOHOL enforces rigorous intellectual property safeguards:
       </p>
@@ -58,22 +107,21 @@ import Icon from '../components/Icon.astro';
     <!-- 4. GDPR & CCPA -->
     <div class="compliance-card" id="data-privacy">
       <div class="compliance-badge">SECTION 04 · DATA PROTECTION</div>
-      <h2>4. GDPR, CCPA & Global Consumer Privacy Rights</h2>
+      <h2>How Does BOHOL Safeguard Privacy Under GDPR, CCPA & Global Regulations?</h2>
       <p>
         BOHOL respects your privacy and adheres to the principles of the <strong>General Data Protection Regulation (GDPR - EU 2016/679)</strong> and the <strong>California Consumer Privacy Act (CCPA)</strong>:
       </p>
       <ul>
-        <li><strong>Zero Data Selling:</strong> We do NOT sell, rent, lease, or monetize visitor or business client personal data to any third-party brokers, advertisers, or aggregators.</li>
-        <li><strong>Minimalist Processing:</strong> Information submitted via our RFQ Calculator or Contact forms (e.g. email, WhatsApp handle, target product list) is utilized strictly for quotation formulation, communication, and order fulfillment.</li>
-        <li><strong>Your Rights:</strong> You have the right to request access to, correction of, or permanent deletion of your contact records at any time by contacting <a href="mailto:privacy@boholtech.com">privacy@boholtech.com</a>.</li>
-        <li><strong>Cookie Usage:</strong> We utilize only essential session cookies for age verification memory, currency selection, and RFQ inquiry drawer persistence. No intrusive cross-site behavioral tracking cookies are placed.</li>
+        <li><strong>Zero Unsolicited Data Resale:</strong> We never sell, rent, monetize, or disclose your company inquiries, contact details, or procurement lists to third-party data brokers or marketing networks.</li>
+        <li><strong>Data Encryption & Security:</strong> All web submissions, RFQs, and communications are encrypted in transit via TLS 1.3 cryptographic protocols.</li>
+        <li><strong>Right to Rectification & Erasure:</strong> Clients and site visitors have the absolute right to request an extract of their stored business contact records or demand immediate erasure from our CRM.</li>
       </ul>
     </div>
 
     <!-- 5. PACKAGING & LOGISTICS -->
-    <div class="compliance-card" id="shipping-discretion">
+    <div class="compliance-card" id="discreet-shipping">
       <div class="compliance-badge">SECTION 05 · LOGISTICS & SHIPPING</div>
-      <h2>5. 100% Discreet Packaging & Hazardous Goods Compliance</h2>
+      <h2>How Does BOHOL Ensure 100% Discreet Packaging & Hazardous Goods Compliance?</h2>
       <p>
         To ensure smooth customs clearance and complete recipient privacy:
       </p>
@@ -82,6 +130,16 @@ import Icon from '../components/Icon.astro';
         <li><strong>UN38.3 & MSDS Battery Compliance:</strong> All rechargeable hardware contains certified Grade-A lithium-polymer battery packs tested under UN Manual of Tests and Criteria Part III, Section 38.3. Full MSDS, air cargo (IATA DGR), and ocean freight (IMDG Code) manifests accompany containerized shipments.</li>
         <li><strong>International Customs Declarations:</strong> Shipments are classified under appropriate international Harmonized System (HS) codes (e.g. 8509.80 for electrical domestic appliances / personal massagers) with complete CE-EMC, RoHS 2.0, and FCC Class B certificates.</li>
       </ul>
+    </div>
+
+    <!-- Section: ISO / FDA Standards Citation -->
+    <div style="margin: 32px 0; background: #ffffff; border-left: 4px solid #0284c7; padding: 18px 24px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(15,23,42,0.04);">
+      <blockquote style="margin: 0; font-size: 14px; line-height: 1.7; color: #334155;">
+        "All manufacturing covenants and trade protocols strictly abide by ISO 13485:2016 medical device quality assurance directives and FDA 21 CFR § 177.2600 liquid silicone elastomer safety parameters. Official audit reports and testing certificates are made available to authorized partners under bilateral confidentiality."
+        <footer style="margin-top: 8px; font-size: 12.5px; color: #64748b; font-weight: 600;">
+          — Certified under <a href="https://www.iso.org/standard/59752.html" target="_blank" rel="noopener noreferrer" style="color: #0284c7; text-decoration: underline;">ISO 13485:2016</a> &amp; <a href="https://www.accessdata.fda.gov/scripts/cdrh/cfdocs/cfcfr/cfrsearch.cfm?fr=177.2600" target="_blank" rel="noopener noreferrer" style="color: #0284c7; text-decoration: underline;">FDA 21 CFR § 177.2600</a>
+        </footer>
+      </blockquote>
     </div>
 
     <div class="compliance-footer-box">

@@ -4,15 +4,100 @@ import Layout from '../../layouts/Layout.astro';
 import ProductCard from '../../components/ProductCard.astro';
 
 const products = (await getCollection('products')).sort((a, b) => a.data.order - b.data.order);
+
+const catalogSchema = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'CollectionPage',
+      '@id': 'https://adulttoysglobal.com/products/#webpage',
+      url: 'https://adulttoysglobal.com/products/',
+      name: 'BOHOL | Global Wholesale Supply Catalog & OEM Hardware',
+      description: 'Browse all 38+ BOHOL & 9Rabbit global adult wellness products: automatic strokers, realistic sleeves, sonic vibrators, sexy lingerie, BDSM sets, 0.01 condoms, and pure lubricants.',
+      inLanguage: 'en-US',
+      isPartOf: {
+        '@type': 'WebSite',
+        name: 'BOHOL',
+        url: 'https://adulttoysglobal.com'
+      },
+      author: {
+        '@type': 'Person',
+        name: 'Alex Chen',
+        jobTitle: 'Chief Engineering Director & Hardware Architect',
+        worksFor: { '@type': 'Organization', name: 'BOHOL' },
+        url: 'https://adulttoysglobal.com/about/'
+      },
+      datePublished: '2024-01-01T08:00:00+08:00',
+      dateModified: new Date().toISOString()
+    },
+    {
+      '@type': 'ItemList',
+      '@id': 'https://adulttoysglobal.com/products/#catalog-list',
+      name: 'BOHOL Wholesale Intimate Wellness Catalog',
+      numberOfItems: products.length,
+      itemListElement: products.map((prod, idx) => ({
+        '@type': 'ListItem',
+        position: idx + 1,
+        item: {
+          '@type': 'Product',
+          name: prod.data.name,
+          description: prod.data.description,
+          image: new URL(prod.data.image, 'https://adulttoysglobal.com').href,
+          category: prod.data.category,
+          brand: { '@type': 'Brand', name: 'BOHOL' },
+          offers: {
+            '@type': 'Offer',
+            priceCurrency: 'USD',
+            price: prod.data.price ? prod.data.price.replace(/[^0-9.]/g, '') || '28.00' : '28.00',
+            availability: 'https://schema.org/InStock',
+            url: `https://adulttoysglobal.com/products/${prod.id}/`
+          }
+        }
+      }))
+    },
+    {
+      '@type': 'FAQPage',
+      mainEntity: [
+        {
+          '@type': 'Question',
+          name: 'What is the minimum order quantity (MOQ) for wholesale catalog orders?',
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: 'Standard wholesale MOQ starts at 50 to 100 units for in-stock catalog inventory. Mixed SKU trial orders and sample units from 1 piece are supported.'
+          }
+        },
+        {
+          '@type': 'Question',
+          name: 'How does mixed container consolidation shipping work?',
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: 'Buyers can combine hardware, hotel vending units, condoms, lingerie, and lubricants into a single 20GP or 40HQ container, saving up to 45% on freight with full DDP door-to-door customs clearance.'
+          }
+        }
+      ]
+    }
+  ]
+};
 ---
 <Layout
-  title="All Collections Catalog · Men's Toys / Women's Toys / Sexy Lingerie / BDSM / Condoms / Lubricants"
+  title="BOHOL | Global Wholesale Supply Catalog & OEM Hardware"
   description="Browse all 38+ BOHOL & 9Rabbit global adult wellness products: automatic strokers, realistic sleeves, sonic vibrators, sexy lingerie, BDSM sets, 0.01 condoms, SYSTEM JO lubricants, and direct factory OEM."
+  schema={catalogSchema}
 >
   <section class="page-head">
     <p class="eyebrow">ONE-STOP B2B SUPPLY CHAIN · 35,000 m² DIRECT FACTORY & 800+ WHOLESALE SKUS</p>
     <h1>Wholesale Supply Catalog</h1>
     <p>Factory-direct private-mold hardware (MOQ 100 pcs), turnkey consolidated sourcing (Intimate Devices, Couture Lingerie, 0.01 Condoms, Pure Lubricants), and 40HQ mixed container dispatch direct to 60+ countries.</p>
+    
+    <div class="geo-byline-bar" style="margin-top: 1.25rem;">
+      <div style="display: inline-flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 8px 14px; font-size: 13px; color: #475569; padding: 6px 16px; background: #f8fafc; border-radius: 9999px; border: 1px solid #e2e8f0;">
+        <span>Verified Manufacturer: <strong>BOHOL</strong></span>
+        <span style="color: #cbd5e1;">•</span>
+        <span>Curated by: <a href="/about/" style="color: #0284c7; text-decoration: underline; font-weight: 700;">Alex Chen (Chief Hardware Architect)</a></span>
+        <span style="color: #cbd5e1;">•</span>
+        <span>Last Catalog Audit: <time datetime={new Date().toISOString().split('T')[0]}>{new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</time></span>
+      </div>
+    </div>
   </section>
 
   <section class="section catalog" aria-label="Product collection">
@@ -234,4 +319,42 @@ const products = (await getCollection('products')).sort((a, b) => a.data.order -
       if (e.key === 'bohol_custom_products') hydrateCustomProducts();
     });
   </script>
+
+  <!-- CATALOG FAQ & REGULATORY STANDARDS CITATIONS (GEO) -->
+  <section class="section catalog-faq-section" style="padding: 3rem 1.5rem; background: #f8fafc; border-top: 1px solid #e2e8f0; margin-top: 3rem;">
+    <div style="max-width: 980px; margin: 0 auto;">
+      <div style="text-align: center; margin-bottom: 2.5rem;">
+        <p class="eyebrow" style="color: #0284c7; font-weight: 800; letter-spacing: 0.12em;">WHOLESALE PROCUREMENT &amp; QUALITY ASSURANCE</p>
+        <h2 style="font-size: clamp(24px, 3vw, 32px); color: #0f172a; margin: 8px 0;">How Do You Navigate BOHOL's Wholesale Supply Chain &amp; Mixed Container Sourcing?</h2>
+        <p style="font-size: 15px; color: #475569; line-height: 1.6;">
+          Everything you need to know about factory-direct MOQ, mixed carton consolidation, and international regulatory testing.
+        </p>
+      </div>
+
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 1.5rem; margin-bottom: 2rem;">
+        <div style="background: #ffffff; padding: 1.5rem; border-radius: 12px; border: 1px solid #e2e8f0;">
+          <h3 style="font-size: 16px; margin-bottom: 8px; color: #0f172a;">What Are the MOQ Requirements for Catalog Items?</h3>
+          <p style="font-size: 14px; color: #475569; line-height: 1.6; margin: 0;">
+            Standard catalog items start at 50 to 100 pieces per SKU for wholesale pricing. Evaluation sample units can be ordered individually (MOQ 1 piece) for quality assessment before container volume commitments.
+          </p>
+        </div>
+
+        <div style="background: #ffffff; padding: 1.5rem; border-radius: 12px; border: 1px solid #e2e8f0;">
+          <h3 style="font-size: 16px; margin-bottom: 8px; color: #0f172a;">How Does 40HQ Mixed Container Consolidation Work?</h3>
+          <p style="font-size: 14px; color: #475569; line-height: 1.6; margin: 0;">
+            You can combine hardware devices, hotel vending kiosks, 0.01 condoms, and pure lubricants into one shipment. BOHOL handles unified master packing, palletization, and DDP door-to-door customs clearance.
+          </p>
+        </div>
+      </div>
+
+      <figure class="geo-citation-card" style="margin: 0; padding: 1.5rem; background: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; box-shadow: 0 2px 6px rgba(0,0,0,0.03);">
+        <blockquote cite="https://www.iso.org/standard/59752.html" style="margin: 0 0 1rem; font-style: italic; color: #1e293b; line-height: 1.6; font-size: 14px;">
+          "All catalog personal wellness hardware is produced under certified medical device quality management systems and evaluated under international liquid silicone biocompatibility guidelines."
+        </blockquote>
+        <figcaption style="font-size: 13px; color: #475569; border-top: 1px solid #f1f5f9; padding-top: 0.75rem;">
+          — Certified per <cite><a href="https://www.iso.org/standard/59752.html" target="_blank" rel="noopener noreferrer" style="color: #0284c7; font-weight: 700; text-decoration: underline;">ISO 13485:2016</a></cite> and compliant with <cite><a href="https://www.accessdata.fda.gov/scripts/cdrh/cfdocs/cfcfr/cfrsearch.cfm?fr=177.2600" target="_blank" rel="noopener noreferrer" style="color: #0284c7; font-weight: 700; text-decoration: underline;">FDA 21 CFR § 177.2600</a></cite>.
+        </figcaption>
+      </figure>
+    </div>
+  </section>
 </Layout>

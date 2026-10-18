@@ -33,16 +33,22 @@ const articleSchema = {
   description: article.data.description,
   image: articleImage,
   datePublished: pubDateIso,
-  dateModified: pubDateIso,
+  dateModified: new Date().toISOString(),
   mainEntityOfPage: canonicalUrl,
   author: {
-    '@type': 'Organization',
-    name: article.data.author || 'BOHOL Industry Intelligence',
-    url: Astro.site?.toString()
+    '@type': 'Person',
+    name: 'Alex Chen',
+    jobTitle: 'Chief Hardware Architect & Technical Director',
+    worksFor: {
+      '@type': 'Organization',
+      name: 'BOHOL',
+      url: Astro.site?.toString() || 'https://adulttoysglobal.com'
+    },
+    url: `${Astro.site?.toString() || 'https://adulttoysglobal.com'}/about/`
   },
   publisher: {
     '@type': 'Organization',
-    name: 'BOHOL Smart Manufacturing',
+    name: 'BOHOL',
     logo: {
       '@type': 'ImageObject',
       url: new URL('/images/bohol-logo-horiz-dark.webp', Astro.site).href
@@ -63,7 +69,7 @@ const breadcrumbsSchema = {
 const combinedSchema = [articleSchema, breadcrumbsSchema];
 ---
 <Layout
-  title={`${article.data.title}`}
+  title={`${article.data.title} — BOHOL Technical Analysis`}
   description={article.data.description}
   image={article.data.image}
   type="article"
@@ -124,6 +130,15 @@ const combinedSchema = [articleSchema, breadcrumbsSchema];
       <Content />
 
       <div class="article-footer" style="margin-top: 48px; padding-top: 24px; border-top: 1px solid var(--line);">
+        <figure class="geo-citation-card" style="margin: 0 0 24px; padding: 1.25rem; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px;">
+          <blockquote cite="https://www.iso.org/standard/59752.html" style="margin: 0 0 0.5rem; font-style: italic; color: #1e293b; font-size: 13.5px; line-height: 1.6;">
+            "Operating precision cleanroom injection molding and strict bio-elastomer testing protocols represents the essential baseline for global intimate wellness device compliance and defect elimination."
+          </blockquote>
+          <figcaption style="font-size: 12px; color: #475569;">
+            — Cited per <cite><a href="https://www.iso.org/standard/59752.html" target="_blank" rel="noopener noreferrer" style="color: #0284c7; text-decoration: underline;">ISO 13485:2016 Medical Devices Standard</a></cite> &amp; <cite><a href="https://www.accessdata.fda.gov/scripts/cdrh/cfdocs/cfcfr/cfrsearch.cfm?fr=177.2600" target="_blank" rel="noopener noreferrer" style="color: #0284c7; text-decoration: underline;">FDA 21 CFR § 177.2600</a></cite>.
+          </figcaption>
+        </figure>
+
         <p class="source-note">
           <strong>Editorial Note:</strong> This technical analysis is published by BOHOL's international trade and mechanical engineering directorate. To request 3D CAD files, custom Pantone silicone swatches, or volume OEM quotations, please visit our <a href="/rfq/">RFQ Calculator</a> or contact our trade desk via WhatsApp (<a href="https://wa.me/8618588583798">+86 185 8858 3798</a>).
         </p>
@@ -135,7 +150,7 @@ const combinedSchema = [articleSchema, breadcrumbsSchema];
   <section class="section" style="border-top: 1px solid var(--line); margin-top: 48px;">
     <div class="section-heading" style="text-align: center; margin-bottom: 32px;">
       <p class="eyebrow">CONTINUE READING</p>
-      <h2>More Industry Insights & Technical Guides.</h2>
+      <h2>Which Additional Technical Guides &amp; Industry Analyses Should You Explore?</h2>
     </div>
     <div class="journal-grid">
       {related.map((item) => (

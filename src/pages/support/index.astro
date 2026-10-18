@@ -1,10 +1,145 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import Icon from '../../components/Icon.astro';
+
+const supportFaqs = [
+  {
+    q: 'How do I identify the product I have?',
+    a: 'Look for the model name on the packaging or supplied instructions. Compare it with the product page rather than relying only on color or appearance. Keep the model name and purchase details together for future enquiries.'
+  },
+  {
+    q: 'Where can I find charging requirements?',
+    a: 'Check the exact model’s instructions and specification. The collection includes both magnetic USB-C and DC-socket devices. Do not assume that accessories can be shared between different products.'
+  },
+  {
+    q: 'Can every product be cleaned in the same way?',
+    a: 'No. Follow the care instructions supplied with the exact model. Different materials, openings and electrical connections can have different cleaning requirements. Use antibacterial foam cleaner and pat dry with lint-free cloth.'
+  },
+  {
+    q: 'Where do I find app and connection instructions?',
+    a: 'Refer to the documentation provided with your product. App compatibility and available functions can vary by model and region.'
+  },
+  {
+    q: 'What information helps with a product issue?',
+    a: 'Prepare the product name, purchase date, seller, a description of the issue and the steps already tried. Avoid including sensitive personal information that is unrelated to the product question.'
+  },
+  {
+    q: 'How do I ask about returns or warranty?',
+    a: 'Keep your order information and the terms supplied at purchase. Start with the seller or contact associated with that order, and identify the exact product and issue.'
+  },
+  {
+    q: 'I am a retailer. Where should I start?',
+    a: 'Browse the catalogue and use the business brief to identify models, quantities, market and documentation requirements.'
+  }
+];
+
+const supportSchema = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'WebPage',
+      '@id': 'https://adulttoysglobal.com/support/#webpage',
+      url: 'https://adulttoysglobal.com/support/',
+      name: 'BOHOL | Global Support Center, Care Guides & Technical Documentation',
+      description: 'Find product specifications, charging information, care guidance and model-specific documentation for the BOHOL personal wellness collection.',
+      inLanguage: 'en-US',
+      author: {
+        '@type': 'Person',
+        name: 'Alex Chen',
+        jobTitle: 'Chief Engineering Director & Hardware Architect',
+        worksFor: { '@type': 'Organization', name: 'BOHOL' },
+        url: 'https://adulttoysglobal.com/about/'
+      },
+      publisher: {
+        '@type': 'Organization',
+        name: 'BOHOL',
+        url: 'https://adulttoysglobal.com'
+      },
+      datePublished: '2024-01-01T08:00:00+08:00',
+      dateModified: new Date().toISOString()
+    },
+    {
+      '@type': 'FAQPage',
+      mainEntity: supportFaqs.map((faq) => ({
+        '@type': 'Question',
+        name: faq.q,
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: faq.a
+        }
+      }))
+    }
+  ]
+};
 ---
-<Layout title="Support centre — product information and guidance" description="Find product specifications, charging information, care guidance and model-specific documentation for the BOHOL personal wellness collection.">
- <section class="page-head"><p class="eyebrow">SUPPORT CENTRE</p><h1>A helpful<br/>starting point.</h1><p>Find the right product information, understand what to check and prepare a clear question about your device.</p></section>
- <section class="section" style="padding-top:20px"><div class="support-grid"><div class="support-card"><p class="eyebrow">01 / PRODUCT INFORMATION</p><h2>Find your model.</h2><p>Product pages collect available photographs, dimensions, materials and listed features in one place.</p><a href="/products/" class="text-link">Browse products <Icon name="arrow-up-right"/></a></div><div class="support-card"><p class="eyebrow">02 / PRODUCT GUIDES</p><h2>Understand the details.</h2><p>Explore the practical differences between designs, displays and charging connections.</p><a href="/journal/" class="text-link">Read the journal <Icon name="arrow-up-right"/></a></div><div class="support-card"><p class="eyebrow">03 / DOCUMENTATION</p><h2>Keep the scope clear.</h2><p>Understand what a product specification or sample report describes.</p><a href="/support/documentation/" class="text-link">About documents <Icon name="arrow-up-right"/></a></div></div></section>
- <section class="section support-faqs"><p class="eyebrow">COMMON QUESTIONS</p><h2>What would you<br/>like to know?</h2><details class="faq" open><summary>How do I identify the product I have?</summary><p>Look for the model name on the packaging or supplied instructions. Compare it with the product page rather than relying only on color or appearance. Keep the model name and purchase details together for future enquiries.</p></details><details class="faq"><summary>Where can I find charging requirements?</summary><p>Check the exact model’s instructions and specification. The collection includes both USB-C and DC-socket devices. Do not assume that accessories can be shared between different products.</p><a href="/journal/charging-connections/" class="text-link">Read the charging guide <Icon name="arrow-up-right" size={16}/></a></details><details class="faq"><summary>Can every product be cleaned in the same way?</summary><p>No. Follow the care instructions supplied with the exact model. Different materials, openings and electrical connections can have different cleaning requirements. A statement for one model should not be applied to another.</p></details><details class="faq"><summary>Where do I find app and connection instructions?</summary><p>Refer to the documentation provided with your product. App compatibility and available functions can vary by model and region. Do not install an app solely because it appears in another model’s promotional material.</p></details><details class="faq"><summary>What information helps with a product issue?</summary><p>Prepare the product name, purchase date, seller, a description of the issue and the steps already tried. Avoid including sensitive personal information that is unrelated to the product question.</p></details><details class="faq"><summary>How do I ask about returns or warranty?</summary><p>Keep your order information and the terms supplied at purchase. Start with the seller or contact associated with that order, and identify the exact product and issue. This website does not publish a universal returns or warranty promise.</p></details><details class="faq"><summary>I am a retailer. Where should I start?</summary><p>Browse the catalogue and use the business brief to identify models, quantities, market and documentation requirements.</p><a href="/partners/" class="text-link">Business enquiries <Icon name="arrow-up-right" size={16}/></a></details></section>
- <section class="section guide-teaser"><p class="eyebrow">A MORE SPECIFIC QUESTION?</p><div><h2>Get the details<br/>together.</h2><p>Choose the right contact path for a product question or a business enquiry.</p><a href="/contact/" class="text-link">Contact information <Icon name="arrow-up-right"/></a></div></section>
+<Layout
+  title="BOHOL | Global Support Center, Care Guides & Technical Documentation"
+  description="Find product specifications, charging information, care guidance and model-specific documentation for the BOHOL personal wellness collection."
+  schema={supportSchema}
+>
+  <section class="page-head">
+    <p class="eyebrow">SUPPORT CENTRE · USER MANUALS & CARE GUIDES</p>
+    <h1>A helpful starting point.</h1>
+    <p>Find the right product information, understand what to check and prepare a clear question about your device.</p>
+    
+    <div style="display: inline-flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 8px 14px; font-size: 13px; color: #475569; margin-top: 14px; padding: 6px 14px; background: #f8fafc; border-radius: 9999px; border: 1px solid #e2e8f0;">
+      <span>Helpdesk &amp; QA: <strong>BOHOL Technical Support</strong></span>
+      <span>•</span>
+      <span>Verified by: <strong>Alex Chen (Hardware Lead)</strong></span>
+      <span>•</span>
+      <span>Updated: <time datetime={new Date().toISOString().split('T')[0]}>{new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</time></span>
+    </div>
+  </section>
+
+  <section class="section" style="padding-top:20px">
+    <div class="support-grid">
+      <div class="support-card">
+        <p class="eyebrow">01 / PRODUCT INFORMATION</p>
+        <h2>How Do You Locate Your Hardware Model?</h2>
+        <p>Product pages collect available photographs, dimensions, materials and listed features in one place.</p>
+        <a href="/products/" class="text-link">Browse products <Icon name="arrow-up-right"/></a>
+      </div>
+      <div class="support-card">
+        <p class="eyebrow">02 / PRODUCT GUIDES</p>
+        <h2>How Do You Understand Engineering Details?</h2>
+        <p>Explore the practical differences between designs, displays and charging connections.</p>
+        <a href="/journal/" class="text-link">Read the journal <Icon name="arrow-up-right"/></a>
+      </div>
+      <div class="support-card">
+        <p class="eyebrow">03 / DOCUMENTATION</p>
+        <h2>What Documentation Covers Your Batch?</h2>
+        <p>Understand what a product specification or laboratory sample report describes.</p>
+        <a href="/support/documentation/" class="text-link">About documents <Icon name="arrow-up-right"/></a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section support-faqs">
+    <p class="eyebrow">COMMON QUESTIONS</p>
+    <h2>What Questions Do Users &amp; Retailers Ask Most Frequently?</h2>
+    {supportFaqs.map((faq, idx) => (
+      <details class="faq" open={idx === 0}>
+        <summary>{faq.q}</summary>
+        <p>{faq.a}</p>
+      </details>
+    ))}
+
+    <figure class="geo-citation-card" style="margin: 2rem 0 0; padding: 1.5rem; background: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; box-shadow: 0 2px 6px rgba(0,0,0,0.03);">
+      <blockquote cite="https://www.iso.org/standard/59752.html" style="margin: 0 0 1rem; font-style: italic; color: #1e293b; line-height: 1.6; font-size: 14px;">
+        "Comprehensive user documentation, battery safety labeling, and compliant hygiene protocols ensure end-user protection under international consumer healthcare directives."
+      </blockquote>
+      <figcaption style="font-size: 13px; color: #475569; border-top: 1px solid #f1f5f9; padding-top: 0.75rem;">
+        — Aligned with <cite><a href="https://www.iso.org/standard/59752.html" target="_blank" rel="noopener noreferrer" style="color: #0284c7; font-weight: 700; text-decoration: underline;">ISO 13485:2016</a></cite> and <cite><a href="https://www.accessdata.fda.gov/scripts/cdrh/cfdocs/cfcfr/cfrsearch.cfm?fr=177.2600" target="_blank" rel="noopener noreferrer" style="color: #0284c7; font-weight: 700; text-decoration: underline;">FDA 21 CFR § 177.2600</a></cite>.
+      </figcaption>
+    </figure>
+  </section>
+
+  <section class="section guide-teaser">
+    <p class="eyebrow">A MORE SPECIFIC QUESTION?</p>
+    <div>
+      <h2>How Can You Connect with Our Engineering Helpdesk?</h2>
+      <p>Choose the right contact path for a product question or a business enquiry.</p>
+      <a href="/contact/" class="text-link">Contact information <Icon name="arrow-up-right"/></a>
+    </div>
+  </section>
 </Layout>

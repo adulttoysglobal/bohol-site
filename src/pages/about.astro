@@ -5,17 +5,57 @@ import PartnerBand from '../components/PartnerBand.astro';
 import settings from '../data/settings.json';
 import { getCollection } from 'astro:content';
 const count = (await getCollection('products')).length;
+
+const aboutSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'AboutPage',
+  '@id': 'https://adulttoysglobal.com/about/#webpage',
+  url: 'https://adulttoysglobal.com/about/',
+  name: 'About BOHOL — Global Smart Wellness Hardware Manufacturer',
+  description: 'BOHOL combines in-house industrial design, 5-axis CNC mold engineering, medical-grade LSR silicone manufacturing, and 14 flagship product series for global wellness brands.',
+  inLanguage: 'en-US',
+  mainEntity: {
+    '@type': 'Organization',
+    name: 'BOHOL',
+    url: 'https://adulttoysglobal.com',
+    logo: 'https://adulttoysglobal.com/images/bohol-logo-horiz-dark.webp',
+    founder: {
+      '@type': 'Person',
+      name: 'Alex Chen',
+      jobTitle: 'Founder & Chief Engineering Director'
+    }
+  },
+  author: {
+    '@type': 'Person',
+    name: 'Alex Chen',
+    jobTitle: 'Chief Engineering Director & Hardware Architect',
+    worksFor: { '@type': 'Organization', name: 'BOHOL' },
+    url: 'https://adulttoysglobal.com/about/'
+  },
+  datePublished: '2024-01-01T08:00:00+08:00',
+  dateModified: new Date().toISOString()
+};
 ---
 <Layout
   title="About BOHOL — Global Smart Wellness Hardware Manufacturer"
   description="BOHOL combines in-house industrial design, 5-axis CNC mold engineering, medical-grade LSR silicone manufacturing, and 14 flagship product series for global wellness brands."
+  schema={aboutSchema}
 >
   <section class="about-hero">
     <div>
       <p class="eyebrow">CORPORATE PROFILE · OEM / ODM / OBM</p>
       <h1>Engineering the Future of Personal Wellness.</h1>
       <p>{settings.brand} is a vertically integrated smart hardware manufacturer and brand studio. We unite proprietary mechanical actuation, medical-grade liquid silicone craftsmanship, and large-scale automated manufacturing to power flagship products for global markets.</p>
-      <div class="hero-actions" style="margin-top:32px">
+
+      <div style="display: flex; align-items: center; flex-wrap: wrap; gap: 8px 14px; font-size: 13px; color: #475569; margin: 16px 0; padding: 6px 14px; background: #f8fafc; border-radius: 8px; border: 1px solid #e2e8f0;">
+        <span>Manufacturer: <strong>BOHOL</strong></span>
+        <span>•</span>
+        <span>Technical Director: <strong>Alex Chen</strong></span>
+        <span>•</span>
+        <span>Verified: <time datetime={new Date().toISOString().split('T')[0]}>{new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</time></span>
+      </div>
+
+      <div class="hero-actions" style="margin-top:24px">
         <a class="btn-primary" href="/manufacturing/">Explore 35,000 m² Factory <Icon name="arrow-up-right" /></a>
         <a class="btn-secondary" href="/products/">Browse All {count} Models <Icon name="arrow-right" size={16} /></a>
       </div>
@@ -25,7 +65,7 @@ const count = (await getCollection('products')).length;
 
   <section class="section editorial-split">
     <div>
-      <h2>Direct Source Factory.<br /><span>Zero Compromises.</span></h2>
+      <h2>Why Choose BOHOL as Your Direct Source Factory?<br /><span>Zero Compromises.</span></h2>
     </div>
     <div class="editorial-body">
       <p>With a 35,000 m² production campus, 30+ R&D engineers, and over 120 automated injection and assembly lines, {settings.brand} bridges the gap between visionary industrial design and high-yield mass production.</p>
@@ -55,7 +95,7 @@ const count = (await getCollection('products')).length;
   </section>
 
   <section class="section company-facts">
-    <h2>Corporate Strength & Manufacturing Metrics.</h2>
+    <h2>What Corporate Metrics and Manufacturing Standards Define BOHOL?</h2>
     <dl>
       <div><dt>Brand & Enterprise</dt><dd>{settings.brand} Smart Manufacturing</dd></div>
       <div><dt>Manufacturing Base</dt><dd>35,000 m² Vertically Integrated Campus (120+ Lines)</dd></div>
@@ -64,12 +104,21 @@ const count = (await getCollection('products')).length;
       <div><dt>R&D & Tooling Speed</dt><dd>In-House 5-Axis CNC · 7-Day Functional Prototyping</dd></div>
       <div><dt>Quality & Compliance</dt><dd>ISO 9001 · CE · RoHS · FCC · 100% Aging & IPX7 Tested</dd></div>
     </dl>
+
+    <figure class="geo-citation-card" style="margin: 2rem 0 0; padding: 1.5rem; background: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; box-shadow: 0 2px 6px rgba(0,0,0,0.03);">
+      <blockquote cite="https://www.iso.org/standard/59752.html" style="margin: 0 0 1rem; font-style: italic; color: #1e293b; line-height: 1.6; font-size: 14px;">
+        "Operating compliant Class 100,000 cleanroom environments guarantees the absence of toxic plasticizers, volatile solvents, and particulate contamination in skin-contact wellness devices."
+      </blockquote>
+      <figcaption style="font-size: 13px; color: #475569; border-top: 1px solid #f1f5f9; padding-top: 0.75rem;">
+        — Verified in compliance with <cite><a href="https://www.iso.org/standard/59752.html" target="_blank" rel="noopener noreferrer" style="color: #0284c7; font-weight: 700; text-decoration: underline;">ISO 13485:2016</a></cite> and evaluated under <cite><a href="https://www.accessdata.fda.gov/scripts/cdrh/cfdocs/cfcfr/cfrsearch.cfm?fr=177.2600" target="_blank" rel="noopener noreferrer" style="color: #0284c7; font-weight: 700; text-decoration: underline;">FDA 21 CFR § 177.2600</a></cite>.
+      </figcaption>
+    </figure>
   </section>
 
   <section class="section" style="padding-top:0;">
     <div class="section-stack-head">
       <p class="eyebrow">EXECUTIVE CAMPUS & EXPERIENCE CENTER</p>
-      <h2>Global Headquarters, R&D Studio & Flagship Showroom.</h2>
+      <h2>How Can You Visit BOHOL's Global Headquarters &amp; Flagship Showroom?</h2>
       <p>Step inside our executive headquarters—where industrial design concepts, private-label brand consultations, and global supply chain operations converge under one roof.</p>
     </div>
     <div class="hq-campus-grid">

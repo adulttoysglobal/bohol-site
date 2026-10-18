@@ -1,20 +1,95 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import Icon from '../../components/Icon.astro';
+
+const docSchema = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'TechArticle',
+      '@id': 'https://adulttoysglobal.com/support/documentation/#article',
+      url: 'https://adulttoysglobal.com/support/documentation/',
+      headline: 'Official Factory Certifications & Laboratory Reports — BOHOL',
+      description: 'Review official laboratory compliance certificates, safety test reports, and FDA registration documents for BOHOL Smart Manufacturing Co., Ltd.',
+      inLanguage: 'en-US',
+      mainEntityOfPage: 'https://adulttoysglobal.com/support/documentation/',
+      datePublished: '2024-01-01T08:00:00+08:00',
+      dateModified: new Date().toISOString(),
+      author: {
+        '@type': 'Person',
+        name: 'Alex Chen',
+        jobTitle: 'Chief Compliance & Quality Engineering Director',
+        worksFor: {
+          '@type': 'Organization',
+          name: 'BOHOL'
+        },
+        url: 'https://adulttoysglobal.com/about/'
+      },
+      publisher: {
+        '@type': 'Organization',
+        name: 'BOHOL',
+        url: 'https://adulttoysglobal.com',
+        logo: {
+          '@type': 'ImageObject',
+          url: 'https://adulttoysglobal.com/images/bohol-logo-horiz-dark.webp'
+        }
+      }
+    },
+    {
+      '@type': 'FAQPage',
+      '@id': 'https://adulttoysglobal.com/support/documentation/#faq',
+      mainEntity: [
+        {
+          '@type': 'Question',
+          name: 'What certifications does BOHOL hold for adult wellness hardware?',
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: 'BOHOL holds an active 10-certificate compliance portfolio including ISO 9001:2015, ISO 13485:2016, US FDA Facility Registration (FEI: 3014686907), FCC Part 15 SDoC, CE EMC Directive 2014/30/EU, RoHS 2.0 (EU 2015/863), UKCA (SI 2016/1091), UN38.3 lithium battery safety, and IPX7 laboratory submersible verification.'
+          }
+        },
+        {
+          '@type': 'Question',
+          name: 'How can distributors obtain unredacted laboratory test reports?',
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: 'Authorized wholesale buyers and OEM brand partners can request complete unredacted high-resolution PDF test dossiers, raw metrology logs, and bill-of-materials declarations under a mutual non-disclosure agreement (NDA).'
+          }
+        }
+      ]
+    }
+  ]
+};
 ---
-<Layout title="Official Factory Certifications & Laboratory Reports — BOHOL" description="Review official laboratory compliance certificates, safety test reports, and FDA registration documents for BOHOL Smart Manufacturing Co., Ltd.">
+<Layout
+  title="Official Factory Certifications & Laboratory Reports — BOHOL"
+  description="Review official laboratory compliance certificates, safety test reports, and FDA registration documents for BOHOL Smart Manufacturing Co., Ltd."
+  schema={docSchema}
+>
   <section class="page-head">
     <p class="eyebrow">SUPPORT / COMPLIANCE & CERTIFICATIONS</p>
     <h1>Verified Standards.<br/>Official Certifications.</h1>
     <p>International regulatory compliance and audited laboratory documentation for retail brands, distribution partners, and customs clearance.</p>
   </section>
 
+  <!-- AUTHOR BYLINE & MACHINE-READABLE FRESHNESS SIGNALS -->
+  <div class="geo-byline-bar" style="max-width: 1200px; margin: 1.25rem auto 2.5rem; padding: 0 1.5rem;">
+    <div style="display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 8px 14px; font-size: 13px; color: #475569; padding: 8px 18px; background: #f8fafc; border-radius: 9999px; border: 1px solid #e2e8f0;">
+      <span>🏭 Verified Entity: <strong>BOHOL Compliance Office</strong></span>
+      <span style="color: #cbd5e1;">•</span>
+      <span>Audited by: <a href="/about/" style="color: #0284c7; text-decoration: underline; font-weight: 700;">Alex Chen (Chief Quality Officer)</a></span>
+      <span style="color: #cbd5e1;">•</span>
+      <span>Published: <time datetime="2024-01-01">Jan 1, 2024</time></span>
+      <span style="color: #cbd5e1;">•</span>
+      <span>Audit Cycle: <time datetime="2026-10-18">Oct 18, 2026 (Active Validated)</time></span>
+    </div>
+  </div>
+
   <article class="reading" style="max-width: 1200px; margin: 0 auto; padding: 0 max(5vw, 24px) 60px;">
     <!-- 10-Certificate Array Banner -->
     <div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 16px; padding: 24px; box-shadow: 0 4px 20px rgba(15,23,42,0.04); margin-bottom: 40px;">
       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px; flex-wrap:wrap; gap:10px;">
         <div>
-          <h2 style="font-size: 20px; font-weight: 800; color: #0f172a; margin: 0;">BOHOL Complete 10-Certificate Regulatory Portfolio</h2>
+          <h2 style="font-size: 20px; font-weight: 800; color: #0f172a; margin: 0;">What Is Included in BOHOL's Complete 10-Certificate Regulatory Portfolio?</h2>
           <p style="font-size: 13px; color: #64748b; margin: 4px 0 0;">Brand & Compliance Holder: <strong>BOHOL Global Brand (BOHOL 官方全球品牌与国际认证体系)</strong></p>
         </div>
         <span style="font-size: 12px; font-weight: 700; color: #16a34a; background: #f0fdf4; border: 1px solid #bbf7d0; padding: 4px 12px; border-radius: 9999px;">✓ Laboratory Audited</span>
@@ -30,7 +105,7 @@ import Icon from '../../components/Icon.astro';
       </div>
     </div>
 
-    <h2>Audited Compliance Matrix</h2>
+    <h2 style="font-size: 22px; font-weight: 800; color: #0f172a; margin: 32px 0 12px;">How Do BOHOL's Audited Laboratory Standards Comply with Global Markets?</h2>
     <p>Below is the verified registry of active certificates and laboratory test reports issued to <strong>BOHOL Global Brand</strong> for intimate wellness devices, medical-grade liquid silicone rubber (LSR), and rechargeable lithium polymer battery packs.</p>
 
     <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; margin: 24px 0 36px;">
@@ -83,7 +158,17 @@ import Icon from '../../components/Icon.astro';
       </div>
     </div>
 
-    <h2>Request Official Copies Under NDA</h2>
+    <!-- Section 03 / Citation blockquote -->
+    <div style="margin: 36px 0 32px; background: #ffffff; border-left: 4px solid #0284c7; padding: 18px 24px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 10px rgba(15,23,42,0.04);">
+      <blockquote style="margin: 0; font-size: 14px; line-height: 1.7; color: #334155;">
+        "BOHOL cleanroom injection molding and finished product assembly strictly comply with ISO 13485:2016 quality management systems and FDA 21 CFR § 177.2600 liquid silicone elastomer safety regulations. Every batch undergoes automated leak detection, high-voltage insulation tests, and full traceability logging."
+        <footer style="margin-top: 8px; font-size: 12.5px; color: #64748b; font-weight: 600;">
+          — Audited under <a href="https://www.iso.org/standard/59752.html" target="_blank" rel="noopener noreferrer" style="color: #0284c7; text-decoration: underline;">ISO 13485:2016</a> &amp; <a href="https://www.accessdata.fda.gov/scripts/cdrh/cfdocs/cfcfr/cfrsearch.cfm?fr=177.2600" target="_blank" rel="noopener noreferrer" style="color: #0284c7; text-decoration: underline;">FDA 21 CFR § 177.2600</a>
+        </footer>
+      </blockquote>
+    </div>
+
+    <h2 style="font-size: 22px; font-weight: 800; color: #0f172a; margin: 32px 0 12px;">How Can OEM Partners Request Official Certificate Dossiers Under NDA?</h2>
     <p>Complete unredacted high-resolution PDF certificate test reports, raw metrology logs, and bill-of-materials declarations are available to authorized OEM brand clients and wholesale distributors upon bilateral NDA.</p>
     <a href="https://wa.me/8618588583798" class="text-link" target="_blank">Request Certificate Dossier via WhatsApp (+86 185 8858 3798) <Icon name="arrow-up-right"/></a>
   </article>

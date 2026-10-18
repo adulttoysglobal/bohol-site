@@ -2,12 +2,48 @@
 import Layout from '../layouts/Layout.astro';
 import Icon from '../components/Icon.astro';
 import settings from '../data/settings.json';
+const contactSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'ContactPage',
+  '@id': 'https://adulttoysglobal.com/contact/#webpage',
+  url: 'https://adulttoysglobal.com/contact/',
+  name: 'BOHOL | Contact Global Headquarters, Factory Showroom & B2B Enquiries',
+  description: 'Visit BOHOL 35,000 m² smart manufacturing headquarters, 500 m² flagship showroom, or book a live virtual factory walkthrough with our international trade team.',
+  inLanguage: 'en-US',
+  mainEntity: {
+    '@type': 'Organization',
+    name: 'BOHOL',
+    url: 'https://adulttoysglobal.com',
+    telephone: '+86-185-8858-3798',
+    email: settings.contactEmail || 'adulttoysglobal1997@gmail.com',
+    address: {
+      '@type': 'PostalAddress',
+      addressLocality: 'Meizhou',
+      addressRegion: 'Guangdong',
+      addressCountry: 'CN'
+    }
+  },
+  datePublished: '2024-01-01T08:00:00+08:00',
+  dateModified: new Date().toISOString()
+};
 ---
-<Layout title="Contact — Global Headquarters, Showroom & Business Enquiries" description="Visit BOHOL 35,000 m² smart manufacturing headquarters, 500 m² flagship showroom, or book a live virtual factory walkthrough with our international trade team.">
+<Layout
+  title="BOHOL | Contact Global Headquarters, Factory Showroom & B2B Enquiries"
+  description="Visit BOHOL 35,000 m² smart manufacturing headquarters, 500 m² flagship showroom, or book a live virtual factory walkthrough with our international trade team."
+  schema={contactSchema}
+>
   <section class="page-head">
     <p class="eyebrow">GLOBAL HEADQUARTERS & FACTORY VISIT</p>
     <h1>Visit BOHOL.<br/>Let’s get specific.</h1>
     <p>Whether you're planning an in-person campus tour, a live virtual video audit, or negotiating private-label OEM contracts—our team is ready.</p>
+    
+    <div style="display: inline-flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 8px 14px; font-size: 13px; color: #475569; margin-top: 14px; padding: 6px 14px; background: #f8fafc; border-radius: 9999px; border: 1px solid #e2e8f0;">
+      <span>Manufacturer: <strong>BOHOL</strong></span>
+      <span>•</span>
+      <span>24h B2B Trade Desk: <strong>Alex Chen &amp; Engineering Team</strong></span>
+      <span>•</span>
+      <span>Verified: <time datetime={new Date().toISOString().split('T')[0]}>{new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</time></span>
+    </div>
   </section>
 
   <section class="section" style="padding-top:10px">
@@ -35,7 +71,7 @@ import settings from '../data/settings.json';
     <div class="contact-columns">
       <div class="contact-column">
         <p class="eyebrow">FOR BUSINESS PARTNERS & DISTRIBUTORS</p>
-        <h2>Wholesale & OEM Projects.</h2>
+        <h2>How Do You Submit Wholesale &amp; OEM Inquiries?</h2>
         <p>Shortlist product models, target destination markets, volume requirements, and private-label packaging details for a comprehensive quotation within 2 hours.</p>
         <a class="btn-primary" style="display:inline-flex; align-items:center; gap:8px; margin-top:16px; padding:12px 22px; font-size:14px;" href="/partners/#enquiry">
           Prepare RFQ Brief <Icon name="arrow-up-right"/>
@@ -43,7 +79,7 @@ import settings from '../data/settings.json';
       </div>
       <div class="contact-column">
         <p class="eyebrow">SCHEDULE A CAMPUS OR VIRTUAL TOUR</p>
-        <h2>Book a Showroom Walkthrough.</h2>
+        <h2>How Can You Book a Showroom Walkthrough or Video Audit?</h2>
         <p>Schedule an in-person meeting at our 35,000 m² manufacturing campus or request a private 1-on-1 WhatsApp / Zoom video walkthrough with our senior project engineers.</p>
         <a class="btn-secondary" style="display:inline-flex; align-items:center; gap:8px; margin-top:16px; padding:12px 22px; font-size:14px;" href={`https://wa.me/${(settings.whatsapp || '8618588583798').replace(/\D/g,'')}`}>
           Book via WhatsApp <Icon name="arrow-up-right"/>

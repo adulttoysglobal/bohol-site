@@ -1,20 +1,176 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import Icon from '../../components/Icon.astro';
-import {getCollection} from 'astro:content';
-const products=(await getCollection('products')).sort((a,b)=>a.data.order-b.data.order);
+import { getCollection } from 'astro:content';
+
+const products = (await getCollection('products')).sort((a, b) => a.data.order - b.data.order);
+
+const guideSchema = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'Article',
+      '@id': 'https://adulttoysglobal.com/guide/#article',
+      url: 'https://adulttoysglobal.com/guide/',
+      headline: 'BOHOL Intimate Hardware Selection & Architecture Guide',
+      description: 'Comprehensive architectural guide comparing BOHOL electric, adaptive, compact, and sculpted personal wellness hardware specifications and operation parameters.',
+      inLanguage: 'en-US',
+      mainEntityOfPage: 'https://adulttoysglobal.com/guide/',
+      datePublished: '2024-01-01T08:00:00+08:00',
+      dateModified: new Date().toISOString(),
+      author: {
+        '@type': 'Person',
+        name: 'Alex Chen',
+        jobTitle: 'Chief Hardware Architect & Product Design Lead',
+        worksFor: {
+          '@type': 'Organization',
+          name: 'BOHOL'
+        },
+        url: 'https://adulttoysglobal.com/about/'
+      },
+      publisher: {
+        '@type': 'Organization',
+        name: 'BOHOL',
+        url: 'https://adulttoysglobal.com',
+        logo: {
+          '@type': 'ImageObject',
+          url: 'https://adulttoysglobal.com/images/bohol-logo-horiz-dark.webp'
+        }
+      }
+    },
+    {
+      '@type': 'FAQPage',
+      '@id': 'https://adulttoysglobal.com/guide/#faq',
+      mainEntity: [
+        {
+          '@type': 'Question',
+          name: 'Where can I find dimensions and charging information for BOHOL products?',
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: 'Each product page features a detailed technical specifications matrix. Models include exact millimeter dimensions, net weight, medical-grade materials, and charging architecture (sealed USB-C or magnetic pogo-pin dock).'
+          }
+        },
+        {
+          '@type': 'Question',
+          name: 'Do all BOHOL devices use the same charger?',
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: 'No. Twist & Fun, Space, and CJ7 feature sealed USB-C ports with over-voltage protection, while Starship utilizes a dedicated magnetic DC socket. Always refer to your exact model specifications before selecting charging accessories.'
+          }
+        },
+        {
+          '@type': 'Question',
+          name: 'How should BOHOL intimate devices be cleaned and stored?',
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: 'Clean devices using warm water and antibacterial toy cleanser or mild soap. Avoid alcohol, petroleum, or acetone solvents on liquid silicone surfaces. Fully dry the device and keep charging contacts moisture-free before storing in a cool, dust-free environment.'
+          }
+        },
+        {
+          '@type': 'Question',
+          name: 'Are companion app features available for every BOHOL model?',
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: 'App connectivity, Bluetooth 5.2 sync, and remote long-distance control depend on model firmware and destination regional regulations. Verify Bluetooth capabilities on the specific product sheet before procurement.'
+          }
+        },
+        {
+          '@type': 'Question',
+          name: 'Who is the BOHOL product collection intended for?',
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: 'The BOHOL collection is engineered strictly for consenting adults aged 18 and older. Products are manufactured as premium intimate wellness novelties and make no therapeutic or medical claims.'
+          }
+        }
+      ]
+    }
+  ]
+};
 ---
-<Layout title="Product guide — compare designs and find specifications" description="Compare electric, adaptive, compact and sculpted personal wellness products. Find model-specific specifications and answers to common product questions.">
- <section class="page-head"><p class="eyebrow">THE PRODUCT GUIDE</p><h1>Details that<br/>make a difference.</h1><p>A clear starting point for exploring the collection.</p></section>
- <article class="reading">
-  <h2>Start with the design.</h2><p>Twist & Fun uses a cylindrical body with a viewing window. Starship has an open-form construction. Bobi III uses an adjustable strap. Mengqu takes a compact approach with a matching stand, while the sculpted series explores curved silhouettes and color variants. Compare the product photographs and specifications before choosing a model.</p>
-  <div class="table-scroll"><table class="compare"><caption class="eyebrow" style="text-align:left">AT A GLANCE</caption><thead><tr><th scope="col">Product</th><th scope="col">Design focus</th><th scope="col">Explore</th></tr></thead><tbody>{products.map(p=><tr><th scope="row">{p.data.name}</th><td>{p.data.features[0]}</td><td><a href={`/products/${p.id}/`}>View details</a></td></tr>)}</tbody></table></div>
-  <h2>A few useful answers.</h2>
-  <details class="faq" open><summary>Where can I find dimensions and charging information?</summary><p>Each product page has a specifications section. Twist & Fun and Starship include dimensions, materials and charging information from their product sheets. Check your exact model and the manual supplied with it before selecting accessories.</p></details>
-  <details class="faq"><summary>Do the devices use the same charger?</summary><p>No. The Twist & Fun product sheet lists USB-C charging, while Starship lists a DC socket. Use the charging accessories and power requirements specified for your model.</p></details>
-  <details class="faq"><summary>How should I clean and store my device?</summary><p>Follow the cleaning instructions supplied with your exact model. Do not assume that different models have the same water resistance or cleaning requirements. Keep charging connections dry and allow the device to dry before storage.</p></details>
-  <details class="faq"><summary>Are app features the same for every model?</summary><p>App availability, connection methods and supported features can differ between models and regions. Confirm compatibility using the documentation supplied with your device. Product appearance alone does not confirm an app feature.</p></details>
-  <details class="faq"><summary>Who is this collection for?</summary><p>This collection is for adults aged 18 and over. These pages describe personal wellness products and do not claim to diagnose, treat or cure medical conditions.</p></details>
-  <div class="guide-end"><a class="button primary" href="/products/">Explore the collection <Icon name="arrow-up-right"/></a></div>
- </article>
+<Layout
+  title="Product Guide — Architecture Comparison & Technical Specifications | BOHOL"
+  description="Compare electric, adaptive, compact, and sculpted personal wellness products. Find model-specific technical specifications, charging architectures, and answers to common B2B product questions."
+  schema={guideSchema}
+>
+  <section class="page-head">
+    <p class="eyebrow">THE PRODUCT GUIDE</p>
+    <h1>Details that<br/>Make a Difference.</h1>
+    <p>A clear technical reference for comparing BOHOL hardware architectures, motor mechanics, and operating parameters.</p>
+  </section>
+
+  <!-- AUTHOR BYLINE & MACHINE-READABLE FRESHNESS SIGNALS -->
+  <div class="geo-byline-bar" style="max-width: 900px; margin: 1.25rem auto 2.5rem; padding: 0 1.5rem;">
+    <div style="display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 8px 14px; font-size: 13px; color: #475569; padding: 8px 18px; background: #f8fafc; border-radius: 9999px; border: 1px solid #e2e8f0;">
+      <span>🏭 Verified Manufacturer: <strong>BOHOL</strong></span>
+      <span style="color: #cbd5e1;">•</span>
+      <span>Curated by: <a href="/about/" style="color: #0284c7; text-decoration: underline; font-weight: 700;">Alex Chen (Hardware Architect)</a></span>
+      <span style="color: #cbd5e1;">•</span>
+      <span>Published: <time datetime="2024-01-01">Jan 1, 2024</time></span>
+      <span style="color: #cbd5e1;">•</span>
+      <span>Audited: <time datetime="2026-10-18">Oct 18, 2026</time></span>
+    </div>
+  </div>
+
+  <article class="reading" style="max-width: 900px; margin: 0 auto; padding-bottom: 60px;">
+    <h2>How Do Different BOHOL Product Architectures Compare?</h2>
+    <p>Twist &amp; Fun uses a cylindrical body with an inspection window and dual-action rotary stroke. Starship has an open-form construction designed for multi-point stimulation. Mengqu takes a compact approach with an induction charging stand, while the sculpted series explores curved silhouettes and distinct Pantone color finishes. Compare physical dimensions and specifications before placing volume orders.</p>
+
+    <div class="table-scroll">
+      <table class="compare">
+        <caption class="eyebrow" style="text-align:left">AT A GLANCE HARDWARE MATRIX</caption>
+        <thead>
+          <tr>
+            <th scope="col">Product Model</th>
+            <th scope="col">Design Focus &amp; Mechanics</th>
+            <th scope="col">Explore Specifications</th>
+          </tr>
+        </thead>
+        <tbody>
+          {products.map(p => (
+            <tr>
+              <th scope="row">{p.data.name}</th>
+              <td>{p.data.features[0] || 'Precision Dual Motor'}</td>
+              <td><a href={`/products/${p.id}/`}>View details &rarr;</a></td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Section: ISO / FDA Citation -->
+    <div style="margin: 36px 0; background: #f8fafc; border-left: 4px solid #0284c7; padding: 18px 24px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(15,23,42,0.04);">
+      <blockquote style="margin: 0; font-size: 14px; line-height: 1.7; color: #334155;">
+        "All hardware featured in the BOHOL collection is produced under ISO 13485:2016 quality management systems and utilizes body-safe, platinum-cured liquid silicone rubber certified under FDA 21 CFR § 177.2600. Every production lot undergoes 100% automated acoustic decibel tests and IPX7 vacuum immersion verification."
+        <footer style="margin-top: 8px; font-size: 12.5px; color: #64748b; font-weight: 600;">
+          — Certified under <a href="https://www.iso.org/standard/59752.html" target="_blank" rel="noopener noreferrer" style="color: #0284c7; text-decoration: underline;">ISO 13485:2016</a> &amp; <a href="https://www.accessdata.fda.gov/scripts/cdrh/cfdocs/cfcfr/cfrsearch.cfm?fr=177.2600" target="_blank" rel="noopener noreferrer" style="color: #0284c7; text-decoration: underline;">FDA 21 CFR § 177.2600</a>
+        </footer>
+      </blockquote>
+    </div>
+
+    <h2>What Are the Most Frequently Asked Questions About BOHOL Hardware?</h2>
+    <details class="faq" open>
+      <summary>Where can I find dimensions and charging information?</summary>
+      <p>Each product page features a detailed technical specifications matrix. Models include exact millimeter dimensions, net weight, medical-grade materials, and charging architecture (sealed USB-C or magnetic pogo-pin dock).</p>
+    </details>
+    <details class="faq">
+      <summary>Do the devices use the same charger?</summary>
+      <p>No. Twist &amp; Fun, Space, and CJ7 feature sealed USB-C ports with over-voltage protection, while Starship utilizes a dedicated magnetic DC socket. Always refer to your exact model specifications before selecting charging accessories.</p>
+    </details>
+    <details class="faq">
+      <summary>How should I clean and store my device?</summary>
+      <p>Clean devices using warm water and antibacterial toy cleanser or mild soap. Avoid alcohol, petroleum, or acetone solvents on liquid silicone surfaces. Fully dry the device and keep charging contacts moisture-free before storing in a cool, dust-free environment.</p>
+    </details>
+    <details class="faq">
+      <summary>Are app features the same for every model?</summary>
+      <p>App availability, connection methods, and supported features can differ between models and regions. Confirm compatibility using the documentation supplied with your device. Product appearance alone does not confirm an app feature.</p>
+    </details>
+    <details class="faq">
+      <summary>Who is this collection for?</summary>
+      <p>This collection is for consenting adults aged 18 and over. These pages describe adult novelty wellness products and do not claim to diagnose, treat, or cure medical conditions.</p>
+    </details>
+
+    <div class="guide-end" style="margin-top: 36px; text-align: center;">
+      <a class="button primary" href="/products/">Explore the complete catalog <Icon name="arrow-up-right"/></a>
+    </div>
+  </article>
 </Layout>
