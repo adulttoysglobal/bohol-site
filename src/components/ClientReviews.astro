@@ -208,7 +208,7 @@ const ugcReviews = [
               <span>Purchased Product · {item.productSku}</span>
               <strong>{item.productName}</strong>
             </a>
-            <a href={item.productImg} target="_blank" rel="noopener" class="ugc-prod-arrow" title="View Product Image">→</a>
+            <a href={item.productImg} target="_blank" rel="noopener" class="ugc-prod-arrow" title="View Product Image" aria-label={`View full resolution image of ${item.productName}`}>&rarr;</a>
           </div>
         </div>
       </article>

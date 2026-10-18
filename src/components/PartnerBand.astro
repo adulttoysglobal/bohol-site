@@ -37,23 +37,23 @@ import settings from '../data/settings.json';
       <div class="rfq-grid">
         <label class="rfq-field">
           <span>Full Name <em>*</em></span>
-          <input type="text" name="name" placeholder="Your name" autocomplete="name" required maxlength="120" />
+          <input type="text" name="name" aria-label="Full Name" placeholder="Your name" autocomplete="name" required maxlength="120" />
         </label>
         <label class="rfq-field">
           <span>Business Email <em>*</em></span>
-          <input type="email" name="email" placeholder="name@company.com" autocomplete="email" required maxlength="200" />
+          <input type="email" name="email" aria-label="Business Email" placeholder="name@company.com" autocomplete="email" required maxlength="200" />
         </label>
         <label class="rfq-field">
           <span>Company / Brand</span>
-          <input type="text" name="company" placeholder="Company or brand name" autocomplete="organization" maxlength="180" />
+          <input type="text" name="company" aria-label="Company or Brand Name" placeholder="Company or brand name" autocomplete="organization" maxlength="180" />
         </label>
         <label class="rfq-field">
           <span>WhatsApp / Phone</span>
-          <input type="tel" name="phone" placeholder="+1 / +44 / +86 ..." autocomplete="tel" maxlength="80" />
+          <input type="tel" name="phone" aria-label="WhatsApp or Phone Number" placeholder="+1 / +44 / +86 ..." autocomplete="tel" maxlength="80" />
         </label>
         <label class="rfq-field">
           <span>Cooperation Type</span>
-          <select name="type">
+          <select name="type" aria-label="Cooperation Type">
             <option value="OEM / Private Label">OEM / Private Label</option>
             <option value="ODM Custom Tooling">ODM Custom Tooling</option>
             <option value="Wholesale Distribution">Wholesale Distribution</option>
@@ -62,12 +62,13 @@ import settings from '../data/settings.json';
         </label>
         <label class="rfq-field">
           <span>Est. Order Quantity</span>
-          <input type="text" name="quantity" placeholder="e.g. 500 - 2,000 pcs" maxlength="120" />
+          <input type="text" name="quantity" aria-label="Estimated Order Quantity" placeholder="e.g. 500 - 2,000 pcs" maxlength="120" />
         </label>
         <label class="rfq-field rfq-wide">
           <span>Project Requirements / Target Models <em>*</em></span>
           <textarea
             name="message"
+            aria-label="Project Requirements and Target Models"
             rows="3"
             placeholder="Tell us which models (e.g. Twist & Fun, Bobi I, Lenas), custom logo/packaging requirements, or destination market..."
             required

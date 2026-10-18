@@ -15,27 +15,27 @@ const products = (await getCollection('products')).sort((a, b) => a.data.order -
   <div class="form-grid">
     <label class="field">
       <span>Your Name <em>*</em></span>
-      <input name="name" placeholder="Full name" autocomplete="name" required maxlength="120" />
+      <input name="name" aria-label="Your Name" placeholder="Full name" autocomplete="name" required maxlength="120" />
     </label>
     <label class="field">
       <span>Company / Brand</span>
-      <input name="company" placeholder="Company or brand name" autocomplete="organization" maxlength="180" />
+      <input name="company" aria-label="Company or Brand Name" placeholder="Company or brand name" autocomplete="organization" maxlength="180" />
     </label>
     <label class="field">
       <span>Business Email <em>*</em></span>
-      <input type="email" name="email" placeholder="name@company.com" autocomplete="email" required maxlength="200" />
+      <input type="email" name="email" aria-label="Business Email" placeholder="name@company.com" autocomplete="email" required maxlength="200" />
     </label>
     <label class="field">
       <span>WhatsApp / Phone</span>
-      <input type="tel" name="phone" placeholder="+1 / +44 / +86 ..." autocomplete="tel" maxlength="80" />
+      <input type="tel" name="phone" aria-label="WhatsApp or Phone Number" placeholder="+1 / +44 / +86 ..." autocomplete="tel" maxlength="80" />
     </label>
     <label class="field">
       <span>Destination Market <em>*</em></span>
-      <input name="market" placeholder="Country or region" required maxlength="120" />
+      <input name="market" aria-label="Destination Market" placeholder="Country or region" required maxlength="120" />
     </label>
     <label class="field">
       <span>Cooperation Type</span>
-      <select name="type">
+      <select name="type" aria-label="Cooperation Type">
         <option value="OEM / Private Label">OEM / Private Label</option>
         <option value="ODM Custom Tooling">ODM Custom Tooling</option>
         <option value="Wholesale Distribution">Wholesale Distribution</option>
@@ -44,7 +44,7 @@ const products = (await getCollection('products')).sort((a, b) => a.data.order -
     </label>
     <label class="field wide">
       <span>Expected Order Quantity</span>
-      <input name="quantity" placeholder="For example: 500 - 2,000 units per model" maxlength="120" />
+      <input name="quantity" aria-label="Expected Order Quantity" placeholder="For example: 500 - 2,000 units per model" maxlength="120" />
     </label>
   </div>
 
@@ -53,7 +53,7 @@ const products = (await getCollection('products')).sort((a, b) => a.data.order -
     <div class="model-options">
       {products.map((product) => (
         <label>
-          <input type="checkbox" name="models" value={product.data.name} data-model-id={product.id} />
+          <input type="checkbox" name="models" value={product.data.name} data-model-id={product.id} aria-label={product.data.name} />
           {product.data.name}
         </label>
       ))}
@@ -64,6 +64,7 @@ const products = (await getCollection('products')).sort((a, b) => a.data.order -
     <span>Project Requirements & Customization Details <em>*</em></span>
     <textarea
       name="message"
+      aria-label="Project Requirements and Customization Details"
       placeholder="Tell us which Pantone colors, logo engraving, packaging, certifications or target price you would like to discuss."
       required
       maxlength="5000"
