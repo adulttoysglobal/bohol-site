@@ -11,11 +11,14 @@ import settings from '../data/settings.json';
 const {
   title = 'Global Adult Wellness Store & 35,000 m² OEM Smart Factory',
   description = settings.description,
+  keywords = 'adult toys manufacturer, hotel vending machine, smart sex toys OEM, liquid silicone rubber, private mold vibrator, BOHOL adult wellness',
   image = '/images/factory-campus.webp',
   type = 'website',
   schema,
   noindex = false
 } = Astro.props;
+
+const pageTitle = title.includes(settings.brand) ? title : `${title} | ${settings.brand}`;
 
 const navMenus = [
   {
@@ -147,8 +150,9 @@ const websiteSchema = {
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>{title} | {settings.brand}</title>
+  <title>{pageTitle}</title>
   <meta name="description" content={description} />
+  <meta name="keywords" content={keywords} />
   <meta name="theme-color" content="#219dbb" />
   <meta name="rating" content="adult" />
   <meta name="author" content="BOHOL Smart Manufacturing" />
@@ -160,7 +164,7 @@ const websiteSchema = {
 
   <!-- Open Graph / Facebook -->
   <meta property="og:site_name" content="BOHOL Global Adult Wellness & Smart Manufacturing" />
-  <meta property="og:title" content={`${title} | ${settings.brand}`} />
+  <meta property="og:title" content={pageTitle} />
   <meta property="og:description" content={description} />
   <meta property="og:type" content={type} />
   <meta property="og:url" content={canonical} />
@@ -173,7 +177,7 @@ const websiteSchema = {
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:site" content="@boholwellness" />
   <meta name="twitter:creator" content="@boholwellness" />
-  <meta name="twitter:title" content={`${title} | ${settings.brand}`} />
+  <meta name="twitter:title" content={pageTitle} />
   <meta name="twitter:description" content={description} />
   <meta name="twitter:image" content={ogImage} />
 

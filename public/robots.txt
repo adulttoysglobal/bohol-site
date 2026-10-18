@@ -33,5 +33,6 @@ User-agent: Bingbot
 Allow: /
 
 # Sitemaps & Feeds
+Sitemap: https://adulttoysglobal.com/sitemap.xml
 Sitemap: https://adulttoysglobal.com/sitemap-index.xml
 Sitemap: https://adulttoysglobal.com/rss.xml
