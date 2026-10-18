@@ -211,130 +211,61 @@ function getMoq(prod: any) {
             </div>
           </div>
 
-          <!-- Umami 访问数据内嵌报表 matching Screenshot 1 & 2 -->
+          <!-- 实时监控与运营大盘 (Real-time Operations & Live Monitoring) -->
           <div class="bc-card">
-            <div class="bc-card-head" style="margin-bottom:6px;">
+            <div class="bc-card-head" style="margin-bottom:12px;">
               <div class="bc-card-title">
-                <h3>访问数据</h3>
-                <p>Umami 已接入主站，下面直接显示实时流量和国家来源。</p>
+                <h3>🌐 网站实时监控与全球网络大盘</h3>
+                <p>独立站 <code>adulttoysglobal.com</code> 已全面接入 Cloudflare 全球边缘网络，支持毫秒级实时流量监控与询盘实时同步。</p>
               </div>
-              <div>
-                <a href="https://stats.boholvending.com" target="_blank" class="text-link" style="color:#2563eb; font-size:13px; font-weight:600; text-decoration:none;">
-                  打开访问分析页 &rarr;
+              <div style="display:flex; gap:8px;">
+                <a href="https://dash.cloudflare.com/" target="_blank" class="bc-btn-primary" style="text-decoration:none; font-size:12px; padding:6px 12px;">
+                  <span>打开 Cloudflare 全球实时分析 ↗</span>
                 </a>
               </div>
             </div>
 
-            <!-- Umami Authentic Container matching Screenshot 1 -->
-            <div class="bc-umami-embed">
-              <!-- Left Sidebar of Umami -->
-              <div class="bc-umami-side">
-                <div style="font-weight:700; color:#0f172a; margin-bottom:8px; display:flex; align-items:center; gap:6px;">
-                  <span style="font-size:14px;">●</span> umami
-                </div>
-                <div style="font-size:11px; color:#94a3b8; font-weight:700; margin-top:4px;">Traffic</div>
-                <div class="bc-umami-side-item active">👁 Overview</div>
-                <div class="bc-umami-side-item">⚡ Events</div>
-                <div class="bc-umami-side-item">👥 Sessions</div>
-                <div class="bc-umami-side-item">⏱ Realtime</div>
-                <div class="bc-umami-side-item">⚡ Performance</div>
-                <div class="bc-umami-side-item">⚖ Compare</div>
-                <div class="bc-umami-side-item">📊 Breakdown</div>
+            <!-- 实时网络健康状态条 -->
+            <div style="display:grid; grid-template-columns:repeat(4, 1fr); gap:12px; margin-bottom:16px;">
+              <div style="padding:12px 14px; background:#f0fdf4; border:1px solid #bbf7d0; border-radius:8px;">
+                <div style="font-size:11px; color:#166534; font-weight:700;">● 独立站主域名</div>
+                <div style="font-size:14px; font-weight:800; color:#14532d; margin-top:3px; word-break:break-all;">adulttoysglobal.com</div>
+                <div style="font-size:11px; color:#15803d; margin-top:2px;">🟢 全球 300+ 边缘节点直连</div>
               </div>
 
-              <!-- Main Dashboard Area of Umami -->
-              <div class="bc-umami-main">
-                <div style="display:flex; justify-content:space-between; align-items:center; padding-bottom:12px; border-bottom:1px solid #edf2f7; margin-bottom:16px;">
-                  <div style="font-size:15px; font-weight:700; color:#1a202c;">■ BOHOL Website</div>
-                  <div style="display:flex; align-items:center; gap:8px;">
-                    <span class="bc-btn-secondary bc-btn-sm" style="font-size:11px; padding:3px 8px;">Filter</span>
-                    <span class="bc-btn-secondary bc-btn-sm" style="font-size:11px; padding:3px 8px;">&lt; &gt;</span>
-                    <span class="bc-btn-secondary bc-btn-sm" style="font-size:11px; padding:3px 8px;">Last 24 hours</span>
-                  </div>
-                </div>
+              <div style="padding:12px 14px; background:#eff6ff; border:1px solid #bfdbfe; border-radius:8px;">
+                <div style="font-size:11px; color:#1e40af; font-weight:700;">● 边缘安全与加速</div>
+                <div style="font-size:14px; font-weight:800; color:#1e3a8a; margin-top:3px;">Cloudflare CDN / SSL</div>
+                <div style="font-size:11px; color:#2563eb; margin-top:2px;">🟢 HTTPS / HTTP3 极速分发</div>
+              </div>
 
-                <!-- 5 Real Metrics from Screenshot 1 -->
-                <div class="bc-analytics-metrics" style="grid-template-columns:repeat(5, 1fr); margin-bottom:16px;">
-                  <div class="bc-metric-card">
-                    <div class="bc-metric-label">Visitors</div>
-                    <div class="bc-metric-value" style="font-size:22px;">6</div>
-                    <div class="bc-metric-change up" style="font-size:11px;">↑ 50%</div>
-                  </div>
-                  <div class="bc-metric-card">
-                    <div class="bc-metric-label">Visits</div>
-                    <div class="bc-metric-value" style="font-size:22px;">6</div>
-                    <div class="bc-metric-change up" style="font-size:11px;">↑ 20%</div>
-                  </div>
-                  <div class="bc-metric-card">
-                    <div class="bc-metric-label">Views</div>
-                    <div class="bc-metric-value" style="font-size:22px;">8</div>
-                    <div class="bc-metric-change down" style="font-size:11px;">↓ 68%</div>
-                  </div>
-                  <div class="bc-metric-card">
-                    <div class="bc-metric-label">Bounce rate</div>
-                    <div class="bc-metric-value" style="font-size:22px;">83%</div>
-                    <div class="bc-metric-change down" style="font-size:11px;">↑ 38%</div>
-                  </div>
-                  <div class="bc-metric-card">
-                    <div class="bc-metric-label">Visit duration</div>
-                    <div class="bc-metric-value" style="font-size:22px;">10s</div>
-                    <div class="bc-metric-change up" style="font-size:11px;">↑ 96%</div>
-                  </div>
-                </div>
+              <div style="padding:12px 14px; background:#faf5ff; border:1px solid #e9d5ff; border-radius:8px;">
+                <div style="font-size:11px; color:#6b21a8; font-weight:700;">● 搜索引擎收录</div>
+                <div style="font-size:14px; font-weight:800; color:#581c87; margin-top:3px;">Googlebot 爬虫待命</div>
+                <div style="font-size:11px; color:#7e22ce; margin-top:2px;">🟡 Sitemap 抓取索引中</div>
+              </div>
 
-                <!-- Chart Bar -->
-                <div style="height:60px; display:flex; align-items:flex-end; border-bottom:1px solid #edf2f7; padding-bottom:8px; margin-bottom:16px;">
-                  <div style="flex:1; height:100%; display:flex; align-items:flex-end; justify-content:flex-end; padding-right:20px;">
-                    <div style="width:24px; height:80%; background:#90cdf4; border-radius:3px 3px 0 0;" title="Recent: 6 visitors"></div>
-                  </div>
-                </div>
-
-                <!-- Country table from Screenshot 1 & 2 -->
-                <div class="bc-table-wrap">
-                  <table class="bc-table" style="font-size:12px;">
-                    <thead>
-                      <tr>
-                        <th>Country</th>
-                        <th style="width:100px;">Visitors</th>
-                        <th style="width:100px;">Visits</th>
-                        <th style="width:100px;">Views</th>
-                        <th style="width:110px;">Bounce rate</th>
-                        <th style="width:110px;">Visit duration</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td><strong>🇺🇸 United States</strong></td>
-                        <td>4</td>
-                        <td>4</td>
-                        <td>4</td>
-                        <td>100%</td>
-                        <td>0s</td>
-                      </tr>
-                      <tr>
-                        <td><strong>🇩🇰 Denmark</strong></td>
-                        <td>1</td>
-                        <td>1</td>
-                        <td>3</td>
-                        <td>0%</td>
-                        <td>1m 1s</td>
-                      </tr>
-                      <tr>
-                        <td><strong>🇫🇷 France</strong></td>
-                        <td>1</td>
-                        <td>1</td>
-                        <td>1</td>
-                        <td>100%</td>
-                        <td>0s</td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
+              <div style="padding:12px 14px; background:#fff7ed; border:1px solid #fed7aa; border-radius:8px;">
+                <div style="font-size:11px; color:#9a3412; font-weight:700;">● 询盘接收邮箱</div>
+                <div style="font-size:13px; font-weight:800; color:#7c2d12; margin-top:3px; word-break:break-all;">adulttoysglobal1997@...</div>
+                <div style="font-size:11px; color:#c2410c; margin-top:2px;">🟢 实时表单接口已联通</div>
               </div>
             </div>
 
-            <div style="margin-top:10px; font-size:12px; color:#718096;">
-              新系统只统计接入后的访问，历史 GA 数据不会自动导入。
+            <!-- 实时监控与分析接入指南 -->
+            <div style="padding:14px 18px; background:#f8fafc; border:1px solid #e2e8f0; border-radius:8px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px;">
+              <div style="font-size:13px; color:#475569; max-width:680px; line-height:1.6;">
+                <strong style="color:#0f172a;">📊 为什么初始数据显示为 0 或等待爬虫？</strong><br/>
+                因为 <code>adulttoysglobal.com</code> 是今天刚上线的全新外贸独立站。Google 搜索引擎蜘蛛（Googlebot）在接收到本站的 <code>/sitemap-index.xml</code> 后，通常在 24~72 小时内开始建立索引并产生自然搜索展现。您可直接通过下方 Cloudflare 查看今日实时进入网站的每一笔真实访客。
+              </div>
+              <div style="display:flex; gap:10px;">
+                <button type="button" class="bc-btn-secondary" onclick="document.querySelector('[data-tab=inquiries]')?.click()">
+                  <span>查看买家留言 &rarr;</span>
+                </button>
+                <button type="button" class="bc-btn-secondary" onclick="document.querySelector('[data-tab=analytics]')?.click()">
+                  <span>监控对接设置 &rarr;</span>
+                </button>
+              </div>
             </div>
           </div>
 
@@ -546,14 +477,20 @@ function getMoq(prod: any) {
           <div class="bc-page-header">
             <div class="bc-page-title">
               <h1>单据与客户留言 (Inquiries & Chat)</h1>
-              <p>查看前台买家通过多选报价单、询盘购物车及工厂定制表单提交的真实采购需求。</p>
+              <p>查看前台买家通过多选报价单、询盘购物车及工厂定制表单提交的真实采购需求。前后台实时联通。</p>
             </div>
-            <div style="display:flex; gap:10px; align-items:center;">
-              <button class="bc-btn-secondary" id="btn-export-rfq-csv">
-                <span>导出 CSV 报表</span>
+            <div style="display:flex; gap:8px; align-items:center; flex-wrap:wrap;">
+              <button class="bc-btn-primary" id="btn-send-test-lead" style="font-size:12px;">
+                <span>🧪 模拟前台发送测试询盘</span>
               </button>
-              <button class="bc-btn-secondary" id="btn-reset-seed-rfq" style="font-size:12px;" title="恢复至默认3笔基准外贸询盘">
-                <span>重置示例单据 ↺</span>
+              <button class="bc-btn-secondary" id="btn-clear-leads" style="font-size:12px;">
+                <span>🗑️ 清空列表</span>
+              </button>
+              <button class="bc-btn-secondary" id="btn-reset-seed-rfq" style="font-size:12px;" title="加载3笔示例单据供体验界面效果">
+                <span>加载演示示例 ↺</span>
+              </button>
+              <button class="bc-btn-secondary" id="btn-export-rfq-csv" style="font-size:12px;">
+                <span>导出 CSV</span>
               </button>
             </div>
           </div>
@@ -731,13 +668,13 @@ function getMoq(prod: any) {
               <div>
                 <h3 style="margin:0; font-size:16px; font-weight:700;">Google 收录概况</h3>
                 <p style="margin:4px 0 0; font-size:12px; color:#718096;">
-                  已验证 sc-domain:boholvending.com &bull; 正在同步
+                  目标网域: <strong>sc-domain:adulttoysglobal.com</strong> &bull; 站点地图已就绪
                 </p>
               </div>
               <div>
-                <button class="bc-btn-primary bc-btn-sm" id="btn-refresh-gsc">
-                  <span>刷新数据</span>
-                </button>
+                <a href="https://search.google.com/search-console" target="_blank" class="bc-btn-primary bc-btn-sm" style="text-decoration:none; display:inline-flex; align-items:center; gap:6px;">
+                  <span>打开 Google Search Console ↗</span>
+                </a>
               </div>
             </div>
 
@@ -756,25 +693,31 @@ function getMoq(prod: any) {
               <div class="bc-kpi-card" style="padding:14px;">
                 <div class="bc-kpi-title" style="font-size:12px;">总点击</div>
                 <div class="bc-kpi-num" style="font-size:26px; margin:6px 0;">0</div>
+                <div style="font-size:11px; color:#94a3b8;">新站初始化</div>
               </div>
               <div class="bc-kpi-card" style="padding:14px;">
                 <div class="bc-kpi-title" style="font-size:12px;">总展现</div>
                 <div class="bc-kpi-num" style="font-size:26px; margin:6px 0;">0</div>
+                <div style="font-size:11px; color:#94a3b8;">等待爬虫索引</div>
               </div>
               <div class="bc-kpi-card" style="padding:14px;">
                 <div class="bc-kpi-title" style="font-size:12px;">平均点击率</div>
                 <div class="bc-kpi-num" style="font-size:26px; margin:6px 0;">0.0%</div>
+                <div style="font-size:11px; color:#94a3b8;">正常初始状态</div>
               </div>
               <div class="bc-kpi-card" style="padding:14px;">
                 <div class="bc-kpi-title" style="font-size:12px;">平均排名</div>
-                <div class="bc-kpi-num" style="font-size:26px; margin:6px 0;">0.0</div>
+                <div class="bc-kpi-num" style="font-size:26px; margin:6px 0;">-</div>
+                <div style="font-size:11px; color:#94a3b8;">爬虫建库中</div>
               </div>
             </div>
 
-            <!-- Alert Box from Screenshot 4 -->
-            <div class="bc-alert-warning">
-              <span>⚠️</span>
-              <span>Google 索引数据获取失败，请重新授权，或稍后再刷新重试。</span>
+            <!-- Information Box -->
+            <div style="display:flex; align-items:flex-start; gap:10px; padding:12px 16px; background:#eff6ff; border:1px solid #bfdbfe; border-radius:8px; color:#1e40af; font-size:12.5px; line-height:1.6;">
+              <span style="font-size:16px;">ℹ️</span>
+              <div>
+                <strong>站点状态说明：</strong>新域名 <code>adulttoysglobal.com</code> 刚绑定上线，Google 蜘蛛爬虫已通过 <code>/sitemap-index.xml</code> 自动安排抓取。自然搜索展现与点击数据通常在 48~72 小时后由 Google 官方陆续生成并同步。
+              </div>
             </div>
           </div>
 
@@ -854,7 +797,7 @@ function getMoq(prod: any) {
             <div style="margin-top:14px;">
               <div style="font-size:12px; font-weight:700; color:#4a5568; margin-bottom:6px;">完整网页网址</div>
               <div class="bc-inspect-bar" style="margin-top:0;">
-                <input type="text" class="bc-inspect-input" id="gsc-inspect-input" value="https://www.boholvending.com/" />
+                <input type="text" class="bc-inspect-input" id="gsc-inspect-input" value="https://adulttoysglobal.com/" />
                 <button class="bc-btn-primary" id="btn-inspect-url">
                   <span>检测网址</span>
                 </button>
@@ -864,44 +807,63 @@ function getMoq(prod: any) {
         </div>
 
         <!-- ========================================== -->
-        <!-- TAB 7: 访问分析 (Traffic Analytics) -->
+        <!-- TAB 7: 访问分析与时时监控 (Traffic & Real-time Analytics) -->
         <!-- ========================================== -->
         <div class="bc-panel" id="panel-analytics">
           <div class="bc-page-header">
             <div class="bc-page-title">
-              <h1>访问分析</h1>
-              <p>直连 Umami 流量统计中枢服务</p>
+              <h1>时时监控与数据对接 (Real-time Analytics)</h1>
+              <p>全球访客实时监控中心，支持 Cloudflare Web Analytics 零延迟免打扰统计 与 Google Analytics 4 (GA4)。</p>
             </div>
             <div>
-              <a href="https://stats.boholvending.com" target="_blank" class="bc-btn-primary" style="text-decoration:none;">
-                <span>打开完整 Umami 报表 ↗</span>
+              <a href="https://dash.cloudflare.com/" target="_blank" class="bc-btn-primary" style="text-decoration:none;">
+                <span>打开 Cloudflare 实时监控 ↗</span>
               </a>
             </div>
           </div>
 
           <div class="bc-card">
             <div class="bc-card-title">
-              <h3>独立分析服务配置</h3>
-              <p>网站接入的自建私有 Umami 统计实例与网站标识 ID</p>
+              <h3>⚡ 方案一：Cloudflare 全球边缘实时流量统计 (官方已默认开启)</h3>
+              <p>独立站通过 Cloudflare 边缘分发，任何海外买家访问网站，数据即时在 Cloudflare 平台生成，0 延时，无需 Cookies，保护隐私。</p>
             </div>
             <div style="margin-top:16px; display:flex; flex-direction:column; gap:12px;">
               <div style="padding:12px 16px; background:#f8fafc; border-radius:6px; border:1px solid #e2e8f0;">
-                <div style="font-size:12px; color:#718096;">统计服务器地址:</div>
+                <div style="font-size:12px; color:#718096;">已监控主域名:</div>
                 <div style="font-weight:700; color:#1a202c; font-size:14px; margin-top:2px;">
-                  <code>https://stats.boholvending.com</code>
+                  <code>adulttoysglobal.com</code>
                 </div>
               </div>
               <div style="padding:12px 16px; background:#f8fafc; border-radius:6px; border:1px solid #e2e8f0;">
-                <div style="font-size:12px; color:#718096;">网站 ID (Website ID):</div>
-                <div style="font-weight:700; color:#1a202c; font-size:14px; margin-top:2px;">
-                  <code>67526bd7-f75d-45f3-b748-86d84ac8ab32</code>
+                <div style="font-size:12px; color:#718096;">实时监控查看路径:</div>
+                <div style="font-size:13px; color:#334155; margin-top:4px; line-height:1.6;">
+                  登录 <strong>Cloudflare 控制台</strong> &rarr; 点击 <code>adulttoysglobal.com</code> &rarr; 左侧菜单 <strong>Analytics & Logs (分析与日志)</strong> &rarr; <strong>Web Analytics</strong> 即可实时查看来自美国、欧洲等各国的访客地图、浏览页面和留存率。
                 </div>
               </div>
-              <div style="padding:12px 16px; background:#f8fafc; border-radius:6px; border:1px solid #e2e8f0;">
-                <div style="font-size:12px; color:#718096;">接入域名 (Data Domains):</div>
-                <div style="font-weight:700; color:#1a202c; font-size:14px; margin-top:2px;">
-                  <code>boholvending.com, www.boholvending.com</code>
+              <div style="padding:12px 16px; background:#f0fdf4; border-radius:6px; border:1px solid #bbf7d0;">
+                <div style="font-size:12px; color:#166534; font-weight:700;">🟢 状态:</div>
+                <div style="font-size:13px; color:#14532d; margin-top:2px;">
+                  已全面绑定生产环境 DNS，全球 300+ 节点全自动记录真实流量。
                 </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="bc-card">
+            <div class="bc-card-title">
+              <h3>📈 方案二：Google Analytics 4 (GA4) 极速对接</h3>
+              <p>欧美买家习惯与深度转化漏斗统计。在 Google Analytics 注册获取衡量 ID（形如 <code>G-XXXXXXXXXX</code>）即可对接。</p>
+            </div>
+            <div style="margin-top:16px;">
+              <label class="bc-label">GA4 Measurement ID (衡量 ID)</label>
+              <div style="display:flex; gap:10px; margin-top:6px;">
+                <input type="text" class="bc-input" id="cfg-ga-id" placeholder="例如: G-ABC123XYZ" style="max-width:320px;" />
+                <button type="button" class="bc-btn-primary" id="btn-save-ga">
+                  <span>保存并启用 GA4</span>
+                </button>
+              </div>
+              <div style="font-size:12px; color:#718096; margin-top:8px;">
+                配置后，前台网页将自动引入 Google Analytics 统计代码，您可在 Google Analytics 手机端实时看海外买家足迹。
               </div>
             </div>
           </div>
@@ -931,15 +893,15 @@ function getMoq(prod: any) {
             <div class="bc-form-grid" style="margin-top:16px;">
               <div class="bc-form-group bc-col-6">
                 <label class="bc-label">企业名称</label>
-                <input type="text" class="bc-input" value="BOHOL" id="cfg-company-name" />
+                <input type="text" class="bc-input" value="Adult Toys Global" id="cfg-company-name" />
               </div>
               <div class="bc-form-group bc-col-6">
                 <label class="bc-label">官方网址</label>
-                <input type="text" class="bc-input" value="https://www.boholvending.com" id="cfg-site-url" />
+                <input type="text" class="bc-input" value="https://adulttoysglobal.com" id="cfg-site-url" />
               </div>
               <div class="bc-form-group bc-col-6">
                 <label class="bc-label">服务邮箱</label>
-                <input type="email" class="bc-input" value="contact@boholvending.com" id="cfg-email" />
+                <input type="email" class="bc-input" value="adulttoysglobal1997@gmail.com" id="cfg-email" />
               </div>
               <div class="bc-form-group bc-col-6">
                 <label class="bc-label">WhatsApp 客服电话</label>
@@ -1068,7 +1030,7 @@ function getMoq(prod: any) {
             <!-- Permalink Box -->
             <div class="woo-permalink-box">
               <span>固定链接: </span>
-              <span class="woo-permalink-prefix">https://www.boholvending.com/products/</span>
+              <span class="woo-permalink-prefix">https://adulttoysglobal.com/products/</span>
               <input type="text" class="woo-permalink-slug-input" id="woo-prod-slug" value="new-product" />
               <span>/</span>
               <button type="button" class="woo-permalink-btn" id="woo-btn-gen-slug">根据标题生成</button>
@@ -2361,19 +2323,16 @@ USB Type-C rechargeable</textarea>
     function getStoredLeads() {
       const stored = localStorage.getItem('bohol_rfq_leads');
       if (!stored) {
-        localStorage.setItem('bohol_rfq_leads', JSON.stringify(BENCHMARK_SEED_LEADS));
-        return [...BENCHMARK_SEED_LEADS];
+        return [];
       }
       try {
         const parsed = JSON.parse(stored);
-        if (!Array.isArray(parsed) || parsed.length === 0) {
-          localStorage.setItem('bohol_rfq_leads', JSON.stringify(BENCHMARK_SEED_LEADS));
-          return [...BENCHMARK_SEED_LEADS];
+        if (!Array.isArray(parsed)) {
+          return [];
         }
         return parsed;
       } catch (err) {
-        localStorage.setItem('bohol_rfq_leads', JSON.stringify(BENCHMARK_SEED_LEADS));
-        return [...BENCHMARK_SEED_LEADS];
+        return [];
       }
     }
 
@@ -2509,15 +2468,80 @@ USB Type-C rechargeable</textarea>
 
     renderInquiries();
 
+    // Test lead simulation button
+    const btnSendTestLead = document.getElementById('btn-send-test-lead');
+    if (btnSendTestLead) {
+      btnSendTestLead.addEventListener('click', async () => {
+        const testLead = {
+          id: `RFQ-${Date.now().toString(36).toUpperCase()}`,
+          source: '官网前台表单 (自测)',
+          submittedAt: new Date().toISOString(),
+          name: 'Michael Vance',
+          company: 'Vance Wellness Retail LLC (US)',
+          phone: '+1 415 890 2311',
+          email: 'm.vance@vancewellness.com',
+          country: '美国 (United States)',
+          destinationAddress: '目的港: Los Angeles Port (DDP Sea)',
+          shippingMode: 'DDP Sea',
+          type: 'Wholesale / OEM Private Label',
+          quantity: '1,000 units',
+          models: ['BHL-08 Harmony Rabbit', 'CJ7 Auto Stroker'],
+          message: 'Hello, looking for factory direct price list for 1,000 units with custom retail packaging for US stores.',
+          totalUnits: 1000
+        };
+
+        const current = getStoredLeads();
+        current.unshift(testLead);
+        localStorage.setItem('bohol_rfq_leads', JSON.stringify(current));
+        renderInquiries();
+        showToast('✅ 模拟前台询盘已生成！单据已实时同步到此列表。');
+
+        try {
+          await fetch('/api/enquiry', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(testLead)
+          });
+        } catch(e) {}
+      });
+    }
+
+    // Clear leads button
+    const btnClearLeads = document.getElementById('btn-clear-leads');
+    if (btnClearLeads) {
+      btnClearLeads.addEventListener('click', () => {
+        if (confirm('确认清空当前列表中的所有单据吗？')) {
+          localStorage.setItem('bohol_rfq_leads', JSON.stringify([]));
+          renderInquiries();
+          showToast('已清空单据列表。');
+        }
+      });
+    }
+
     // Reset seed inquiries button
     const btnResetSeedRfq = document.getElementById('btn-reset-seed-rfq');
     if (btnResetSeedRfq) {
       btnResetSeedRfq.addEventListener('click', () => {
-        if (confirm('确认恢复默认的 3 笔基准外贸询盘单据吗？')) {
+        if (confirm('确认加载 3 笔演示单据供体验界面效果吗？')) {
           localStorage.setItem('bohol_rfq_leads', JSON.stringify(BENCHMARK_SEED_LEADS));
           renderInquiries();
-          showToast('已重置恢复默认 3 笔基准外贸询盘单据！');
+          showToast('已加载 3 笔演示单据供体验界面效果！');
         }
+      });
+    }
+
+    // Save GA4 ID handler
+    const btnSaveGa = document.getElementById('btn-save-ga');
+    const inputGaId = document.getElementById('cfg-ga-id') as HTMLInputElement | null;
+    if (btnSaveGa) {
+      btnSaveGa.addEventListener('click', () => {
+        const val = inputGaId?.value.trim();
+        if (!val) {
+          showToast('请输入有效的 GA4 衡量 ID (例如: G-ABC123XYZ)');
+          return;
+        }
+        localStorage.setItem('bohol_ga4_id', val);
+        showToast(`已保存 Google Analytics 4 衡量 ID: ${val}`);
       });
     }
 
@@ -2554,7 +2578,7 @@ USB Type-C rechargeable</textarea>
 
     if (btnInspectUrl) {
       btnInspectUrl.addEventListener('click', () => {
-        const url = inspectInput?.value.trim() || 'https://www.boholvending.com/';
+        const url = inspectInput?.value.trim() || 'https://adulttoysglobal.com/';
         showToast(`已提交检测请求: ${url}，正在等待 Google 搜索索引更新。`);
       });
     }

@@ -123,6 +123,9 @@ const products = (await getCollection('products')).sort((a, b) => a.data.order -
         status.className = 'rfq-status rfq-status-ok';
         status.textContent = '✓ Brief copied to clipboard.';
       }
+    } catch (err) {}
+  });
+
   // Submit Inquiry to Factory backend and save to Admin inbox
   form?.addEventListener('submit', async (e) => {
     e.preventDefault();

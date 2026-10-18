@@ -109,11 +109,11 @@ const globalOrgSchema = {
   '@type': ['Organization', 'Manufacturer'],
   name: 'BOHOL',
   legalName: 'BOHOL Smart Manufacturing Co., Ltd.',
-  url: Astro.site?.toString() || 'https://bohol-product-studio.subaohe.chatgpt.site',
+  url: Astro.site?.toString() || 'https://adulttoysglobal.com',
   logo: new URL('/images/bohol-logo-horiz-dark.webp', Astro.site).href,
   description: 'Direct manufacturer and OEM/ODM engineering powerhouse operating a 35,000 m² cleanroom campus with 120+ automated assembly lines, Class 100,000 medical LSR liquid silicone injection, and global DDP fulfillment.',
   telephone: '+86-185-8858-3798',
-  email: 'hello@boholwellness.com',
+  email: settings.contactEmail || 'adulttoysglobal1997@gmail.com',
   address: {
     '@type': 'PostalAddress',
     addressLocality: 'Meizhou',
@@ -134,10 +134,10 @@ const websiteSchema = {
   '@context': 'https://schema.org',
   '@type': 'WebSite',
   name: 'BOHOL Global Adult Wellness & Smart Manufacturing',
-  url: Astro.site?.toString() || 'https://bohol-product-studio.subaohe.chatgpt.site',
+  url: Astro.site?.toString() || 'https://adulttoysglobal.com',
   potentialAction: {
     '@type': 'SearchAction',
-    target: `${Astro.site?.toString() || 'https://bohol-product-studio.subaohe.chatgpt.site'}/products/?q={search_term_string}`,
+    target: `${Astro.site?.toString() || 'https://adulttoysglobal.com'}/products/?q={search_term_string}`,
     'query-input': 'required name=search_term_string'
   }
 };
@@ -188,6 +188,22 @@ const websiteSchema = {
   <script type="application/ld+json" set:html={safeJson(globalOrgSchema)} />
   <script type="application/ld+json" set:html={safeJson(websiteSchema)} />
   {schema && <script type="application/ld+json" set:html={safeJson(schema)} />}
+
+  <!-- Realtime Analytics: Google Analytics 4 (if configured) -->
+  {settings.gaId && (
+    <script async src={`https://www.googletagmanager.com/gtag/js?id=${settings.gaId}`}></script>
+    <script is:inline define:vars={{ gaId: settings.gaId }}>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', gaId);
+    </script>
+  )}
+
+  <!-- Realtime Analytics: Cloudflare Web Analytics Beacon (if configured) -->
+  {settings.cloudflareBeaconToken && (
+    <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon={`{"token": "${settings.cloudflareBeaconToken}"}`}></script>
+  )}
 </head>
 <body>
   <a href="#main" class="skip">Skip to content</a>
