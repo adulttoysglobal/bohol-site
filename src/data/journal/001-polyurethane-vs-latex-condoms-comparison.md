@@ -2,7 +2,7 @@
 title: "0.01mm Polyurethane vs. 0.03mm Natural Latex Condoms: Heat Transfer, Sensation & Allergy"
 description: "An engineering showdown: ultra-thin Japanese waterborne polyurethane (0.01mm) vs ultra-elastic natural rubber latex (0.03mm) for maximum sexual realism."
 category: "Condoms & Lubricants"
-image: "/images/reviews/review-2.webp"
+image: "/images/reviews/review-02.webp"
 order: 29
 readTime: "5 min read"
 pubDate: "2026-10-15"

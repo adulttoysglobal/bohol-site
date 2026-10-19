@@ -2,7 +2,7 @@
 title: "Why Lubrication is Not Optional: Preventing Friction Micro-Tears & Elevating Comfort"
 description: "The medical necessity of intimate lubrication: how friction causes invisible mucosal abrasions, increases STI transmission risks, and kills sexual pleasure."
 category: "Condoms & Lubricants"
-image: "/images/reviews/review-4.webp"
+image: "/images/reviews/review-04.webp"
 order: 35
 readTime: "5 min read"
 pubDate: "2026-10-15"

@@ -1,8 +1,8 @@
 ---
 title: "Autonomous Hotel Room Vending: How Micro-Retail Kiosks Generate 65%+ Gross Margins"
 description: "Analyzing the unit economics, IoT cloud telemetry, and merchandise turnover of compact in-room hotel vending terminals."
-category: "Commercial Vending"
-image: "/images/spotlight-twist-fun.webp"
+category: "Hotel Vending"
+image: "/images/flagship-showroom.webp"
 order: 59
 readTime: "6 min read"
 pubDate: "2026-10-18"

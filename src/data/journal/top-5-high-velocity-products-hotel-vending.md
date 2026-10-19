@@ -2,7 +2,7 @@
 title: "The Top 5 High-Velocity Products for Hotel In-Room Vending Machines"
 description: "Optimize your minibar product matrix: sales velocity rankings for condoms, hyaluronic lubricants, delay sprays, compact toys, and lingerie."
 category: "Hotel Vending"
-image: "/images/reviews/review-1.webp"
+image: "/images/reviews/review-01.webp"
 order: 38
 readTime: "5 min read"
 pubDate: "2026-10-15"

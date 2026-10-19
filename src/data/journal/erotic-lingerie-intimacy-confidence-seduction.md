@@ -2,7 +2,7 @@
 title: "The Role of Erotic Lingerie in Intimate Relationships: Confidence, Seduction & Sensory Play"
 description: "How lace teddies, babydolls, and translucent bodysuits boost body confidence, ignite visual foreplay, and transform bedroom intimacy."
 category: "Couples & Lingerie"
-image: "/images/reviews/review-1.webp"
+image: "/images/reviews/review-01.webp"
 order: 23
 readTime: "5 min read"
 pubDate: "2026-10-15"

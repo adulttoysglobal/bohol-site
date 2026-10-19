@@ -11,15 +11,27 @@ const allArticles = (await getCollection('journal')).sort((a, b) => {
   return a.data.order - b.data.order;
 });
 
+// Normalized category helper so all articles map cleanly to the 6 primary pillars
+const normalizeCategory = (cat?: string) => {
+  if (!cat) return 'Brand & Manufacturing';
+  const c = cat.toLowerCase();
+  if (c.includes('vending')) return 'Hotel Vending';
+  if (c.includes('male') || c.includes('stroker')) return 'Male Wellness';
+  if (c.includes('condom') || c.includes('lubricant') || c.includes('lube')) return 'Condoms & Lubricants';
+  if (c.includes('lingerie') || c.includes('couple') || c.includes('bdsm')) return 'Couples & Lingerie';
+  if (c.includes('pleasure') || c.includes('vibrat') || c.includes('kegel') || c.includes('product') || c.includes('collection') || c.includes('design')) return 'Pleasure Tech';
+  return 'Brand & Manufacturing';
+};
+
 // Category pills definition with exact counts
 const categoryList = [
   { label: 'All News', slug: 'all', count: allArticles.length },
-  { label: 'Pleasure Tech', slug: 'Pleasure Tech', count: allArticles.filter(a => a.data.category === 'Pleasure Tech').length },
-  { label: 'Male Wellness', slug: 'Male Wellness', count: allArticles.filter(a => a.data.category === 'Male Wellness').length },
-  { label: 'Couples & Lingerie', slug: 'Couples & Lingerie', count: allArticles.filter(a => a.data.category === 'Couples & Lingerie').length },
-  { label: 'Condoms & Lubricants', slug: 'Condoms & Lubricants', count: allArticles.filter(a => a.data.category === 'Condoms & Lubricants').length },
-  { label: 'Hotel Vending', slug: 'Hotel Vending', count: allArticles.filter(a => a.data.category === 'Hotel Vending').length },
-  { label: 'Brand & OEM', slug: 'Brand & Manufacturing', count: allArticles.filter(a => a.data.category === 'Brand & Manufacturing').length },
+  { label: 'Pleasure Tech', slug: 'Pleasure Tech', count: allArticles.filter(a => normalizeCategory(a.data.category) === 'Pleasure Tech').length },
+  { label: 'Male Wellness', slug: 'Male Wellness', count: allArticles.filter(a => normalizeCategory(a.data.category) === 'Male Wellness').length },
+  { label: 'Couples & Lingerie', slug: 'Couples & Lingerie', count: allArticles.filter(a => normalizeCategory(a.data.category) === 'Couples & Lingerie').length },
+  { label: 'Condoms & Lubricants', slug: 'Condoms & Lubricants', count: allArticles.filter(a => normalizeCategory(a.data.category) === 'Condoms & Lubricants').length },
+  { label: 'Hotel Vending', slug: 'Hotel Vending', count: allArticles.filter(a => normalizeCategory(a.data.category) === 'Hotel Vending').length },
+  { label: 'Brand & OEM', slug: 'Brand & Manufacturing', count: allArticles.filter(a => normalizeCategory(a.data.category) === 'Brand & Manufacturing').length },
 ];
 
 // Top featured article for the hero spotlight
@@ -99,7 +111,7 @@ const newsFaqSchema = {
       <!-- Key Metrics Badge Bar -->
       <div class="news-metrics-strip">
         <div class="metric-item">
-          <strong>56</strong>
+          <strong>{allArticles.length}</strong>
           <span>In-Depth Articles</span>
         </div>
         <div class="metric-divider"></div>
@@ -144,6 +156,7 @@ const newsFaqSchema = {
               width="800"
               height="500"
               loading="eager"
+              onerror="this.onerror=null; this.src='/images/factory-campus.webp';"
             />
             <span class="featured-ribbon">⭐ Featured Story</span>
           </div>
@@ -185,7 +198,7 @@ const newsFaqSchema = {
           <input
             type="search"
             id="news-search-input"
-            placeholder="Search 56 articles (e.g. vibrator, stroker, 0.01, hotel, suction, silicone)..."
+            placeholder={`Search ${allArticles.length} articles (e.g. vibrator, stroker, 0.01, hotel, suction, silicone)...`}
             autocomplete="off"
           />
           <button type="button" id="clear-search-btn" class="clear-btn" style="display:none;" title="Clear search">✕</button>
@@ -193,7 +206,8 @@ const newsFaqSchema = {
 
         <!-- Result Counter -->
         <div class="news-count-badge">
-          Showing <strong id="visible-count">{allArticles.length}</strong> of {allArticles.length} articles
+          Showing <strong id="visible-range">1–6</strong> of <strong id="total-matching">{allArticles.length}</strong> articles
+          <span id="page-indicator" class="page-indicator-badge">Page 1 / {Math.ceil(allArticles.length / 6)}</span>
         </div>
       </div>
 
@@ -215,13 +229,14 @@ const newsFaqSchema = {
   </section>
 
   <!-- ARTICLES GRID -->
-  <section class="news-grid-section">
+  <section class="news-grid-section" id="news-grid-section">
     <div class="news-container">
       <div class="news-cards-grid" id="news-grid">
         {allArticles.map((article) => (
           <article
             class="news-card"
-            data-category={article.data.category}
+            data-category={normalizeCategory(article.data.category)}
+            data-raw-category={article.data.category}
             data-title={article.data.title.toLowerCase()}
             data-desc={article.data.description.toLowerCase()}
             data-tags={article.data.tags ? article.data.tags.join(' ').toLowerCase() : ''}
@@ -233,6 +248,7 @@ const newsFaqSchema = {
                 width="600"
                 height="380"
                 loading="lazy"
+                onerror="this.onerror=null; this.src='/images/factory-workshop.webp';"
               />
               <span class="news-card-category-tag">{article.data.category}</span>
             </a>
@@ -261,6 +277,23 @@ const newsFaqSchema = {
             </div>
           </article>
         ))}
+      </div>
+
+      <!-- PAGINATION CONTROLS BAR (6 Articles Per Page) -->
+      <div class="news-pagination-wrap" id="news-pagination">
+        <nav class="news-pagination-nav" aria-label="Article navigation pagination">
+          <button type="button" class="page-btn page-btn-prev" id="page-prev-btn" aria-label="Previous Page">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+            <span>« 上一页 Prev</span>
+          </button>
+          <div class="page-numbers-list" id="page-numbers-list">
+            <!-- Dynamically populated: 1 2 3 ... N -->
+          </div>
+          <button type="button" class="page-btn page-btn-next" id="page-next-btn" aria-label="Next Page">
+            <span>下一页 Next »</span>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+          </button>
+        </nav>
       </div>
 
       <!-- Empty State When No Results Match -->
@@ -347,24 +380,33 @@ const newsFaqSchema = {
   </section>
 </Layout>
 
-<!-- CLIENT-SIDE INSTANT FILTER & SEARCH JAVASCRIPT -->
+<!-- CLIENT-SIDE INSTANT FILTER, SEARCH & 6-CARD PAGINATION JAVASCRIPT -->
 <script is:inline>
   document.addEventListener('DOMContentLoaded', () => {
-    const searchInput = document.getElementById('news-search-input');
-    const clearBtn = document.getElementById('clear-search-btn');
-    const filterBtns = document.querySelectorAll('.cat-filter-btn');
-    const cards = document.querySelectorAll('#news-grid .news-card');
-    const visibleCountEl = document.getElementById('visible-count');
-    const noResultsBox = document.getElementById('no-results-box');
-    const resetFilterBtn = document.getElementById('reset-filter-btn');
-
+    const PAGE_SIZE = 6;
+    let currentPage = 1;
     let currentCat = 'all';
     let currentQuery = '';
 
-    // Check URL query parameters (e.g. ?cat=Pleasure Tech or ?q=vibrator)
+    const searchInput = document.getElementById('news-search-input');
+    const clearBtn = document.getElementById('clear-search-btn');
+    const filterBtns = document.querySelectorAll('.cat-filter-btn');
+    const cards = Array.from(document.querySelectorAll('#news-grid .news-card'));
+    const visibleRangeEl = document.getElementById('visible-range');
+    const totalMatchingEl = document.getElementById('total-matching');
+    const pageIndicatorEl = document.getElementById('page-indicator');
+    const noResultsBox = document.getElementById('no-results-box');
+    const resetFilterBtn = document.getElementById('reset-filter-btn');
+    const paginationWrap = document.getElementById('news-pagination');
+    const pageNumbersList = document.getElementById('page-numbers-list');
+    const prevBtn = document.getElementById('page-prev-btn');
+    const nextBtn = document.getElementById('page-next-btn');
+
+    // Parse URL params (?page=2&cat=Hotel%20Vending&q=kiosk)
     const urlParams = new URLSearchParams(window.location.search);
     const catParam = urlParams.get('cat');
     const qParam = urlParams.get('q');
+    const pageParam = parseInt(urlParams.get('page') || '1', 10);
 
     if (catParam) {
       currentCat = catParam;
@@ -383,41 +425,188 @@ const newsFaqSchema = {
       if (clearBtn) clearBtn.style.display = 'block';
     }
 
-    const filterArticles = () => {
-      let visibleCount = 0;
+    if (!isNaN(pageParam) && pageParam >= 1) {
+      currentPage = pageParam;
+    }
 
-      cards.forEach(card => {
+    function syncUrl() {
+      const url = new URL(window.location);
+      if (currentCat === 'all') {
+        url.searchParams.delete('cat');
+      } else {
+        url.searchParams.set('cat', currentCat);
+      }
+
+      if (!currentQuery) {
+        url.searchParams.delete('q');
+      } else {
+        url.searchParams.set('q', currentQuery);
+      }
+
+      if (currentPage === 1) {
+        url.searchParams.delete('page');
+      } else {
+        url.searchParams.set('page', currentPage.toString());
+      }
+      window.history.replaceState({}, '', url);
+    }
+
+    function scrollToGrid() {
+      const gridSection = document.getElementById('news-grid-section') || document.getElementById('news-grid');
+      if (gridSection) {
+        const topOffset = gridSection.getBoundingClientRect().top + window.pageYOffset - 90;
+        window.scrollTo({ top: Math.max(0, topOffset), behavior: 'smooth' });
+      }
+    }
+
+    function renderPagination(totalPages) {
+      if (!pageNumbersList) return;
+      pageNumbersList.innerHTML = '';
+
+      if (totalPages <= 1) {
+        if (paginationWrap) paginationWrap.style.display = 'none';
+        return;
+      }
+      if (paginationWrap) paginationWrap.style.display = 'flex';
+
+      if (prevBtn) prevBtn.disabled = (currentPage <= 1);
+      if (nextBtn) nextBtn.disabled = (currentPage >= totalPages);
+
+      // Smart page numbers calculation (e.g. 1 2 3 ... 19)
+      let pages = [];
+      if (totalPages <= 7) {
+        for (let i = 1; i <= totalPages; i++) pages.push(i);
+      } else {
+        if (currentPage <= 4) {
+          pages = [1, 2, 3, 4, 5, '...', totalPages];
+        } else if (currentPage >= totalPages - 3) {
+          pages = [1, '...', totalPages - 4, totalPages - 3, totalPages - 2, totalPages - 1, totalPages];
+        } else {
+          pages = [1, '...', currentPage - 1, currentPage, currentPage + 1, '...', totalPages];
+        }
+      }
+
+      pages.forEach(p => {
+        if (p === '...') {
+          const ellipsis = document.createElement('span');
+          ellipsis.className = 'page-ellipsis';
+          ellipsis.textContent = '…';
+          pageNumbersList.appendChild(ellipsis);
+        } else {
+          const btn = document.createElement('button');
+          btn.type = 'button';
+          btn.className = `page-num-btn ${p === currentPage ? 'active' : ''}`;
+          btn.textContent = p;
+          btn.setAttribute('aria-label', `Page ${p}`);
+          btn.addEventListener('click', () => {
+            if (currentPage !== p) {
+              currentPage = p;
+              syncUrl();
+              updateView(true);
+            }
+          });
+          pageNumbersList.appendChild(btn);
+        }
+      });
+    }
+
+    function updateView(shouldScroll = false) {
+      // 1. Filter matching cards
+      const matchingCards = cards.filter(card => {
         const cat = card.getAttribute('data-category') || '';
+        const rawCat = card.getAttribute('data-raw-category') || '';
         const title = card.getAttribute('data-title') || '';
         const desc = card.getAttribute('data-desc') || '';
         const tags = card.getAttribute('data-tags') || '';
 
-        // Category match
-        const matchesCat = currentCat === 'all' || cat.toLowerCase() === currentCat.toLowerCase();
+        const matchesCat = (currentCat === 'all' ||
+          cat.toLowerCase() === currentCat.toLowerCase() ||
+          rawCat.toLowerCase() === currentCat.toLowerCase());
 
-        // Search query match
-        const matchesQuery = !currentQuery ||
+        const matchesQuery = (!currentQuery ||
           title.includes(currentQuery) ||
           desc.includes(currentQuery) ||
-          tags.includes(currentQuery);
+          tags.includes(currentQuery));
 
-        if (matchesCat && matchesQuery) {
-          card.style.display = 'flex';
-          visibleCount++;
-        } else {
-          card.style.display = 'none';
-        }
+        return matchesCat && matchesQuery;
       });
 
-      if (visibleCountEl) visibleCountEl.textContent = visibleCount;
+      const totalCount = matchingCards.length;
+      const totalPages = Math.max(1, Math.ceil(totalCount / PAGE_SIZE));
 
-      if (noResultsBox) {
-        noResultsBox.style.display = visibleCount === 0 ? 'block' : 'none';
+      // Clamp currentPage
+      if (currentPage > totalPages) {
+        currentPage = 1;
+        syncUrl();
       }
-    };
 
-    // Initial filter run
-    filterArticles();
+      const startIndex = (currentPage - 1) * PAGE_SIZE;
+      const endIndex = startIndex + PAGE_SIZE;
+
+      // 2. Hide all cards, then show only the current page (up to 6)
+      cards.forEach(card => {
+        card.style.display = 'none';
+      });
+
+      matchingCards.slice(startIndex, endIndex).forEach(card => {
+        card.style.display = 'flex';
+      });
+
+      // 3. Update counter text and pagination controls
+      if (totalCount === 0) {
+        if (visibleRangeEl) visibleRangeEl.textContent = '0';
+        if (totalMatchingEl) totalMatchingEl.textContent = '0';
+        if (pageIndicatorEl) pageIndicatorEl.textContent = 'Page 0 / 0';
+        if (noResultsBox) noResultsBox.style.display = 'block';
+        if (paginationWrap) paginationWrap.style.display = 'none';
+      } else {
+        const startNum = startIndex + 1;
+        const endNum = Math.min(endIndex, totalCount);
+        if (visibleRangeEl) visibleRangeEl.textContent = `${startNum}–${endNum}`;
+        if (totalMatchingEl) totalMatchingEl.textContent = `${totalCount}`;
+        if (pageIndicatorEl) pageIndicatorEl.textContent = `Page ${currentPage} / ${totalPages}`;
+        if (noResultsBox) noResultsBox.style.display = 'none';
+        renderPagination(totalPages);
+      }
+
+      if (shouldScroll) {
+        scrollToGrid();
+      }
+    }
+
+    // Prev / Next button listeners
+    if (prevBtn) {
+      prevBtn.addEventListener('click', () => {
+        if (currentPage > 1) {
+          currentPage--;
+          syncUrl();
+          updateView(true);
+        }
+      });
+    }
+
+    if (nextBtn) {
+      nextBtn.addEventListener('click', () => {
+        const matchingCards = cards.filter(card => {
+          const cat = card.getAttribute('data-category') || '';
+          const rawCat = card.getAttribute('data-raw-category') || '';
+          const title = card.getAttribute('data-title') || '';
+          const desc = card.getAttribute('data-desc') || '';
+          const tags = card.getAttribute('data-tags') || '';
+          const matchesCat = (currentCat === 'all' ||
+            cat.toLowerCase() === currentCat.toLowerCase() ||
+            rawCat.toLowerCase() === currentCat.toLowerCase());
+          const matchesQuery = (!currentQuery || title.includes(currentQuery) || desc.includes(currentQuery) || tags.includes(currentQuery));
+          return matchesCat && matchesQuery;
+        });
+        const totalPages = Math.ceil(matchingCards.length / PAGE_SIZE);
+        if (currentPage < totalPages) {
+          currentPage++;
+          syncUrl();
+          updateView(true);
+        }
+      });
+    }
 
     // Category button click
     filterBtns.forEach(btn => {
@@ -425,17 +614,9 @@ const newsFaqSchema = {
         filterBtns.forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
         currentCat = btn.getAttribute('data-cat') || 'all';
-
-        // Update URL cleanly without reloading
-        const url = new URL(window.location);
-        if (currentCat === 'all') {
-          url.searchParams.delete('cat');
-        } else {
-          url.searchParams.set('cat', currentCat);
-        }
-        window.history.replaceState({}, '', url);
-
-        filterArticles();
+        currentPage = 1;
+        syncUrl();
+        updateView(false);
       });
     });
 
@@ -446,16 +627,9 @@ const newsFaqSchema = {
         if (clearBtn) {
           clearBtn.style.display = currentQuery.length > 0 ? 'block' : 'none';
         }
-
-        const url = new URL(window.location);
-        if (!currentQuery) {
-          url.searchParams.delete('q');
-        } else {
-          url.searchParams.set('q', currentQuery);
-        }
-        window.history.replaceState({}, '', url);
-
-        filterArticles();
+        currentPage = 1;
+        syncUrl();
+        updateView(false);
       });
     }
 
@@ -465,12 +639,9 @@ const newsFaqSchema = {
         if (searchInput) searchInput.value = '';
         currentQuery = '';
         clearBtn.style.display = 'none';
-
-        const url = new URL(window.location);
-        url.searchParams.delete('q');
-        window.history.replaceState({}, '', url);
-
-        filterArticles();
+        currentPage = 1;
+        syncUrl();
+        updateView(false);
       });
     }
 
@@ -479,6 +650,7 @@ const newsFaqSchema = {
       resetFilterBtn.addEventListener('click', () => {
         currentCat = 'all';
         currentQuery = '';
+        currentPage = 1;
         if (searchInput) searchInput.value = '';
         if (clearBtn) clearBtn.style.display = 'none';
 
@@ -487,12 +659,13 @@ const newsFaqSchema = {
           else b.classList.remove('active');
         });
 
-        const url = new URL(window.location.origin + window.location.pathname);
-        window.history.replaceState({}, '', url);
-
-        filterArticles();
+        syncUrl();
+        updateView(false);
       });
     }
+
+    // Initial render
+    updateView(false);
   });
 </script>
 
@@ -1007,6 +1180,122 @@ const newsFaqSchema = {
   }
   .news-card-link:hover {
     color: #0369a1;
+  }
+
+  /* Pagination Bar */
+  .news-pagination-wrap {
+    margin-top: 52px;
+    padding-top: 24px;
+    border-top: 1px solid #f1f5f9;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .news-pagination-nav {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .page-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 10px 18px;
+    border-radius: 9999px;
+    font-size: 13px;
+    font-weight: 700;
+    color: #0f172a;
+    background: #ffffff;
+    border: 1px solid #cbd5e1;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    user-select: none;
+  }
+  .page-btn:hover:not(:disabled) {
+    background: #0f172a;
+    color: #ffffff;
+    border-color: #0f172a;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(15, 23, 42, 0.12);
+  }
+  .page-btn:disabled {
+    opacity: 0.35;
+    cursor: not-allowed;
+    background: #f8fafc;
+    border-color: #e2e8f0;
+    color: #94a3b8;
+  }
+  .page-numbers-list {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .page-num-btn {
+    min-width: 40px;
+    height: 40px;
+    padding: 0 10px;
+    border-radius: 10px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13.5px;
+    font-weight: 700;
+    color: #334155;
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    cursor: pointer;
+    transition: all 0.15s ease;
+  }
+  .page-num-btn:hover:not(.active) {
+    background: #f1f5f9;
+    border-color: #cbd5e1;
+    color: #0f172a;
+    transform: translateY(-1px);
+  }
+  .page-num-btn.active {
+    background: #0f172a;
+    color: #ffffff;
+    border-color: #0f172a;
+    box-shadow: 0 4px 14px rgba(15, 23, 42, 0.2);
+    cursor: default;
+  }
+  .page-ellipsis {
+    min-width: 28px;
+    text-align: center;
+    color: #94a3b8;
+    font-weight: 700;
+    font-size: 14px;
+    user-select: none;
+  }
+  .page-indicator-badge {
+    display: inline-block;
+    margin-left: 8px;
+    padding: 2px 10px;
+    background: #e2e8f0;
+    color: #334155;
+    border-radius: 9999px;
+    font-size: 11.5px;
+    font-weight: 700;
+  }
+
+  @media (max-width: 640px) {
+    .news-pagination-nav {
+      gap: 6px;
+    }
+    .page-btn {
+      padding: 8px 12px;
+      font-size: 12px;
+    }
+    .page-num-btn {
+      min-width: 34px;
+      height: 34px;
+      font-size: 12.5px;
+      padding: 0 6px;
+    }
   }
 
   /* Empty State */

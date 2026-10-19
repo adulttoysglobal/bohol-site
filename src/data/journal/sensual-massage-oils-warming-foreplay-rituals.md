@@ -2,7 +2,7 @@
 title: "Massage Oils & Warming Gels: Turning Foreplay into a Full-Body Sensory Ritual"
 description: "Elevate romantic touch: botanical massage oils, body-safe warming gels, tension release in tight muscles, and transition into passionate intercourse."
 category: "Couples & Lingerie"
-image: "/images/reviews/review-3.webp"
+image: "/images/reviews/review-03.webp"
 order: 28
 readTime: "5 min read"
 pubDate: "2026-10-15"

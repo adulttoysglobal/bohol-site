@@ -2,7 +2,7 @@
 title: "Warming, Cooling & Tingle Sensations: How Sensory Flavored Lubricants Enhance Arousal"
 description: "Unlock thrilling sensory contrasts: thermodynamic warming capsicum, menthol tingling cooling gels, and food-grade flavored oral intimacy lubes."
 category: "Condoms & Lubricants"
-image: "/images/reviews/review-3.webp"
+image: "/images/reviews/review-03.webp"
 order: 32
 readTime: "5 min read"
 pubDate: "2026-10-15"

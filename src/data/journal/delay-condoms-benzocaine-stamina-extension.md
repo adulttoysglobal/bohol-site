@@ -2,7 +2,7 @@
 title: "Delay Condoms with Benzocaine: How They Work, Safety Protocols & Stamina Extension"
 description: "Prolong bedroom performance safely: how 5% benzocaine delay paste inside the condom tip desensitizes the glans without numbing the partner."
 category: "Condoms & Lubricants"
-image: "/images/reviews/review-1.webp"
+image: "/images/reviews/review-01.webp"
 order: 33
 readTime: "5 min read"
 pubDate: "2026-10-15"

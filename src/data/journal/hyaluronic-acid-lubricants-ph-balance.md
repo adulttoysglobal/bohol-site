@@ -2,7 +2,7 @@
 title: "Hyaluronic Acid Lubricants: Long-Lasting Moisture, pH Balance & Sensitive Skin Protection"
 description: "How bio-fermented hyaluronic acid retains 1,000x its weight in water, mimics natural cervical mucus, and maintains ideal vaginal pH (3.8–4.5)."
 category: "Condoms & Lubricants"
-image: "/images/reviews/review-4.webp"
+image: "/images/reviews/review-04.webp"
 order: 31
 readTime: "5 min read"
 pubDate: "2026-10-15"
