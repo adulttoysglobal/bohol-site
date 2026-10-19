@@ -1,84 +1,108 @@
 {
-  "name": "Mengqu",
-  "subtitle": "Small form. Distinct personality.",
-  "description": "A compact personal wellness device with a cat-inspired silhouette and a matching stand. The product specification lists nine vibration settings, nine suction settings and app connectivity. Available in white and pink variants.",
+  "name": "MENGQU Sucking Device",
+  "subtitle": "Kawaii Sleeping Cat Sonic Air-Pulse Clitoral Stimulator with Cloud Stand",
+  "description": "Engineered for sensual clitoral wellness, the MENGQU Sucking Device combines an adorable sleeping kitten aesthetic with powerful contactless sonic air-pulse suction. Features a velvety body-safe liquid silicone mouth, an organic pink cloud docking base, 3 suction intensities, 6 pulse wave rhythms (18 total modes), whisper-silent operation (≤50dB), and fast 40-minute DC pin charging.",
   "category": "Compact",
-  "label": "COMPACT WELLNESS",
+  "label": "KAWAII AIR-PULSE WELLNESS",
   "order": 9,
-  "featured": false,
-  "image": "/images/mengqu-hero.webp",
+  "featured": true,
+  "price": "$32.00",
+  "image": "/images/products/mengqu-01-hero.webp",
   "gallery": [
-    "/images/mengqu-hero.webp",
-    "/images/mengqu-side.webp",
-    "/images/mengqu-pink.webp",
-    "/images/9rabbit/products/mengqu-gallery-view2.webp",
-    "/images/9rabbit/products/mengqu-gallery-view3.webp"
+    "/images/products/mengqu-01-hero.webp",
+    "/images/products/mengqu-02-suction.webp",
+    "/images/products/mengqu-03-aesthetic.webp",
+    "/images/products/mengqu-04-modes.webp",
+    "/images/products/mengqu-05-performance.webp",
+    "/images/products/mengqu-06-specs.webp"
+  ],
+  "detailImages": [
+    "/images/products/mengqu-01-hero.webp",
+    "/images/products/mengqu-02-suction.webp",
+    "/images/products/mengqu-03-aesthetic.webp",
+    "/images/products/mengqu-04-modes.webp",
+    "/images/products/mengqu-05-performance.webp",
+    "/images/products/mengqu-06-specs.webp"
   ],
   "features": [
-    "Matching stand",
-    "9 vibration settings",
-    "9 suction settings"
+    "Contactless Air-Pulse Sonic Suction",
+    "3 Intensities × 6 Rhythms (18 Modes)",
+    "Matching Pastel Pink Cloud Dock",
+    "Whisper-Quiet Operation ≤ 50 dB",
+    "IPX5 Washable & Water-Resistant",
+    "Fast 40-Min DC Pin Charging"
   ],
   "specs": [
     {
-      "label": "Models",
-      "value": "MZB-WT054 (white) / MZB-WT055 (pink)"
+      "label": "Product Name",
+      "value": "MENGQU Sucking Device (萌趣吸吮器)"
+    },
+    {
+      "label": "Model Series",
+      "value": "MZB-WT054 (White) / MZB-WT055 (Pink)"
     },
     {
       "label": "Dimensions",
       "value": "96 × 69 × 54 mm"
     },
     {
-      "label": "Weight",
-      "value": "105.2 g"
+      "label": "Net Weight",
+      "value": "105 g"
     },
     {
       "label": "Materials",
-      "value": "ABS + silicone"
+      "value": "Medical-Grade Liquid Silicone + ABS"
     },
     {
-      "label": "Charging time",
+      "label": "Rated Voltage",
+      "value": "3.7V (Rechargeable Lithium Battery)"
+    },
+    {
+      "label": "Charging Voltage",
+      "value": "5V / 1A via DC Pin Cable"
+    },
+    {
+      "label": "Charging Time",
       "value": "Approximately 40 minutes"
     },
     {
-      "label": "Listed runtime",
+      "label": "Listed Runtime",
       "value": "Approximately 100 minutes"
     },
     {
-      "label": "Packaging dimensions",
-      "value": "97 × 72 × 62 mm"
+      "label": "Waterproof Rating",
+      "value": "IPX5 (Washable and short-term soaking)"
+    },
+    {
+      "label": "Maximum Noise",
+      "value": "≤ 50 dB (Whisper Silent)"
+    },
+    {
+      "label": "Packaging Accessories",
+      "value": "Device, Cloud Dock, Pin Charging Cable, Manual"
     }
-  ],
-  "seoTitle": "Mengqu — product details and specifications",
-  "seoDescription": "A compact personal wellness device with a cat-inspired silhouette and a matching stand. The product specification lists nine vibration settings, nine sucti",
-  "note": "Specifications follow the supplied Mengqu product specification. Runtime and charging times are approximate. App availability and connectivity depend on the exact model and region.",
-  "subCategory": "Women's Toys",
-  "vendor": "BOHOL Direct OEM",
-  "detailImages": [
-    "/images/9rabbit/details/mengqu-s01-hero.webp",
-    "/images/9rabbit/details/mengqu-s02-bento.webp",
-    "/images/9rabbit/details/mengqu-s03-anatomy.webp",
-    "/images/9rabbit/details/mengqu-s04-performance.webp",
-    "/images/9rabbit/details/mengqu-s05-material.webp",
-    "/images/9rabbit/details/mengqu-s07-blueprint.webp",
-    "/images/9rabbit/details/mengqu-s08-guide.webp"
   ],
   "highlights": [
     {
-      "title": "Authentic Global Quality & Direct Factory QC",
-      "body": "Every unit of Mengqu undergoes multi-stage inspection for structural durability, surface finish, and material biocompatibility before international dispatch."
+      "title": "Contactless Clitoral Sonic Pulse Suction",
+      "body": "The precision rose-gold rimmed acoustic suction mouth delivers gentle, rhythmic vacuum pressure waves directly to 8,000+ sensitive nerve endings without physical friction or desensitization."
     },
     {
-      "title": "Body-Safe Certified Materials",
-      "body": "Crafted with medical-grade silicone, CyberSkin TPE, tempered borosilicate glass, or skin-friendly couture fabrics—free from phthalates, latex allergens, and heavy metals."
+      "title": "100% Discreet Bedside Art Ornament",
+      "body": "Designed as an adorable sleeping kitten resting in a plush pink cloud base. Blends innocently into nightstand decor, eliminating any awkwardness when guests or family visit."
     },
     {
-      "title": "100% Discreet Unmarked Fulfillment",
-      "body": "Packaged in plain protective boxes with confidential shipping labels. Available for immediate North America & global express delivery."
+      "title": "Dual-Phase Rhythmic Control (18 Modes)",
+      "body": "Long press the raised cat paw button for 1.5s to power on with vibration feedback. Cycle seamlessly through 3 suction intensities (Mild, Medium, Climax) across 6 dynamic wave patterns."
     },
     {
-      "title": "Wholesale & Private-Label OEM Ready",
-      "body": "Supported by our 35,000 m² ISO-certified manufacturing base with custom laser logo engraving, Pantone color matching, and multilingual retail box customization."
+      "title": "Rapid Pin Charging & Whisper Silence",
+      "body": "Equipped with a rear DC pin charging port that reaches 100% charge in just 40 minutes for 100 minutes of continuous runtime, operating under 50 dB for absolute privacy."
     }
-  ]
+  ],
+  "seoTitle": "MENGQU Sucking Device — Wholesale & Private Label OEM | BOHOL",
+  "seoDescription": "Source the MENGQU Sucking Device directly from BOHOL factory. Kawaii sleeping cat clitoral air-pulse stimulator, pink cloud dock, 18 modes, IPX5, <=50dB.",
+  "note": "Specifications follow the supplied MENGQU official factory technical data sheet. 100% body-safe silicone, CE / RoHS compliant.",
+  "subCategory": "Women's Toys",
+  "vendor": "BOHOL Direct OEM"
 }
