@@ -3959,17 +3959,19 @@ USB Type-C rechargeable</textarea>
     }
 
     // =========================================================================
-    // ADMIN AUTHENTICATION GUARD & PASSWORD MANAGER
+    // ADMIN AUTHENTICATION GUARD & STRONG PASSWORD SECURITY
     // =========================================================================
     const DEFAULT_PASSWORDS = [
-      'abc199704203975',
-      'admin',
-      'admin123',
-      'adulttoysglobal',
-      'adulttoysglobal1997'
+      'abc199704203975'
     ];
     const AUTH_KEY = 'atg_admin_auth_session';
     const CUSTOM_PWD_KEY = 'atg_admin_custom_pwd';
+
+    // Anti-Brute-Force Security Lockout
+    let failedAttempts = 0;
+    let lockUntil = 0;
+    const MAX_FAILED_ATTEMPTS = 5;
+    const LOCK_DURATION_MS = 60 * 1000; // 60 seconds lockout
 
     function isAuthValid() {
       const token = localStorage.getItem(AUTH_KEY) || sessionStorage.getItem(AUTH_KEY);
@@ -4033,8 +4035,17 @@ USB Type-C rechargeable</textarea>
     const authRemember = document.getElementById('admin-auth-remember');
 
     function doAdminLogin() {
+      const now = Date.now();
+      if (now < lockUntil) {
+        const remainingSec = Math.ceil((lockUntil - now) / 1000);
+        if (authError) authError.textContent = `⚠️ 安全防爆破锁定中：连续多次尝试失败，请等待 ${remainingSec} 秒后再试！`;
+        return;
+      }
+
       const entered = pwdInput ? pwdInput.value.trim() : '';
       if (verifyAdminPassword(entered)) {
+        failedAttempts = 0;
+        lockUntil = 0;
         if (authError) authError.textContent = '';
         const isRemember = authRemember ? authRemember.checked : true;
         const sessionPayload = JSON.stringify({
@@ -4050,7 +4061,13 @@ USB Type-C rechargeable</textarea>
         applyAuthState();
         showToast('欢迎登录！管理工作台已就绪。');
       } else {
-        if (authError) authError.textContent = '密码错误，请输入正确的管理员密码！';
+        failedAttempts++;
+        if (failedAttempts >= MAX_FAILED_ATTEMPTS) {
+          lockUntil = Date.now() + LOCK_DURATION_MS;
+          if (authError) authError.textContent = '⛔ 连续输入错误达 5 次！系统已启动防暴力破解安全锁定，60秒内拒绝访问。';
+        } else {
+          if (authError) authError.textContent = `密码错误！您还可以尝试 ${MAX_FAILED_ATTEMPTS - failedAttempts} 次。`;
+        }
         if (pwdInput) {
           pwdInput.classList.add('error-shake');
           setTimeout(() => pwdInput.classList.remove('error-shake'), 500);
