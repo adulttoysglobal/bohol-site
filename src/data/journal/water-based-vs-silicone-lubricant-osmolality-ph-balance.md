@@ -2,7 +2,7 @@
 title: "Water-Based vs Silicone-Based Lubricant Osmolality: Epithelial Hydration & Condom Compatibility"
 description: "Scientific analysis of intimate lubricants, examining WHO osmolality recommendations (<1200 mOsm/kg), vaginal/anal pH buffering, and chemical compatibility with condoms and silicone elastomers."
 category: "Condoms & Lubricants"
-image: "/images/factory-shipping.webp"
+image: "/images/journal/water-based-vs-silicone-lubricant-osmolality-ph-balance.webp"
 order: 118
 readTime: "6 min read"
 pubDate: "2026-10-20"

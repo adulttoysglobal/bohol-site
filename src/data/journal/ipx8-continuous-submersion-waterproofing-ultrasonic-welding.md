@@ -2,7 +2,7 @@
 title: "IPX8 Continuous Submersion Waterproofing: Ultrasonic Plastic Welding vs Direct Silicone Overmolding"
 description: "Comparative engineering breakdown of achieving true IPX8 underwater hermetic sealing in vibrating wellness devices, analyzing 20 kHz ultrasonic horn resonance vs dual-shot silicone overmolding."
 category: "Pleasure Tech"
-image: "/images/factory-qc-lab.webp"
+image: "/images/journal/ipx8-continuous-submersion-waterproofing-ultrasonic-welding.webp"
 order: 120
 readTime: "6 min read"
 pubDate: "2026-10-20"

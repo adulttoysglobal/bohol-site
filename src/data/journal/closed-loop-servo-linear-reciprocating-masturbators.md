@@ -2,7 +2,7 @@
 title: "Closed-Loop Servo Control vs Stepper Motors in Linear Reciprocating Masturbators"
 description: "Comparative engineering breakdown of brushless DC servos and stepper kinematics in automated male masturbation devices, analyzing torque curves, acoustic resonance, and thermal control."
 category: "Male Wellness"
-image: "/images/twist-hero.webp"
+image: "/images/journal/closed-loop-servo-linear-reciprocating-masturbators.webp"
 order: 112
 readTime: "7 min read"
 pubDate: "2026-10-20"

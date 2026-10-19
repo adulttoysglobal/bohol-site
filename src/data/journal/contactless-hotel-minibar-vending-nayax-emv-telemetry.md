@@ -2,7 +2,7 @@
 title: "Contactless Hotel Minibar Vending: Nayax EMV/NFC Payment Integration & Fleet Telemetry"
 description: "Technical integration guide for hotel wall-mounted micro-retail kiosks, detailing Nayax VPOS Touch EMV/NFC payment integration, MDB 4.3 vending protocol, and IoT cloud restock telemetry."
 category: "Hotel Vending"
-image: "/images/flagship-showroom.webp"
+image: "/images/journal/contactless-hotel-minibar-vending-nayax-emv-telemetry.webp"
 order: 114
 readTime: "6 min read"
 pubDate: "2026-10-20"

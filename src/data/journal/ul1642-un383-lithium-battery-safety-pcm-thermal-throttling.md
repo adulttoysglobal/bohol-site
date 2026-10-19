@@ -2,7 +2,7 @@
 title: "UL 1642 & UN 38.3 Lithium Battery Safety: Dual-MOSFET PCM and Thermal Throttling"
 description: "In-depth electrical analysis of rechargeable lithium-ion polymer batteries in personal devices, detailing Seiko protection ICs, dual-MOSFET overcharge cutoffs, and UN 38.3 air cargo transport compliance."
 category: "Brand & Manufacturing"
-image: "/images/factory-rd-lab.webp"
+image: "/images/journal/ul1642-un383-lithium-battery-safety-pcm-thermal-throttling.webp"
 order: 117
 readTime: "7 min read"
 pubDate: "2026-10-20"

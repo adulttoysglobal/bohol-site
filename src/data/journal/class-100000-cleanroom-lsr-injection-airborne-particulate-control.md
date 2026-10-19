@@ -2,7 +2,7 @@
 title: "Class 100,000 Dust-Free Cleanroom LSR Injection: Preventing Airborne Particulate Contamination"
 description: "Engineering inspection of BOHOL ISO 14644 Class 8 cleanrooms, analyzing liquid silicone rubber (LSR) dosing, positive pressure HEPA filtration, and optical surface cleanliness."
 category: "Brand & Manufacturing"
-image: "/images/factory-workshop.webp"
+image: "/images/journal/class-100000-cleanroom-lsr-injection-airborne-particulate-control.webp"
 order: 115
 readTime: "6 min read"
 pubDate: "2026-10-20"

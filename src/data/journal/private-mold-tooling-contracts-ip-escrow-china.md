@@ -2,7 +2,7 @@
 title: "Private Mold Tooling Contracts in China: Exclusive Tooling Ownership, NDA, and IP Escrow"
 description: "Essential legal and engineering guide for international adult brands commissioning custom steel injection molds in China, covering NNN agreements, tooling life cycle guarantees, and mold escrow."
 category: "Brand & Manufacturing"
-image: "/images/oem-conference.webp"
+image: "/images/journal/private-mold-tooling-contracts-ip-escrow-china.webp"
 order: 119
 readTime: "7 min read"
 pubDate: "2026-10-20"

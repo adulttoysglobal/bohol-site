@@ -2,7 +2,7 @@
 title: "Smart App BLE 5.3 Low-Latency Sync: Long-Distance Couple Tele-Intimacy Architecture"
 description: "How BOHOL integrates Bluetooth Low Energy 5.3, AES-128 cryptographic telemetry, and AWS IoT Core message brokers for sub-45ms real-time haptic synchronization across global networks."
 category: "Pleasure Tech"
-image: "/images/factory-assembly.webp"
+image: "/images/journal/smart-app-ble-53-long-distance-couple-tele-intimacy.webp"
 order: 111
 readTime: "6 min read"
 pubDate: "2026-10-20"

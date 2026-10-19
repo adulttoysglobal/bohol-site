@@ -2,7 +2,7 @@
 title: "0.01mm Waterborne Polyurethane Condoms: Tensile Strength & Pinhole Leakage Testing Protocols"
 description: "Comprehensive laboratory evaluation of ultra-thin 0.010mm waterborne polyurethane condoms vs standard 0.065mm natural rubber latex, detailing ISO 23409 burst testing and pinhole electrical verification."
 category: "Condoms & Lubricants"
-image: "/images/factory-quality.webp"
+image: "/images/journal/001mm-waterborne-polyurethane-condom-tensile-leak-testing.webp"
 order: 113
 readTime: "6 min read"
 pubDate: "2026-10-20"

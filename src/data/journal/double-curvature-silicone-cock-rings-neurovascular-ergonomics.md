@@ -2,7 +2,7 @@
 title: "Double-Curvature Silicone Cock Rings: Neurovascular Safety & Dual-Motor Resonance Tuning"
 description: "Biomedical and mechatronic breakdown of double-curvature silicone constriction rings, analyzing penile dorsal neurovascular bundle safety, blood entrapment limits, and perineal resonant frequencies."
 category: "Couples & Lingerie"
-image: "/images/bite-hero.webp"
+image: "/images/journal/double-curvature-silicone-cock-rings-neurovascular-ergonomics.webp"
 order: 116
 readTime: "6 min read"
 pubDate: "2026-10-20"
