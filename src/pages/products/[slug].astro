@@ -335,6 +335,43 @@ const schema = {
             <span>⚡ Instant Freight & Wholesale Quote</span>
           </button>
         </div>
+
+        <!-- B2B Evaluation Sample Flow (Zero Risk Physical Inspection) -->
+        <div class="pdp-sample-box">
+          <div class="pdp-sample-top">
+            <span class="pdp-sample-tag">PHYSICAL SAMPLE EVALUATION</span>
+            <span class="pdp-sample-cost">Sample: $35.00 · Air Express DDP</span>
+          </div>
+          <p class="pdp-sample-desc">
+            Test silicone grade, structural durability, acoustic noise (&le;45dB), and tactile ergonomics before ordering container volume. Dispatched in 24&ndash;48h via DHL/FedEx Express. Sample fee is <strong>100% credited</strong> towards your bulk production order.
+          </p>
+          <div class="pdp-sample-btns">
+            <button
+              type="button"
+              class="pdp-btn-sample-cart"
+              id="pdp-order-sample-btn"
+              data-product-id={product.id}
+              data-product-name={p.name}
+              data-product-code={code}
+              data-product-image={p.gallery[0] || p.image}
+              data-product-cat={p.category}
+              data-product-subcat={subCat}
+              data-product-vendor={vendorName}
+            >
+              <span>📦 Order 1-Unit Evaluation Sample ($35)</span>
+            </button>
+            <a
+              class="pdp-btn-sample-wa"
+              id="pdp-sample-wa-btn"
+              href={`https://wa.me/8618588583798?text=${encodeURIComponent(`Hello BOHOL Factory, I want to order 1 evaluation sample of [${code}] ${p.name}. Please send sample checkout invoice and dispatch timeline to my country.`)}`}
+              target="_blank"
+              rel="noopener"
+            >
+              <span>💬 1-Click Sample via WhatsApp</span>
+            </a>
+          </div>
+        </div>
+
         <div class="pdp-view-posters-link">
           <a href="#visual-details">View Full Graphic Details ({detailImages.length} Posters) ↓</a>
         </div>
@@ -618,6 +655,48 @@ const schema = {
     instantFreightBtn?.addEventListener('click', () => {
       const item = collectItem();
       addToRfqCart(item);
+      const drawer = document.getElementById('rfq-drawer');
+      if (drawer) {
+        drawer.hidden = false;
+        drawer.classList.add('active');
+        document.body.style.overflow = 'hidden';
+      }
+    });
+
+    // 1-Unit Evaluation Sample Handler
+    const sampleBtn = document.querySelector<HTMLButtonElement>('#pdp-order-sample-btn');
+    sampleBtn?.addEventListener('click', () => {
+      const sampleItem = {
+        id: (sampleBtn.dataset.productId || 'product') + '-sample',
+        name: `[SAMPLE EVALUATION] ${sampleBtn.dataset.productName || 'Product'} (1 Unit)`,
+        code: `${sampleBtn.dataset.productCode || 'BHL'}-SMP`,
+        image: sampleBtn.dataset.productImage || '/images/spotlight-big-mouth.webp',
+        category: sampleBtn.dataset.productCat || 'Electric',
+        subCategory: sampleBtn.dataset.productSubcat || "Men's Toys",
+        vendor: sampleBtn.dataset.productVendor || 'BOHOL Direct OEM',
+        quantity: 1,
+        packaging: 'Evaluation Sample (1 Unit Express DDP)'
+      };
+      addToRfqCart(sampleItem);
+
+      // Track sample evaluation event
+      try {
+        if (typeof (window as any).gtag === 'function') {
+          (window as any).gtag('event', 'select_item', {
+            item_list_name: 'Evaluation Sample',
+            items: [{ item_id: sampleItem.code, item_name: sampleItem.name, quantity: 1 }]
+          });
+        }
+        if (typeof (window as any).clarity === 'function') {
+          (window as any).clarity('event', 'sample_ordered');
+        }
+      } catch (e) {}
+
+      sampleBtn.innerHTML = '<span>✓ Sample Added to RFQ Drawer</span>';
+      setTimeout(() => {
+        sampleBtn.innerHTML = '<span>📦 Order 1-Unit Evaluation Sample ($35)</span>';
+      }, 2500);
+
       const drawer = document.getElementById('rfq-drawer');
       if (drawer) {
         drawer.hidden = false;
@@ -1039,6 +1118,91 @@ const schema = {
     }
     .pdp-btn-secondary:hover {
       background: #2a3432;
+    }
+
+    /* B2B Evaluation Sample Flow Styles */
+    .pdp-sample-box {
+      margin: 1.1rem 0;
+      padding: 1.1rem 1.25rem;
+      background: linear-gradient(135deg, #f0fdfa 0%, #f8fafc 100%);
+      border: 1.5px solid #99f6e4;
+      border-radius: 14px;
+      box-shadow: 0 4px 15px rgba(20, 184, 166, 0.08);
+    }
+    .pdp-sample-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 0.5rem;
+    }
+    .pdp-sample-tag {
+      font-size: 0.72rem;
+      font-weight: 800;
+      letter-spacing: 0.06em;
+      color: #0f766e;
+      background: #ccfbf1;
+      padding: 3px 8px;
+      border-radius: 6px;
+    }
+    .pdp-sample-cost {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: #0d9488;
+    }
+    .pdp-sample-desc {
+      font-size: 0.83rem;
+      line-height: 1.55;
+      color: #334155;
+      margin: 0 0 0.85rem;
+    }
+    .pdp-sample-btns {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 0.7rem;
+    }
+    .pdp-btn-sample-cart {
+      background: #0f766e;
+      color: #ffffff;
+      border: none;
+      padding: 0.75rem 1rem;
+      border-radius: 10px;
+      font-size: 0.86rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s ease;
+      box-shadow: 0 2px 8px rgba(15, 118, 110, 0.2);
+    }
+    .pdp-btn-sample-cart:hover {
+      background: #115e59;
+      transform: translateY(-1px);
+    }
+    .pdp-btn-sample-wa {
+      background: #25d366;
+      color: #ffffff;
+      text-decoration: none;
+      padding: 0.75rem 1rem;
+      border-radius: 10px;
+      font-size: 0.86rem;
+      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s ease;
+      box-shadow: 0 2px 8px rgba(37, 211, 102, 0.25);
+    }
+    .pdp-btn-sample-wa:hover {
+      background: #1eb857;
+      transform: translateY(-1px);
+    }
+    @media (max-width: 600px) {
+      .pdp-sample-btns {
+        grid-template-columns: 1fr;
+      }
     }
 
     .pdp-trust-grid {

@@ -256,15 +256,61 @@ export async function saveRfqLead(payload) {
 
   window.dispatchEvent(new CustomEvent('bohol_rfq_submitted', { detail: payload }));
 
-  // Attempt backend API post (optional fallback)
+  // Dispatch custom tracking events for GA4 and Clarity
+  try {
+    if (typeof window !== 'undefined') {
+      if (typeof window.gtag === 'function') {
+        window.gtag('event', 'generate_lead', {
+          event_category: 'RFQ',
+          event_label: payload.id || 'RFQ',
+          value: (payload.items || []).length
+        });
+      }
+      if (typeof window.clarity === 'function') {
+        window.clarity('event', 'rfq_submitted');
+      }
+    }
+  } catch (trackErr) {}
+
+  // 1. Primary backend API post to Cloudflare Pages edge function
+  let apiSuccess = false;
   try {
     const res = await fetch('/api/enquiry', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
       body: JSON.stringify(payload)
     });
-    return res.ok;
+    apiSuccess = res.ok;
   } catch (e) {
-    return true;
+    console.warn('Backend /api/enquiry failed, activating client-side email gateway fallback:', e);
   }
+
+  // 2. Direct client-side email fallback to adulttoysglobal1997@gmail.com if backend fails
+  if (!apiSuccess) {
+    try {
+      const prodSummary = (payload.items || [])
+        .map((it, idx) => `[${idx + 1}] ${it.name} (Qty: ${it.quantity || 1}, Packaging: ${it.packaging || 'Standard'})`)
+        .join('\n');
+      await fetch('https://formsubmit.co/ajax/adulttoysglobal1997@gmail.com', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify({
+          _subject: `🔥 New Wholesale RFQ [${payload.id || 'Direct'}] from ${payload.name || 'Buyer'}`,
+          _replyto: payload.email,
+          _captcha: 'false',
+          'Client Name': payload.name,
+          'Company': payload.company || 'Private Buyer',
+          'Email': payload.email,
+          'Phone / WhatsApp': payload.phone,
+          'Country': payload.country,
+          'Shipping Address': payload.destinationAddress || payload.zip,
+          'Products': prodSummary || 'Consult catalogue',
+          'Requirements': payload.message || 'Wholesale quotation request'
+        })
+      });
+    } catch (fallbackErr) {}
+  }
+
+  return true;
 }
+

@@ -159,11 +159,47 @@ const products = (await getCollection('products')).sort((a, b) => a.data.order -
 
     try {
       // 1. Post to Cloudflare backend endpoint /api/enquiry
-      await fetch('/api/enquiry', {
+      const res = await fetch('/api/enquiry', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(leadRecord)
       });
+
+      // Direct email fallback if edge is unavailable
+      if (!res.ok) {
+        try {
+          await fetch('https://formsubmit.co/ajax/adulttoysglobal1997@gmail.com', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+            body: JSON.stringify({
+              _subject: `🔔 Partner Inquiry from ${leadRecord.name} (${leadRecord.company || 'Private'})`,
+              _replyto: leadRecord.email,
+              'Name': leadRecord.name,
+              'Company': leadRecord.company,
+              'Email': leadRecord.email,
+              'Phone': leadRecord.phone,
+              'Destination': leadRecord.destination,
+              'Cooperation Type': leadRecord.type,
+              'Quantity': leadRecord.quantity,
+              'Models': leadRecord.models.join(', '),
+              'Message': leadRecord.message
+            })
+          });
+        } catch (fbErr) {}
+      }
+
+      // Track conversion event in GA4 and Clarity
+      try {
+        if (typeof (window as any).gtag === 'function') {
+          (window as any).gtag('event', 'generate_lead', {
+            event_category: 'Partner Form',
+            event_label: leadRecord.name
+          });
+        }
+        if (typeof (window as any).clarity === 'function') {
+          (window as any).clarity('event', 'partner_form_submitted');
+        }
+      } catch (e) {}
 
       // 2. Save to localStorage for immediate Admin Dashboard sync
       try {

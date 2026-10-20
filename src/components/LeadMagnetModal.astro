@@ -1,0 +1,508 @@
+---
+/**
+ * B2B Lead Magnet: 2026 Global Sourcing & Regulatory Compliance Guide
+ * High-converting visitor capture mechanism with zero-friction instant download
+ */
+---
+
+<!-- Floating Pill Trigger (Bottom Left) -->
+<aside class="lm-floating-pill" id="lm-trigger-pill" aria-label="Download 2026 Sourcing Guide">
+  <button type="button" class="lm-pill-btn" id="lm-open-btn">
+    <span class="lm-pill-icon">📘</span>
+    <span class="lm-pill-text">
+      <strong>2026 Sourcing Guide</strong>
+      <small>Free 32-Page B2B PDF</small>
+    </span>
+  </button>
+</aside>
+
+<!-- Modal Overlay -->
+<div class="lm-modal-backdrop" id="lm-modal-backdrop" hidden>
+  <div class="lm-modal" role="dialog" aria-modal="true" aria-labelledby="lm-modal-title">
+    <button type="button" class="lm-close-btn" id="lm-close-btn" aria-label="Close dialog">&times;</button>
+    
+    <div class="lm-modal-grid">
+      <!-- Left Visual Preview -->
+      <div class="lm-preview-col">
+        <div class="lm-book-cover">
+          <span class="lm-book-badge">2026 EDITION</span>
+          <h4>GLOBAL ADULT TOY SOURCING &amp; COMPLIANCE</h4>
+          <p>FDA 21 CFR § 177.2600 · CE-RED · UN38.3 · Private Mold Tooling Economics</p>
+          <div class="lm-book-footer">
+            <span>BOHOL R&amp;D GROUP</span>
+            <span>32 PAGES · PDF</span>
+          </div>
+        </div>
+        <ul class="lm-bullet-list">
+          <li>✓ FDA silicone testing benchmarks</li>
+          <li>✓ CE-RED &amp; RoHS 2.0 EU import checklist</li>
+          <li>✓ UN38.3 lithium air freight clearance</li>
+          <li>✓ Steel tooling mold cost benchmarks</li>
+        </ul>
+      </div>
+
+      <!-- Right Form Column -->
+      <div class="lm-form-col">
+        <h3 id="lm-modal-title">Download the 2026 Sourcing &amp; Compliance Guide</h3>
+        <p class="lm-subhead">
+          Essential technical briefing for intimate hardware brand founders, procurement managers, and e-commerce distributors.
+        </p>
+
+        <form class="lm-form" id="lm-capture-form">
+          <div class="lm-input-group">
+            <label for="lm-email">Business / Work Email <span class="required">*</span></label>
+            <input type="email" id="lm-email" name="email" required placeholder="alex@yourbrand.com" />
+          </div>
+
+          <div class="lm-row-2">
+            <div class="lm-input-group">
+              <label for="lm-name">Your Name</label>
+              <input type="text" id="lm-name" name="name" placeholder="Alex Morgan" />
+            </div>
+            <div class="lm-input-group">
+              <label for="lm-company">Company / Brand</label>
+              <input type="text" id="lm-company" name="company" placeholder="Wellness Co." />
+            </div>
+          </div>
+
+          <div class="lm-input-group">
+            <label for="lm-interest">Primary Sourcing Interest</label>
+            <select id="lm-interest" name="interest">
+              <option value="Private Mold OEM/ODM">Private Mold OEM / ODM Customization</option>
+              <option value="Wholesale Distribution">Wholesale Catalog &amp; Volume Pricing</option>
+              <option value="Hotel Vending Fleet">Smart Hotel Vending Terminals</option>
+              <option value="Sample Evaluation">1-Unit Evaluation Sample Testing</option>
+            </select>
+          </div>
+
+          <button type="submit" class="lm-submit-btn" id="lm-submit-btn">
+            <span>📥 Instant Download Whitepaper &amp; Dossier</span>
+          </button>
+
+          <p class="lm-privacy-note">
+            🔒 100% Confidential. Instant browser access. No spam guarantee.
+          </p>
+        </form>
+
+        <!-- Success Message -->
+        <div class="lm-success-box" id="lm-success-box" hidden>
+          <span class="lm-success-icon">🎉</span>
+          <h4>Your 2026 Sourcing Dossier is Ready!</h4>
+          <p>We've logged your request. You can read the online edition immediately or consult our engineers on WhatsApp.</p>
+          <div class="lm-success-actions">
+            <a href="/whitepaper/2026-sourcing-guide/" class="lm-success-view-btn">
+              <span>📖 Open Full Technical Dossier</span>
+            </a>
+            <a href="https://wa.me/8618588583798" class="lm-success-wa-btn" target="_blank" rel="noopener">
+              <span>💬 Chat with Factory Lead</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  /* Floating pill trigger */
+  .lm-floating-pill {
+    position: fixed;
+    bottom: 24px;
+    left: 24px;
+    z-index: 990;
+  }
+  .lm-pill-btn {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: #0f172a;
+    color: #ffffff;
+    border: 1px solid #334155;
+    padding: 8px 16px;
+    border-radius: 999px;
+    cursor: pointer;
+    box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.4);
+    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .lm-pill-btn:hover {
+    background: #0284c7;
+    border-color: #38bdf8;
+    transform: translateY(-2px);
+    box-shadow: 0 14px 30px -5px rgba(2, 132, 199, 0.5);
+  }
+  .lm-pill-icon {
+    font-size: 20px;
+    line-height: 1;
+  }
+  .lm-pill-text {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    line-height: 1.2;
+  }
+  .lm-pill-text strong {
+    font-size: 13px;
+    font-weight: 700;
+  }
+  .lm-pill-text small {
+    font-size: 11px;
+    color: #94a3b8;
+  }
+
+  /* Modal Backdrop */
+  .lm-modal-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(15, 23, 42, 0.7);
+    backdrop-filter: blur(6px);
+    z-index: 10000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    animation: lm-fade-in 0.2s ease-out;
+  }
+  @keyframes lm-fade-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  .lm-modal {
+    position: relative;
+    background: #ffffff;
+    max-width: 820px;
+    width: 100%;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.35);
+    border: 1px solid #e2e8f0;
+    animation: lm-scale-up 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  @keyframes lm-scale-up {
+    from { transform: scale(0.95); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+  }
+
+  .lm-close-btn {
+    position: absolute;
+    top: 14px;
+    right: 18px;
+    background: transparent;
+    border: none;
+    font-size: 28px;
+    line-height: 1;
+    color: #64748b;
+    cursor: pointer;
+    z-index: 10;
+  }
+  .lm-close-btn:hover {
+    color: #0f172a;
+  }
+
+  .lm-modal-grid {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+  }
+
+  /* Preview Column */
+  .lm-preview-col {
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+    color: #ffffff;
+    padding: 2.25rem 1.75rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .lm-book-cover {
+    background: linear-gradient(145deg, #1e293b, #0f172a);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 12px;
+    padding: 1.5rem 1.25rem;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+    margin-bottom: 1.5rem;
+  }
+  .lm-book-badge {
+    display: inline-block;
+    background: #0284c7;
+    color: #ffffff;
+    font-size: 10px;
+    font-weight: 800;
+    padding: 2px 8px;
+    border-radius: 4px;
+    margin-bottom: 0.75rem;
+  }
+  .lm-book-cover h4 {
+    font-size: 0.95rem;
+    line-height: 1.35;
+    margin: 0 0 0.5rem;
+    color: #ffffff;
+    font-weight: 800;
+  }
+  .lm-book-cover p {
+    font-size: 10.5px;
+    line-height: 1.4;
+    color: #94a3b8;
+    margin: 0 0 1rem;
+  }
+  .lm-book-footer {
+    display: flex;
+    justify-content: space-between;
+    font-size: 9.5px;
+    font-weight: 700;
+    color: #38bdf8;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding-top: 0.5rem;
+  }
+  .lm-bullet-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    font-size: 12px;
+    color: #cbd5e1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  /* Form Column */
+  .lm-form-col {
+    padding: 2.5rem 2.25rem;
+  }
+  .lm-form-col h3 {
+    margin: 0 0 0.5rem;
+    font-size: 1.4rem;
+    font-weight: 800;
+    color: #0f172a;
+    line-height: 1.3;
+  }
+  .lm-subhead {
+    margin: 0 0 1.5rem;
+    font-size: 13.5px;
+    color: #64748b;
+    line-height: 1.5;
+  }
+
+  .lm-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  .lm-input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .lm-input-group label {
+    font-size: 12px;
+    font-weight: 700;
+    color: #334155;
+  }
+  .lm-input-group .required {
+    color: #ef4444;
+  }
+  .lm-input-group input,
+  .lm-input-group select {
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    padding: 8px 12px;
+    font-size: 14px;
+    color: #0f172a;
+    background: #ffffff;
+    transition: border-color 0.15s ease;
+  }
+  .lm-input-group input:focus,
+  .lm-input-group select:focus {
+    outline: none;
+    border-color: #0284c7;
+    box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.15);
+  }
+  .lm-row-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.75rem;
+  }
+
+  .lm-submit-btn {
+    background: #0284c7;
+    color: #ffffff;
+    border: none;
+    border-radius: 10px;
+    padding: 12px 20px;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.2s ease, transform 0.1s ease;
+    margin-top: 0.5rem;
+  }
+  .lm-submit-btn:hover {
+    background: #0369a1;
+    transform: translateY(-1px);
+  }
+
+  .lm-privacy-note {
+    font-size: 11.5px;
+    color: #94a3b8;
+    text-align: center;
+    margin: 0;
+  }
+
+  /* Success Box */
+  .lm-success-box {
+    text-align: center;
+    padding: 2rem 1rem;
+  }
+  .lm-success-icon {
+    font-size: 40px;
+    display: block;
+    margin-bottom: 0.5rem;
+  }
+  .lm-success-box h4 {
+    margin: 0 0 0.5rem;
+    font-size: 1.3rem;
+    color: #0f172a;
+  }
+  .lm-success-box p {
+    font-size: 13.5px;
+    color: #64748b;
+    margin-bottom: 1.5rem;
+  }
+  .lm-success-actions {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  .lm-success-view-btn {
+    background: #0284c7;
+    color: #ffffff;
+    padding: 10px 18px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 13.5px;
+  }
+  .lm-success-wa-btn {
+    background: #25d366;
+    color: #ffffff;
+    padding: 10px 18px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 13.5px;
+  }
+
+  @media (max-width: 768px) {
+    .lm-modal-grid {
+      grid-template-columns: 1fr;
+    }
+    .lm-preview-col {
+      display: none;
+    }
+    .lm-form-col {
+      padding: 2rem 1.5rem;
+    }
+    .lm-row-2 {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
+<script is:inline>
+  document.addEventListener('DOMContentLoaded', () => {
+    const triggerBtn = document.getElementById('lm-open-btn');
+    const modalBackdrop = document.getElementById('lm-modal-backdrop');
+    const closeBtn = document.getElementById('lm-close-btn');
+    const form = document.getElementById('lm-capture-form');
+    const successBox = document.getElementById('lm-success-box');
+    const submitBtn = document.getElementById('lm-submit-btn');
+
+    function openModal() {
+      if (modalBackdrop) {
+        modalBackdrop.hidden = false;
+        document.body.style.overflow = 'hidden';
+      }
+    }
+
+    function closeModal() {
+      if (modalBackdrop) {
+        modalBackdrop.hidden = true;
+        document.body.style.overflow = '';
+      }
+    }
+
+    triggerBtn?.addEventListener('click', openModal);
+    closeBtn?.addEventListener('click', closeModal);
+    modalBackdrop?.addEventListener('click', (e) => {
+      if (e.target === modalBackdrop) closeModal();
+    });
+
+    // Form submission
+    form?.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const email = document.getElementById('lm-email')?.value;
+      const name = document.getElementById('lm-name')?.value || 'Prospective Partner';
+      const company = document.getElementById('lm-company')?.value || 'B2B Brand';
+      const interest = document.getElementById('lm-interest')?.value || 'Sourcing Guide';
+
+      if (!email) return;
+
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Generating Your Download Access...';
+      }
+
+      const leadRecord = {
+        source: 'Lead Magnet: 2026 Sourcing Guide Download',
+        name,
+        company,
+        email,
+        type: interest,
+        message: `Client requested download of 2026 Global Adult Toy Sourcing & Regulatory Compliance Guide. Interest: ${interest}`,
+        pageUrl: window.location.href,
+        submittedAt: new Date().toISOString()
+      };
+
+      // 1. Post to /api/enquiry
+      try {
+        await fetch('/api/enquiry', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(leadRecord)
+        });
+      } catch (err) {}
+
+      // 2. Client-side FormSubmit backup
+      try {
+        await fetch('https://formsubmit.co/ajax/adulttoysglobal1997@gmail.com', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+          body: JSON.stringify({
+            _subject: `📥 Sourcing Guide Download Lead: ${name} (${email})`,
+            _replyto: email,
+            'Name': name,
+            'Company': company,
+            'Email': email,
+            'Sourcing Focus': interest
+          })
+        });
+      } catch (fbErr) {}
+
+      // 3. Track analytics
+      try {
+        if (typeof window.gtag === 'function') {
+          window.gtag('event', 'generate_lead', {
+            event_category: 'Whitepaper Download',
+            event_label: interest
+          });
+        }
+        if (typeof window.clarity === 'function') {
+          window.clarity('event', 'whitepaper_downloaded');
+        }
+      } catch (trackErr) {}
+
+      // Show success view
+      if (form) form.hidden = true;
+      if (successBox) successBox.hidden = false;
+    });
+  });
+</script>
