@@ -314,7 +314,7 @@ def main():
     
     # 4. Build Astro Site
     print(f"\n[4/5] 🔨 Running Astro Production Build...")
-    build_res = subprocess.run(["npm.cmd", "run", "build"], cwd=ROOT_DIR, capture_output=True, text=True)
+    build_res = subprocess.run(["npm.cmd", "run", "build"], cwd=ROOT_DIR, capture_output=True, text=True, encoding="utf-8", errors="replace")
     if build_res.returncode == 0:
         print("  ✓ Astro build completed successfully.")
     else:
@@ -325,7 +325,7 @@ def main():
     subprocess.run(["git", "add", "."], cwd=ROOT_DIR, check=True)
     commit_msg = f"feat(seo): auto publish daily article '{selected_topic['slug']}' with Agnes AI visuals"
     subprocess.run(["git", "commit", "-m", commit_msg], cwd=ROOT_DIR, check=True)
-    push_res = subprocess.run(["git", "push", "origin", "main"], cwd=ROOT_DIR, capture_output=True, text=True)
+    push_res = subprocess.run(["git", "push", "origin", "main"], cwd=ROOT_DIR, capture_output=True, text=True, encoding="utf-8", errors="replace")
     if push_res.returncode == 0:
         print("  ✓ Successfully pushed to GitHub (Cloudflare Pages building now).")
     else:
