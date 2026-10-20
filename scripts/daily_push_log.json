@@ -1,0 +1,72 @@
+[
+  {
+    "time": "2026-10-20T04:39:28.630728+00:00",
+    "timeBeijing": "2026-10-20 12:39:28 (北京时间)",
+    "urlsCount": 174,
+    "sitemapsCount": 3,
+    "status": "SUCCESS"
+  },
+  {
+    "time": "2026-10-20T01:00:25.951305+00:00",
+    "timeBeijing": "2026-10-20 09:00:25 (北京时间)",
+    "urlsCount": 173,
+    "sitemapsCount": 3,
+    "status": "SUCCESS"
+  },
+  {
+    "time": "2026-10-19T16:55:40.134869+00:00",
+    "timeBeijing": "2026-10-20 00:55:40 (北京时间)",
+    "urlsCount": 173,
+    "sitemapsCount": 3,
+    "status": "SUCCESS"
+  },
+  {
+    "time": "2026-10-19T16:35:32.469911+00:00",
+    "timeBeijing": "2026-10-20 00:35:32 (北京时间)",
+    "urlsCount": 173,
+    "sitemapsCount": 3,
+    "status": "SUCCESS"
+  },
+  {
+    "time": "2026-10-19T04:48:40.417869+00:00",
+    "timeBeijing": "2026-10-19 12:48:40 (北京时间)",
+    "urlsCount": 163,
+    "sitemapsCount": 3,
+    "status": "SUCCESS"
+  },
+  {
+    "time": "2026-10-19T04:27:01.079056+00:00",
+    "timeBeijing": "2026-10-19 12:27:01 (北京时间)",
+    "urlsCount": 163,
+    "sitemapsCount": 3,
+    "status": "SUCCESS"
+  },
+  {
+    "time": "2026-10-19T01:00:19.515002+00:00",
+    "timeBeijing": "2026-10-19 09:00:19 (北京时间)",
+    "urlsCount": 162,
+    "sitemapsCount": 3,
+    "status": "SUCCESS"
+  },
+  {
+    "time": "2026-10-19T00:51:42.501995+00:00",
+    "timeBeijing": "2026-10-19 08:51:42 (北京时间)",
+    "urlsCount": 162,
+    "sitemapsCount": 3,
+    "status": "SUCCESS"
+  },
+  {
+    "time": "2026-10-19T00:19:55.737500+00:00",
+    "timeBeijing": "2026-10-19 08:19:55 (北京时间)",
+    "urlsCount": 162,
+    "sitemapsCount": 3,
+    "status": "SUCCESS"
+  },
+  {
+    "time": "2026-10-19T00:17:40.584754+00:00",
+    "timeBeijing": "2026-10-19 08:17:40 (北京时间)",
+    "urlsCount": 162,
+    "sitemapsCount": 3,
+    "status": "SUCCESS"
+  }
+]
