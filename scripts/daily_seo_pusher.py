@@ -118,20 +118,58 @@ def push_to_google_indexing_api(creds, urls):
     print("\n[2/4] 🚀 Pushing URLs to Google Indexing API...")
     try:
         service_indexing = build('indexing', 'v3', credentials=creds)
-        # Prioritize homepage + 14 private mold flagships + core pages
+        # Prioritize homepage + manufacturing + RFQ + ALL 40 product URLs
         priority_urls = [
             f"https://{HOST}/",
             f"https://{HOST}/products/",
+            f"https://{HOST}/catalogue/",
+            f"https://{HOST}/manufacturing/",
+            f"https://{HOST}/rfq/",
+            # 14 Private-Mold Flagships
             f"https://{HOST}/products/twist-fun/",
             f"https://{HOST}/products/starship/",
             f"https://{HOST}/products/bobi-i/",
             f"https://{HOST}/products/bobi-iii/",
             f"https://{HOST}/products/cj7/",
             f"https://{HOST}/products/big-mouth/",
+            f"https://{HOST}/products/wearable-big-mouth/",
             f"https://{HOST}/products/lenas/",
-            f"https://{HOST}/manufacturing/",
-            f"https://{HOST}/rfq/",
-            f"https://{HOST}/catalogue/"
+            f"https://{HOST}/products/mengqu/",
+            f"https://{HOST}/products/bite/",
+            f"https://{HOST}/products/summer-rabbit/",
+            f"https://{HOST}/products/harmony-rabbit/",
+            f"https://{HOST}/products/xiaoqiao/",
+            f"https://{HOST}/products/space/",
+            # Automatic Masturbator Series
+            f"https://{HOST}/products/nr-mast-1/",
+            f"https://{HOST}/products/nr-mast-2/",
+            f"https://{HOST}/products/nr-mast-3/",
+            f"https://{HOST}/products/nr-mast-4/",
+            # Whisper Quiet Vibrator Series
+            f"https://{HOST}/products/nr-vibr-1/",
+            f"https://{HOST}/products/nr-vibr-2/",
+            f"https://{HOST}/products/nr-vibr-3/",
+            f"https://{HOST}/products/nr-vibr-4/",
+            # Ultra-thin 001 Condom Series
+            f"https://{HOST}/products/nr-cond-1/",
+            f"https://{HOST}/products/nr-cond-2/",
+            f"https://{HOST}/products/nr-cond-3/",
+            f"https://{HOST}/products/nr-cond-4/",
+            # Lubricants Series
+            f"https://{HOST}/products/nr-lubr-1/",
+            f"https://{HOST}/products/nr-lubr-2/",
+            f"https://{HOST}/products/nr-lubr-3/",
+            f"https://{HOST}/products/nr-lubr-4/",
+            # Sensual Apparel Series
+            f"https://{HOST}/products/nr-clot-1/",
+            f"https://{HOST}/products/nr-clot-2/",
+            f"https://{HOST}/products/nr-clot-3/",
+            f"https://{HOST}/products/nr-clot-4/",
+            # Intimate Accessories Series
+            f"https://{HOST}/products/nr-acce-1/",
+            f"https://{HOST}/products/nr-acce-2/",
+            f"https://{HOST}/products/nr-acce-3/",
+            f"https://{HOST}/products/nr-acce-4/",
         ]
 
         success_count = 0
