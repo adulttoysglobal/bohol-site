@@ -113,7 +113,8 @@ const slides = [
                 <span>Build Multi-Product RFQ</span>
               </a>
               <a class="btn-whatsapp-hero" href="https://wa.me/8618588583798" target="_blank" rel="noopener">
-                <span>💬 WhatsApp Live Video Audit</span>
+                <span class="whatsapp-status-dot"></span>
+                <span>Live Factory Video Audit (WhatsApp)</span>
               </a>
             </div>
           </div>
@@ -122,7 +123,7 @@ const slides = [
             <div class="pod-frame">
               <div class="pod-header">
                 <span class="pod-model-tag">{slide.promoBadge}</span>
-                <span class="pod-index">{slide.id} / 0{slides.length}</span>
+                <span class="pod-index">SPEC // {slide.id} OF 0{slides.length}</span>
               </div>
               <div class="pod-halo" aria-hidden="true"></div>
               <div class="pod-collage">
@@ -148,8 +149,14 @@ const slides = [
                 </div>
               </div>
               <div class="pod-footer">
-                <span class="pod-status">✓ 100% Medical-Grade Platinum LSR Silicone · Zero Phthalates · IPX7 Waterproof</span>
-                <a href="/catalogue/" class="pod-spec-link">Download Spec Sheet (PDF) &rarr;</a>
+                <span class="pod-status">
+                  <span class="status-indicator-dot"></span>
+                  100% Medical Platinum LSR · IPX7 Tested
+                </span>
+                <a href="/catalogue/" class="pod-spec-link">
+                  <span>Download Spec Sheet (PDF)</span>
+                  <span aria-hidden="true" class="spec-arrow">&rarr;</span>
+                </a>
               </div>
             </div>
           </figure>
