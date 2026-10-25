@@ -1,14 +1,14 @@
 {
-  "lastSyncedAt": "2026-10-24T01:01:48.745154+00:00",
-  "lastPushedAt": "2026-10-24T01:01:48.745154+00:00",
-  "lastPushedDisplay": "2026-10-24 09:01:48 (北京时间)",
+  "lastSyncedAt": "2026-10-25T01:01:46.015324+00:00",
+  "lastPushedAt": "2026-10-25T01:01:46.015324+00:00",
+  "lastPushedDisplay": "2026-10-25 09:01:46 (北京时间)",
   "siteUrl": "https://adulttoysglobal.com/",
   "permissionLevel": "siteFullUser",
   "status": "CONNECTED",
   "autoPushStatus": {
     "active": true,
     "schedule": "每日自动执行 (09:00 AM)",
-    "totalUrlsPushed": 181,
+    "totalUrlsPushed": 183,
     "googleSitemapsSubmitted": 3,
     "googleIndexingApi": {
       "enabled": true,
@@ -19,42 +19,78 @@
       {
         "endpoint": "https://api.indexnow.org/indexnow",
         "status": 403,
-        "urlsCount": 181
+        "urlsCount": 183
       },
       {
         "endpoint": "https://www.bing.com/indexnow",
         "status": 403,
-        "urlsCount": 181
+        "urlsCount": 183
       }
     ],
-    "lastPushSummary": "成功向 Google Search Console 提交 3 个站点地图（覆盖全站 181 个页面），并向 Bing/IndexNow 全球引擎推送。"
+    "lastPushSummary": "成功向 Google Search Console 提交 3 个站点地图（覆盖全站 183 个页面），并向 Bing/IndexNow 全球引擎推送。"
   },
   "searchAnalytics": {
-    "totalClicks": 0,
-    "totalImpressions": 22,
-    "avgCtr": 0.0,
-    "avgPosition": 26.6,
-    "dateRange": "2026-09-26 ~ 2026-10-24",
+    "totalClicks": 1,
+    "totalImpressions": 55,
+    "avgCtr": 1.82,
+    "avgPosition": 36.8,
+    "dateRange": "2026-09-27 ~ 2026-10-25",
     "queries": [
       {
         "keys": [
           "airport friendly sex toys"
         ],
         "clicks": 0,
-        "impressions": 1,
+        "impressions": 2,
         "ctr": 0,
-        "position": 88
+        "position": 88.5
       }
     ],
     "pages": [
       {
         "keys": [
+          "https://adulttoysglobal.com/journal/stamina-training-delay-masturbator-exercises/"
+        ],
+        "clicks": 1,
+        "impressions": 1,
+        "ctr": 1,
+        "position": 10
+      },
+      {
+        "keys": [
+          "https://adulttoysglobal.com/catalogue/"
+        ],
+        "clicks": 0,
+        "impressions": 1,
+        "ctr": 0,
+        "position": 12
+      },
+      {
+        "keys": [
           "https://adulttoysglobal.com/contact/"
         ],
         "clicks": 0,
-        "impressions": 2,
+        "impressions": 9,
         "ctr": 0,
-        "position": 156.5
+        "position": 135.33333333333334
+      },
+      {
+        "keys": [
+          "https://adulttoysglobal.com/journal/condom-sizing-guide-width-length-fit/"
+        ],
+        "clicks": 0,
+        "impressions": 3,
+        "ctr": 0,
+        "position": 43.666666666666664
+      },
+      {
+        "keys": [
+          "https://adulttoysglobal.com/journal/customs-clearance-hs-codes-adult-novelty/"
+        ],
+        "clicks": 0,
+        "impressions": 3,
+        "ctr": 0,
+        "position": 4
       },
       {
         "keys": [
@@ -70,63 +106,36 @@
           "https://adulttoysglobal.com/journal/how-to-wash-dry-powder-tpe-sleeves/"
         ],
         "clicks": 0,
-        "impressions": 3,
+        "impressions": 4,
         "ctr": 0,
-        "position": 11.333333333333334
+        "position": 9.25
       },
       {
         "keys": [
-          "https://adulttoysglobal.com/journal/prostate-massager-pelvic-nerve-stimulation-mechanics/"
+          "https://adulttoysglobal.com/journal/hyaluronic-acid-lubricants-ph-balance/"
+        ],
+        "clicks": 0,
+        "impressions": 1,
+        "ctr": 0,
+        "position": 9
+      },
+      {
+        "keys": [
+          "https://adulttoysglobal.com/journal/masturbation-cup-lifespan-replacement-signs/"
         ],
         "clicks": 0,
         "impressions": 2,
         "ctr": 0,
-        "position": 2.5
+        "position": 29
       },
       {
         "keys": [
-          "https://adulttoysglobal.com/journal/thermo-reactive-warming-cooling-lubricant-chemistry/"
+          "https://adulttoysglobal.com/journal/nayax-contactless-payment-hotel-vending-conversion/"
         ],
         "clicks": 0,
-        "impressions": 1,
+        "impressions": 2,
         "ctr": 0,
-        "position": 32
-      },
-      {
-        "keys": [
-          "https://adulttoysglobal.com/journal/travel-etiquette-adult-toys-airport-security/"
-        ],
-        "clicks": 0,
-        "impressions": 5,
-        "ctr": 0,
-        "position": 30.6
-      },
-      {
-        "keys": [
-          "https://adulttoysglobal.com/journal/warming-function-masturbator-body-temperature/"
-        ],
-        "clicks": 0,
-        "impressions": 3,
-        "ctr": 0,
-        "position": 5
-      },
-      {
-        "keys": [
-          "https://adulttoysglobal.com/journal/water-soluble-vs-silicone-lube-toy-compatibility/"
-        ],
-        "clicks": 0,
-        "impressions": 1,
-        "ctr": 0,
-        "position": 3
-      },
-      {
-        "keys": [
-          "https://adulttoysglobal.com/news/?cat=Pleasure%20Tech"
-        ],
-        "clicks": 0,
-        "impressions": 3,
-        "ctr": 0,
-        "position": 5.333333333333333
+        "position": 4.5
       }
     ],
     "hasRows": true
@@ -134,56 +143,56 @@
   "sitemaps": [
     {
       "path": "https://adulttoysglobal.com/sitemap.xml",
-      "lastSubmitted": "2026-10-24T01:01:13.309Z",
+      "lastSubmitted": "2026-10-25T01:01:10.771Z",
       "isPending": true,
       "isSitemapsIndex": true,
-      "lastDownloaded": "2026-10-24T01:00:09.701Z",
+      "lastDownloaded": "2026-10-25T01:00:08.973Z",
       "warnings": "0",
       "errors": "0",
       "contents": [
         {
           "type": "web",
-          "submitted": "180",
+          "submitted": "182",
           "indexed": "0"
         }
       ]
     },
     {
       "path": "https://adulttoysglobal.com/sitemap-0.xml",
-      "lastSubmitted": "2026-10-24T01:01:12.728Z",
+      "lastSubmitted": "2026-10-25T01:01:10.171Z",
       "isPending": true,
       "isSitemapsIndex": false,
       "type": "sitemap",
-      "lastDownloaded": "2026-10-24T01:00:09.353Z",
+      "lastDownloaded": "2026-10-25T01:00:07.756Z",
       "warnings": "0",
       "errors": "0",
       "contents": [
         {
           "type": "web",
-          "submitted": "181",
+          "submitted": "183",
           "indexed": "0"
         }
       ]
     },
     {
       "path": "https://adulttoysglobal.com/sitemap-index.xml",
-      "lastSubmitted": "2026-10-24T01:01:12.156Z",
+      "lastSubmitted": "2026-10-25T01:01:09.815Z",
       "isPending": true,
       "isSitemapsIndex": true,
-      "lastDownloaded": "2026-10-24T01:00:08.254Z",
+      "lastDownloaded": "2026-10-25T01:00:08.579Z",
       "warnings": "0",
       "errors": "0",
       "contents": [
         {
           "type": "web",
-          "submitted": "180",
+          "submitted": "182",
           "indexed": "0"
         }
       ]
     }
   ],
   "homepageInspection": {
-    "inspectionResultLink": "https://search.google.com/search-console/inspect?resource_id=https://adulttoysglobal.com/&id=ugTrMPSsF_dfm8jAd3Vhbg&utm_medium=link&utm_source=api",
+    "inspectionResultLink": "https://search.google.com/search-console/inspect?resource_id=https://adulttoysglobal.com/&id=RiOHTTzXCEzMW7dszEU20g&utm_medium=link&utm_source=api",
     "indexStatusResult": {
       "verdict": "PASS",
       "coverageState": "Submitted and indexed",
