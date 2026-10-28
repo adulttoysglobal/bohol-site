@@ -279,7 +279,7 @@ const schema = {
         <!-- Wholesale Quantity & Option Selectors -->
         <div class="pdp-options-box">
           <div class="pdp-qty-row">
-            <span class="pdp-option-label">Order / Sample Quantity: <strong id="pdp-qty-display">100 pcs (Standard MOQ)</strong></span>
+            <span class="pdp-option-label">Order / Sample Quantity: <strong id="pdp-qty-display">100 pcs (Wholesale Tier)</strong></span>
             <div class="pdp-qty-picker">
               <button type="button" class="pdp-qty-btn" id="pdp-qty-sub">-</button>
               <input type="number" id="pdp-qty-input" value="100" min="1" max="100000" step="25" />
@@ -600,7 +600,7 @@ const schema = {
       if (qtyInput) qtyInput.value = String(q);
       if (qtyDisplay) {
         if (q <= 50) qtyDisplay.textContent = `${q} pcs (Sample Evaluation)`;
-        else if (q === 100) qtyDisplay.textContent = '100 pcs (Standard MOQ)';
+        else if (q === 100) qtyDisplay.textContent = '100 pcs (Wholesale Tier)';
         else if (q >= 1000) qtyDisplay.textContent = `${q} pcs (Custom OEM Tier)`;
         else qtyDisplay.textContent = `${q} pcs (Wholesale Batch)`;
       }
