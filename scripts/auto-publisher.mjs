@@ -188,6 +188,112 @@ BOHOL maintains established logistics contracts with premier maritime carriers (
 - Complete Dangerous Goods (DG) manifests and MSDS declarations.
 - Neutral, discreet outer export cartons with certified 1.2-meter drop test strength.
 - Complete tariff clearance, customs brokerage, and domestic pallet dispatch directly to client distribution hubs in Los Angeles, Rotterdam, Hamburg, and Sydney.`
+  },
+  {
+    slug: 'liquid-silicone-injection-molding-tolerances-china',
+    title: 'Liquid Silicone Rubber (LSR) Injection Molding Tolerances: Precision Tooling Guidelines for B2B Buyers',
+    description: 'Engineering tolerances, flash control, and steel cavitation standards for high-precision liquid silicone intimate wellness hardware.',
+    category: 'Manufacturing & Tooling',
+    image: '/images/factory-workshop.webp',
+    readTime: '6 min read',
+    author: 'BOHOL Tooling & Metrology Directorate',
+    tags: ['Liquid Silicone Tooling', 'Molding Tolerances', 'LSR Injection', 'Flash Control'],
+    content: `When sourcing precision elastomeric components, international procurement directors require strict dimensional repeatability. In platinum liquid silicone injection, mold cavitation tolerances dictate whether finished hardware achieves watertight IPX8 hermetic seals.
+
+## 1. Dimensional Tolerances: DIN 16901 vs. ISO 3302-1 Class M1
+
+Liquid silicone undergoes a predictable thermal volumetric shrinkage of **2.5% to 3.2%** during mold vulcanization at 160°C to 190°C. 
+
+- **Cavity CNC Machining:** Cut from Japanese NAK80 or Swiss S136 stainless mold steel hardened to HRC 52.
+- **Parting Line Tolerance:** Held to **±0.005 mm (5 microns)**, eliminating micro-flash and tactile seam imperfections.
+- **Critical Dimension Tolerance:** Conforms strictly to **ISO 3302-1 Class M1** high-precision tolerances.
+
+## 2. Cold Runner Systems & Valve Gating
+
+To eliminate material waste and gate mark blemishes on cosmetic surfaces, BOHOL integrates pneumatically actuated **shut-off needle valve cold runner nozzles**. Raw LSR remains cooled below 25°C in the manifold, injecting directly into heated cavities with zero runner scrap.
+
+For mold tooling consultation, visit BOHOL’s [RFQ Calculator](/rfq/) or book a [WhatsApp Live Video Audit](/contact/).`
+  },
+  {
+    slug: 'custom-silicone-toolmaker-ip-escrow-contracts',
+    title: 'Custom Silicone Toolmaker & Mold Ownership Contracts in China: Escrow & NDA Architecture',
+    description: 'How BOHOL safeguards private-label mold ownership, intellectual property rights, and design exclusivity for international brands.',
+    category: 'Compliance & Export',
+    image: '/images/factory-assembly.webp',
+    readTime: '5 min read',
+    author: 'BOHOL Legal & IP Directorate',
+    tags: ['Tooling Contracts', 'IP Protection', 'Private Mold', 'Mold Ownership'],
+    content: `A central concern for DTC brands investing \$15,000 to \$50,000 into custom injection tooling in China is **tool ownership verification and design exclusivity**.
+
+## 1. Explicit Mold Ownership & Asset Tagging
+
+Under BOHOL standard tooling agreements:
+- **Client 100% Asset Ownership:** The physical steel mold base and cavity inserts are the sole proprietary asset of the client upon final balance settlement.
+- **Serialized Asset Tagging:** Molds receive CNC laser-engraved asset plates bearing the client’s designated registration number.
+- **Escrow Relocation Guarantee:** Clients retain full legal rights to inspect, audit, or relocate the mold to any third-party facility without punitive exit penalties.
+
+## 2. Non-Disclosure & Non-Compete (NNN) Agreements
+
+Before receiving initial 3D STEP or IGES files, BOHOL executes bilingual NNN agreements subject to international commercial arbitration, ensuring your proprietary industrial design is protected from market duplication.`
+  },
+  {
+    slug: 'cleanroom-lsr-overmolding-adult-hardware',
+    title: 'Cleanroom LSR Overmolding onto ABS/PC Substrates: Molecular Bonding & Thermal Shock Resistance',
+    description: 'Technical analysis of two-shot (2K) and transfer overmolding of liquid silicone onto rigid thermoplastic skeletons.',
+    category: 'Silicone Engineering',
+    image: '/images/factory-quality.webp',
+    readTime: '6 min read',
+    author: 'BOHOL Materials & Bonding Lab',
+    tags: ['LSR Overmolding', '2K Injection', 'Molecular Bonding', 'Cleanroom Standards'],
+    content: `Premium intimate wellness devices feature a rigid internal chassis (ABS, Polycarbonate, or GF-Nylon) encapsulated by a soft, tactile silicone skin. Achieving permanent adhesion without toxic chemical primers is a major engineering hurdle.
+
+## 1. Self-Adhesive LSR vs. Atmospheric Plasma Activation
+
+Traditional bonding required solvent-based primers. BOHOL employs modern eco-compliant bonding:
+- **Self-Adhesive LSR Chemistry:** Modified silicone formulations with organosilane coupling agents that cross-link directly to thermoplastic functional groups during heated cure.
+- **Robotic Plasma Surface Activation:** Atmospheric plasma torches oxidize the polymer substrate, raising surface energy from < 38 mN/m to > 68 mN/m.
+
+## 2. 90-Degree Peel Strength Testing
+
+Finished overmolded handles undergo ASTM D903 90-degree peel testing, achieving cohesive failure (where silicone tears before bond line delaminates), guaranteeing zero water ingress over 5+ years of daily use.`
+  },
+  {
+    slug: 'medical-grade-lsr-supplier-audit-checklist',
+    title: 'Medical-Grade LSR Supplier Audit Checklist: Biocompatibility, Cytotoxicity, and Traceability',
+    description: 'A practical factory audit checklist for procurement managers evaluating Chinese liquid silicone intimate hardware manufacturers.',
+    category: 'Compliance & Export',
+    image: '/images/factory-shipping.webp',
+    readTime: '5 min read',
+    author: 'BOHOL Quality Assurance & Global Audit',
+    tags: ['Supplier Audit', 'ISO 13485', 'Biocompatibility', 'Cytotoxicity Testing'],
+    content: `When auditing an overseas personal wellness hardware factory, procurement directors should scrutinize material provenance and cleanroom environmental telemetry.
+
+## Key Audit Inspection Points
+
+1. **Class 100,000 Cleanroom Validation:** Particle counter audit logs verifying < 3.5M particles/m³ at ≥ 0.5 µm.
+2. **ISO 10993 Biocompatibility Certificates:** Independent third-party test reports (SGS, TÜV SÜD) confirming zero in-vitro cytotoxicity, skin irritation, or sensitization.
+3. **Lot-by-Lot Raw Material Traceability:** Complete batch tracking from Dow Corning, Wacker, or Shin-Etsu drums to final serialized device carton.`
+  },
+  {
+    slug: 'hotel-intimate-vending-nayax-iot-oem',
+    title: 'Hotel Intimate Vending Hardware OEM: Nayax Cashless Integration & Modular Dispensing Design',
+    description: 'Modular hardware architecture, Nayax VPOS Touch payment integration, and anti-drop telemetry for hospitality micro-retail operators.',
+    category: 'Commercial Vending',
+    image: '/images/spotlight-twist-fun.webp',
+    readTime: '6 min read',
+    author: 'BOHOL Smart IoT Retail Directorate',
+    tags: ['Nayax Cashless', 'Hotel Vending OEM', 'Micro-Retail Kiosk', 'MDB Telemetry'],
+    content: `Hospitality operators in Las Vegas, Miami, and London are rapidly adopting in-room automated wellness kiosks to generate frictionless high-margin secondary revenue.
+
+## 1. Nayax VPOS Touch & MDB Protocol Integration
+
+BOHOL’s modular vending controllers natively interface with **Nayax VPOS Touch** and **PAX payment terminals** via Multi-Drop Bus (MDB 4.2) and DEX telemetry protocols.
+- **Global Contactless Support:** EMV chip, Apple Pay, Google Wallet, Visa, Mastercard, and Amex.
+- **Real-Time Settlement:** Multi-currency payouts directly into operator bank accounts with Level 1 PCI-DSS encryption.
+
+## 2. Anti-Drop Vibration Sensors & Tamper Alarms
+
+Dual optical infrared drop sensors verify item dispensation before transaction completion. If an obstruction occurs, the motor reverses automatically and re-attempts or refunds immediately, eliminating front-desk complaints.`
   }
 ];
 

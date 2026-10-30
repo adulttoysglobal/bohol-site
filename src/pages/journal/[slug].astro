@@ -66,7 +66,38 @@ const breadcrumbsSchema = {
   ]
 };
 
-const combinedSchema = [articleSchema, breadcrumbsSchema];
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: `What manufacturing standards and material certifications back this analysis?`,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: `BOHOL personal wellness hardware and liquid silicone components are engineered inside Class 100,000 cleanrooms in full compliance with ISO 13485:2016, EU RoHS 2.0 (2011/65/EU), CE-RED, FCC Part 15B, and FDA 21 CFR § 177.2600.`
+      }
+    },
+    {
+      '@type': 'Question',
+      name: `How does BOHOL guarantee quality control and defect prevention in this product category?`,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: `We enforce an AQL 0.65/1.0 critical defect threshold, 100% negative pressure vacuum decay leak testing (-50 kPa for IPX7/IPX8 waterproof ratings), and automated ultrasonic welding verification across all production lots.`
+      }
+    },
+    {
+      '@type': 'Question',
+      name: `Can international brands request custom OEM tooling, samples, or private label manufacturing?`,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: `Yes, BOHOL offers rapid 24-48 hour evaluation sample dispatch, custom Pantone silicone color matching, custom injection mold tooling with IP protection escrow, and turnkey DDP ocean freight consolidation to North America, Europe, and Australia.`
+      }
+    }
+  ]
+};
+
+const combinedSchema = [articleSchema, breadcrumbsSchema, faqSchema];
 ---
 <Layout
   title={`${article.data.title} — BOHOL Technical Analysis`}
