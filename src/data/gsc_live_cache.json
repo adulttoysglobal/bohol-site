@@ -1,7 +1,7 @@
 {
-  "lastSyncedAt": "2026-10-30T00:52:49.331182+00:00",
-  "lastPushedAt": "2026-10-30T00:52:49.331182+00:00",
-  "lastPushedDisplay": "2026-10-30 08:52:49 (北京时间)",
+  "lastSyncedAt": "2026-10-30T01:00:44.166045+00:00",
+  "lastPushedAt": "2026-10-30T01:00:44.166045+00:00",
+  "lastPushedDisplay": "2026-10-30 09:00:44 (北京时间)",
   "siteUrl": "https://adulttoysglobal.com/",
   "permissionLevel": "siteFullUser",
   "status": "CONNECTED",
@@ -224,56 +224,56 @@
   "sitemaps": [
     {
       "path": "https://adulttoysglobal.com/sitemap.xml",
-      "lastSubmitted": "2026-10-30T00:52:13.323Z",
+      "lastSubmitted": "2026-10-30T01:00:06.366Z",
       "isPending": true,
       "isSitemapsIndex": true,
-      "lastDownloaded": "2026-10-29T01:30:47.548Z",
+      "lastDownloaded": "2026-10-30T00:52:14.832Z",
       "warnings": "0",
       "errors": "0",
       "contents": [
         {
           "type": "web",
-          "submitted": "192",
+          "submitted": "193",
           "indexed": "0"
         }
       ]
     },
     {
       "path": "https://adulttoysglobal.com/sitemap-0.xml",
-      "lastSubmitted": "2026-10-30T00:52:12.974Z",
-      "isPending": true,
+      "lastSubmitted": "2026-10-30T01:00:05.852Z",
+      "isPending": false,
       "isSitemapsIndex": false,
       "type": "sitemap",
-      "lastDownloaded": "2026-10-29T01:30:46.398Z",
+      "lastDownloaded": "2026-10-30T01:00:06.923Z",
       "warnings": "0",
       "errors": "0",
       "contents": [
         {
           "type": "web",
-          "submitted": "192",
+          "submitted": "194",
           "indexed": "0"
         }
       ]
     },
     {
       "path": "https://adulttoysglobal.com/sitemap-index.xml",
-      "lastSubmitted": "2026-10-30T00:52:12.398Z",
+      "lastSubmitted": "2026-10-30T01:00:05.206Z",
       "isPending": true,
       "isSitemapsIndex": true,
-      "lastDownloaded": "2026-10-29T01:30:45.030Z",
+      "lastDownloaded": "2026-10-30T00:52:15.270Z",
       "warnings": "0",
       "errors": "0",
       "contents": [
         {
           "type": "web",
-          "submitted": "192",
+          "submitted": "193",
           "indexed": "0"
         }
       ]
     }
   ],
   "homepageInspection": {
-    "inspectionResultLink": "https://search.google.com/search-console/inspect?resource_id=https://adulttoysglobal.com/&id=lWzyKCdzJLi-neNRO0KeRQ&utm_medium=link&utm_source=api",
+    "inspectionResultLink": "https://search.google.com/search-console/inspect?resource_id=https://adulttoysglobal.com/&id=sdjBu7AcnMNDL8EsPO5mVw&utm_medium=link&utm_source=api",
     "indexStatusResult": {
       "verdict": "PASS",
       "coverageState": "Submitted and indexed",
@@ -303,11 +303,11 @@
               "name": "Lenas",
               "issues": [
                 {
-                  "issueMessage": "Missing field \"aggregateRating\"",
+                  "issueMessage": "Missing field \"review\"",
                   "severity": "WARNING"
                 },
                 {
-                  "issueMessage": "Missing field \"review\"",
+                  "issueMessage": "Missing field \"aggregateRating\"",
                   "severity": "WARNING"
                 }
               ]
@@ -412,11 +412,11 @@
               "name": "Lenas",
               "issues": [
                 {
-                  "issueMessage": "Missing field \"hasMerchantReturnPolicy\"",
+                  "issueMessage": "Missing field \"shippingDetails\"",
                   "severity": "WARNING"
                 },
                 {
-                  "issueMessage": "Missing field \"shippingDetails\"",
+                  "issueMessage": "Missing field \"hasMerchantReturnPolicy\"",
                   "severity": "WARNING"
                 }
               ]
@@ -425,11 +425,11 @@
               "name": "Wearable Big Mouth",
               "issues": [
                 {
-                  "issueMessage": "Missing field \"shippingDetails\"",
+                  "issueMessage": "Missing field \"hasMerchantReturnPolicy\"",
                   "severity": "WARNING"
                 },
                 {
-                  "issueMessage": "Missing field \"hasMerchantReturnPolicy\"",
+                  "issueMessage": "Missing field \"shippingDetails\"",
                   "severity": "WARNING"
                 }
               ]
