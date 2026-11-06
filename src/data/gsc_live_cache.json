@@ -1,14 +1,14 @@
 {
-  "lastSyncedAt": "2026-11-05T01:02:36.181556+00:00",
-  "lastPushedAt": "2026-11-05T01:02:36.181556+00:00",
-  "lastPushedDisplay": "2026-11-05 09:02:36 (北京时间)",
+  "lastSyncedAt": "2026-11-06T01:02:34.789710+00:00",
+  "lastPushedAt": "2026-11-06T01:02:34.789710+00:00",
+  "lastPushedDisplay": "2026-11-06 09:02:34 (北京时间)",
   "siteUrl": "https://adulttoysglobal.com/",
   "permissionLevel": "siteFullUser",
   "status": "CONNECTED",
   "autoPushStatus": {
     "active": true,
     "schedule": "每日自动执行 (09:00 AM)",
-    "totalUrlsPushed": 200,
+    "totalUrlsPushed": 201,
     "googleSitemapsSubmitted": 0,
     "googleIndexingApi": {
       "enabled": false,
@@ -21,22 +21,22 @@
       {
         "endpoint": "https://api.indexnow.org/indexnow",
         "status": 403,
-        "urlsCount": 200
+        "urlsCount": 201
       },
       {
         "endpoint": "https://www.bing.com/indexnow",
         "status": 403,
-        "urlsCount": 200
+        "urlsCount": 201
       }
     ],
-    "lastPushSummary": "成功向 Google Search Console 提交 3 个站点地图（覆盖全站 200 个页面），并向 Bing/IndexNow 全球引擎推送。"
+    "lastPushSummary": "成功向 Google Search Console 提交 3 个站点地图（覆盖全站 201 个页面），并向 Bing/IndexNow 全球引擎推送。"
   },
   "searchAnalytics": {
     "totalClicks": 0,
     "totalImpressions": 0,
     "avgCtr": 0.0,
     "avgPosition": 0.0,
-    "dateRange": "2026-10-08 ~ 2026-11-05",
+    "dateRange": "2026-10-09 ~ 2026-11-06",
     "queries": [],
     "pages": [],
     "hasRows": false
