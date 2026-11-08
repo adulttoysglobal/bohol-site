@@ -1,5 +1,19 @@
 [
   {
+    "time": "2026-11-08T01:00:45.229358+00:00",
+    "timeBeijing": "2026-11-08 09:00:45 (北京时间)",
+    "urlsCount": 203,
+    "sitemapsCount": 3,
+    "status": "SUCCESS"
+  },
+  {
+    "time": "2026-11-07T01:31:34.405507+00:00",
+    "timeBeijing": "2026-11-07 09:31:34 (北京时间)",
+    "urlsCount": 203,
+    "sitemapsCount": 3,
+    "status": "SUCCESS"
+  },
+  {
     "time": "2026-11-07T01:00:50.366276+00:00",
     "timeBeijing": "2026-11-07 09:00:50 (北京时间)",
     "urlsCount": 202,
