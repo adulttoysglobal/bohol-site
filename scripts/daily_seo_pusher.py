@@ -335,6 +335,21 @@ def run_daily_push():
     # 4. GSC Performance Sync
     analytics_data, inspect_result = sync_search_performance(service_gsc)
 
+    # Preserve existing GSC metrics if network failed (avoid overwriting with 0)
+    if not analytics_data.get('hasRows') and os.path.exists(OUTPUT_PATH):
+        try:
+            with open(OUTPUT_PATH, 'r', encoding='utf-8') as f:
+                prev = json.load(f)
+                if prev.get('searchAnalytics', {}).get('totalImpressions', 0) > 0:
+                    analytics_data = prev['searchAnalytics']
+                    print("  ℹ️ Network timeout fallback: preserved previous valid GSC metrics.")
+                if not sitemaps_list and prev.get('sitemaps'):
+                    sitemaps_list = prev['sitemaps']
+                if not inspect_result and prev.get('homepageInspection'):
+                    inspect_result = prev['homepageInspection']
+        except Exception:
+            pass
+
     # 5. Save Payload to gsc_live_cache.json
     now_iso = datetime.now(timezone.utc).isoformat()
     now_beijing = (datetime.now(timezone.utc) + timedelta(hours=8)).strftime('%Y-%m-%d %H:%M:%S (北京时间)')
