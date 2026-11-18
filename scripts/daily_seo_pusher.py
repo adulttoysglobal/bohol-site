@@ -170,7 +170,31 @@ def push_to_google_indexing_api(creds, urls):
             f"https://{HOST}/products/nr-acce-2/",
             f"https://{HOST}/products/nr-acce-3/",
             f"https://{HOST}/products/nr-acce-4/",
+            # Journal & News Hubs
+            f"https://{HOST}/journal/",
+            f"https://{HOST}/news/",
+            # High-Potential Rising SEO Pages (Page 1-3 Push to Top 5)
+            f"https://{HOST}/journal/how-to-clean-and-store-silicone-toys/",
+            f"https://{HOST}/journal/condom-sizing-guide-width-length-fit/",
+            f"https://{HOST}/journal/how-to-wash-dry-powder-tpe-sleeves/",
+            f"https://{HOST}/journal/medical-grade-silicone-vs-tpe-disinfection-alcohol-degradation/",
+            f"https://{HOST}/journal/wholesale-adult-toys-supplier-sourcing-checklist-iso13485/",
+            f"https://{HOST}/journal/travel-etiquette-adult-toys-airport-security/",
         ]
+
+        # Dynamically append the 15 newest journal articles so every daily post gets instant Google Indexing API notification
+        journal_dir = os.path.join(BASE_DIR, 'src', 'data', 'journal')
+        if os.path.isdir(journal_dir):
+            md_entries = []
+            for fname in os.listdir(journal_dir):
+                if fname.endswith('.md'):
+                    fpath = os.path.join(journal_dir, fname)
+                    md_entries.append((os.path.getmtime(fpath), fname[:-3]))
+            md_entries.sort(reverse=True)
+            for _, slug in md_entries[:15]:
+                article_url = f"https://{HOST}/journal/{slug}/"
+                if article_url not in priority_urls:
+                    priority_urls.append(article_url)
 
         success_count = 0
         error_msg = None
