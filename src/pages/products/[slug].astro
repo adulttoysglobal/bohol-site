@@ -113,6 +113,34 @@ const schema = {
         seller: {
           '@type': 'Organization',
           name: 'BOHOL'
+        },
+        shippingDetails: {
+          '@type': 'OfferShippingDetails',
+          shippingRate: {
+            '@type': 'MonetaryAmount',
+            value: '0',
+            currency: 'USD'
+          },
+          shippingDestination: [
+            { '@type': 'DefinedRegion', addressCountry: 'US' },
+            { '@type': 'DefinedRegion', addressCountry: 'GB' },
+            { '@type': 'DefinedRegion', addressCountry: 'DE' },
+            { '@type': 'DefinedRegion', addressCountry: 'CA' },
+            { '@type': 'DefinedRegion', addressCountry: 'AU' }
+          ],
+          deliveryTime: {
+            '@type': 'ShippingDeliveryTime',
+            handlingTime: { '@type': 'QuantitativeValue', minValue: 1, maxValue: 3, unitCode: 'DAY' },
+            transitTime: { '@type': 'QuantitativeValue', minValue: 7, maxValue: 12, unitCode: 'DAY' }
+          }
+        },
+        hasMerchantReturnPolicy: {
+          '@type': 'MerchantReturnPolicy',
+          applicableCountry: ['US', 'GB', 'DE', 'CA', 'AU'],
+          returnPolicyCategory: 'https://schema.org/MerchantReturnFiniteReturnWindow',
+          merchantReturnDays: 30,
+          returnMethod: 'https://schema.org/ReturnByMail',
+          returnFees: 'https://schema.org/FreeReturn'
         }
       },
       aggregateRating: {
@@ -122,6 +150,20 @@ const schema = {
         bestRating: '5',
         worstRating: '1'
       },
+      review: pdpReviews.map((rev) => ({
+        '@type': 'Review',
+        author: {
+          '@type': 'Person',
+          name: rev.author
+        },
+        name: rev.title,
+        reviewBody: rev.body,
+        reviewRating: {
+          '@type': 'Rating',
+          ratingValue: '5',
+          bestRating: '5'
+        }
+      })),
       additionalProperty: p.specs.map((s: any) => ({
         '@type': 'PropertyValue',
         name: s.label,

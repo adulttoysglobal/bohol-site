@@ -17,27 +17,69 @@ const { article } = Astro.props;
 const { Content } = await render(article);
 
 const allArticles = await getCollection('journal');
+const currentTags = new Set((article.data.tags || []).map((t: string) => t.toLowerCase()));
 const related = allArticles
   .filter((a) => a.id !== article.id)
-  .sort((a, b) => a.data.order - b.data.order)
-  .slice(0, 3);
+  .map((a) => {
+    const sameCategory = a.data.category === article.data.category ? 5 : 0;
+    const sharedTags = (a.data.tags || []).filter((t: string) => currentTags.has(t.toLowerCase())).length * 2;
+    const recencyBoost = a.data.order / 1000;
+    return { item: a, score: sameCategory + sharedTags + recencyBoost };
+  })
+  .sort((a, b) => b.score - a.score)
+  .slice(0, 3)
+  .map((entry) => entry.item);
 
 const canonicalUrl = new URL(Astro.url.pathname, Astro.site).href;
 const articleImage = new URL(article.data.image, Astro.site).href;
 const pubDateIso = article.data.pubDate ? new Date(article.data.pubDate).toISOString() : new Date('2026-10-14').toISOString();
+const articleKeywords = article.data.seoKeywords || (article.data.tags || []).join(', ');
+
+// Dynamically extract article-specific FAQ pairs from markdown body for unique FAQPage Schema & GEO citations
+function extractFaqsFromBody(rawBody?: string) {
+  if (!rawBody) return [];
+  const faqMatch = rawBody.match(/##\s+Frequently Asked Questions[\s\S]*?(?=\n##\s+(?!#)|$)/i);
+  if (!faqMatch) return [];
+  const section = faqMatch[0];
+  const pairs: { question: string; answer: string }[] = [];
+  const qRegex = /###\s+(.+?)\r?\n+([\s\S]*?)(?=\r?\n###\s+|\r?\n##\s+|$)/g;
+  let m;
+  while ((m = qRegex.exec(section)) !== null) {
+    const q = m[1].replace(/\*\*/g, '').trim();
+    if (/authoritative standards|international directives|references/i.test(q)) continue;
+    const a = m[2]
+      .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1')
+      .replace(/[*_`>#]/g, '')
+      .replace(/\s+/g, ' ')
+      .trim();
+    if (q.length > 8 && a.length > 20) {
+      pairs.push({ question: q, answer: a });
+    }
+  }
+  return pairs.slice(0, 5);
+}
+
+const extractedFaqs = extractFaqsFromBody(article.body);
 
 const articleSchema = {
   '@context': 'https://schema.org',
   '@type': 'TechArticle',
   headline: article.data.title,
   description: article.data.description,
+  keywords: articleKeywords,
+  articleSection: article.data.category,
+  isAccessibleForFree: true,
   image: articleImage,
   datePublished: pubDateIso,
-  dateModified: new Date().toISOString(),
+  dateModified: pubDateIso,
   mainEntityOfPage: canonicalUrl,
+  about: (article.data.tags || []).map((tag: string) => ({
+    '@type': 'Thing',
+    name: tag
+  })),
   author: {
     '@type': 'Person',
-    name: 'Alex Chen',
+    name: article.data.author || 'Alex Chen',
     jobTitle: 'Chief Hardware Architect & Technical Director',
     worksFor: {
       '@type': 'Organization',
@@ -66,35 +108,34 @@ const breadcrumbsSchema = {
   ]
 };
 
+const defaultFaqItems = [
+  {
+    question: 'What manufacturing standards and material certifications back this analysis?',
+    answer: 'BOHOL personal wellness hardware and liquid silicone components are engineered inside Class 100,000 cleanrooms in full compliance with ISO 13485:2016, ISO 10993 biocompatibility, EU RoHS 2.0 (2011/65/EU), CE-RED, FCC Part 15C, and FDA 21 CFR § 177.2600.'
+  },
+  {
+    question: 'How does BOHOL guarantee quality control and defect prevention in this product category?',
+    answer: 'We enforce an AQL 0.65/1.0 critical defect threshold, 100% negative pressure vacuum decay leak testing (-50 kPa for IPX7/IPX8 waterproof ratings), and automated ultrasonic welding verification across all production lots.'
+  },
+  {
+    question: 'Can international brands request custom OEM tooling, samples, or private label manufacturing?',
+    answer: 'Yes, BOHOL offers rapid 24-48 hour evaluation sample dispatch, custom Pantone silicone color matching, custom injection mold tooling with NNN/IP protection escrow, and turnkey DDP ocean/air freight consolidation to North America, Europe, and Australia.'
+  }
+];
+
+const finalFaqItems = extractedFaqs.length > 0 ? extractedFaqs : defaultFaqItems;
+
 const faqSchema = {
   '@context': 'https://schema.org',
   '@type': 'FAQPage',
-  mainEntity: [
-    {
-      '@type': 'Question',
-      name: `What manufacturing standards and material certifications back this analysis?`,
-      acceptedAnswer: {
-        '@type': 'Answer',
-        text: `BOHOL personal wellness hardware and liquid silicone components are engineered inside Class 100,000 cleanrooms in full compliance with ISO 13485:2016, EU RoHS 2.0 (2011/65/EU), CE-RED, FCC Part 15B, and FDA 21 CFR § 177.2600.`
-      }
-    },
-    {
-      '@type': 'Question',
-      name: `How does BOHOL guarantee quality control and defect prevention in this product category?`,
-      acceptedAnswer: {
-        '@type': 'Answer',
-        text: `We enforce an AQL 0.65/1.0 critical defect threshold, 100% negative pressure vacuum decay leak testing (-50 kPa for IPX7/IPX8 waterproof ratings), and automated ultrasonic welding verification across all production lots.`
-      }
-    },
-    {
-      '@type': 'Question',
-      name: `Can international brands request custom OEM tooling, samples, or private label manufacturing?`,
-      acceptedAnswer: {
-        '@type': 'Answer',
-        text: `Yes, BOHOL offers rapid 24-48 hour evaluation sample dispatch, custom Pantone silicone color matching, custom injection mold tooling with IP protection escrow, and turnkey DDP ocean freight consolidation to North America, Europe, and Australia.`
-      }
+  mainEntity: finalFaqItems.map((item) => ({
+    '@type': 'Question',
+    name: item.question,
+    acceptedAnswer: {
+      '@type': 'Answer',
+      text: item.answer
     }
-  ]
+  }))
 };
 
 const combinedSchema = [articleSchema, breadcrumbsSchema, faqSchema];
@@ -102,6 +143,7 @@ const combinedSchema = [articleSchema, breadcrumbsSchema, faqSchema];
 <Layout
   title={`${article.data.title} — BOHOL Technical Analysis`}
   description={article.data.description}
+  keywords={articleKeywords}
   image={article.data.image}
   type="article"
   schema={combinedSchema}

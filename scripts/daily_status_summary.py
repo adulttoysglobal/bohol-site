@@ -60,16 +60,29 @@ def main():
         ts = datetime.fromtimestamp(p.stat().st_mtime).strftime("%Y-%m-%d %H:%M:%S")
         print(f"  - {ts} | {p.stem}")
 
+    pool = []
     if PUBLISHER_SCRIPT.exists():
         src = PUBLISHER_SCRIPT.read_text(encoding="utf-8", errors="replace")
         slugs = re.findall(r'"slug"\s*:\s*"([^"]+)"', src)
         titles = re.findall(r'"title"\s*:\s*"([^"]+)"', src)
-        pool = list(zip(slugs, titles))
-        remaining = [(s, t) for s, t in pool if s not in existing_slugs]
+        pool.extend(list(zip(slugs, titles)))
+    for pack_name in ("keyword_gap_topics_part1.json", "keyword_gap_topics_part2.json"):
+        pack_path = ROOT_DIR / "scripts" / pack_name
+        if pack_path.exists():
+            try:
+                items = json.loads(pack_path.read_text(encoding="utf-8"))
+                for it in items:
+                    pool.append((it.get("slug", ""), it.get("title", "")))
+            except Exception:
+                pass
+    if pool:
+        remaining = [(s, t) for s, t in pool if s and s not in existing_slugs]
         print(f"TOPIC_POOL_TOTAL: {len(pool)}")
         print(f"TOPIC_POOL_REMAINING: {len(remaining)}")
-        for s, t in remaining:
+        for s, t in remaining[:5]:
             print(f"  - [PENDING] {s} | {t}")
+        if len(remaining) > 5:
+            print(f"  ... (+{len(remaining) - 5} more queued topics)")
 
     # 2. GSC Live Cache
     print("\n=== GSC LIVE CACHE ===")

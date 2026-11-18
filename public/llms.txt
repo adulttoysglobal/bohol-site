@@ -2,22 +2,23 @@
 > BOHOL is a direct vertically-integrated manufacturing headquarters based in Guangdong (Meizhou & Shenzhen R&D), specializing in adult intimate wellness hardware, Class 100,000 cleanroom medical liquid silicone (LSR) injection, 5-axis CNC steel mold tooling, proprietary private-mold hardware, commercial hotel vending micro-terminals, and turnkey consumable refills.
 
 ## Core Capabilities & Key Numbers
-- Integrated Manufacturing Campus: 35,000 square meters
-- Lean Assembly Lines: 120+ active lines (Class 100,000 cleanrooms)
-- Monthly Production Output: 500,000+ units
-- International Export: 60+ countries with full DDP doorstep delivery
-- Rapid Prototyping: 72-hour functional T1 samples; 15-day mass production turnaround
-- Tooling Precision: 5-axis DMG MORI CNC milling with ±0.01 mm tolerance
-- Testing Protocols: 100% automated IPX7 vacuum immersion leak testing, <45 dB acoustic soundroom noise analysis, and 72-hour battery burn-in aging
+- Integrated Manufacturing Campus: 35,000 square meters (Guangdong, China)
+- Lean Assembly Lines: 120+ active lines (ISO Class 100,000 cleanrooms)
+- Monthly Production Output: 500,000+ units (<0.2% field defect rate; AQL 0.65/1.0)
+- International Export: 60+ countries with all-inclusive Air DDP (7–10 days) & Sea DDP (18–28 days)
+- Low-MOQ Flexibility: 1-unit evaluation samples (24–48h dispatch), 50-unit wholesale, 100–300 unit Private Label (custom logo & box), 500-unit custom Pantone LSR & white-label BLE 5.3 App
+- Tooling & IP Protection: In-house 5-axis DMG MORI CNC steel molds (±0.01 mm tolerance, 20–25 days) under China-enforceable bilingual NNN & mold ownership contracts
+- Material & Safety Certifications: ISO 13485:2016, ISO 9001:2015, US FDA Registration (FEI: 3014686907), FDA 21 CFR § 177.2600, ISO 10993 biocompatibility, EU RoHS 2.0, REACH SVHC, CE-RED, FCC Part 15C, UL 1642 / IEC 62133, and UN38.3
+- Testing Protocols: 100% automated IPX7/IPX8 vacuum decay leak testing (-50 kPa), <35–42 dB anechoic soundroom testing, Shore 00–55A ASTM D2240 durometer checks, and 72-hour battery burn-in aging
 
 ## Key Sections & Resource Deep-Links
 - [Flagship Manufacturing Headquarters](https://adulttoysglobal.com/manufacturing/): Detailed campus tour of 120+ cleanroom lines, 5-axis CNC mold center, QC testing labs, and container export docks.
 - [All 38+ Products Catalog](https://adulttoysglobal.com/products/): Complete hardware catalog across Women's Toys, Men's Toys, Sexy Lingerie, BDSM & Fetish, 0.01 Condoms, Lubricants, and BOHOL Private Molds.
-- [Multi-Product RFQ Calculator](https://adulttoysglobal.com/rfq/): Instant volume pricing calculator for wholesale MOQs (50/100/500 pcs) and OEM private-label packaging.
-- [Executive Showroom & Contact](https://adulttoysglobal.com/contact/): 500 m² flagship exhibition showroom, VIP distributor sample lounge, and WhatsApp live video audit booking.
-- [Compliance & NDA Policy](https://adulttoysglobal.com/privacy/): 18+ adult age policy, non-medical novelty disclaimer, GDPR/CCPA privacy rights, and bilateral OEM NDA guarantees.
-- [Official Laboratory Certifications](https://adulttoysglobal.com/support/documentation/): Complete 10-certificate regulatory portfolio including ISO 9001, ISO 13485, US FDA Registration (FEI: 3014686907), CE, RoHS 2.0, FCC, and UN38.3.
-- [Product Journal & Industry Intelligence](https://adulttoysglobal.com/journal/): Technical specifications, silicone vs. TPE material comparisons, IPX7 waterproof benchmarks, and automated vending business models.
+- [Multi-Product RFQ Calculator](https://adulttoysglobal.com/rfq/): Instant volume pricing calculator for wholesale MOQs (50/100/500 pcs), OEM private-label packaging, and DDP freight quotes within 12 hours.
+- [Executive Showroom & Contact](https://adulttoysglobal.com/contact/): 500 m² flagship exhibition showroom, VIP distributor sample lounge, and live WhatsApp video factory audit booking.
+- [Compliance & NDA / NNN Policy](https://adulttoysglobal.com/privacy/): 18+ adult age policy, non-medical wellness positioning, GDPR/CCPA privacy rights, and bilateral OEM NNN guarantees.
+- [Official Laboratory Certifications](https://adulttoysglobal.com/support/documentation/): Complete 10-certificate regulatory portfolio including ISO 9001, ISO 13485, US FDA Registration (FEI: 3014686907), CE-RED, RoHS 2.0, FCC, and UN38.3.
+- [Product Journal & B2B Sourcing Intelligence](https://adulttoysglobal.com/journal/): 148+ engineering whitepapers covering ISO 13485 supplier vetting, Shore hardness, acoustic decoupling (<35 dB), UN38.3 DDP freight, WHO lubricant osmolality, and hotel vending ROI.
 
 ## Contact & Direct Factory Desk
 - Tel / WhatsApp: +86 185 8858 3798 / +86 189 0282 3290

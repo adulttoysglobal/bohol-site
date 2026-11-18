@@ -381,6 +381,17 @@ TOPIC_POOL = [
     }
 ]
 
+# Load expanded peer-competitor keyword-gap topic packs (2026 SEO & GEO Overhaul)
+for _pack_name in ("keyword_gap_topics_part1.json", "keyword_gap_topics_part2.json"):
+    _pack_path = ROOT_DIR / "scripts" / _pack_name
+    if _pack_path.exists():
+        try:
+            _extra = json.loads(_pack_path.read_text(encoding="utf-8"))
+            if isinstance(_extra, list):
+                TOPIC_POOL.extend(_extra)
+        except Exception as _e:
+            print(f"  ⚠️ Failed loading {_pack_name}: {_e}")
+
 def get_existing_slugs():
     slugs = set()
     for f in JOURNAL_DIR.glob("*.md"):
@@ -425,25 +436,42 @@ def generate_agnes_image(prompt: str, target_slug: str) -> str:
 def format_article_markdown(topic: dict, image_rel_path: str, order_num: int) -> str:
     today_str = datetime.now().strftime("%Y-%m-%d")
     
-    table_rows = "\n".join([f"| **{r[0]}** | {r[1]} | {r[2]} |" for r in topic["table"]])
+    # Build clean Markdown table (supports both 3-col and 4-col tables)
+    raw_table = topic.get("table", [])
+    table_md = ""
+    if raw_table:
+        first_row = list(raw_table[0])
+        col_count = len(first_row)
+        # Treat first row as header row if it's from keyword-gap packs or has 4 cols
+        if col_count >= 4 or any(w in str(first_row[0]).lower() for w in ("stage", "field", "component", "tier", "dimension", "scale", "standard", "metric", "factor", "check", "type", "week", "layer", "channel", "market", "pillar", "spec", "category", "path", "format", "mode", "element", "complaint", "method")):
+            header_line = "| " + " | ".join(str(c) for c in first_row) + " |"
+            sep_line = "| " + " | ".join(":---" for _ in first_row) + " |"
+            body_lines = [
+                "| **" + str(r[0]) + "** | " + " | ".join(str(c) for c in r[1:]) + " |"
+                for r in raw_table[1:]
+            ]
+        else:
+            header_line = "| Parameter / Attribute | Standard Industry Benchmark | BOHOL Certified Specification |"
+            sep_line = "| :--- | :--- | :--- |"
+            body_lines = [
+                "| **" + str(r[0]) + "** | " + " | ".join(str(c) for c in r[1:]) + " |"
+                for r in raw_table
+            ]
+        table_md = "\n".join([header_line, sep_line] + body_lines)
+
     takeaways_md = "\n".join([f"- **{t.split(':')[0] if ':' in t else t[:30]}**: {t.split(':', 1)[1].strip() if ':' in t else t}" for t in topic.get("takeaways", [])])
     
     prod_name = topic.get("product_name", "BOHOL Flagship Hardware")
     prod_link = topic.get("product_link", "/products/")
     
+    faq_parts = []
+    for idx in (1, 2, 3):
+        qk, ak = f"faq_q{idx}", f"faq_a{idx}"
+        if qk in topic and ak in topic:
+            faq_parts.append(f"### {topic[qk]}\n\n{topic[ak]}")
     faq_block = ""
-    if "faq_q1" in topic and "faq_a1" in topic:
-        faq_block = f"""
-## Frequently Asked Questions
-
-### {topic['faq_q1']}
-
-{topic['faq_a1']}
-
-### {topic['faq_q2']}
-
-{topic['faq_a2']}
-"""
+    if faq_parts:
+        faq_block = "\n## Frequently Asked Questions\n\n" + "\n\n".join(faq_parts) + "\n"
 
     md = f"""---
 title: "{topic['title']}"
@@ -476,9 +504,7 @@ seoKeywords: "{topic['seoKeywords']}"
 
 {topic['sec1_content']}
 
-| Parameter / Attribute | Standard Industry Benchmark | BOHOL Certified Specification |
-| :--- | :--- | :--- |
-{table_rows}
+{table_md}
 
 ## {topic['sec2_heading']}
 
@@ -489,10 +515,10 @@ seoKeywords: "{topic['seoKeywords']}"
 {topic['sec3_content']}
 {faq_block}
 ### Authoritative Standards & International Directives
-- **FDA 21 CFR § 177.2600:** Rubber articles intended for repeated use; extractives benchmarks.
+- **FDA 21 CFR § 177.2600 & ISO 10993:** Medical-grade platinum silicone extractives & mucosal biocompatibility benchmarks.
 - **ISO 13485:2016:** Medical devices quality management systems and Class 100,000 cleanroom traceability.
-- **European Directive 2014/53/EU (CE-RED):** Radio equipment directive for wireless tele-intimacy devices.
-- **UN Manual of Tests and Criteria (UN 38.3):** Lithium battery safety for commercial air/sea DDP transport.
+- **European Directive 2014/53/EU (CE-RED) & RoHS 2.0:** Wireless RF compliance and phthalate-free chemical safety.
+- **UN Manual of Tests and Criteria (UN 38.3) & IEC 62133:** Lithium battery safety for commercial air/sea DDP transport.
 """
     return md
 
