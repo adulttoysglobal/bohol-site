@@ -1,40 +1,40 @@
 {
-  "lastSyncedAt": "2026-11-18T01:00:54.839114+00:00",
-  "lastPushedAt": "2026-11-18T01:00:54.839114+00:00",
-  "lastPushedDisplay": "2026-11-18 09:00:54 (北京时间)",
+  "lastSyncedAt": "2026-11-19T01:00:54.848519+00:00",
+  "lastPushedAt": "2026-11-19T01:00:54.848519+00:00",
+  "lastPushedDisplay": "2026-11-19 09:00:54 (北京时间)",
   "siteUrl": "https://adulttoysglobal.com/",
   "permissionLevel": "siteFullUser",
   "status": "CONNECTED",
   "autoPushStatus": {
     "active": true,
     "schedule": "每日自动执行 (09:00 AM)",
-    "totalUrlsPushed": 201,
+    "totalUrlsPushed": 202,
     "googleSitemapsSubmitted": 3,
     "googleIndexingApi": {
       "enabled": true,
-      "pushedCount": 43,
-      "status": "SUCCESS (43 URLs notified)"
+      "pushedCount": 61,
+      "status": "SUCCESS (61 URLs notified)"
     },
     "indexNow": [
       {
         "endpoint": "https://api.indexnow.org/indexnow",
         "status": 403,
-        "urlsCount": 201
+        "urlsCount": 202
       },
       {
         "endpoint": "https://www.bing.com/indexnow",
         "status": 403,
-        "urlsCount": 201
+        "urlsCount": 202
       }
     ],
-    "lastPushSummary": "成功向 Google Search Console 提交 3 个站点地图（覆盖全站 201 个页面），并向 Bing/IndexNow 全球引擎推送。"
+    "lastPushSummary": "成功向 Google Search Console 提交 3 个站点地图（覆盖全站 202 个页面），并向 Bing/IndexNow 全球引擎推送。"
   },
   "searchAnalytics": {
     "totalClicks": 4,
-    "totalImpressions": 367,
-    "avgCtr": 1.09,
+    "totalImpressions": 360,
+    "avgCtr": 1.11,
     "avgPosition": 33.6,
-    "dateRange": "2026-10-21 ~ 2026-11-18",
+    "dateRange": "2026-10-22 ~ 2026-11-19",
     "queries": [
       {
         "keys": [
@@ -77,9 +77,9 @@
           "airport friendly sex toys"
         ],
         "clicks": 0,
-        "impressions": 2,
+        "impressions": 1,
         "ctr": 0,
-        "position": 88.5
+        "position": 89
       },
       {
         "keys": [
@@ -142,18 +142,18 @@
           "https://adulttoysglobal.com/contact/"
         ],
         "clicks": 1,
-        "impressions": 49,
-        "ctr": 0.02040816326530612,
-        "position": 112.48979591836735
+        "impressions": 48,
+        "ctr": 0.020833333333333332,
+        "position": 112.79166666666667
       },
       {
         "keys": [
           "https://adulttoysglobal.com/journal/how-to-wash-dry-powder-tpe-sleeves/"
         ],
         "clicks": 1,
-        "impressions": 12,
-        "ctr": 0.08333333333333333,
-        "position": 7.583333333333333
+        "impressions": 10,
+        "ctr": 0.1,
+        "position": 6.1
       },
       {
         "keys": [
@@ -224,56 +224,56 @@
   "sitemaps": [
     {
       "path": "https://adulttoysglobal.com/sitemap.xml",
-      "lastSubmitted": "2026-11-18T01:00:09.798Z",
+      "lastSubmitted": "2026-11-19T01:00:07.178Z",
       "isPending": true,
       "isSitemapsIndex": true,
-      "lastDownloaded": "2026-11-17T01:31:03.448Z",
+      "lastDownloaded": "2026-11-18T17:10:53.893Z",
       "warnings": "0",
       "errors": "0",
       "contents": [
         {
           "type": "web",
-          "submitted": "201",
+          "submitted": "203",
           "indexed": "0"
         }
       ]
     },
     {
       "path": "https://adulttoysglobal.com/sitemap-0.xml",
-      "lastSubmitted": "2026-11-18T01:00:09.449Z",
-      "isPending": true,
+      "lastSubmitted": "2026-11-19T01:00:06.802Z",
+      "isPending": false,
       "isSitemapsIndex": false,
       "type": "sitemap",
-      "lastDownloaded": "2026-11-17T01:31:02.633Z",
+      "lastDownloaded": "2026-11-19T01:00:07.537Z",
       "warnings": "0",
       "errors": "0",
       "contents": [
         {
           "type": "web",
-          "submitted": "201",
+          "submitted": "203",
           "indexed": "0"
         }
       ]
     },
     {
       "path": "https://adulttoysglobal.com/sitemap-index.xml",
-      "lastSubmitted": "2026-11-18T01:00:08.715Z",
-      "isPending": true,
+      "lastSubmitted": "2026-11-19T01:00:06.195Z",
+      "isPending": false,
       "isSitemapsIndex": true,
-      "lastDownloaded": "2026-11-17T01:31:01.744Z",
+      "lastDownloaded": "2026-11-19T01:00:06.977Z",
       "warnings": "0",
       "errors": "0",
       "contents": [
         {
           "type": "web",
-          "submitted": "201",
+          "submitted": "203",
           "indexed": "0"
         }
       ]
     }
   ],
   "homepageInspection": {
-    "inspectionResultLink": "https://search.google.com/search-console/inspect?resource_id=https://adulttoysglobal.com/&id=8AnAwHYEXQL_FfZ6wHfP1A&utm_medium=link&utm_source=api",
+    "inspectionResultLink": "https://search.google.com/search-console/inspect?resource_id=https://adulttoysglobal.com/&id=QtjJYe5PzJw35E2K6x3b8g&utm_medium=link&utm_source=api",
     "indexStatusResult": {
       "verdict": "PASS",
       "coverageState": "Submitted and indexed",
@@ -411,11 +411,11 @@
               "name": "Lenas",
               "issues": [
                 {
-                  "issueMessage": "Missing field \"hasMerchantReturnPolicy\"",
+                  "issueMessage": "Missing field \"shippingDetails\"",
                   "severity": "WARNING"
                 },
                 {
-                  "issueMessage": "Missing field \"shippingDetails\"",
+                  "issueMessage": "Missing field \"hasMerchantReturnPolicy\"",
                   "severity": "WARNING"
                 }
               ]
