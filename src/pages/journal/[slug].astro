@@ -4,6 +4,7 @@ import Layout from '../../layouts/Layout.astro';
 import JournalCard from '../../components/JournalCard.astro';
 import Icon from '../../components/Icon.astro';
 import settings from '../../data/settings.json';
+import ArticleB2bCtaBanner from '../../components/ArticleB2bCtaBanner.astro';
 
 export async function getStaticPaths() {
   const articles = await getCollection('journal');
@@ -199,8 +200,25 @@ const combinedSchema = [articleSchema, breadcrumbsSchema, faqSchema];
       </ul>
     </div>
 
+    <!-- Rapid In-Article B2B Action Bar -->
+    <div class="article-quick-cta-bar" style="margin: 20px 0 28px; padding: 14px 18px; background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 10px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px;">
+      <div style="display: flex; align-items: center; gap: 10px;">
+        <span style="font-size: 20px;">📦</span>
+        <div>
+          <strong style="font-size: 13.5px; color: #166534; display: block;">Sourcing OEM/ODM Hardware in This Category?</strong>
+          <span style="font-size: 12px; color: #15803d;">Factory direct MOQ 50 pcs · Free Material Swatch Kit · DDP Door-to-Door</span>
+        </div>
+      </div>
+      <a href={`https://wa.me/8618588583798?text=${encodeURIComponent(`Hi BOHOL, I am reading "${article.data.title}". Can you share the wholesale price list and sample policy for ${article.data.category}?`)}`} target="_blank" rel="noopener noreferrer" style="background: #16a34a; color: #ffffff; padding: 8px 16px; border-radius: 6px; font-size: 12.5px; font-weight: 700; text-decoration: none; display: inline-flex; align-items: center; gap: 6px;">
+        💬 Chat on WhatsApp
+      </a>
+    </div>
+
     <div class="reading article-content">
       <Content />
+
+      <!-- End of Article Enterprise B2B Lead Conversion Banner -->
+      <ArticleB2bCtaBanner articleTitle={article.data.title} category={article.data.category} variant="end" />
 
       <div class="article-footer" style="margin-top: 48px; padding-top: 24px; border-top: 1px solid var(--line);">
         <figure class="geo-citation-card" style="margin: 0 0 24px; padding: 1.25rem; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px;">

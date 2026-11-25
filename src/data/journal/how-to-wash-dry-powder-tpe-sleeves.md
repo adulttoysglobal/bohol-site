@@ -39,6 +39,11 @@ Trapped water inside a narrow channel cannot evaporate quickly on its own. Inser
 | **Cleaning Cleanser** | Alcohol-Free Foaming Cleanser / Mild Soap | Rubbing Alcohol, Bleach, Harsh Dish Detergents |
 | **Drying Method** | Diatomite Drying Stick + Lint-Free Towel | Hot Hair Dryer / Storing Damp in Closed Box |
 | **Powdering Agent** | Pure Food/Cosmetic Cornstarch or Renewal Powder | Talcum Powder / Perfumed Baby Powder with Oils |
+ 
+> [!TIP]
+> **Wholesale Buyers & Brand Owners: Sourcing Custom TPE/Silicone Sleeves?**  
+> BOHOL manufactures medical-grade TPE and LSR dual-layer sleeves with custom Shore durometers (00-10 to 00-30 ultra-soft elasticity). Request a **Free Material Swatch & Sample Evaluation Kit** directly on **WhatsApp ([+86 185 8858 3798](https://wa.me/8618588583798?text=Hello%20BOHOL%2C%20I%20am%20interested%20in%20custom%20TPE%20sleeve%20manufacturing%20and%20would%20like%20to%20request%20a%20material%20sample%20kit.))`** or submit an **[Online RFQ](/rfq/)** with low trial MOQ (50 units).
+
 
 ## 3. Related Material Maintenance Guides
 

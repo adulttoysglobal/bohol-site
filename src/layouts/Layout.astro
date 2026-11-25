@@ -8,6 +8,7 @@ import AgeGateModal from '../components/AgeGateModal.astro';
 import CookieBanner from '../components/CookieBanner.astro';
 import LanguageSwitcher from '../components/LanguageSwitcher.astro';
 import LeadMagnetModal from '../components/LeadMagnetModal.astro';
+import FloatingContactWidget from '../components/FloatingContactWidget.astro';
 import settings from '../data/settings.json';
 const {
   title = 'Global Adult Wellness Store & 35,000 m² OEM Smart Factory',
@@ -677,6 +678,9 @@ const authorPersonSchema = {
   </div>
 
   <main id="main"><slot /></main>
+
+  <!-- Global Floating B2B WhatsApp & Quick RFQ Widget -->
+  <FloatingContactWidget />
 
   <!-- Floating Scroll-To-Top Button -->
   <button id="scroll-to-top-button" class="sf-scroll-top" aria-label="Scroll to top" title="Scroll to top">

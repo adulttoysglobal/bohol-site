@@ -40,6 +40,11 @@ Consumers often fear that an ultra-thin 0.01mm condom will burst easily. In stan
 | Tensile Material Strength | > 65 MPa (High puncture resistance) | 25 ~ 30 MPa (Prone to fingernail snags) |
 | Latex Protein Allergenicity | 0.0% (100% Hypoallergenic) | Contains Hev b proteins (Latex allergy risk) |
 | Oil Lubricant Compatibility | Safe with oils, silicones, and water | Damaged & dissolved by oil-based lubricants |
+ 
+> [!IMPORTANT]
+> **Wholesale Distributors & Pharmacy Brands: OEM 0.01mm Polyurethane Condoms**  
+> Looking for CE / ISO 23409 certified 0.01mm synthetic condoms with custom foil pouch printing, discreet retail cartons, or automated hotel vending refill packs? Contact BOHOL's OEM directorate directly on **WhatsApp ([+86 185 8858 3798](https://wa.me/8618588583798?text=Hello%20BOHOL%2C%20I%20am%20interested%20in%20OEM%20custom%20branding%20for%200.01mm%20polyurethane%20condoms%20and%20would%20like%20a%20price%20quote.))`** or calculate wholesale container pricing via our **[Online RFQ System](/rfq/)**.
+
 
 
 <div style="margin: 2rem 0; background: #ffffff; border-left: 4px solid #0284c7; padding: 18px 24px; border-radius: 0 12px 12px 0; box-shadow: 0 2px 8px rgba(15,23,42,0.04);">

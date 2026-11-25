@@ -1,0 +1,300 @@
+---
+/**
+ * In-Article High-Converting B2B Call-to-Action (CTA) Banner
+ * Placed within and at the end of Journal technical articles to convert reader traffic into wholesale RFQ inquiries
+ */
+import Icon from './Icon.astro';
+import settings from '../data/settings.json';
+
+interface Props {
+  articleTitle?: string;
+  category?: string;
+  variant?: 'mid' | 'end';
+}
+
+const {
+  articleTitle = 'Intimate Hardware Manufacturing',
+  category = 'OEM / ODM',
+  variant = 'end'
+} = Astro.props;
+
+const whatsappNumber = (settings.whatsapp || '+86 185 8858 3798').replace(/\D/g, '');
+const waMessage = encodeURIComponent(
+  `Hello BOHOL Engineering & Export Team,\nI just finished reading your technical guide on "${articleTitle}".\n\nWe are looking to source/OEM products in the "${category}" category. Could you please share your 2026 Wholesale Price List, MOQ tiers, and sample policy? Thank you!`
+);
+---
+
+<aside class={`b2b-article-cta-card b2b-cta-${variant}`} aria-label="B2B Sourcing Call to Action">
+  <div class="b2b-cta-badge-row">
+    <span class="b2b-cta-tag">🏭 GUANGDONG SOURCE FACTORY</span>
+    <span class="b2b-cta-meta">35,000 m² Campus · Class 100,000 Cleanroom · ISO 13485</span>
+  </div>
+
+  <div class="b2b-cta-body">
+    <div class="b2b-cta-text">
+      <h3>Turn This Technical Standard into Your Brand's Next Hardware Line</h3>
+      <p>
+        Don't settle for trading companies or high-risk intermediaries. Work directly with BOHOL's in-house tooling engineers, liquid silicone rubber (LSR) injection workshops, and rapid prototyping labs.
+      </p>
+
+      <div class="b2b-cta-perks">
+        <div class="perk-item">
+          <span class="perk-icon">⚡</span>
+          <div>
+            <strong>Low MOQ (50 units)</strong>
+            <small>Trial test with custom branding &amp; retail packaging</small>
+          </div>
+        </div>
+        <div class="perk-item">
+          <span class="perk-icon">🚢</span>
+          <div>
+            <strong>DDP Door-to-Door Shipping</strong>
+            <small>Direct delivery to USA, EU, UK, CA with 100% tax paid</small>
+          </div>
+        </div>
+        <div class="perk-item">
+          <span class="perk-icon">🔒</span>
+          <div>
+            <strong>Bilingual NNN Protection</strong>
+            <small>Full proprietary mold ownership &amp; IP exclusivity</small>
+          </div>
+        </div>
+        <div class="perk-item">
+          <span class="perk-icon">🧪</span>
+          <div>
+            <strong>Medical Biocompatibility</strong>
+            <small>FDA 21 CFR § 177.2600 &amp; ISO 10993 certified silicone</small>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="b2b-cta-actions">
+      <div class="cta-action-box">
+        <span class="cta-box-title">Instant Factory Direct Channels:</span>
+        <a
+          href={`https://wa.me/${whatsappNumber}?text=${waMessage}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="btn-cta-whatsapp"
+        >
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+            <path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0 0 12.04 2m.01 1.67c2.2 0 4.26.86 5.82 2.42a8.225 8.225 0 0 1 2.41 5.83c0 4.54-3.7 8.24-8.24 8.24-1.48 0-2.93-.4-4.2-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.196 8.196 0 0 1-1.26-4.38c0-4.54 3.7-8.24 8.24-8.24m4.52 11.66c-.19-.09-1.12-.55-1.3-.61-.17-.07-.3-.1-.42.1-.13.19-.48.61-.59.74-.11.12-.22.14-.4.05-.19-.09-.79-.29-1.5-.93-.56-.49-.93-1.11-1.04-1.3-.11-.19-.01-.29.08-.38.08-.08.19-.22.28-.33.09-.11.13-.19.19-.31.06-.13.03-.24-.01-.33-.05-.09-.42-1.01-.58-1.39-.15-.36-.31-.31-.42-.32h-.36c-.13 0-.33.05-.5.24-.17.19-.66.65-.66 1.58 0 .93.68 1.83.77 1.96.09.12 1.33 2.04 3.23 2.86.45.19.81.31 1.08.4.45.14.86.12 1.19.07.36-.05 1.12-.46 1.28-.9.16-.45.16-.83.11-.91-.04-.08-.17-.13-.36-.23"/>
+          </svg>
+          <span>Chat on WhatsApp (Alex Chen)</span>
+        </a>
+
+        <a href="/rfq/" class="btn-cta-rfq">
+          <span>📋 Request Multi-Product RFQ &amp; Freight</span>
+          <Icon name="arrow-up-right" size={14} />
+        </a>
+
+        <div class="cta-desk-info">
+          <span>✉ Direct Email: <a href="mailto:adulttoysglobal1997@gmail.com">adulttoysglobal1997@gmail.com</a></span>
+          <span>WeChat: <strong>18588583798</strong></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</aside>
+
+<style>
+  .b2b-article-cta-card {
+    margin: 40px 0;
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 16px;
+    padding: 30px 32px;
+    color: #ffffff;
+    box-shadow: 0 20px 40px -15px rgba(15, 23, 42, 0.4);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .b2b-article-cta-card::before {
+    content: '';
+    position: absolute;
+    top: -50px;
+    right: -50px;
+    width: 180px;
+    height: 180px;
+    background: radial-gradient(circle, rgba(2, 132, 199, 0.25) 0%, rgba(2, 132, 199, 0) 70%);
+    border-radius: 50%;
+    pointer-events: none;
+  }
+
+  .b2b-cta-badge-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-bottom: 16px;
+  }
+
+  .b2b-cta-tag {
+    font-size: 11px;
+    font-weight: 800;
+    color: #38bdf8;
+    background: rgba(56, 189, 248, 0.15);
+    border: 1px solid rgba(56, 189, 248, 0.3);
+    padding: 3px 10px;
+    border-radius: 9999px;
+    letter-spacing: 0.04em;
+  }
+
+  .b2b-cta-meta {
+    font-size: 12px;
+    color: #94a3b8;
+    font-weight: 500;
+  }
+
+  .b2b-cta-body {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    gap: 32px;
+    align-items: center;
+  }
+
+  .b2b-cta-text h3 {
+    margin: 0 0 10px;
+    font-size: 1.35rem;
+    font-weight: 800;
+    color: #ffffff;
+    line-height: 1.3;
+  }
+
+  .b2b-cta-text p {
+    margin: 0 0 20px;
+    font-size: 13.5px;
+    color: #cbd5e1;
+    line-height: 1.55;
+  }
+
+  .b2b-cta-perks {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px 16px;
+  }
+
+  .perk-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .perk-icon {
+    font-size: 16px;
+    flex-shrink: 0;
+    line-height: 1.2;
+  }
+
+  .perk-item div {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.2;
+  }
+
+  .perk-item strong {
+    font-size: 12.5px;
+    font-weight: 700;
+    color: #f1f5f9;
+  }
+
+  .perk-item small {
+    font-size: 11px;
+    color: #94a3b8;
+    margin-top: 2px;
+  }
+
+  .b2b-cta-actions {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    padding: 20px;
+    text-align: center;
+  }
+
+  .cta-action-box {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .cta-box-title {
+    font-size: 12px;
+    font-weight: 700;
+    color: #94a3b8;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .btn-cta-whatsapp {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background: #25d366;
+    color: #ffffff;
+    font-weight: 700;
+    font-size: 13.5px;
+    padding: 12px 18px;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: all 0.15s ease;
+  }
+
+  .btn-cta-whatsapp:hover {
+    background: #20bd5a;
+    transform: translateY(-1px);
+    box-shadow: 0 8px 20px -3px rgba(37, 211, 102, 0.4);
+    color: #ffffff;
+  }
+
+  .btn-cta-rfq {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    background: #0284c7;
+    color: #ffffff;
+    font-weight: 700;
+    font-size: 13.5px;
+    padding: 11px 18px;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: all 0.15s ease;
+  }
+
+  .btn-cta-rfq:hover {
+    background: #0369a1;
+    transform: translateY(-1px);
+    color: #ffffff;
+  }
+
+  .cta-desk-info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin-top: 6px;
+    font-size: 11px;
+    color: #94a3b8;
+  }
+
+  .cta-desk-info a {
+    color: #38bdf8;
+    text-decoration: underline;
+  }
+
+  @media (max-width: 768px) {
+    .b2b-cta-body {
+      grid-template-columns: 1fr;
+      gap: 24px;
+    }
+    .b2b-article-cta-card {
+      padding: 24px 20px;
+    }
+    .b2b-cta-perks {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

@@ -1,0 +1,621 @@
+---
+/**
+ * Global B2B Floating Contact & Rapid RFQ Conversion Widget
+ * Provides 1-click WhatsApp direct chat and instant 10-second wholesale price request
+ */
+import Icon from './Icon.astro';
+import settings from '../data/settings.json';
+
+const whatsappNumber = (settings.whatsapp || '+86 185 8858 3798').replace(/\D/g, '');
+---
+
+<aside class="floating-b2b-widget" id="floating-b2b-widget" aria-label="Quick B2B Contact">
+  <!-- WhatsApp Direct Floating Bubble -->
+  <a
+    href={`https://wa.me/${whatsappNumber}?text=${encodeURIComponent("Hello BOHOL Factory Team, I would like to request your 2026 Complete Wholesale Price List and MOQ details.")}`}
+    target="_blank"
+    rel="noopener noreferrer"
+    class="b2b-fab fab-whatsapp"
+    id="b2b-wa-trigger"
+    aria-label="Chat on WhatsApp (+86 185 8858 3798)"
+    title="Chat with Factory Trade Desk on WhatsApp"
+  >
+    <span class="fab-pulse"></span>
+    <svg class="fab-icon" viewBox="0 0 24 24" width="28" height="28" fill="currentColor">
+      <path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0 0 12.04 2m.01 1.67c2.2 0 4.26.86 5.82 2.42a8.225 8.225 0 0 1 2.41 5.83c0 4.54-3.7 8.24-8.24 8.24-1.48 0-2.93-.4-4.2-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.196 8.196 0 0 1-1.26-4.38c0-4.54 3.7-8.24 8.24-8.24m4.52 11.66c-.19-.09-1.12-.55-1.3-.61-.17-.07-.3-.1-.42.1-.13.19-.48.61-.59.74-.11.12-.22.14-.4.05-.19-.09-.79-.29-1.5-.93-.56-.49-.93-1.11-1.04-1.3-.11-.19-.01-.29.08-.38.08-.08.19-.22.28-.33.09-.11.13-.19.19-.31.06-.13.03-.24-.01-.33-.05-.09-.42-1.01-.58-1.39-.15-.36-.31-.31-.42-.32h-.36c-.13 0-.33.05-.5.24-.17.19-.66.65-.66 1.58 0 .93.68 1.83.77 1.96.09.12 1.33 2.04 3.23 2.86.45.19.81.31 1.08.4.45.14.86.12 1.19.07.36-.05 1.12-.46 1.28-.9.16-.45.16-.83.11-.91-.04-.08-.17-.13-.36-.23"/>
+    </svg>
+    <span class="fab-label">
+      <strong>WhatsApp 24/7</strong>
+      <small>Online · Alex Chen</small>
+    </span>
+  </a>
+
+  <!-- Quick RFQ Pill Button -->
+  <button
+    type="button"
+    class="b2b-fab fab-rfq"
+    id="b2b-quick-rfq-btn"
+    aria-label="Request 2026 Price Sheet"
+  >
+    <span class="fab-rfq-icon">📋</span>
+    <span class="fab-rfq-text">
+      <strong>Get Price Sheet</strong>
+      <small>MOQ 50pcs · FOB/DDP</small>
+    </span>
+  </button>
+</aside>
+
+<!-- Instant B2B Quick Quote Modal -->
+<div class="quick-rfq-backdrop" id="quick-rfq-backdrop" hidden>
+  <div class="quick-rfq-modal" role="dialog" aria-modal="true" aria-labelledby="quick-rfq-title">
+    <button type="button" class="quick-rfq-close" id="quick-rfq-close" aria-label="Close dialog">&times;</button>
+    
+    <div class="quick-rfq-header">
+      <span class="badge-factory">🏭 DIRECT FROM 35,000 m² FACTORY</span>
+      <h3 id="quick-rfq-title">Request BOHOL 2026 Wholesale Catalog &amp; Price List</h3>
+      <p>Direct manufacturer pricing tiered from 50 to 5,000+ units. Delivered Duty Paid (DDP) shipping to USA, EU, UK, Canada &amp; Australia.</p>
+    </div>
+
+    <form class="quick-rfq-form" id="quick-rfq-form">
+      <div class="form-row">
+        <label>
+          <span>Your Work Email <em>*</em></span>
+          <input type="email" name="email" id="qr-email" required placeholder="buyer@yourcompany.com" autocomplete="email" />
+        </label>
+      </div>
+
+      <div class="form-row-2">
+        <label>
+          <span>WhatsApp / Phone (for instant PDF)</span>
+          <input type="tel" name="phone" id="qr-phone" placeholder="+1 / +44 / +49..." autocomplete="tel" />
+        </label>
+        <label>
+          <span>Target Quantity</span>
+          <select name="quantity" id="qr-qty">
+            <option value="50 - 200 units (Trial/Small B2B)">50 - 200 units (Trial/Small B2B)</option>
+            <option value="200 - 500 units (Wholesale Stock)">200 - 500 units (Wholesale Stock)</option>
+            <option value="500 - 2,000 units (Private Label OEM)">500 - 2,000 units (Private Label OEM)</option>
+            <option value="2,000+ units (Container Bulk)">2,000+ units (Container Bulk)</option>
+            <option value="1 Unit (Engineering Sample Evaluation)">1 Unit (Sample Evaluation)</option>
+          </select>
+        </label>
+      </div>
+
+      <div class="form-row">
+        <label>
+          <span>Product Categories of Interest</span>
+          <select name="category" id="qr-cat">
+            <option value="All Collections (Complete 38+ Models Catalog)">All Collections (Complete 38+ Models Catalog)</option>
+            <option value="Women's Toys & Sonic Suction Vibrators">Women's Toys &amp; Sonic Suction Vibrators</option>
+            <option value="Men's Automatic Strokers & Pelvic Training">Men's Automatic Strokers &amp; Pelvic Training</option>
+            <option value="Hotel Wall-Mounted Vending Terminals">Hotel Wall-Mounted Vending Terminals</option>
+            <option value="0.01 Ultra-Thin Polyurethane Condoms">0.01 Ultra-Thin Polyurethane Condoms</option>
+            <option value="Private Mold OEM Tooling & Liquid Silicone (LSR)">Private Mold OEM Tooling &amp; Liquid Silicone (LSR)</option>
+          </select>
+        </label>
+      </div>
+
+      <div class="form-row">
+        <label>
+          <span>Destination Country &amp; City (for DDP Freight Rate)</span>
+          <input type="text" name="destination" id="qr-dest" placeholder="e.g. Los Angeles, USA / Frankfurt, Germany" />
+        </label>
+      </div>
+
+      <button type="submit" class="quick-rfq-submit" id="qr-submit-btn">
+        <span>🚀 Send Price Sheet &amp; Freight Breakdown (24h SLA)</span>
+      </button>
+
+      <div class="quick-rfq-footer">
+        <span>🔒 Protected under mutual Non-Disclosure Agreement (NDA). Zero spam.</span>
+      </div>
+    </form>
+
+    <!-- Success Screen -->
+    <div class="quick-rfq-success" id="quick-rfq-success" hidden>
+      <div class="success-icon">✅</div>
+      <h4>Price Sheet Request Logged Successfully!</h4>
+      <p>Thank you! Our export manager has received your inquiry. For immediate response within 10 minutes, you can also ping us directly on WhatsApp:</p>
+      
+      <div class="success-actions">
+        <a href={`https://wa.me/${whatsappNumber}`} id="qr-success-wa-link" target="_blank" rel="noopener noreferrer" class="btn-wa-direct">
+          💬 Chat with Trade Desk on WhatsApp
+        </a>
+        <button type="button" class="btn-close-modal" id="qr-success-close">
+          Close Window
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  /* Floating container */
+  .floating-b2b-widget {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    z-index: 998;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 10px;
+    pointer-events: none;
+  }
+
+  .floating-b2b-widget > * {
+    pointer-events: auto;
+  }
+
+  /* WhatsApp FAB */
+  .b2b-fab {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 18px 10px 14px;
+    border-radius: 9999px;
+    text-decoration: none;
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.25), 0 8px 10px -6px rgba(0, 0, 0, 0.15);
+    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    font-family: inherit;
+    cursor: pointer;
+  }
+
+  .fab-whatsapp {
+    background: #25d366;
+    color: #ffffff;
+    border: 2px solid #ffffff;
+    position: relative;
+  }
+
+  .fab-whatsapp:hover {
+    background: #20bd5a;
+    transform: translateY(-2px) scale(1.03);
+    box-shadow: 0 16px 32px -4px rgba(37, 211, 102, 0.45);
+    color: #ffffff;
+  }
+
+  .fab-pulse {
+    position: absolute;
+    top: 6px;
+    left: 8px;
+    width: 10px;
+    height: 10px;
+    background: #ffffff;
+    border-radius: 50%;
+    animation: fab-ping 1.8s cubic-bezier(0, 0, 0.2, 1) infinite;
+  }
+
+  @keyframes fab-ping {
+    75%, 100% {
+      transform: scale(2.2);
+      opacity: 0;
+    }
+  }
+
+  .fab-icon {
+    flex-shrink: 0;
+  }
+
+  .fab-label {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.15;
+    text-align: left;
+  }
+
+  .fab-label strong {
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+  }
+
+  .fab-label small {
+    font-size: 11px;
+    opacity: 0.9;
+    font-weight: 500;
+  }
+
+  /* Quick RFQ FAB */
+  .fab-rfq {
+    background: #0f172a;
+    color: #ffffff;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 8px 16px;
+  }
+
+  .fab-rfq:hover {
+    background: #1e293b;
+    transform: translateY(-2px);
+    box-shadow: 0 12px 24px -4px rgba(15, 23, 42, 0.35);
+  }
+
+  .fab-rfq-icon {
+    font-size: 16px;
+  }
+
+  .fab-rfq-text {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    line-height: 1.15;
+  }
+
+  .fab-rfq-text strong {
+    font-size: 12.5px;
+    font-weight: 700;
+    color: #f8fafc;
+  }
+
+  .fab-rfq-text small {
+    font-size: 10.5px;
+    color: #94a3b8;
+  }
+
+  /* Modal Styling */
+  .quick-rfq-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(15, 23, 42, 0.7);
+    backdrop-filter: blur(6px);
+    z-index: 10000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+  }
+
+  .quick-rfq-modal {
+    background: #ffffff;
+    width: 100%;
+    max-width: 540px;
+    border-radius: 16px;
+    padding: 32px 28px;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.35);
+    position: relative;
+    max-height: 90vh;
+    overflow-y: auto;
+  }
+
+  .quick-rfq-close {
+    position: absolute;
+    top: 16px;
+    right: 18px;
+    font-size: 28px;
+    line-height: 1;
+    background: none;
+    border: none;
+    color: #64748b;
+    cursor: pointer;
+    transition: color 0.15s ease;
+  }
+
+  .quick-rfq-close:hover {
+    color: #0f172a;
+  }
+
+  .badge-factory {
+    display: inline-block;
+    font-size: 10.5px;
+    font-weight: 800;
+    color: #0284c7;
+    background: #e0f2fe;
+    padding: 3px 10px;
+    border-radius: 9999px;
+    letter-spacing: 0.05em;
+    margin-bottom: 8px;
+  }
+
+  .quick-rfq-header h3 {
+    margin: 0 0 6px;
+    font-size: 1.35rem;
+    font-weight: 800;
+    color: #0f172a;
+    line-height: 1.25;
+  }
+
+  .quick-rfq-header p {
+    margin: 0 0 20px;
+    font-size: 13px;
+    color: #64748b;
+    line-height: 1.45;
+  }
+
+  .quick-rfq-form {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .quick-rfq-form .form-row {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .quick-rfq-form .form-row-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+
+  .quick-rfq-form label {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .quick-rfq-form label span {
+    font-size: 12px;
+    font-weight: 600;
+    color: #334155;
+  }
+
+  .quick-rfq-form label span em {
+    color: #ef4444;
+    font-style: normal;
+  }
+
+  .quick-rfq-form input,
+  .quick-rfq-form select {
+    padding: 10px 12px;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    font-size: 13.5px;
+    color: #0f172a;
+    background: #ffffff;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  }
+
+  .quick-rfq-form input:focus,
+  .quick-rfq-form select:focus {
+    outline: none;
+    border-color: #0284c7;
+    box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.15);
+  }
+
+  .quick-rfq-submit {
+    margin-top: 8px;
+    background: #0284c7;
+    color: #ffffff;
+    border: none;
+    padding: 12px 18px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.15s ease, transform 0.1s ease;
+  }
+
+  .quick-rfq-submit:hover {
+    background: #0369a1;
+    transform: translateY(-1px);
+  }
+
+  .quick-rfq-footer {
+    text-align: center;
+    font-size: 11px;
+    color: #94a3b8;
+    margin-top: 4px;
+  }
+
+  /* Success box */
+  .quick-rfq-success {
+    text-align: center;
+    padding: 20px 0 10px;
+  }
+
+  .quick-rfq-success .success-icon {
+    font-size: 44px;
+    margin-bottom: 12px;
+  }
+
+  .quick-rfq-success h4 {
+    margin: 0 0 8px;
+    font-size: 1.25rem;
+    font-weight: 800;
+    color: #0f172a;
+  }
+
+  .quick-rfq-success p {
+    font-size: 13.5px;
+    color: #475569;
+    line-height: 1.5;
+    margin-bottom: 20px;
+  }
+
+  .success-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .btn-wa-direct {
+    display: inline-block;
+    background: #25d366;
+    color: #ffffff;
+    font-weight: 700;
+    padding: 12px 20px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-size: 14px;
+    transition: background 0.15s ease;
+  }
+
+  .btn-wa-direct:hover {
+    background: #20bd5a;
+  }
+
+  .btn-close-modal {
+    background: #f1f5f9;
+    color: #475569;
+    border: none;
+    padding: 10px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+  }
+
+  @media (max-width: 640px) {
+    .floating-b2b-widget {
+      bottom: 16px;
+      right: 14px;
+      gap: 8px;
+    }
+    .b2b-fab {
+      padding: 8px 14px 8px 12px;
+    }
+    .fab-label strong {
+      font-size: 13px;
+    }
+    .fab-label small {
+      display: none;
+    }
+    .fab-rfq-text small {
+      display: none;
+    }
+    .quick-rfq-form .form-row-2 {
+      grid-template-columns: 1fr;
+    }
+    .quick-rfq-modal {
+      padding: 24px 18px;
+    }
+  }
+</style>
+
+<script is:inline>
+  document.addEventListener('DOMContentLoaded', () => {
+    const waTrigger = document.getElementById('b2b-wa-trigger');
+    const rfqTrigger = document.getElementById('b2b-quick-rfq-btn');
+    const backdrop = document.getElementById('quick-rfq-backdrop');
+    const closeBtn = document.getElementById('quick-rfq-close');
+    const successClose = document.getElementById('qr-success-close');
+    const form = document.getElementById('quick-rfq-form');
+    const successBox = document.getElementById('quick-rfq-success');
+    const submitBtn = document.getElementById('qr-submit-btn');
+    const waSuccessLink = document.getElementById('qr-success-wa-link');
+
+    // Contextualize WhatsApp message with current page title
+    if (waTrigger) {
+      const pageTitle = document.title || 'BOHOL Hardware';
+      const currentUrl = window.location.href;
+      const cleanWaText = `Hello BOHOL Factory Team,\nI am browsing: "${pageTitle}"\nURL: ${currentUrl}\n\nI would like to request your 2026 Wholesale Catalog, FOB/DDP Tiered Pricing Sheet, and Sample Policy. Thank you!`;
+      const baseHref = waTrigger.getAttribute('href')?.split('?text=')[0];
+      if (baseHref) {
+        waTrigger.setAttribute('href', `${baseHref}?text=${encodeURIComponent(cleanWaText)}`);
+      }
+    }
+
+    function openRfqModal() {
+      if (backdrop) {
+        backdrop.hidden = false;
+        document.body.style.overflow = 'hidden';
+      }
+    }
+
+    function closeRfqModal() {
+      if (backdrop) {
+        backdrop.hidden = true;
+        document.body.style.overflow = '';
+      }
+    }
+
+    rfqTrigger?.addEventListener('click', openRfqModal);
+    closeBtn?.addEventListener('click', closeRfqModal);
+    successClose?.addEventListener('click', closeRfqModal);
+    backdrop?.addEventListener('click', (e) => {
+      if (e.target === backdrop) closeRfqModal();
+    });
+
+    // Form Submission
+    form?.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const email = document.getElementById('qr-email')?.value;
+      const phone = document.getElementById('qr-phone')?.value || 'Not provided';
+      const qty = document.getElementById('qr-qty')?.value || '50-200 units';
+      const cat = document.getElementById('qr-cat')?.value || 'Complete Catalog';
+      const dest = document.getElementById('qr-dest')?.value || 'To be specified';
+
+      if (!email) return;
+
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Calculating & Submitting...';
+      }
+
+      const refId = `QUICK-${Date.now().toString(36).toUpperCase()}`;
+      const payload = {
+        id: refId,
+        source: 'Global Floating Quick RFQ Widget',
+        submittedAt: new Date().toISOString(),
+        email,
+        phone,
+        quantity: qty,
+        category: cat,
+        destinationAddress: dest,
+        market: dest,
+        message: `Quick Wholesale RFQ from Floating Widget. Category: ${cat}, Target Quantity: ${qty}, Destination: ${dest}`,
+        pageUrl: window.location.href,
+        pageTitle: document.title
+      };
+
+      // 1. Post to local /api/enquiry
+      try {
+        await fetch('/api/enquiry', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+      } catch (err) {}
+
+      // 2. Client-side FormSubmit backup to adulttoysglobal1997@gmail.com
+      try {
+        await fetch('https://formsubmit.co/ajax/adulttoysglobal1997@gmail.com', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+          body: JSON.stringify({
+            _subject: `⚡ Quick Wholesale Quote [${refId}]: ${cat} (${qty}) from ${email}`,
+            _replyto: email,
+            'Reference ID': refId,
+            'Client Email': email,
+            'Phone / WhatsApp': phone,
+            'Target Volume': qty,
+            'Category Focus': cat,
+            'Destination': dest,
+            'Page Submitted From': window.location.href
+          })
+        });
+      } catch (fbErr) {}
+
+      // 3. Save to localStorage for admin/leads
+      try {
+        const existing = JSON.parse(localStorage.getItem('bohol_rfq_leads') || '[]');
+        existing.unshift(payload);
+        localStorage.setItem('bohol_rfq_leads', JSON.stringify(existing.slice(0, 300)));
+      } catch (lsErr) {}
+
+      // 4. Analytics
+      try {
+        if (typeof window.gtag === 'function') {
+          window.gtag('event', 'generate_lead', {
+            event_category: 'Floating Quick RFQ',
+            event_label: cat
+          });
+        }
+      } catch (gtagErr) {}
+
+      // Update success WhatsApp link with exact context
+      if (waSuccessLink) {
+        const waText = `Hi Alex, I just submitted a quick quotation request on your website (Ref: ${refId}).\nEmail: ${email}\nInterested in: ${cat}\nVolume: ${qty}\nDestination: ${dest}\nPlease send me the price list and shipping options.`;
+        const waHref = waSuccessLink.getAttribute('href')?.split('?text=')[0];
+        if (waHref) {
+          waSuccessLink.setAttribute('href', `${waHref}?text=${encodeURIComponent(waText)}`);
+        }
+      }
+
+      // Show success screen
+      if (form) form.hidden = true;
+      if (successBox) successBox.hidden = false;
+    });
+  });
+</script>
