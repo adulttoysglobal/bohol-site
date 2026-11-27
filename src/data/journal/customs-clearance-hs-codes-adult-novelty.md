@@ -41,9 +41,14 @@ Compliant commercial invoices use objective, technical nomenclature focusing on 
 | Synthetic 0.01 Condoms | HS 3926.90.9980 | Polyurethane Sheaths for Hygienic Barrier Protection |
 | Water-Based Lubricant Gel | HS 3307.90.0000 | Personal Moisturizing Hydration Gel for Skin Care |
 
+> [!TIP]
+> **Calculate Your Exact Tariff & HS Code in 5 Seconds:**  
+> Use our free interactive **[2026 Global Adult Novelty HS Code & Customs Duty Calculator](/tools/customs-hs-code-calculator/)** to select your specific hardware type and destination country (USA, EU, UK, Canada, Australia) for instant tariff rates, Section 301 calculations, and pre-cleared invoice templates.
+
 > [!IMPORTANT]
 > **Need Verified HS Code & DDP Import Tariff Calculation for Your Country?**  
 > Navigating US/EU customs declarations or looking to eliminate cargo seizure risk? Connect directly with BOHOL's international export compliance directorate on **WhatsApp ([+86 185 8858 3798](https://wa.me/8618588583798?text=Hello%20BOHOL%2C%20I%20need%20a%20customs%20HS%20Code%20and%20DDP%20freight%20rate%20consultation%20for%20importing%20to%20my%20country.))** or request an all-inclusive DDP freight quote via our **[Online RFQ Calculator](/rfq/)**.
+
 
 
 

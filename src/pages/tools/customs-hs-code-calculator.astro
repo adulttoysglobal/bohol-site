@@ -1,0 +1,512 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Icon from '../../components/Icon.astro';
+
+const toolSchema = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'WebApplication',
+      '@id': 'https://adulttoysglobal.com/tools/customs-hs-code-calculator/#app',
+      name: '2026 Global Adult Novelty HS Code & Customs Duty Calculator',
+      url: 'https://adulttoysglobal.com/tools/customs-hs-code-calculator/',
+      applicationCategory: 'BusinessApplication',
+      operatingSystem: 'All',
+      browserRequirements: 'Requires JavaScript and HTML5 support',
+      offers: {
+        '@type': 'Offer',
+        price: '0',
+        priceCurrency: 'USD'
+      },
+      description: 'Free interactive B2B tool to calculate compliant HS Codes, MFN tariffs, Section 301 implications, and export dossiers for adult wellness hardware and smart hotel vending kiosks.',
+      author: {
+        '@type': 'Organization',
+        name: 'BOHOL Trade Compliance Directorate',
+        url: 'https://adulttoysglobal.com/about/'
+      }
+    },
+    {
+      '@type': 'FAQPage',
+      '@id': 'https://adulttoysglobal.com/tools/customs-hs-code-calculator/#faq',
+      mainEntity: [
+        {
+          '@type': 'Question',
+          name: 'What is the correct HS Code for adult electric vibrators and massagers?',
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: 'Under the international Harmonized System (WCO), motorized adult vibrators and battery massagers are classified under HS Code 8509.80 (Electromechanical domestic appliances with self-contained electric motor). For the US, the 10-digit code is 8509.80.5045.'
+          }
+        },
+        {
+          '@type': 'Question',
+          name: 'What HS code should be used for non-motorized silicone or TPE novelties?',
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: 'Non-motorized manual silicone and polymer adult articles fall under HS Code 3926.90 (Other articles of plastics and polymers). For the US, use HTS 3926.90.9985; for the EU, use TARIC 3926.90.97.90.'
+          }
+        },
+        {
+          '@type': 'Question',
+          name: 'How do I avoid customs seizures and obscenity holds when importing adult toys?',
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: 'Always use compliant technical engineering terminology on the commercial invoice and packing list (e.g., "Handheld Electric Personal Wellness Massager with Battery" or "Molded Silicone Ergonomic Article"). Avoid colloquial or explicit slang words like "sex toy" or "dildo" which trigger moral holds.'
+          }
+        },
+        {
+          '@type': 'Question',
+          name: 'Does BOHOL provide all-inclusive DDP shipping with pre-cleared customs?',
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: 'Yes. BOHOL provides full DDP (Delivered Duty Paid) door-to-door air freight (7-10 days) and ocean container freight (18-28 days) covering all import tariffs, customs clearance broker fees, and UN38.3 battery declarations.'
+          }
+        }
+      ]
+    }
+  ]
+};
+---
+
+<Layout
+  title="2026 Global Adult Novelty HS Code & Customs Duty Calculator"
+  description="Calculate compliant Harmonized System (HS) Codes, import duty rates, commercial invoice wording, and regulatory dossiers for adult wellness hardware, lubricants, and smart hotel vending machines."
+  schema={toolSchema}
+>
+  <!-- Hero Section -->
+  <section class="bg-gradient-to-b from-slate-900 via-slate-800 to-slate-900 text-white pt-16 pb-12 border-b border-slate-700">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 text-xs font-semibold mb-4">
+        <span class="w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></span>
+        2026 Updated WCO Tariff Schedule &amp; Customs Matrix
+      </div>
+      <h1 class="text-3xl sm:text-5xl font-black tracking-tight text-white mb-4">
+        Global Adult Novelty HS Code &amp; Duty Calculator
+      </h1>
+      <p class="text-slate-300 text-base sm:text-lg max-w-3xl leading-relaxed mb-6">
+        Eliminate border customs delays, tariff penalties, and moral cargo seizures. Instantly determine official Harmonized System codes, estimated duty rates, recommended commercial invoice descriptions, and required export testing dossiers across major markets.
+      </p>
+
+      <div class="flex flex-wrap gap-4 text-xs sm:text-sm text-slate-400">
+        <span class="flex items-center gap-1.5"><span class="text-emerald-400 font-bold">✓</span> WCO 2026 Aligned</span>
+        <span class="flex items-center gap-1.5"><span class="text-emerald-400 font-bold">✓</span> US HTS / EU TARIC / UK Commodity Codes</span>
+        <span class="flex items-center gap-1.5"><span class="text-emerald-400 font-bold">✓</span> Section 301 &amp; DDP Calculation</span>
+        <span class="flex items-center gap-1.5"><span class="text-emerald-400 font-bold">✓</span> FDA FEI / CE-RED / UN38.3 Verification</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Interactive Calculator App -->
+  <section class="py-12 bg-slate-50">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6">
+      <div class="bg-white rounded-2xl shadow-xl border border-slate-200 overflow-hidden">
+        
+        <!-- Controls Header -->
+        <div class="p-6 sm:p-8 bg-slate-900 text-white border-b border-slate-800">
+          <h2 class="text-xl sm:text-2xl font-bold mb-6 flex items-center gap-3">
+            <span class="p-2 bg-cyan-500/20 text-cyan-400 rounded-lg">⚙️</span>
+            Select Hardware Category &amp; Destination Market
+          </h2>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <!-- Product Category Select -->
+            <div>
+              <label for="productCategory" class="block text-sm font-semibold text-slate-300 mb-2">
+                1. Hardware / Wellness Product Category
+              </label>
+              <select id="productCategory" class="w-full bg-slate-800 border border-slate-700 text-white rounded-xl px-4 py-3.5 focus:ring-2 focus:ring-cyan-500 focus:outline-none transition-all font-medium text-sm">
+                <option value="vibrator" selected>⚡ Motorized Electric Vibrator / Wand Massager (Rechargeable)</option>
+                <option value="stroker">🔄 Automatic Male Dynamic Stroker (Electric / Vacuum)</option>
+                <option value="silicone_manual">🧸 Non-Motorized Medical Silicone Novelty (Dildo / Plug)</option>
+                <option value="tpe_sleeve">🧴 TPE Realistic Masturbator Sleeve (Manual / Soft Polymer)</option>
+                <option value="condoms">🛡️ Polyurethane (PU) 0.01 / Natural Latex Condoms</option>
+                <option value="lubricants">💧 Water-Based Intimate Lubricant Gel (Non-Medicinal)</option>
+                <option value="vending">🏨 Smart Hotel Room Vending Kiosk (Wall-Mounted IoT)</option>
+              </select>
+            </div>
+
+            <!-- Destination Market Select -->
+            <div>
+              <label for="destinationMarket" class="block text-sm font-semibold text-slate-300 mb-2">
+                2. Destination Import Market
+              </label>
+              <select id="destinationMarket" class="w-full bg-slate-800 border border-slate-700 text-white rounded-xl px-4 py-3.5 focus:ring-2 focus:ring-cyan-500 focus:outline-none transition-all font-medium text-sm">
+                <option value="usa" selected>🇺🇸 United States (US CBP &amp; FDA)</option>
+                <option value="eu">🇪🇺 European Union (EU TARIC &amp; CE-RED)</option>
+                <option value="uk">🇬🇧 United Kingdom (HMRC &amp; UKCA)</option>
+                <option value="canada">🇨🇦 Canada (CBSA &amp; Health Canada)</option>
+                <option value="australia">🇦🇺 Australia (ABF &amp; TGA)</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- Dynamic Output Container -->
+        <div class="p-6 sm:p-8">
+          <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+            
+            <!-- Result Box 1: Primary HS Code -->
+            <div class="bg-slate-50 rounded-xl p-5 border border-slate-200">
+              <span class="text-xs font-bold text-slate-500 uppercase tracking-wider block mb-1">Standard WCO HS Code</span>
+              <div id="outputHsCode" class="text-2xl sm:text-3xl font-black text-cyan-600 mb-2">8509.80.00</div>
+              <p id="outputHsDesc" class="text-xs text-slate-600 leading-relaxed">
+                Electromechanical domestic appliances, with self-contained electric motor: Other.
+              </p>
+            </div>
+
+            <!-- Result Box 2: Local Tariff Code & Rate -->
+            <div class="bg-slate-50 rounded-xl p-5 border border-slate-200">
+              <span class="text-xs font-bold text-slate-500 uppercase tracking-wider block mb-1">Local Tariff Subheading &amp; Duty</span>
+              <div id="outputLocalCode" class="text-xl sm:text-2xl font-black text-slate-800 mb-1">HTS 8509.80.5045</div>
+              <div id="outputDutyRate" class="inline-block bg-amber-100 text-amber-800 text-xs font-bold px-2.5 py-0.5 rounded-full mb-2">
+                Est. Duty: 4.2% MFN + Section 301
+              </div>
+              <p id="outputDutyNote" class="text-xs text-slate-600 leading-relaxed">
+                Subject to Section 301 List 3 duties when imported from China unless pre-cleared via all-inclusive DDP.
+              </p>
+            </div>
+
+            <!-- Result Box 3: Regulatory Compliance Dossier -->
+            <div class="bg-slate-50 rounded-xl p-5 border border-slate-200">
+              <span class="text-xs font-bold text-slate-500 uppercase tracking-wider block mb-1">Mandatory Testing Dossiers</span>
+              <ul id="outputDossiers" class="text-xs text-slate-700 space-y-1.5 mt-2">
+                <li class="flex items-center gap-1.5"><span class="text-emerald-500 font-bold">✓</span> CE-RED &amp; RoHS 2.0 (EU/UK)</li>
+                <li class="flex items-center gap-1.5"><span class="text-emerald-500 font-bold">✓</span> FCC Part 15C (USA)</li>
+                <li class="flex items-center gap-1.5"><span class="text-emerald-500 font-bold">✓</span> UN38.3 Lithium Battery Dossier</li>
+                <li class="flex items-center gap-1.5"><span class="text-emerald-500 font-bold">✓</span> FDA 21 CFR § 177.2600 (LSR Silicone)</li>
+              </ul>
+            </div>
+
+          </div>
+
+          <!-- Commercial Invoice Best Practice Section -->
+          <div class="bg-cyan-50/70 border border-cyan-200 rounded-xl p-6 mb-8">
+            <div class="flex items-start gap-4">
+              <span class="text-2xl mt-0.5">📋</span>
+              <div class="flex-1">
+                <h3 class="text-base font-bold text-slate-900 mb-1">
+                  Recommended Commercial Invoice Description (Anti-Seizure Nomenclature)
+                </h3>
+                <p class="text-xs sm:text-sm text-slate-600 mb-3">
+                  Customs inspectors and optical character scanners reject colloquial explicit terminology. Print exactly this line item nomenclature on all invoices, airway bills, and packing slips:
+                </p>
+                <div class="bg-white p-3.5 rounded-lg border border-cyan-200 font-mono text-xs sm:text-sm text-cyan-900 font-bold flex items-center justify-between gap-2 shadow-sm">
+                  <span id="outputInvoiceText">Model BHL-01: Handheld Electric Personal Wellness Massager with Rechargeable Lithium Battery (HS 8509.80.00)</span>
+                  <button id="btnCopyInvoice" class="px-3 py-1 bg-cyan-600 hover:bg-cyan-700 text-white rounded text-xs transition-colors shrink-0 font-sans">
+                    Copy Text
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Bottom Action Conversion Banner -->
+          <div class="bg-gradient-to-r from-slate-900 to-slate-800 rounded-xl p-6 text-white flex flex-col sm:flex-row items-center justify-between gap-6">
+            <div>
+              <h4 class="text-base sm:text-lg font-bold mb-1">Need an All-Inclusive Door-to-Door DDP Quote?</h4>
+              <p class="text-xs sm:text-sm text-slate-300 max-w-xl">
+                BOHOL manages full export clearance, customs declaration, battery air freight, and local duty payments directly to your warehouse with 0% risk of cargo detention.
+              </p>
+            </div>
+            <div class="flex flex-wrap items-center gap-3 shrink-0">
+              <a
+                href="https://wa.me/8618588583798?text=Hello%20BOHOL%2C%20I%20used%20your%20Customs%20HS%20Code%20Calculator%20and%20would%20like%20a%20door-to-door%20DDP%20freight%20and%20product%20quotation."
+                target="_blank"
+                rel="noopener noreferrer"
+                class="px-5 py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-white font-bold text-xs sm:text-sm shadow-md transition-all flex items-center gap-2"
+              >
+                <span>💬 WhatsApp DDP Desk</span>
+              </a>
+              <a
+                href="/rfq/"
+                class="px-5 py-2.5 rounded-xl bg-cyan-500 hover:bg-cyan-600 text-white font-bold text-xs sm:text-sm shadow-md transition-all"
+              >
+                Request Custom RFQ
+              </a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Complete 2026 Reference Matrix Table -->
+  <section class="py-12 bg-white border-t border-slate-200">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6">
+      <div class="text-center max-w-2xl mx-auto mb-10">
+        <h2 class="text-2xl sm:text-3xl font-black text-slate-900 mb-3">
+          2026 Adult Wellness Hardware Harmonized Tariff Matrix
+        </h2>
+        <p class="text-sm text-slate-600">
+          Cross-market classification overview for international distributors, e-commerce brand owners, and logistics directors.
+        </p>
+      </div>
+
+      <div class="overflow-x-auto rounded-xl border border-slate-200 shadow-sm">
+        <table class="w-full text-left text-xs sm:text-sm border-collapse">
+          <thead>
+            <tr class="bg-slate-900 text-white">
+              <th class="py-3.5 px-4 font-semibold">Category</th>
+              <th class="py-3.5 px-4 font-semibold">WCO HS Code</th>
+              <th class="py-3.5 px-4 font-semibold">US HTS Code</th>
+              <th class="py-3.5 px-4 font-semibold">EU TARIC Code</th>
+              <th class="py-3.5 px-4 font-semibold">UK Commodity</th>
+              <th class="py-3.5 px-4 font-semibold">Regulatory Standard</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-200 text-slate-700">
+            <tr class="hover:bg-slate-50 transition-colors">
+              <td class="py-3 px-4 font-bold text-slate-900">Motorized Vibrator / Massager</td>
+              <td class="py-3 px-4 font-mono text-cyan-700">8509.80.00</td>
+              <td class="py-3 px-4 font-mono">8509.80.5045</td>
+              <td class="py-3 px-4 font-mono">8509.80.00.00</td>
+              <td class="py-3 px-4 font-mono">8509 80 00 00</td>
+              <td class="py-3 px-4">CE-RED, FCC, RoHS, UN38.3</td>
+            </tr>
+            <tr class="hover:bg-slate-50 transition-colors bg-slate-50/50">
+              <td class="py-3 px-4 font-bold text-slate-900">Automatic Male Dynamic Stroker</td>
+              <td class="py-3 px-4 font-mono text-cyan-700">8509.80.00</td>
+              <td class="py-3 px-4 font-mono">8509.80.5045</td>
+              <td class="py-3 px-4 font-mono">8509.80.00.00</td>
+              <td class="py-3 px-4 font-mono">8509 80 00 00</td>
+              <td class="py-3 px-4">CE-RED, FCC, RoHS, UN38.3</td>
+            </tr>
+            <tr class="hover:bg-slate-50 transition-colors">
+              <td class="py-3 px-4 font-bold text-slate-900">Non-Motorized Silicone Novelty</td>
+              <td class="py-3 px-4 font-mono text-cyan-700">3926.90.99</td>
+              <td class="py-3 px-4 font-mono">3926.90.9985</td>
+              <td class="py-3 px-4 font-mono">3926.90.97.90</td>
+              <td class="py-3 px-4 font-mono">3926 90 97 90</td>
+              <td class="py-3 px-4">FDA 21 CFR § 177.2600, REACH</td>
+            </tr>
+            <tr class="hover:bg-slate-50 transition-colors bg-slate-50/50">
+              <td class="py-3 px-4 font-bold text-slate-900">TPE Realistic Masturbator Sleeve</td>
+              <td class="py-3 px-4 font-mono text-cyan-700">3926.90.99</td>
+              <td class="py-3 px-4 font-mono">3926.90.9985</td>
+              <td class="py-3 px-4 font-mono">3926.90.97.90</td>
+              <td class="py-3 px-4 font-mono">3926 90 97 90</td>
+              <td class="py-3 px-4">REACH SVHC, Phthalate-Free</td>
+            </tr>
+            <tr class="hover:bg-slate-50 transition-colors">
+              <td class="py-3 px-4 font-bold text-slate-900">Polyurethane 0.01 / Latex Condoms</td>
+              <td class="py-3 px-4 font-mono text-cyan-700">4014.10 / 3926.90</td>
+              <td class="py-3 px-4 font-mono">4014.10.0000</td>
+              <td class="py-3 px-4 font-mono">4014.10.00.00</td>
+              <td class="py-3 px-4 font-mono">4014 10 00 00</td>
+              <td class="py-3 px-4">ISO 23409, ISO 4074, CE 0123</td>
+            </tr>
+            <tr class="hover:bg-slate-50 transition-colors bg-slate-50/50">
+              <td class="py-3 px-4 font-bold text-slate-900">Water-Based Personal Lubricant</td>
+              <td class="py-3 px-4 font-mono text-cyan-700">3307.90.00</td>
+              <td class="py-3 px-4 font-mono">3307.90.0000</td>
+              <td class="py-3 px-4 font-mono">3307.90.00.00</td>
+              <td class="py-3 px-4 font-mono">3307 90 00 00</td>
+              <td class="py-3 px-4">EU 1223/2009 Cosmetic, Osmolality</td>
+            </tr>
+            <tr class="hover:bg-slate-50 transition-colors">
+              <td class="py-3 px-4 font-bold text-slate-900">Smart Hotel Room Vending Kiosk</td>
+              <td class="py-3 px-4 font-mono text-cyan-700">8476.89.00</td>
+              <td class="py-3 px-4 font-mono">8476.89.0000</td>
+              <td class="py-3 px-4 font-mono">8476.89.00.00</td>
+              <td class="py-3 px-4 font-mono">8476 89 00 00</td>
+              <td class="py-3 px-4">CE-LVD, CE-EMC, FCC ID, RoHS</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Cross Links to Relevant Whitepapers -->
+      <div class="mt-8 p-6 bg-slate-50 rounded-xl border border-slate-200">
+        <h3 class="text-sm font-bold text-slate-900 uppercase tracking-wider mb-3">Related Technical &amp; Sourcing Intelligence:</h3>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs font-medium">
+          <a href="/journal/customs-clearance-hs-codes-adult-novelty/" class="text-cyan-600 hover:text-cyan-700 underline flex items-center gap-1">
+            <span>📄 Full HS Code Engineering Guide &rarr;</span>
+          </a>
+          <a href="/journal/un38-3-lithium-battery-sea-air-logistics/" class="text-cyan-600 hover:text-cyan-700 underline flex items-center gap-1">
+            <span>🔋 UN38.3 Battery Air &amp; Ocean Logistics &rarr;</span>
+          </a>
+          <a href="/catalogue/" class="text-cyan-600 hover:text-cyan-700 underline flex items-center gap-1">
+            <span>📦 BOHOL 2026 Complete Product Catalogue &rarr;</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Interactive JavaScript Engine -->
+  <script is:inline>
+    const database = {
+      vibrator: {
+        hsCode: "8509.80.00",
+        hsDesc: "Electromechanical domestic appliances, with self-contained electric motor: Other.",
+        invoice: "Model BHL-01: Handheld Electric Personal Wellness Massager with Rechargeable Lithium Battery (HS 8509.80.00)",
+        dossiers: [
+          "CE-RED (Radio Equipment Directive 2014/53/EU)",
+          "RoHS 2.0 (Directive 2011/65/EU & (EU) 2015/863)",
+          "FCC Part 15C / ANSI C63.10 (USA Electromagnetic)",
+          "UN38.3 Lithium Battery Safety Dossier & MSDS",
+          "FDA 21 CFR § 177.2600 Liquid Silicone Elastomer"
+        ],
+        markets: {
+          usa: { code: "HTS 8509.80.5045", duty: "4.2% MFN + Section 301 (7.5%)", note: "Air/Ocean DDP fully pre-pays Section 301 tariffs to ensure zero CBP detention." },
+          eu: { code: "TARIC 8509.80.00.00", duty: "2.2% Third Country Duty", note: "Requires CE mark and valid Declaration of Conformity (DoC) before customs release." },
+          uk: { code: "Commodity 8509 80 00 00", duty: "2.0% UK Global Tariff", note: "Complies with UKCA electromagnetic and RoHS regulations." },
+          canada: { code: "Customs 8509.80.00.00", duty: "Duty Free (0%) under GPT/MFN", note: "Subject to federal GST/HST upon customs import." },
+          australia: { code: "Tariff 8509.80.00 (Stat 39)", duty: "Duty Free (0% under ChAFTA)", note: "BOHOL provides Certificate of Origin for 0% preferential duty." }
+        }
+      },
+      stroker: {
+        hsCode: "8509.80.00",
+        hsDesc: "Electromechanical domestic appliances, with self-contained electric motor: Other.",
+        invoice: "Model BHL-MS02: Electromechanical Linear Dynamic Wellness Massager with Vacuum Module (HS 8509.80.00)",
+        dossiers: [
+          "CE-RED & RoHS 2.0 Compliance Certification",
+          "FCC Part 15 Subpart B & C Telemetry Verification",
+          "UN38.3 Lithium Battery Air Transportation Dossier",
+          "Skin Biocompatibility ISO 10993 Non-Irritation Report"
+        ],
+        markets: {
+          usa: { code: "HTS 8509.80.5045", duty: "4.2% MFN + Section 301", note: "Classified as motor-driven body massager." },
+          eu: { code: "TARIC 8509.80.00.00", duty: "2.2% EU Tariff", note: "Requires electronic waste WEEE labeling compliance." },
+          uk: { code: "Commodity 8509 80 00 00", duty: "2.0% UK Tariff", note: "Standard commercial customs declaration." },
+          canada: { code: "Customs 8509.80.00.00", duty: "0% Duty Rate", note: "Standard electronic goods declaration." },
+          australia: { code: "Tariff 8509.80.00", duty: "0% under ChAFTA", note: "Fast track customs clearance." }
+        }
+      },
+      silicone_manual: {
+        hsCode: "3926.90.99",
+        hsDesc: "Other articles of plastics and articles of other materials of headings 3901 to 3914.",
+        invoice: "Model BHL-SP05: Molded Medical-Grade Silicone Personal Ergonomic Article (HS 3926.90.99)",
+        dossiers: [
+          "FDA 21 CFR § 177.2600 Biocompatibility Dossier",
+          "EU REACH SVHC 235 Substance Screen (ECHA)",
+          "California Prop 65 Lead & Phthalate-Free Certificate",
+          "ISO 10993 Cytotoxicity and Mucosal Non-Sensitization"
+        ],
+        markets: {
+          usa: { code: "HTS 3926.90.9985", duty: "5.3% MFN Rate", note: "Classified strictly under polymer articles without moral holds." },
+          eu: { code: "TARIC 3926.90.97.90", duty: "6.5% Common Customs Tariff", note: "Requires REACH certificate of analysis." },
+          uk: { code: "Commodity 3926 90 97 90", duty: "6.0% UK Global Tariff", note: "Standard plastic/silicone classification." },
+          canada: { code: "Customs 3926.90.99.00", duty: "6.5% General Tariff", note: "Standard commercial invoice." },
+          australia: { code: "Tariff 3926.90.90", duty: "0% under ChAFTA", note: "Eligible for preferential 0% duty." }
+        }
+      },
+      tpe_sleeve: {
+        hsCode: "3926.90.99",
+        hsDesc: "Other articles of plastics and polymers: Thermoplastic elastomer articles.",
+        invoice: "Model BHL-TS09: Molded Thermoplastic Elastomer Ergonomic Tactile Sleeve (HS 3926.90.99)",
+        dossiers: [
+          "Phthalate-Free Verification (EN 71-3 / REACH)",
+          "USP Class VI Biocompatibility Testing",
+          "RoHS Organic Polymer Heavy Metal Exclusion"
+        ],
+        markets: {
+          usa: { code: "HTS 3926.90.9985", duty: "5.3% MFN Rate", note: "Ensure no plasticizer compliance warnings." },
+          eu: { code: "TARIC 3926.90.97.90", duty: "6.5% EU Tariff", note: "Complete REACH SVHC declaration provided." },
+          uk: { code: "Commodity 3926 90 97 90", duty: "6.0% UK Tariff", note: "Smooth clearance under plastic articles." },
+          canada: { code: "Customs 3926.90.99.00", duty: "6.5% MFN", note: "Full declaration included." },
+          australia: { code: "Tariff 3926.90.90", duty: "0% under ChAFTA", note: "Fast-track import." }
+        }
+      },
+      condoms: {
+        hsCode: "4014.10 / 3926.90",
+        hsDesc: "Hygienic or pharmaceutical articles of vulcanised rubber / synthetic polyurethane sheaths.",
+        invoice: "Model BHL-CD01: Synthetic Polyurethane Ultra-Thin Sheaths for Hygienic Barrier Protection (HS 3926.90)",
+        dossiers: [
+          "ISO 23409:2011 Synthetic Condom Quality Standard",
+          "ISO 4074:2015 Natural Latex Condom Testing",
+          "CE 0123 / US FDA 510(k) Medical Device Dossier",
+          "100% Electronic Hole & Burst Integrity Test Dossier"
+        ],
+        markets: {
+          usa: { code: "HTS 4014.10.0000", duty: "Duty Free (0%) MFN", note: "Requires FDA Device Listing and FEI manufacturer verification." },
+          eu: { code: "TARIC 4014.10.00.00", duty: "Duty Free (0%)", note: "Must carry CE Medical Device mark." },
+          uk: { code: "Commodity 4014 10 00 00", duty: "0% UK Global Tariff", note: "MHRA compliant." },
+          canada: { code: "Customs 4014.10.00.00", duty: "0% Duty", note: "Health Canada MDEL authorized." },
+          australia: { code: "Tariff 4014.10.00", duty: "0% under ChAFTA", note: "TGA registered." }
+        }
+      },
+      lubricants: {
+        hsCode: "3307.90.00",
+        hsDesc: "Cosmetic or toilet preparations: Other personal hydration preparations.",
+        invoice: "Model BHL-LB03: Personal Moisturizing Skin Hydration Gel for Body Wellness (HS 3307.90.00)",
+        dossiers: [
+          "EU Regulation 1223/2009 Cosmetic Dossier (CPNP Registered)",
+          "WHO Guideline Osmolality Certificate (<1200 mOsm/kg)",
+          "Microbiological USP 51 / USP 61 / USP 62 Testing",
+          "Physiological pH 3.8 - 4.5 Equilibrium Analysis"
+        ],
+        markets: {
+          usa: { code: "HTS 3307.90.0000", duty: "4.9% MFN Rate", note: "Non-medicinal personal cosmetic lubricant formulation." },
+          eu: { code: "TARIC 3307.90.00.00", duty: "0% - 6.5% depending on volume", note: "CPNP registration portal filing compliant." },
+          uk: { code: "Commodity 3307 90 00 00", duty: "0% UK Tariff", note: "UK SCPN notification ready." },
+          canada: { code: "Customs 3307.90.00.00", duty: "6.5% MFN", note: "Cosmetic Notification Form (CNF) ready." },
+          australia: { code: "Tariff 3307.90.00", duty: "0% under ChAFTA", note: "AICIS industrial chemical compliant." }
+        }
+      },
+      vending: {
+        hsCode: "8476.89.00",
+        hsDesc: "Automatic goods-vending machines: Other machines.",
+        invoice: "Model BHL-VK08: Automated Commercial In-Room Goods Vending Terminal with IoT Telemetry (HS 8476.89.00)",
+        dossiers: [
+          "CE-LVD (Low Voltage Directive 2014/35/EU)",
+          "CE-EMC (Electromagnetic Compatibility 2014/30/EU)",
+          "FCC ID Modular Wireless Certification (Wi-Fi/4G/BLE)",
+          "RoHS 2.0 Heavy Metals & Environmental Exclusion"
+        ],
+        markets: {
+          usa: { code: "HTS 8476.89.0000", duty: "Duty Free (0%) MFN + Sec 301", note: "Section 301 applicable; covered under BOHOL DDP freight." },
+          eu: { code: "TARIC 8476.89.00.00", duty: "Duty Free (0%)", note: "Standard commercial terminal customs clearance." },
+          uk: { code: "Commodity 8476 89 00 00", duty: "0% UK Global Tariff", note: "Fast clearance." },
+          canada: { code: "Customs 8476.89.00.00", duty: "0% Duty", note: "Standard automated kiosk declaration." },
+          australia: { code: "Tariff 8476.89.00", duty: "0% under ChAFTA", note: "Zero tariff import." }
+        }
+      }
+    };
+
+    function updateCalculator() {
+      const catKey = document.getElementById('productCategory').value;
+      const mktKey = document.getElementById('destinationMarket').value;
+      const data = database[catKey];
+      if (!data) return;
+
+      const mkt = data.markets[mktKey];
+
+      document.getElementById('outputHsCode').textContent = data.hsCode;
+      document.getElementById('outputHsDesc').textContent = data.hsDesc;
+      document.getElementById('outputLocalCode').textContent = mkt.code;
+      document.getElementById('outputDutyRate').textContent = 'Est. Duty: ' + mkt.duty;
+      document.getElementById('outputDutyNote').textContent = mkt.note;
+      document.getElementById('outputInvoiceText').textContent = data.invoice;
+
+      const ulDossiers = document.getElementById('outputDossiers');
+      ulDossiers.innerHTML = '';
+      data.dossiers.forEach(d => {
+        const li = document.createElement('li');
+        li.className = 'flex items-center gap-1.5';
+        li.innerHTML = '<span class="text-emerald-500 font-bold">✓</span> ' + d;
+        ulDossiers.appendChild(li);
+      });
+    }
+
+    document.getElementById('productCategory')?.addEventListener('change', updateCalculator);
+    document.getElementById('destinationMarket')?.addEventListener('change', updateCalculator);
+
+    document.getElementById('btnCopyInvoice')?.addEventListener('click', () => {
+      const text = document.getElementById('outputInvoiceText').textContent;
+      navigator.clipboard.writeText(text).then(() => {
+        const btn = document.getElementById('btnCopyInvoice');
+        const old = btn.textContent;
+        btn.textContent = 'Copied!';
+        btn.classList.add('bg-emerald-600');
+        setTimeout(() => {
+          btn.textContent = old;
+          btn.classList.remove('bg-emerald-600');
+        }, 2000);
+      });
+    });
+
+    // Run on load
+    updateCalculator();
+  </script>
+</Layout>
