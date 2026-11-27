@@ -1,5 +1,19 @@
 [
   {
+    "time": "2026-11-27T01:02:36.513514+00:00",
+    "timeBeijing": "2026-11-27 09:02:36 (北京时间)",
+    "urlsCount": 210,
+    "sitemapsCount": 3,
+    "status": "SUCCESS"
+  },
+  {
+    "time": "2026-11-26T01:31:36.806968+00:00",
+    "timeBeijing": "2026-11-26 09:31:36 (北京时间)",
+    "urlsCount": 210,
+    "sitemapsCount": 3,
+    "status": "SUCCESS"
+  },
+  {
     "time": "2026-11-26T01:00:55.418818+00:00",
     "timeBeijing": "2026-11-26 09:00:55 (北京时间)",
     "urlsCount": 209,
@@ -402,20 +416,6 @@
     "time": "2026-10-30T01:00:44.166045+00:00",
     "timeBeijing": "2026-10-30 09:00:44 (北京时间)",
     "urlsCount": 193,
-    "sitemapsCount": 3,
-    "status": "SUCCESS"
-  },
-  {
-    "time": "2026-10-30T00:52:49.331182+00:00",
-    "timeBeijing": "2026-10-30 08:52:49 (北京时间)",
-    "urlsCount": 193,
-    "sitemapsCount": 3,
-    "status": "SUCCESS"
-  },
-  {
-    "time": "2026-10-29T01:31:23.324877+00:00",
-    "timeBeijing": "2026-10-29 09:31:23 (北京时间)",
-    "urlsCount": 192,
     "sitemapsCount": 3,
     "status": "SUCCESS"
   }
