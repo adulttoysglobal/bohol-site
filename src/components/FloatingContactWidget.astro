@@ -108,6 +108,11 @@ const whatsappNumber = (settings.whatsapp || '+86 185 8858 3798').replace(/\D/g,
 
       <div class="quick-rfq-footer">
         <span>🔒 Protected under mutual Non-Disclosure Agreement (NDA). Zero spam.</span>
+        <div style="margin-top:8px; font-size:12px; color:#64748b; display:flex; justify-content:center; align-items:center; gap:8px; flex-wrap:wrap;">
+          <span>WhatsApp/Tel: <strong>+86 185 8858 3798</strong></span>
+          <span>·</span>
+          <span>WeChat (微信): <button type="button" id="qr-wechat-btn" style="background:#f1f5f9; border:1px solid #cbd5e1; border-radius:4px; padding:2px 8px; font-size:11px; font-weight:700; color:#16a34a; cursor:pointer;">18588583798 (Click to Copy)</button></span>
+        </div>
       </div>
     </form>
 
@@ -115,12 +120,15 @@ const whatsappNumber = (settings.whatsapp || '+86 185 8858 3798').replace(/\D/g,
     <div class="quick-rfq-success" id="quick-rfq-success" hidden>
       <div class="success-icon">✅</div>
       <h4>Price Sheet Request Logged Successfully!</h4>
-      <p>Thank you! Our export manager has received your inquiry. For immediate response within 10 minutes, you can also ping us directly on WhatsApp:</p>
+      <p>Thank you! Our export manager has received your inquiry. For immediate response within 10 minutes, you can also ping us directly on WhatsApp or WeChat:</p>
       
       <div class="success-actions">
         <a href={`https://wa.me/${whatsappNumber}`} id="qr-success-wa-link" target="_blank" rel="noopener noreferrer" class="btn-wa-direct">
-          💬 Chat with Trade Desk on WhatsApp
+          💬 Chat with Trade Desk on WhatsApp (+86 185 8858 3798)
         </a>
+        <div style="font-size:12.5px; color:#475569; margin:6px 0; text-align:center;">
+          WeChat (微信): <strong style="color:#0f172a;">18588583798</strong> &nbsp;|&nbsp; Email: <strong style="color:#0f172a;">adulttoysglobal1997@gmail.com</strong>
+        </div>
         <button type="button" class="btn-close-modal" id="qr-success-close">
           Close Window
         </button>
@@ -525,6 +533,19 @@ const whatsappNumber = (settings.whatsapp || '+86 185 8858 3798').replace(/\D/g,
     successClose?.addEventListener('click', closeRfqModal);
     backdrop?.addEventListener('click', (e) => {
       if (e.target === backdrop) closeRfqModal();
+    });
+
+    const wechatBtn = document.getElementById('qr-wechat-btn');
+    wechatBtn?.addEventListener('click', () => {
+      navigator.clipboard.writeText('18588583798').then(() => {
+        const orig = wechatBtn.textContent;
+        wechatBtn.textContent = 'Copied! ✓';
+        wechatBtn.style.color = '#059669';
+        setTimeout(() => {
+          wechatBtn.textContent = orig;
+          wechatBtn.style.color = '#16a34a';
+        }, 2000);
+      });
     });
 
     // Form Submission
